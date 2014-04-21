@@ -1,6 +1,7 @@
 package controller;
 
 import dao.LocalDao;
+import dao.MunicipioLocalDao;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Local;
-
+import model.MunicipioLocal;
 /**
  *
  * @author jaime
@@ -28,8 +29,10 @@ public class createLocal extends HttpServlet {
                 String idFormacaoStr = request.getParameter("local[idFormacao]");
                 String idEspacamentoStr = request.getParameter("local[idEspacamento]");
                 String idTrabalhoCientificoStr = request.getParameter("local[idTrabalhoCientifico]");
-
+                String idMunicipioStr = request.getParameter("local[idMunicipio]");
+                
                 Local local = new Local();
+                MunicipioLocal = new MunicipioLocal();
                 local.setDescricao(descricao);
 
                 double area;
@@ -73,6 +76,13 @@ public class createLocal extends HttpServlet {
                 }
                 local.setIdTrabalhoCientifico(idTrabalhoCientifico);
                 
+                int idMunicipio;
+                if (idMunicipioStr == null || idMunicipioStr.isEmpty()) {
+                   idMunicipio = 0;
+                } else {
+                   idMunicipio = Integer.parseInt(idMunicipioStr);
+                }
+                local.setIdMunicipio(idMunicipio);                
                 if(local.eh_valido())
                 {
                     LocalDao objeto_dao_local = new LocalDao();

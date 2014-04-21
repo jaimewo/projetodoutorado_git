@@ -8,6 +8,7 @@ import dao.LocalDao;
 import dao.FormacaoDao;
 import dao.EspacamentoDao;
 import dao.TrabalhoCientificoDao;
+import dao.MunicipioDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -21,6 +22,7 @@ import model.Local;
 import model.Formacao;
 import model.Espacamento;
 import model.TrabalhoCientifico;
+import model.Municipio;
 /**
  *
  * @author jaime
@@ -41,7 +43,10 @@ public class novoLocal extends HttpServlet {
             TrabalhoCientificoDao objeto_trabalhoCientifico_dao = new TrabalhoCientificoDao();
             List<TrabalhoCientifico> trabalhosCientificos = objeto_trabalhoCientifico_dao.listarTrabalhosCientificos();
             request.setAttribute("trabalhosCientificos", trabalhosCientificos);
-            
+
+            MunicipioDao objeto_municipio_dao = new MunicipioDao();
+            List<Municipio> municipios = objeto_municipio_dao.listarMunicipios();
+            request.setAttribute("municipios", municipios);            
         } finally { 
              request.setAttribute("local", new Local());
              request.getRequestDispatcher("novoLocal.jsp").forward(request, response);

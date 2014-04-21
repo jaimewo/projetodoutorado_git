@@ -1,0 +1,16 @@
+Antes de comecar a programar dar um git pull
+
+1) Abrir o Git Bash
+2) cd /c/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao Oficial/JCar
+bon/projetodoutorado_git
+3) git pull
+
+Enviar Codigo para o Git (Quando termina de trabalhar)
+
+1) git status
+2) git add .
+3) git commit -m "Mensagem sobre o que esta enviando"
+4) git push
+
+
+O comando gitk analisa o que foi enviado para o repositorio
