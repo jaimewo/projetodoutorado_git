@@ -13,7 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.CoordenadaLocal;
 import model.Local;
+import model.MunicipioLocal;
 
 /**
  *
@@ -44,8 +46,8 @@ public class LocalDao {
         }
     }
     
-    public void cadastrar(Local local) throws SQLException
-            
+    public void cadastrar(Local local,List<MunicipioLocal> municipiosLocal,List<CoordenadaLocal> coordenadasLocal) throws SQLException
+                        
     {
             PreparedStatement p = this.con.prepareStatement("INSERT INTO local (descricao, "
                     +                                                          "area,"
@@ -71,6 +73,9 @@ public class LocalDao {
             
             p.executeUpdate();
             p.close();
+            
+            
+            //FALTA CADASTRAR MunicipioLocal e CoordenadaLocal
     }
     
     

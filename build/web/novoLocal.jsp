@@ -5,7 +5,8 @@
 --%>
 
 <%@page import="model.TrabalhoCientifico"%>
-<%@page import="model.Municipio"%>
+<%@page import="model.MunicipioLocal"%>
+<%@page import="model.CoordenadaLocal"%>
 <%@page import="model.Espacamento"%>
 <%@page import="model.Formacao"%>
 <%@page import="model.Bioma"%>
@@ -23,13 +24,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-         <title>JCarbon - Novo Trabalho Científico</title>
+         <title>JCarbon - Novo Local</title>
     </head>
     <body>
         <%@include  file="menu.jsp" %>
         <div class="container">
-            <h1>Novo Trabalho Científico</h1>
+            <h1>Novo Local</h1>
            <% Local objeto_local = (Local) request.getAttribute("local");%>
+           <% CoordenadaLocal objeto_coordenadaLocal = (CoordenadaLocal) request.getAttribute("coordenadaLocal");%>
             <% ArrayList<Error> lista_erros = (ArrayList<Error>) request.getAttribute("erros");%>
             <%if(lista_erros != null && lista_erros.size() >0 ){%>
                 <div class="alert alert-error">
@@ -96,11 +98,11 @@
             <div class="field control-group">
                 <label for="local_municipio" class="control-label">Município</label>
                 <div class="controls">
-                    <select id="local_municipio" name="local[idMunicipio]">
+                    <select id="local_municipio" name="municipioLocal[idMunicipioLocal]">
                         <option value="">Selecione um município</option>
-                       <% List<Municipio> municipios = (List<Municipio>) request.getAttribute("municipios");%>
-                        <% for (Municipio m : municipios) {%>
-                        <option value="<%=m.getIdString()%>"><%=m.getNome()%></option>
+                       <% List<MunicipioLocal> municipiosLocal = (List<MunicipioLocal>) request.getAttribute("municipiosLocal");%>
+                        <% for (MunicipioLocal ml : municipiosLocal) {%>
+                        <option value="<%=ml.getIdString()%>"><%=ml.getNomeMunicipio()%></option>
                         <%}%>
                     </select>
                 </div>
@@ -109,9 +111,10 @@
             <div class="field control-group">
                 <label for="local_coordenada" class="control-label">Coordenadas</label>
                 <div class="controls">
-                    <input type="text" name="local[coordenada]" value="<%=objeto_local.getCoordenada()%>" />
+                    <input type="text" name="coordenadaLocal[coordenada]" value="<%=objeto_coordenadaLocal.getCoordenada()%>" />
                 </div>
-            </div>                
+            </div> 
+                
             <div class="field control-group">
                 <label for="local_trabalhoCientifico" class="control-label">Trabalho Científico</label>
                 <div class="controls">

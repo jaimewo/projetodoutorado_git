@@ -4,6 +4,8 @@ import dao.LocalDao;
 import dao.MunicipioLocalDao;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -13,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Local;
 import model.MunicipioLocal;
+import model.CoordenadaLocal;
 /**
  *
  * @author jaime
@@ -29,10 +32,13 @@ public class createLocal extends HttpServlet {
                 String idFormacaoStr = request.getParameter("local[idFormacao]");
                 String idEspacamentoStr = request.getParameter("local[idEspacamento]");
                 String idTrabalhoCientificoStr = request.getParameter("local[idTrabalhoCientifico]");
-                String idMunicipioStr = request.getParameter("local[idMunicipio]");
+                String idMunicipioLocalStr = request.getParameter("local[idMunicipioLocal]");
+                String coordenadaStr = request.getParameter("CoordenadaLocal[coordenada]");
                 
                 Local local = new Local();
-                MunicipioLocal = new MunicipioLocal();
+                List<MunicipioLocal> municipiosLocal = new ArrayList<MunicipioLocal>();
+                List<CoordenadaLocal> coordenadasLocal = new ArrayList<CoordenadaLocal>();
+                
                 local.setDescricao(descricao);
 
                 double area;
@@ -76,17 +82,31 @@ public class createLocal extends HttpServlet {
                 }
                 local.setIdTrabalhoCientifico(idTrabalhoCientifico);
                 
-                int idMunicipio;
-                if (idMunicipioStr == null || idMunicipioStr.isEmpty()) {
-                   idMunicipio = 0;
+                MunicipioLocal municipioLocal = new MunicipioLocal();
+                int idMunicipioLocal;
+                if (idMunicipioLocalStr == null || idMunicipioLocalStr.isEmpty()) {
+                   idMunicipioLocal = 0;
                 } else {
-                   idMunicipio = Integer.parseInt(idMunicipioStr);
+                   idMunicipioLocal = Integer.parseInt(idMunicipioLocalStr);
                 }
-                local.setIdMunicipio(idMunicipio);                
+                municipioLocal.setIdMunicipio(idMunicipioLocal);  
+                municipiosLocal.add(municipioLocal);
+                
+                CoordenadaLocal coordenadaLocal = new CoordenadaLocal();
+                double coordenada;
+                if (coordenadaStr == null || coordenadaStr.isEmpty()) {
+                   coordenada = 0;
+                } else {
+                   coordenada = Double.parseDouble(coordenadaStr);
+                }
+                coordenadaLocal.setCoordenada(coordenada);                
+                coordenadasLocal.add(coordenadaLocal);
+                
+                
                 if(local.eh_valido())
                 {
                     LocalDao objeto_dao_local = new LocalDao();
-                    objeto_dao_local.cadastrar(local);
+                    objeto_dao_local.cadastrar(local, municipiosLocal, coordenadasLocal);
                     RequestDispatcher r = request.getRequestDispatcher("/listarLocais");
                     request.setAttribute("mensagem", "Local adicionado com sucesso!");
                     r.forward( request, response );  

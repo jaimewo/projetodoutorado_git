@@ -17,7 +17,7 @@ import model.Autor;
 
 /**
  *
- * @author paulozeferino
+ * @author jaime
  */
 public class editarAutor extends HttpServlet {
 

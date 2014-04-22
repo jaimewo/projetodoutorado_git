@@ -20,7 +20,7 @@ import model.Bioma;
 
 /**
  *
- * @author paulozeferino
+ * @author jaime
  */
 public class novoAutor extends HttpServlet {
 

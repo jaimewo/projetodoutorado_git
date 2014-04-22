@@ -1,50 +1,48 @@
 <%-- 
-    Document   : novoLocal
+    Document   : editarLocal
     Created on : 30/03/2014, 22:51:30
     Author     : jaimewo
 --%>
 
 <%@page import="model.TrabalhoCientifico"%>
-<%@page import="model.MunicipioLocal"%>
 <%@page import="model.CoordenadaLocal"%>
+<%@page import="model.MunicipioLocal"%>
 <%@page import="model.Espacamento"%>
 <%@page import="model.Formacao"%>
-<%@page import="model.Bioma"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
-<%@page import="model.TipoDisponibilidade"%>
-<%@page import="model.MetodoQuantificacaoBiomassa"%>
-<%@page import="model.MetodoQuantificacaoCarbono"%>
-<%@page import="model.Local"%>
-<%@page import="model.Autor"%>
+<%@page import="model.Bioma"%>
 <%@page import="model.Error"%>
+<%@page import="model.Local"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-         <title>JCarbon - Novo Local</title>
+         <title>JCarbon - Editar Local</title>
     </head>
     <body>
         <%@include  file="menu.jsp" %>
+        <% Local objeto_local = (Local) request.getAttribute("local");%>
+        <% CoordenadaLocal objeto_coordenadaLocal = (CoordenadaLocal) request.getAttribute("coordenadaLocal");%>
         <div class="container">
-            <h1>Novo Local</h1>
-           <% Local objeto_local = (Local) request.getAttribute("local");%>
-           <% CoordenadaLocal objeto_coordenadaLocal = (CoordenadaLocal) request.getAttribute("coordenadaLocal");%>
+            <h1>Editar Local</h1>
             <% ArrayList<Error> lista_erros = (ArrayList<Error>) request.getAttribute("erros");%>
             <%if(lista_erros != null && lista_erros.size() >0 ){%>
                 <div class="alert alert-error">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <%for(Error erro:lista_erros){%>
                             <strong><%=erro.getCampo()%></strong><%=erro.getMensagem()%>
-                            <br></br>
+                            <br></br>                            
                         <%}%>
                 </div>
-            <%}%>           
-        <form action="createLocal" method="POST" class="form-horizontal"  accept-charset="iso-8859-1,utf-8">
-            <div class="field control-group">
-                <label for="local_descricao" class="control-label">Descrição do Local</label>
+            <%}%>            
+            <form action="updateLocal" method="POST" class="form-horizontal">
+        
+            <input type="hidden" name="local[id]" value ="<%=objeto_local.getIdString()%>" />
+             <div class="field control-group">
+                <label for="local_descricao" class="control-label">Descrição</label>
                 <div class="controls">
                     <input type="text" name="local[descricao]" value="<%=objeto_local.getDescricao()%>" />
                 </div>
@@ -62,6 +60,7 @@
                     </select>
                 </div>
             </div>
+
             <div class="field control-group">
                 <label for="local_formacao" class="control-label">Formação</label>
                 <div class="controls">
@@ -127,13 +126,14 @@
                     </select>
                 </div>
             </div>
-
-            <div class="actions form-actions">
+     
+            
+           <div class="actions form-actions">
                 <input type="submit" name="submit" value ="Salvar" class="btn btn-inverse"/>
                 <a href="listarLocais" class="btn" >Voltar</a>
-            </div>
+           </div>
         </form>
+            
         </div>
-        
     </body>
 </html>
