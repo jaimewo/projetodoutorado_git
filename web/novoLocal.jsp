@@ -128,10 +128,80 @@
                 </div>
             </div>
 
-            <div class="actions form-actions">
-                <input type="submit" name="submit" value ="Salvar" class="btn btn-inverse"/>
-                <a href="listarLocais" class="btn" >Voltar</a>
+            <div class="actions form-actions well">
+                <a href="novoLocal" class="btn btn-inverse" >Salvar</a>
             </div>
+                    
+            <div class="field control-group">
+                <label for="local_msg_parcelas" class="control-label">Cadastrar Parcelas para que o programa faça a estimativa para o local?</label>
+            </div> 
+                    
+            <div class="field control-group">
+                <label for="local_msg_arvores" class="control-label">Cadastrar dados das Árvores para que o programa faça o cálculo de cada parcela e, em seguida, faça a estimativa para o local?</label>
+            </div> 
+                
+            <table class="table table-striped table-condensed">
+                <tbody>
+                    <tr>
+                        <td colspan="2">
+                            <a href="editarLocal" class="btn">Escolher Arquivo</a>
+                        </td>
+                        <td> </td>
+                        <td colspan="2">
+                            <a href="editarLocal" class="btn">Baixar arquivo de exemplo</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br />
+            
+            <div class="actions form-actions well">
+                <a href="novoLocal" class="btn btn-inverse" >Calcular</a>
+            </div>
+                
+            <table class="table table-striped table-condensed">
+                <tbody>
+                    <% List<Local> locais = (List<Local>) request.getAttribute("locais");%>
+                    <% for (Local l : locais) {%>
+                    <tr>
+                        <td><label for="local_biomassa" class="control-label">Biomassa: </label></td>
+                        <td><%=l.getDescricao()%></td>
+                        <td colspan="2">
+                            <a href="editarLocal?id=<%=l.getId()%>" class="btn">Ver Detalhes</a>
+                        </td>
+                    </tr>
+                    <%}%>
+                </tbody>
+            </table>
+
+            <table class="table table-striped table-condensed">
+                <tbody>
+                    <% for (Local l : locais) {%>
+                    <tr>
+                        <td><label for="local_carbono" class="control-label">Carbono: </label></td>
+                        <td><%=l.getDescricao()%></td>
+                        <td colspan="2">
+                            <a href="editarLocal?id=<%=l.getId()%>" class="btn">Ver Detalhes</a>
+                        </td>
+                    </tr>
+                    <%}%>
+                </tbody>
+            </table>
+
+            <table class="table table-striped table-condensed">
+                <tbody>
+                    <% for (Local l : locais) {%>
+                    <tr>
+                        <td><label for="local_volume" class="control-label">Volume: </label></td>
+                        <td><%=l.getDescricao()%></td>
+                        <td colspan="2">
+                            <a href="editarLocal?id=<%=l.getId()%>" class="btn">Ver Detalhes</a>
+                        </td>
+                    </tr>
+                    <%}%>
+                </tbody>
+            </table>
+                
         </form>
         </div>
         
