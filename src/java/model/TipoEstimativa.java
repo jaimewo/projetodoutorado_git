@@ -8,19 +8,17 @@ import java.util.ArrayList;
 
 /**
  *
- * @author paulozeferino
+ * @author jaime
  */
-public class Municipio extends Model  {
+public class TipoEstimativa extends Model  {
     
     
     public int id;
-    public String nome;
-    public int idEstado;
+    public String descricao;
     
-    public Municipio()
+    public TipoEstimativa()
     {
-        this.nome = "";
-        this.idEstado = 0;
+        this.descricao = "";
     }
     
     public String getIdString()
@@ -36,36 +34,27 @@ public class Municipio extends Model  {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public int getIdEstado() {
-        return idEstado;
-    }
-
-    public void setIdEstado(int idEstado) {
-        this.idEstado = idEstado;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
     
     public boolean eh_valido()
     {
-        if(this.getNome() == null || this.getNome().isEmpty())
+        if(this.getDescricao() == null || this.getDescricao().isEmpty())
         {
-            this.setErro("Nome ", "não pode ficar em branco");
+            this.setErro("Descrição ", "não pode ficar em branco");
         }
         return (this.erros.isEmpty());
         
     }
-    
     public ArrayList<Error> getErrors()
     {
         return this.erros;
-    }
-
+    }  
+    
     
 }

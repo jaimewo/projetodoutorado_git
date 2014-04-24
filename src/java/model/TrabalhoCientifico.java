@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author paulozeferino
+ * @author jaime
  */
 public class TrabalhoCientifico extends Model  {
     

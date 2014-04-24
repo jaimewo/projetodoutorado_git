@@ -27,6 +27,8 @@
                     <thead>
                         <tr>
                             <th>Título</th>
+                            <th>Autor</th>
+                            <th>Ano</th>
                             <th>Ações</th>
                         </tr>
                     </thead>

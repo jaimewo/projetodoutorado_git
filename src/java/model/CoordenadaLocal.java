@@ -8,19 +8,21 @@ import java.util.ArrayList;
 
 /**
  *
- * @author paulozeferino
+ * @author jaime
  */
 public class CoordenadaLocal extends Model  {
     
     
     public int id;
     public int idLocal;
-    public double coordenada;
+    public double latitude;
+    public double longitude;
     
     public CoordenadaLocal()
     {
         this.idLocal = 0;
-        this.coordenada = 0;
+        this.latitude = 0.0;
+        this.longitude = 0.0;
     }
     
     public String getIdString()
@@ -44,12 +46,20 @@ public class CoordenadaLocal extends Model  {
         this.idLocal = idLocal;
     }
 
-    public double getCoordenada() {
-        return coordenada;
+    public double getLatitude() {
+        return latitude;
     }
 
-    public void setCoordenada(double coordenada) {
-        this.coordenada = coordenada;
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
 }

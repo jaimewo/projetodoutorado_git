@@ -10,17 +10,17 @@ import java.util.ArrayList;
  *
  * @author paulozeferino
  */
-public class Municipio extends Model  {
+public class Estado extends Model  {
     
     
     public int id;
+    public String sigla;
     public String nome;
-    public int idEstado;
     
-    public Municipio()
+    public Estado()
     {
         this.nome = "";
-        this.idEstado = 0;
+        this.sigla = "";
     }
     
     public String getIdString()
@@ -36,6 +36,14 @@ public class Municipio extends Model  {
         this.id = id;
     }
 
+    public String getSigla() {
+        return sigla;
+    }
+
+    public void setSigla(String sigla) {
+        this.nome = sigla;
+    }
+    
     public String getNome() {
         return nome;
     }
@@ -43,20 +51,16 @@ public class Municipio extends Model  {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
-    public int getIdEstado() {
-        return idEstado;
-    }
-
-    public void setIdEstado(int idEstado) {
-        this.idEstado = idEstado;
-    }
-    
     public boolean eh_valido()
     {
+        if(this.getSigla() == null || this.getSigla().isEmpty())
+        {
+            this.setErro("Sigla ", "deve ser informada");
+        }
+        
         if(this.getNome() == null || this.getNome().isEmpty())
         {
-            this.setErro("Nome ", "não pode ficar em branco");
+            this.setErro("Nome ", "deve ser informado");
         }
         return (this.erros.isEmpty());
         
@@ -65,7 +69,6 @@ public class Municipio extends Model  {
     public ArrayList<Error> getErrors()
     {
         return this.erros;
-    }
-
+    } 
     
 }

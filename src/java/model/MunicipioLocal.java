@@ -17,14 +17,12 @@ public class MunicipioLocal extends Model  {
     public int idLocal;
     public int idMunicipio;
     public boolean indPrincipal;
-    public String nomeMunicipio;
     
     public MunicipioLocal()
     {
         this.idLocal = 0;
         this.idMunicipio = 0;
         this.indPrincipal = false;
-        this.nomeMunicipio = "";
         
     }
     
@@ -65,12 +63,5 @@ public class MunicipioLocal extends Model  {
         this.indPrincipal = indPrincipal;
     }
 
-    public String getNomeMunicipio() {
-        return nomeMunicipio;
-    }
-
-    public void setNomeMunicipio(String nomeMunicipio) {
-        this.nomeMunicipio = nomeMunicipio;
-    }
 
 }
