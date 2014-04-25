@@ -13,9 +13,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Local;
-import model.MunicipioLocal;
 import model.CoordenadaLocal;
+import model.Local;
+import model.Municipio;
+import model.MunicipioLocal;
 /**
  *
  * @author jaime
@@ -32,8 +33,9 @@ public class createLocal extends HttpServlet {
                 String idFormacaoStr = request.getParameter("local[idFormacao]");
                 String idEspacamentoStr = request.getParameter("local[idEspacamento]");
                 String idTrabalhoCientificoStr = request.getParameter("local[idTrabalhoCientifico]");
-                String idMunicipioLocalStr = request.getParameter("local[idMunicipioLocal]");
-                String coordenadaStr = request.getParameter("CoordenadaLocal[coordenada]");
+                String idMunicipioStr = request.getParameter("municipio[idMunicipio]");
+                String latitudeStr = request.getParameter("CoordenadaLocal[latitude]");
+                String longitudeStr = request.getParameter("CoordenadaLocal[longitude]");
                 
                 Local local = new Local();
                 List<MunicipioLocal> municipiosLocal = new ArrayList<MunicipioLocal>();
@@ -82,24 +84,32 @@ public class createLocal extends HttpServlet {
                 }
                 local.setIdTrabalhoCientifico(idTrabalhoCientifico);
                 
-                MunicipioLocal municipioLocal = new MunicipioLocal();
-                int idMunicipioLocal;
-                if (idMunicipioLocalStr == null || idMunicipioLocalStr.isEmpty()) {
-                   idMunicipioLocal = 0;
+                Municipio municipio = new Municipio();
+                int idMunicipio;
+                if (idMunicipioStr == null || idMunicipioStr.isEmpty()) {
+                   idMunicipio = 0;
                 } else {
-                   idMunicipioLocal = Integer.parseInt(idMunicipioLocalStr);
+                   idMunicipio = Integer.parseInt(idMunicipioStr);
                 }
-                municipioLocal.setIdMunicipio(idMunicipioLocal);  
-                municipiosLocal.add(municipioLocal);
+                municipio.setId(idMunicipio);  
+               
                 
                 CoordenadaLocal coordenadaLocal = new CoordenadaLocal();
-                double coordenada;
-                if (coordenadaStr == null || coordenadaStr.isEmpty()) {
-                   coordenada = 0;
+                double latitude;
+                if (latitudeStr == null || latitudeStr.isEmpty()) {
+                   latitude = 0;
                 } else {
-                   coordenada = Double.parseDouble(coordenadaStr);
+                   latitude = Double.parseDouble(latitudeStr);
                 }
-                coordenadaLocal.setCoordenada(coordenada);                
+                coordenadaLocal.setLatitude(latitude);
+                double longitude;
+                if (longitudeStr == null || longitudeStr.isEmpty()) {
+                   longitude = 0;
+                } else {
+                   longitude = Double.parseDouble(longitudeStr);
+                }
+                coordenadaLocal.setLatitude(latitude);     
+                coordenadaLocal.setLongitude(longitude);     
                 coordenadasLocal.add(coordenadaLocal);
                 
                 

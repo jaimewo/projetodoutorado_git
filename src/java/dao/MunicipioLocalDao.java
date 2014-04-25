@@ -68,34 +68,37 @@ public class MunicipioLocalDao {
     
    public void update(MunicipioLocal municipioLocal) throws Exception 
    {
-        PreparedStatement p = this.con.prepareStatement("UPDATE municipioLocal SET nome = ? where id = ?");
-        p.setString(1, municipioLocal.getNomeMunicipio());
+        PreparedStatement p = this.con.prepareStatement("UPDATE municipioLocal SET indprincipal = ? where id = ?");
+        p.setBoolean(1, municipioLocal.isIndPrincipal());
         p.setInt(2, municipioLocal.getId());
         p.executeUpdate();
         p.close();
     }
    
-   public MunicipioLocal getMunicipioLocal(String municipioLocal_id) throws SQLException
+   public MunicipioLocal getMunicipioLocal(String idMunicipioLocal, Municipio municipio) throws SQLException
    {
         List<MunicipioLocal> municipiosLocal = new ArrayList<MunicipioLocal>();
+        List<Municipio> municipios = new ArrayList<Municipio>();
+        
         PreparedStatement p = this.con.prepareStatement("SELECT ml.id AS id,m.nome AS nome, ml.indprincipal AS indprincipal"
                 + "                                      FROM municipio m JOIN municipiolocal ml ON m.id = ml.idlocal"
                 + "                                      WHERE id = ?");
-        p.setInt(1, Integer.parseInt(municipioLocal_id));
+        p.setInt(1, Integer.parseInt(idMunicipioLocal));
         ResultSet rs = p.executeQuery();
         while(rs.next()){
            MunicipioLocal municipioLocal = new MunicipioLocal();
            municipioLocal.setId(rs.getInt("id"));
            municipioLocal.setIndPrincipal(rs.getBoolean("indprincipal"));
-           municipioLocal.setNomeMunicipio(rs.getString("nomemunicipio"));
+           municipio.setNome(rs.getString("nomemunicipio"));
            municipiosLocal.add(municipioLocal);
+           municipios.add(municipio);
         }
         rs.close();
         p.close();
         return municipiosLocal.get(0);
    }
    
-   public List<MunicipioLocal> listarMunicipioLocal(String idLocal) throws Exception{
+   public List<MunicipioLocal> listarMunicipioLocal(String idLocal, List<Municipio> municipios) throws Exception{
         List<MunicipioLocal> municipiosLocal = new ArrayList<MunicipioLocal>();
         
         PreparedStatement p = this.con.prepareStatement("SELECT m.nome as nome, ml.indprincipal as indprincipal"
@@ -107,9 +110,11 @@ public class MunicipioLocalDao {
         ResultSet rs = p.executeQuery();
         while(rs.next()){
            MunicipioLocal municipioLocal = new MunicipioLocal();
-           municipioLocal.setNomeMunicipio(rs.getString("nome"));
+           Municipio municipio = new Municipio();
+           municipio.setNome(rs.getString("nome"));
            municipioLocal.setIndPrincipal(rs.getBoolean("indPrincipal"));
            municipiosLocal.add(municipioLocal);
+           municipios.add(municipio);
         }
         rs.close();
         p.close();

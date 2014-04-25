@@ -18,7 +18,7 @@ import model.MunicipioLocal;
 
 /**
  *
- * @author paulozeferino
+ * @author jaime
  */
 public class MunicipioDao {
     
@@ -47,13 +47,14 @@ public class MunicipioDao {
    public Municipio getMunicipio(String idMunicipio) throws SQLException
    {
         List<Municipio> municipios = new ArrayList<Municipio>();
-        PreparedStatement p = this.con.prepareStatement("SELECT id,nome FROM municipio where id = ?");
+        PreparedStatement p = this.con.prepareStatement("SELECT id,nome,idestado FROM municipio where id = ?");
         p.setInt(1, Integer.parseInt(idMunicipio));
         ResultSet rs = p.executeQuery();
         while(rs.next()){
            Municipio municipio = new Municipio();
            municipio.setId(rs.getInt("id"));
            municipio.setNome(rs.getString("nome"));
+           municipio.setIdEstado(rs.getInt("idestado"));
            municipios.add(municipio);
         }
         rs.close();
@@ -69,6 +70,7 @@ public class MunicipioDao {
            Municipio municipio = new Municipio();
            municipio.setId(rs.getInt("id"));
            municipio.setNome(rs.getString("nome"));
+           municipio.setIdEstado(rs.getInt("idestado"));
            municipios.add(municipio);
         }
         rs.close();
@@ -76,8 +78,8 @@ public class MunicipioDao {
         return municipios;
     }
    
-   public List<MunicipioLocal> listarMunicipioLocal(String idLocal) throws Exception{
-        List<MunicipioLocal> municipiosLocal = new ArrayList<MunicipioLocal>();
+   public List<Municipio> listarMunicipioLocal(String idLocal, List<MunicipioLocal> municipiosLocal) throws Exception{
+        List<Municipio> municipios = new ArrayList<Municipio>();
         
         PreparedStatement p = this.con.prepareStatement("SELECT m.nome as nome, ml.indprincipal as indprincipal"
                 + "                                      FROM local l "
@@ -87,14 +89,16 @@ public class MunicipioDao {
         p.setInt(1, Integer.parseInt(idLocal));
         ResultSet rs = p.executeQuery();
         while(rs.next()){
+           Municipio municipio = new Municipio();
            MunicipioLocal municipioLocal = new MunicipioLocal();
-           municipioLocal.setNomeMunicipio(rs.getString("nome"));
+           municipio.setNome(rs.getString("nome"));
            municipioLocal.setIndPrincipal(rs.getBoolean("indPrincipal"));
+           municipios.add(municipio);
            municipiosLocal.add(municipioLocal);
         }
         rs.close();
         p.close();
-        return municipiosLocal;
+        return municipios;
     }
     
 }

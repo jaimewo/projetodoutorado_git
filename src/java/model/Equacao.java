@@ -18,6 +18,9 @@ public class Equacao extends Model  {
     public String expressaoModelo;
     public int idVariavelInteresse;
     public int idAutorModelo;
+    public double r2;
+    public double r2Ajust;
+    public double syx;
     
     public Equacao()
     {
@@ -25,6 +28,9 @@ public class Equacao extends Model  {
         this.expressaoModelo = "";
         this.idVariavelInteresse = 0;
         this.idAutorModelo = 0;
+        this.r2 = 0.0;
+        this.r2Ajust = 0.0;
+        this.syx = 0.0;
     }
     
     public String getIdString()
@@ -70,6 +76,30 @@ public class Equacao extends Model  {
 
     public void setIdAutorModelo(int idAutorModelo) {
         this.idAutorModelo = idAutorModelo;
+    }
+
+    public double getR2() {
+        return r2;
+    }
+
+    public void setR2(double r2) {
+        this.r2 = r2;
+    }
+
+    public double getR2Ajust() {
+        return r2Ajust;
+    }
+
+    public void setR2Ajust(double r2Ajust) {
+        this.r2Ajust = r2Ajust;
+    }
+
+    public double getSyx() {
+        return syx;
+    }
+
+    public void setSyx(double syx) {
+        this.syx = syx;
     }
 
     

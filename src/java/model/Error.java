@@ -6,7 +6,7 @@ package model;
 
 /**
  *
- * @author paulozeferino
+ * @author jaime
  */
 public class Error {
     
