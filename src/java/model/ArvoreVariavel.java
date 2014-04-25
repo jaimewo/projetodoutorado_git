@@ -10,7 +10,7 @@ import java.util.ArrayList;
  *
  * @author jaime
  */
-public class ArvoreVariavel1 extends Model  {
+public class ArvoreVariavel extends Model  {
     
     
     public int id;
@@ -18,7 +18,7 @@ public class ArvoreVariavel1 extends Model  {
     public int idVariavel;
     public double valor;
     
-    public ArvoreVariavel1()
+    public ArvoreVariavel()
     {
         this.idArvore = 0;
         this.idVariavel = 0;

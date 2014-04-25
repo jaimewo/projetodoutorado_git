@@ -103,5 +103,13 @@ public class Arvore extends Model  {
     public void setQtdeVolumeObs(double qtdeVolumeObs) {
         this.qtdeVolumeObs = qtdeVolumeObs;
     }
+
+    public double getQtdeVolumeEst() {
+        return qtdeVolumeEst;
+    }
+
+    public void setQtdeVolumeEst(double qtdeVolumeEst) {
+        this.qtdeVolumeEst = qtdeVolumeEst;
+    }
     
 }
