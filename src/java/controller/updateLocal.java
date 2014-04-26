@@ -34,7 +34,10 @@ public class updateLocal extends HttpServlet {
                 String idFormacaoStr = request.getParameter("local[idFormacao]");
                 String idEspacamentoStr = request.getParameter("local[idEspacamento]");
                 String idTrabalhoCientificoStr = request.getParameter("local[idTrabalhoCientifico]");
-
+                String idMunicipioStr = request.getParameter("municipio[idmunicipio]");
+                String latitudeStr = request.getParameter("coordenadaLocal[latitude]");
+                String longitudeStr = request.getParameter("coordenadaLocal[longitude]");
+                
                 Local local = new Local();
                 local.setDescricao(descricao);
 
@@ -70,6 +73,14 @@ public class updateLocal extends HttpServlet {
                    idEspacamento = Integer.parseInt(idEspacamentoStr);
                 }
                 local.setIdEspacamento(idEspacamento);
+
+                int idMunicipio;
+                if (idMunicipioStr == null || idMunicipioStr.isEmpty()) {
+                   idMunicipio = 0;
+                } else {
+                   idMunicipio = Integer.parseInt(idMunicipioStr);
+                }
+                municipio.setIdMunicipio(idMunicipio);
                 
                 int idTrabalhoCientifico;
                 if (idTrabalhoCientificoStr == null || idTrabalhoCientificoStr.isEmpty()) {
@@ -80,19 +91,18 @@ public class updateLocal extends HttpServlet {
                 local.setIdTrabalhoCientifico(idTrabalhoCientifico);
            
              
-            if(local.eh_valido())
-             {
-                 LocalDao objeto_dao = new LocalDao();
-                 objeto_dao.update(local);
-                 RequestDispatcher r = request.getRequestDispatcher("/listarLocais"); 
-                 request.setAttribute("mensagem", "Loacal alterado com sucesso!"); 
-                 r.forward( request, response );  
-             }else
-             {
-                 RequestDispatcher r = request.getRequestDispatcher("/editarLocal?id="+id); 
-                 request.setAttribute("erros", local.getErrors());
-                 r.forward( request, response );  
-             }
+                if(local.eh_valido())
+                {
+                   LocalDao objeto_dao = new LocalDao();
+                   objeto_dao.update(local);
+                   RequestDispatcher r = request.getRequestDispatcher("/listarLocais"); 
+                   request.setAttribute("mensagem", "Loacal alterado com sucesso!"); 
+                   r.forward( request, response );  
+                }else {
+                   RequestDispatcher r = request.getRequestDispatcher("/editarLocal?id="+id); 
+                   request.setAttribute("erros", local.getErrors());
+                   r.forward( request, response );  
+                }
         } finally {            
         }
     }

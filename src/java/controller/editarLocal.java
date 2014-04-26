@@ -4,10 +4,12 @@
  */
 package controller;
 
-import dao.FormacaoDao;
+import dao.CoordenadaLocalDao;
 import dao.EspacamentoDao;
-import dao.TrabalhoCientificoDao;
+import dao.FormacaoDao;
 import dao.LocalDao;
+import dao.MunicipioDao;
+import dao.TrabalhoCientificoDao;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -17,10 +19,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Formacao;
+import model.CoordenadaLocal;
 import model.Espacamento;
-import model.TrabalhoCientifico;
+import model.Formacao;
 import model.Local;
+import model.Municipio;
+import model.TrabalhoCientifico;
 
 /**
  *
@@ -45,6 +49,14 @@ public class editarLocal extends HttpServlet {
             List<Espacamento> espacamentos = objeto_espacamento_dao.listarEspacamentos();
             request.setAttribute("espacamentos", espacamentos);
              
+            MunicipioDao objeto_municipio_dao = new MunicipioDao();
+            List<Municipio> municipios = objeto_municipio_dao.listarMunicipios();
+            request.setAttribute("municipios", municipios);
+            
+            CoordenadaLocalDao objeto_coordenadaLocal_dao = new CoordenadaLocalDao();
+            CoordenadaLocal objeto_coordenadaLocal = objeto_coordenadaLocal_dao.getCoordenadaLocal(idLocal);
+            request.setAttribute("coordenadaLocal", objeto_coordenadaLocal );            
+            
             TrabalhoCientificoDao objeto_trabalhoCientifico_dao = new TrabalhoCientificoDao();
             List<TrabalhoCientifico> trabalhosCientificos = objeto_trabalhoCientifico_dao.listarTrabalhosCientificos();
             request.setAttribute("trabalhosCientificos", trabalhosCientificos);
