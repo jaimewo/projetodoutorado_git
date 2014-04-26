@@ -70,8 +70,30 @@ public class LocalDao {
             p.setInt(8, local.getIdFormacao());
             p.setInt(9, local.getIdEspacamento());
             p.setInt(10, local.getIdTrabalhoCientifico());
-            
             p.executeUpdate();
+
+            for (MunicipioLocal ml : municipiosLocal) {
+                p = this.con.prepareStatement("INSERT INTO municipiolocal (idlocal, "
+                    +                                                      "idmunicipio,"
+                    +                                                      "indprincipal"
+                    +                                                      ") VALUES (?,?,?)");
+                p.setInt(1, ml.getIdLocal());
+                p.setInt(2, ml.getIdMunicipio());
+                p.setBoolean(3, true);
+                p.executeUpdate();
+            }
+
+            for (CoordenadaLocal cl : coordenadasLocal) {
+                p = this.con.prepareStatement("INSERT INTO coordenadalocal (idlocal, "
+                    +                                                      "latitude,"
+                    +                                                      "longitude"
+                    +                                                      ") VALUES (?,?,?)");
+                p.setInt(1, cl.getIdLocal());
+                p.setDouble(2, cl.getLatitude());
+                p.setDouble(3, cl.getLongitude());
+                p.executeUpdate();
+            }
+            
             p.close();
             
             
@@ -99,7 +121,7 @@ public class LocalDao {
                 +                                                        "idtipoestimativa = ?,"
                 +                                                        "idformacao = ?,"
                 +                                                        "idespacamento = ?,"
-                +                                                        "istrabalhocientifico = ?"
+                +                                                        "idtrabalhocientifico = ?"
                 +                                                        " WHERE id = ?");
         p.setString(1, local.getDescricao());
         p.setDouble(2, local.getArea());

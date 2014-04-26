@@ -70,16 +70,20 @@ public class CoordenadaLocalDao {
     
    public void update(CoordenadaLocal coordenadaLocal) throws Exception 
    {
-        PreparedStatement p = this.con.prepareStatement("UPDATE coordenadalocal SET idlocal = ?,"
-                +                                                         " latitude = ?,"
-                +                                                         " longitude = ?"
-                +                                                         " where id = ?");
-        p.setInt(1, coordenadaLocal.getIdLocal());
-        p.setDouble(2, coordenadaLocal.getLatitude());
-        p.setDouble(3, coordenadaLocal.getLongitude());
-        p.setInt(4, coordenadaLocal.getId());
-        p.executeUpdate();
-        p.close();
+            PreparedStatement p = this.con.prepareStatement("DELETE from coordenadalocal where idlocal = ?");
+            p.setInt(1, coordenadaLocal.getIdLocal());
+            p.executeUpdate();
+   
+            p = this.con.prepareStatement("INSERT INTO coordenadalocal(idlocal,"
+                    +                                                 "latitude,"
+                    +                                                 "longitude"
+                    +                                                 ") VALUES (?,?,?)");
+            p.setInt(1, coordenadaLocal.getIdLocal());
+            p.setDouble(2, coordenadaLocal.getLatitude());
+            p.setDouble(3, coordenadaLocal.getLongitude());
+            p.executeUpdate();
+    
+            p.close();
     }
    
    public CoordenadaLocal getCoordenadaLocal(String idCoordenadaLocal) throws SQLException
