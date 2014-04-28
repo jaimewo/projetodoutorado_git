@@ -138,6 +138,36 @@ public class LocalDetalheCarbonoDao extends MainDao {
         return locaisDetalheCarbono.get(0);
    }
    
+   public LocalDetalheCarbono getLocalDetalheCarbono(int idLocal) throws SQLException
+   {
+        List<LocalDetalheCarbono> locaisDetalheCarbono = new ArrayList<LocalDetalheCarbono>();
+        PreparedStatement p = this.con.prepareStatement("SELECT * FROM localdetalhecarbono where id = ?");
+        p.setInt(1, idLocal);
+        ResultSet rs = p.executeQuery();
+        while(rs.next()){
+           LocalDetalheCarbono localDetalheCarbono = new LocalDetalheCarbono();
+           localDetalheCarbono.setId(rs.getInt("id"));
+           localDetalheCarbono.setIdLocal(rs.getInt("idlocal"));
+           localDetalheCarbono.setQtdeCarbonoMin(rs.getDouble("qtdecarbonomin"));
+           localDetalheCarbono.setQtdeCarbonoMed(rs.getDouble("qtdecarbonomed"));
+           localDetalheCarbono.setQtdeCarbonoMax(rs.getDouble("qtdecarbonomax"));
+           localDetalheCarbono.setMediaParcela(rs.getDouble("mediaparcela"));
+           localDetalheCarbono.setVariancia(rs.getDouble("variancia"));
+           localDetalheCarbono.setDesvioPadrao(rs.getDouble("desviopadrao"));
+           localDetalheCarbono.setVarianciaMedia(rs.getDouble("varianciamedia"));
+           localDetalheCarbono.setErroPadrao(rs.getDouble("erropadrao"));
+           localDetalheCarbono.setCoeficienteVariacao(rs.getDouble("coeficientevariacao"));
+           localDetalheCarbono.setErroAbsoluto(rs.getDouble("erroabsoluto"));
+           localDetalheCarbono.setErroRelativo(rs.getDouble("errorelativo"));
+           localDetalheCarbono.setIntervaloConfiancaMinParcela(rs.getDouble("intervaloconfiancaminparcela"));
+           localDetalheCarbono.setIntervaloConfiancaMaxParcela(rs.getDouble("intervaloconfiancamaxparcela"));
+           locaisDetalheCarbono.add(localDetalheCarbono);
+        }
+        rs.close();
+        p.close();
+        return locaisDetalheCarbono.get(0);
+   }
+   
    public List<LocalDetalheCarbono> listarLocaisDetalheCarbono() throws Exception{
         List<LocalDetalheCarbono> locaisDetalheCarbono = new ArrayList<LocalDetalheCarbono>();
         PreparedStatement p = this.con.prepareStatement("SELECT * FROM localdetalhecarbono");

@@ -158,6 +158,36 @@ public class LocalDetalheVolumeDao {
         return locaisDetalheVolume.get(0);
    }
    
+   public LocalDetalheVolume getLocalDetalheVolume(int idLocal) throws SQLException
+   {
+        List<LocalDetalheVolume> locaisDetalheVolume = new ArrayList<LocalDetalheVolume>();
+        PreparedStatement p = this.con.prepareStatement("SELECT * FROM localdetalhevolume where id = ?");
+        p.setInt(1, idLocal);
+        ResultSet rs = p.executeQuery();
+        while(rs.next()){
+           LocalDetalheVolume localDetalheVolume = new LocalDetalheVolume();
+           localDetalheVolume.setId(rs.getInt("id"));
+           localDetalheVolume.setIdLocal(rs.getInt("idlocal"));
+           localDetalheVolume.setQtdeVolumeMin(rs.getDouble("qtdevolumemin"));
+           localDetalheVolume.setQtdeVolumeMed(rs.getDouble("qtdevolumemed"));
+           localDetalheVolume.setQtdeVolumeMax(rs.getDouble("qtdevolumemax"));
+           localDetalheVolume.setMediaParcela(rs.getDouble("mediaparcela"));
+           localDetalheVolume.setVariancia(rs.getDouble("variancia"));
+           localDetalheVolume.setDesvioPadrao(rs.getDouble("desviopadrao"));
+           localDetalheVolume.setVarianciaMedia(rs.getDouble("varianciamedia"));
+           localDetalheVolume.setErroPadrao(rs.getDouble("erropadrao"));
+           localDetalheVolume.setCoeficienteVariacao(rs.getDouble("coeficientevariacao"));
+           localDetalheVolume.setErroAbsoluto(rs.getDouble("erroabsoluto"));
+           localDetalheVolume.setErroRelativo(rs.getDouble("errorelativo"));
+           localDetalheVolume.setIntervaloConfiancaMinParcela(rs.getDouble("intervaloconfiancaminparcela"));
+           localDetalheVolume.setIntervaloConfiancaMaxParcela(rs.getDouble("intervaloconfiancamaxparcela"));
+           locaisDetalheVolume.add(localDetalheVolume);
+        }
+        rs.close();
+        p.close();
+        return locaisDetalheVolume.get(0);
+   }
+   
    public List<LocalDetalheVolume> listarLocaisDetalheVolume() throws Exception{
         List<LocalDetalheVolume> locaisDetalheVolume = new ArrayList<LocalDetalheVolume>();
         PreparedStatement p = this.con.prepareStatement("SELECT * FROM localdetalhevolume");

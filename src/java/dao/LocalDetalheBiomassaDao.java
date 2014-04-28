@@ -140,6 +140,35 @@ public class LocalDetalheBiomassaDao extends MainDao{
         return locaisDetalheBiomassa.get(0);
    }
    
+      public LocalDetalheBiomassa getLocalDetalheBiomassa(int idLocal) throws SQLException
+   {
+        List<LocalDetalheBiomassa> locaisDetalheBiomassa = new ArrayList<LocalDetalheBiomassa>();
+        PreparedStatement p = this.con.prepareStatement("SELECT * FROM localdetalhebiomassa where id = ?");
+        p.setInt(1, idLocal);
+        ResultSet rs = p.executeQuery();
+        while(rs.next()){
+           LocalDetalheBiomassa localDetalheBiomassa = new LocalDetalheBiomassa();
+           localDetalheBiomassa.setId(rs.getInt("id"));
+           localDetalheBiomassa.setIdLocal(rs.getInt("idlocal"));
+           localDetalheBiomassa.setQtdeBiomassaMin(rs.getDouble("qtdebiomassamin"));
+           localDetalheBiomassa.setQtdeBiomassaMed(rs.getDouble("qtdebiomassamed"));
+           localDetalheBiomassa.setQtdeBiomassaMax(rs.getDouble("qtdebiomassamax"));
+           localDetalheBiomassa.setMediaParcela(rs.getDouble("mediaparcela"));
+           localDetalheBiomassa.setVariancia(rs.getDouble("variancia"));
+           localDetalheBiomassa.setDesvioPadrao(rs.getDouble("desviopadrao"));
+           localDetalheBiomassa.setVarianciaMedia(rs.getDouble("varianciamedia"));
+           localDetalheBiomassa.setErroPadrao(rs.getDouble("erropadrao"));
+           localDetalheBiomassa.setCoeficienteVariacao(rs.getDouble("coeficientevariacao"));
+           localDetalheBiomassa.setErroAbsoluto(rs.getDouble("erroabsoluto"));
+           localDetalheBiomassa.setErroRelativo(rs.getDouble("errorelativo"));
+           localDetalheBiomassa.setIntervaloConfiancaMinParcela(rs.getDouble("intervaloconfiancaminparcela"));
+           localDetalheBiomassa.setIntervaloConfiancaMaxParcela(rs.getDouble("intervaloconfiancamaxparcela"));
+           locaisDetalheBiomassa.add(localDetalheBiomassa);
+        }
+        rs.close();
+        p.close();
+        return locaisDetalheBiomassa.get(0);
+   }
    public List<LocalDetalheBiomassa> listarLocaisDetalheBiomassa() throws Exception{
         List<LocalDetalheBiomassa> locaisDetalheBiomassa = new ArrayList<LocalDetalheBiomassa>();
         PreparedStatement p = this.con.prepareStatement("SELECT * FROM localdetalhebiomassa");
