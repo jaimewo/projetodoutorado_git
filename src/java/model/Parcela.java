@@ -14,6 +14,7 @@ public class Parcela extends Model  {
     
     
     public int id;
+    public int idLocal;
     public int numParcela;
     public double areaParcela;
     public double qtdeBiomassa;
@@ -31,6 +32,7 @@ public class Parcela extends Model  {
 
     public Parcela()
     {
+        this.idLocal = 0;
         this.numParcela = 0;
         this.areaParcela = 0.0;
         this.qtdeBiomassa = 0.0;
@@ -58,6 +60,14 @@ public class Parcela extends Model  {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getIdLocal() {
+        return idLocal;
+    }
+
+    public void setIdLocal(int idLocal) {
+        this.idLocal = idLocal;
     }
 
     public int getNumParcela() {

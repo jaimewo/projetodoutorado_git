@@ -276,6 +276,58 @@
         <servlet-name>updateLocal</servlet-name>
         <servlet-class>controller.updateLocal</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>listarEquacoes</servlet-name>
+        <servlet-class>controller.listarEquacoes</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>novaEquacao</servlet-name>
+        <servlet-class>controller.novaEquacao</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>createEquacao</servlet-name>
+        <servlet-class>controller.createEquacao</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>editarEquacao</servlet-name>
+        <servlet-class>controller.editarEquacao</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>excluirEquacao</servlet-name>
+        <servlet-class>controller.excluirEquacao</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>updateEquacao</servlet-name>
+        <servlet-class>controller.updateEquacao</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>createModelo</servlet-name>
+        <servlet-class>controller.createModelo</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>editarModelo</servlet-name>
+        <servlet-class>controller.editarModelo</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>excluirModelo</servlet-name>
+        <servlet-class>controller.excluirModelo</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>listarModelos</servlet-name>
+        <servlet-class>controller.listarModelos</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>novoModelo</servlet-name>
+        <servlet-class>controller.novoModelo</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>updateModelo</servlet-name>
+        <servlet-class>controller.updateModelo</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>calcularComParcela</servlet-name>
+        <servlet-class>controller.calcularComParcela</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>listarBiomas</servlet-name>
         <url-pattern>/listarBiomas</url-pattern>
@@ -555,6 +607,58 @@
     <servlet-mapping>
         <servlet-name>updateLocal</servlet-name>
         <url-pattern>/updateLocal</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>listarEquacoes</servlet-name>
+        <url-pattern>/listarEquacoes</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>novaEquacao</servlet-name>
+        <url-pattern>/novaEquacao</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>createEquacao</servlet-name>
+        <url-pattern>/createEquacao</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>editarEquacao</servlet-name>
+        <url-pattern>/editarEquacao</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>excluirEquacao</servlet-name>
+        <url-pattern>/excluirEquacao</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>updateEquacao</servlet-name>
+        <url-pattern>/updateEquacao</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>createModelo</servlet-name>
+        <url-pattern>/createModelo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>editarModelo</servlet-name>
+        <url-pattern>/editarModelo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>excluirModelo</servlet-name>
+        <url-pattern>/excluirModelo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>listarModelos</servlet-name>
+        <url-pattern>/listarModelos</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>novoModelo</servlet-name>
+        <url-pattern>/novoModelo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>updateModelo</servlet-name>
+        <url-pattern>/updateModelo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>calcularComParcela</servlet-name>
+        <url-pattern>/calcularComParcela</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

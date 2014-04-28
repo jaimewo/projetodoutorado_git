@@ -3,53 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/src/java/dao/VariavelInteresseDao.java</file>
-=======
-<<<<<<< HEAD
-            <file>file:/Users/paulozeferino/projetos/devconnIT/doutorado/projetodoutorado_git/web/novoLocal.jsp</file>
-            <file>file:/Users/paulozeferino/projetos/devconnIT/doutorado/projetodoutorado_git/src/java/dao/MainDao.java</file>
-=======
-            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/src/java/model/Espacamento.java</file>
-            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/src/java/controller/updateLocal.java</file>
-            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/src/java/controller/menu.java</file>
-            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/src/java/controller/novoLocal.java</file>
-            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/web/menu.jsp</file>
-            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/src/java/dao/CoordenadaLocalDao.java</file>
-            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/src/java/dao/MunicipioLocalDao.java</file>
-            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/src/java/model/LocalDetalheBiomassa.java</file>
-            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/src/java/model/LocalDetalheCarbono.java</file>
-            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/src/java/dao/FormacaoDao.java</file>
-            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/src/java/model/Arvore.java</file>
->>>>>>> ab79214e8f8e8853a1d5d8266001496b486d759b
-            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/web/novoLocal.jsp</file>
-            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/src/java/dao/CoordenadaLocalDao.java</file>
-            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/src/java/dao/TermoDao.java</file>
-            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/web/novoTrabalhoCientifico.jsp</file>
-            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/web/editarModelo.jsp</file>
-            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/web/novoModelo.jsp</file>
             <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/src/java/dao/ParcelaDao.java</file>
-            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/src/java/dao/LocalDetalheCarbonoDao.java</file>
+            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/src/java/controller/calcularComParcela.java</file>
             <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/src/java/model/Parcela.java</file>
-            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/src/java/dao/ArvoreAjusteDao.java</file>
-            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/web/listarTrabalhosCientificos.jsp</file>
-            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/web/editarEquacao.jsp</file>
-            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/src/java/model/VariavelInteresse.java</file>
-            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/src/java/model/Variavel.java</file>
-            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/web/listarEquacoes.jsp</file>
-            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/src/java/dao/MunicipioDao.java</file>
-            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/src/java/model/Termo.java</file>
-            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/src/java/dao/EquacaoDao.java</file>
-            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/web/listarModelos.jsp</file>
-            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/web/novaEquacao.jsp</file>
-            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/web/editarTrabalhoCientifico.jsp</file>
-            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/src/java/dao/LocalDetalheBiomassaDao.java</file>
-            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/src/java/model/Equacao.java</file>
-<<<<<<< HEAD
-            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/src/java/dao/MainDao.java</file>
-=======
->>>>>>> 503a8b96c30e898c148c7023866c9d33aeee7a8b
->>>>>>> ab79214e8f8e8853a1d5d8266001496b486d759b
         </group>
     </open-files>
 </project-private>
