@@ -20,29 +20,12 @@ import model.CoordenadaLocal;
  *
  * @author jaime
  */
-public class CoordenadaLocalDao {
-    
-    private Connection con = null;
+public class CoordenadaLocalDao extends MainDao {
     
     
     public CoordenadaLocalDao()
     {
-        try {
-            Class.forName("org.postgresql.Driver");
-//              this.con = DriverManager
-//                    .getConnection(
-//                    "jdbc:postgresql://localhost:5432/database_doutorado",
-//                    "postgres", "qwe123@");
-
-              this.con = DriverManager
-                    .getConnection(
-                    "jdbc:postgresql://localhost:5432/JCarbon1",
-                    "postgres", "root");
-              
-              
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(CoordenadaLocalDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        super();
     }
      
     public void cadastrar(CoordenadaLocal coordenadaLocal) throws SQLException

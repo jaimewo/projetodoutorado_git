@@ -19,29 +19,10 @@ import model.Parcela;
  *
  * @author Jaime
  */
-public class ParcelaDao {
+public class ParcelaDao extends MainDao {
     
-    private Connection con = null;
-    
-    
-    public ParcelaDao()
-    {
-        try {
-            Class.forName("org.postgresql.Driver");
-//              this.con = DriverManager
-//                    .getConnection(
-//                    "jdbc:postgresql://localhost:5432/database_doutorado",
-//                    "postgres", "qwe123@");
-
-              this.con = DriverManager
-                    .getConnection(
-                    "jdbc:postgresql://localhost:5432/JCarbon1",
-                    "postgres", "root");
-              
-              
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(ParcelaDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public ParcelaDao() {
+        super();
     }
     
     public void cadastrar(Parcela parcela) throws SQLException

@@ -19,29 +19,13 @@ import model.Formacao;
  *
  * @author Jaime
  */
-public class FormacaoDao {
+public class FormacaoDao extends MainDao {
     
-    private Connection con = null;
     
     
     public FormacaoDao()
     {
-        try {
-            Class.forName("org.postgresql.Driver");
-//              this.con = DriverManager
-//                    .getConnection(
-//                    "jdbc:postgresql://localhost:5432/database_doutorado",
-//                    "postgres", "qwe123@");
-
-              this.con = DriverManager
-                    .getConnection(
-                    "jdbc:postgresql://localhost:5432/JCarbon1",
-                    "postgres", "root");
-              
-              
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(FormacaoDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        super();
     }
     
     public void cadastrar(Formacao formacao) throws SQLException

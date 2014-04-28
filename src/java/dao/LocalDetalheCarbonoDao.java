@@ -19,31 +19,11 @@ import model.LocalDetalheCarbono;
  *
  * @author Jaime
  */
-public class LocalDetalheCarbonoDao {
+public class LocalDetalheCarbonoDao extends MainDao {
     
-    private Connection con = null;
-    
-    
-    public LocalDetalheCarbonoDao()
-    {
-        try {
-            Class.forName("org.postgresql.Driver");
-//              this.con = DriverManager
-//                    .getConnection(
-//                    "jdbc:postgresql://localhost:5432/database_doutorado",
-//                    "postgres", "qwe123@");
-
-              this.con = DriverManager
-                    .getConnection(
-                    "jdbc:postgresql://localhost:5432/JCarbon1",
-                    "postgres", "root");
-              
-              
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(LocalDetalheCarbonoDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public LocalDetalheCarbonoDao() {
+        super();
     }
-    
     public void cadastrar(LocalDetalheCarbono localDetalheCarbono) throws SQLException
                         
     {

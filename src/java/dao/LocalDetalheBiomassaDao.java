@@ -19,30 +19,12 @@ import model.LocalDetalheBiomassa;
  *
  * @author Jaime
  */
-public class LocalDetalheBiomassaDao {
-    
-    private Connection con = null;
-    
-    
-    public LocalDetalheBiomassaDao()
-    {
-        try {
-            Class.forName("org.postgresql.Driver");
-//              this.con = DriverManager
-//                    .getConnection(
-//                    "jdbc:postgresql://localhost:5432/database_doutorado",
-//                    "postgres", "qwe123@");
-
-              this.con = DriverManager
-                    .getConnection(
-                    "jdbc:postgresql://localhost:5432/JCarbon1",
-                    "postgres", "root");
-              
-              
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(LocalDetalheBiomassaDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
+public class LocalDetalheBiomassaDao extends MainDao{
+        
+    public LocalDetalheBiomassaDao() {
+        super();
     }
+
     
     public void cadastrar(LocalDetalheBiomassa localDetalheBiomassa) throws SQLException
                         

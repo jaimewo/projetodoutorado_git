@@ -4,6 +4,7 @@
     Author     : jaimewo
 --%>
 
+<%@page import="model.Equacao"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="model.TipoDisponibilidade"%>
@@ -104,7 +105,47 @@
                 </div>
             </div>
      
-            
+ 
+            <div class="field control-group">
+                <label class="control-label">Equações</label>
+            </div> 
+                
+            <div class="field control-group">
+                <label for="trabalhoCientifico_biomassaequacao" class="control-label">Biomassa - Equação:</label>
+                <div class="controls">
+                    <select id="trabalhoCientifico_biomassaequacao" name="equacao[idEquacao]">
+                        <option value="">Selecione uma equacão</option>
+                       <% List<Equacao> equacao = (List<Equacao>) request.getAttribute("equacao");%>
+                        <% for (Equacao e : equacao) {%>
+                        <option value="<%=e.getIdString()%>"><%=e.getExpressaoEquacao()%></option>
+                        <%}%>
+                    </select>
+                </div>
+            </div>   
+                
+            <div class="field control-group">
+                <label for="trabalhoCientifico_biomassamodelo" class="control-label">Biomassa - Modelo:</label>
+                <div class="controls">
+                    <select id="trabalhoCientifico_biomassamodelo" name="equacao[idEquacao]">
+                        <option value="">Selecione um modelo</option>
+                        <% for (Equacao e : equacao) {%>
+                        <option value="<%=e.getIdString()%>"><%=e.getExpressaoEquacao()%></option>
+                        <%}%>
+                    </select>
+                </div>
+            </div>   
+                
+            <div class="field control-group">
+                <label for="trabalhoCientifico_biomassamodelo" class="control-label">Biomassa - Modelo:</label>
+                <div class="controls">
+                    <select id="trabalhoCientifico_biomassamodelo" name="equacao[idEquacao]">
+                        <option value="">Selecione um modelo</option>
+                        <% for (Equacao e : equacao) {%>
+                        <option value="<%=e.getIdString()%>"><%=e.getExpressaoEquacao()%></option>
+                        <%}%>
+                    </select>
+                </div>
+            </div>               
            <div class="actions form-actions">
                 <input type="submit" name="submit" value ="Salvar" class="btn btn-inverse"/>
                 <a href="listarTrabalhosCientificos" class="btn" >Voltar</a>

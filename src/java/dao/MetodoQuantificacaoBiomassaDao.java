@@ -19,29 +19,12 @@ import model.MetodoQuantificacaoBiomassa;
  *
  * @author paulozeferino
  */
-public class MetodoQuantificacaoBiomassaDao {
-    
-    private Connection con = null;
+public class MetodoQuantificacaoBiomassaDao extends MainDao {
     
     
     public MetodoQuantificacaoBiomassaDao()
     {
-        try {
-            Class.forName("org.postgresql.Driver");
-//              this.con = DriverManager
-//                    .getConnection(
-//                    "jdbc:postgresql://localhost:5432/database_doutorado",
-//                    "postgres", "qwe123@");
-
-              this.con = DriverManager
-                    .getConnection(
-                    "jdbc:postgresql://localhost:5432/JCarbon1",
-                    "postgres", "root");
-              
-              
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(MetodoQuantificacaoBiomassaDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        super();
     }
     
     public void cadastrar(MetodoQuantificacaoBiomassa metodoQuantificacaoBiomassa) throws SQLException

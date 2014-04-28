@@ -20,31 +20,11 @@ import model.Equacao;
  *
  * @author Jaime
  */
-public class EquacaoDao {
+public class EquacaoDao extends MainDao{
     
-    private Connection con = null;
-    
-    
-    public EquacaoDao()
-    {
-        try {
-            Class.forName("org.postgresql.Driver");
-//              this.con = DriverManager
-//                    .getConnection(
-//                    "jdbc:postgresql://equacaohost:5432/database_doutorado",
-//                    "postgres", "qwe123@");
-
-              this.con = DriverManager
-                    .getConnection(
-                    "jdbc:postgresql://equacaohost:5432/JCarbon1",
-                    "postgres", "root");
-              
-              
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(EquacaoDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public EquacaoDao() {
+        super();
     }
-    
     public void cadastrar(Equacao equacao) throws SQLException
                         
     {
