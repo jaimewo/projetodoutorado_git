@@ -4,9 +4,9 @@
     Author     : jaimewo
 --%>
 
+<%@page import="model.Municipio"%>
 <%@page import="model.TrabalhoCientifico"%>
 <%@page import="model.CoordenadaLocal"%>
-<%@page import="model.MunicipioLocal"%>
 <%@page import="model.Espacamento"%>
 <%@page import="model.Formacao"%>
 <%@page import="java.util.ArrayList"%>
@@ -97,20 +97,27 @@
             <div class="field control-group">
                 <label for="local_municipio" class="control-label">Município</label>
                 <div class="controls">
-                    <select id="local_municipio" name="municipioLocal[idMunicipioLocal]">
+                    <select id="local_municipio" name="municipio[idMunicipio]">
                         <option value="">Selecione um município</option>
-                       <% List<MunicipioLocal> municipiosLocal = (List<MunicipioLocal>) request.getAttribute("municipiosLocal");%>
-                        <% for (MunicipioLocal ml : municipiosLocal) {%>
-                        <option value="<%=ml.getIdString()%>"><%=ml.getNomeMunicipio()%></option>
+                       <% List<Municipio> municipios = (List<Municipio>) request.getAttribute("municipios");%>
+                        <% for (Municipio m: municipios) {%>
+                        <option value="<%=m.getIdString()%>"><%=m.getNome()%></option>
                         <%}%>
                     </select>
                 </div>
             </div>
                     
             <div class="field control-group">
-                <label for="local_coordenada" class="control-label">Coordenadas</label>
+                <label for="local_latitude" class="control-label">Latitude</label>
                 <div class="controls">
-                    <input type="text" name="coordenadaLocal[coordenada]" value="<%=objeto_coordenadaLocal.getCoordenada()%>" />
+                    <input type="text" name="coordenadaLocal[latitude]" value="<%=objeto_coordenadaLocal.getLatitude()%>" />
+                </div>
+            </div> 
+                
+            <div class="field control-group">
+                <label for="local_longitude" class="control-label">Longitude</label>
+                <div class="controls">
+                    <input type="text" name="coordenadaLocal[longitude]" value="<%=objeto_coordenadaLocal.getLongitude()%>" />
                 </div>
             </div> 
                 

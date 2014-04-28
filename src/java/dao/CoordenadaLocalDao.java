@@ -13,7 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.Arvore;
+import model.CoordenadaLocal;
+import model.CoordenadaLocal;
 
 /**
  *
@@ -27,31 +28,21 @@ public class CoordenadaLocalDao extends MainDao {
         super();
     }
      
-    public void cadastrar(Arvore coordenadaLocal) throws SQLException
+    public void cadastrar(CoordenadaLocal coordenadaLocal) throws SQLException
     {
-            PreparedStatement p = this.con.prepareStatement("INSERT INTO coordenadalocal(idparcela,"
-                    +                                                          "numcoordenadaLocal,"
-                    +                                                          "qtdebiomassaobs,"
-                    +                                                          "qtdebiomassaest,"
-                    +                                                          "qtdecarbonoobs,"
-                    +                                                          "qtdecarbonoest,"
-                    +                                                          "qtdevolumeobs,"
-                    +                                                          "qtdevolumeest"
-                    +                                                          ") VALUES (?,?,?,?,?,?,?,?)");
-            p.setInt(1, coordenadaLocal.getIdParcela());
-            p.setInt(2, coordenadaLocal.getNumArvore());
-            p.setDouble(3, coordenadaLocal.getQtdeBiomassaObs());
-            p.setDouble(4, coordenadaLocal.getQtdeBiomassaEst());
-            p.setDouble(5, coordenadaLocal.getQtdeCarbonoObs());
-            p.setDouble(6, coordenadaLocal.getQtdeCarbonoEst());
-            p.setDouble(7, coordenadaLocal.getQtdeVolumeObs());
-            p.setDouble(8, coordenadaLocal.getQtdeVolumeEst());
+            PreparedStatement p = this.con.prepareStatement("INSERT INTO coordenadalocal(idlocal,"
+                    +                                                          "latitude,"
+                    +                                                          "longitude"
+                    +                                                          ") VALUES (?,?,?)");
+            p.setInt(1, coordenadaLocal.getIdLocal());
+            p.setDouble(2, coordenadaLocal.getLatitude());
+            p.setDouble(3, coordenadaLocal.getLongitude());
             p.executeUpdate();
             p.close();
     }
     
     
-    public void deletar(Arvore coordenadaLocal) throws SQLException
+    public void deletar(CoordenadaLocal coordenadaLocal) throws SQLException
     {
             PreparedStatement p = this.con.prepareStatement("DELETE from coordenadalocal where id = ?");
             p.setInt(1, coordenadaLocal.getId());
@@ -60,48 +51,36 @@ public class CoordenadaLocalDao extends MainDao {
         
     }
     
-   public void update(Arvore coordenadaLocal) throws Exception 
+   public void update(CoordenadaLocal coordenadaLocal) throws Exception 
    {
-        PreparedStatement p = this.con.prepareStatement("UPDATE coordenadalocal SET idparcela = ?,"
-                +                                                         " numcoordenadaLocal = ?,"
-                +                                                         " qtdebiomassaobs = ?,"
-                +                                                         " qtdebiomassaest = ?,"
-                +                                                         " qtdecarbonoobs = ?,"
-                +                                                         " qtdecarbonoest = ?,"
-                +                                                         " qtdevolumeobs = ?,"
-                +                                                         " qtdevolumeest = ?"
-                +                                                         " where id = ?");
-        p.setInt(1, coordenadaLocal.getIdParcela());
-        p.setInt(2, coordenadaLocal.getNumArvore());
-        p.setDouble(3, coordenadaLocal.getQtdeBiomassaObs());
-        p.setDouble(4, coordenadaLocal.getQtdeBiomassaEst());
-        p.setDouble(5, coordenadaLocal.getQtdeCarbonoObs());
-        p.setDouble(6, coordenadaLocal.getQtdeCarbonoEst());
-        p.setDouble(7, coordenadaLocal.getQtdeVolumeObs());
-        p.setDouble(8, coordenadaLocal.getQtdeVolumeEst());
-
-        p.setInt(9, coordenadaLocal.getId());
-        p.executeUpdate();
-        p.close();
+            PreparedStatement p = this.con.prepareStatement("DELETE from coordenadalocal where idlocal = ?");
+            p.setInt(1, coordenadaLocal.getIdLocal());
+            p.executeUpdate();
+   
+            p = this.con.prepareStatement("INSERT INTO coordenadalocal(idlocal,"
+                    +                                                 "latitude,"
+                    +                                                 "longitude"
+                    +                                                 ") VALUES (?,?,?)");
+            p.setInt(1, coordenadaLocal.getIdLocal());
+            p.setDouble(2, coordenadaLocal.getLatitude());
+            p.setDouble(3, coordenadaLocal.getLongitude());
+            p.executeUpdate();
+    
+            p.close();
     }
    
-   public Arvore getArvore(String idArvore) throws SQLException
+   public CoordenadaLocal getCoordenadaLocal(String idCoordenadaLocal) throws SQLException
    {
-        List<Arvore> coordenadasLocal = new ArrayList<Arvore>();
+        List<CoordenadaLocal> coordenadasLocal = new ArrayList<CoordenadaLocal>();
         PreparedStatement p = this.con.prepareStatement("SELECT * FROM coordenadalocal where id = ?");
-        p.setInt(1, Integer.parseInt(idArvore));
+        p.setInt(1, Integer.parseInt(idCoordenadaLocal));
         ResultSet rs = p.executeQuery();
         while(rs.next()){
-           Arvore coordenadaLocal = new Arvore();
+           CoordenadaLocal coordenadaLocal = new CoordenadaLocal();
            coordenadaLocal.setId(rs.getInt("id"));
-           coordenadaLocal.setIdParcela(rs.getInt("idparcela"));
-           coordenadaLocal.setNumArvore(rs.getInt("numcoordenadaLocal"));
-           coordenadaLocal.setQtdeBiomassaObs(rs.getDouble("qtdebiomassaobs"));
-           coordenadaLocal.setQtdeBiomassaEst(rs.getDouble("qtdebiomassaest"));
-           coordenadaLocal.setQtdeCarbonoObs(rs.getDouble("qtdecarbonoobs"));
-           coordenadaLocal.setQtdeCarbonoEst(rs.getDouble("qtdecarbonoest"));
-           coordenadaLocal.setQtdeVolumeObs(rs.getDouble("qtdevolumeobs"));
-           coordenadaLocal.setQtdeVolumeEst(rs.getDouble("qtdevolumeest"));
+           coordenadaLocal.setIdLocal(rs.getInt("idlocal"));
+           coordenadaLocal.setLatitude(rs.getDouble("latitude"));
+           coordenadaLocal.setLongitude(rs.getDouble("longitude"));
            coordenadasLocal.add(coordenadaLocal);
         }
         rs.close();
@@ -109,21 +88,16 @@ public class CoordenadaLocalDao extends MainDao {
         return coordenadasLocal.get(0);
    }
    
-   public List<Arvore> listarArvorees() throws Exception{
-        List<Arvore> coordenadasLocal = new ArrayList<Arvore>();
+   public List<CoordenadaLocal> listarCoordenadaLocales() throws Exception{
+        List<CoordenadaLocal> coordenadasLocal = new ArrayList<CoordenadaLocal>();
         PreparedStatement p = this.con.prepareStatement("SELECT * FROM coordenadalocal");
         ResultSet rs = p.executeQuery();
         while(rs.next()){
-           Arvore coordenadaLocal = new Arvore();
+           CoordenadaLocal coordenadaLocal = new CoordenadaLocal();
            coordenadaLocal.setId(rs.getInt("id"));
-           coordenadaLocal.setId(rs.getInt("idparcela"));
-           coordenadaLocal.setId(rs.getInt("numcoordenadaLocal"));
-           coordenadaLocal.setQtdeBiomassaObs(rs.getDouble("qtdebiomassaobs"));
-           coordenadaLocal.setQtdeBiomassaEst(rs.getDouble("qtdebiomassaest"));
-           coordenadaLocal.setQtdeCarbonoObs(rs.getDouble("qtdecarbonoobs"));
-           coordenadaLocal.setQtdeCarbonoEst(rs.getDouble("qtdecarbonoest"));
-           coordenadaLocal.setQtdeVolumeObs(rs.getDouble("qtdevolumeobs"));
-           coordenadaLocal.setQtdeVolumeEst(rs.getDouble("qtdevolumeest"));
+           coordenadaLocal.setId(rs.getInt("idlocal"));
+           coordenadaLocal.setLatitude(rs.getDouble("latitude"));
+           coordenadaLocal.setLongitude(rs.getDouble("longitude"));
            coordenadasLocal.add(coordenadaLocal);
         }
         rs.close();

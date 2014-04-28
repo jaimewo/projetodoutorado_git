@@ -2,6 +2,7 @@ Antes de comecar a programar dar um git pull
 
 1) Abrir o Git Bash
 2) cd /c/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/"Implementacao Oficial"/JCarbon/projetodoutorado_git
+   cd Dropbox/Jaime/AA-UFPR/Doutorado/Tese/"Implementacao Oficial"/JCarbon/projetodoutorado_git
 3) git pull
 
 Enviar Codigo para o Git (Quando termina de trabalhar)

@@ -51,9 +51,16 @@ public class MunicipioLocalDao extends MainDao{
     
    public void update(MunicipioLocal municipioLocal) throws Exception 
    {
-        PreparedStatement p = this.con.prepareStatement("UPDATE municipioLocal SET indprincipal = ? where id = ?");
-        p.setBoolean(1, municipioLocal.isIndPrincipal());
-        p.setInt(2, municipioLocal.getId());
+       
+        PreparedStatement p = this.con.prepareStatement("DELETE from municipioLocal where idlocal = ?");
+        p.setInt(1, municipioLocal.getIdLocal());
+        p.executeUpdate();
+            
+        p = this.con.prepareStatement("INSERT INTO municipioLocal(idlocal,idmunicipio,indprincipal) VALUES (?,?,?)");
+        p.setInt(1, municipioLocal.getIdLocal());
+        p.setInt(2, municipioLocal.getIdMunicipio());
+        p.setBoolean(3, municipioLocal.isIndPrincipal());
+
         p.executeUpdate();
         p.close();
     }

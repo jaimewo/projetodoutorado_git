@@ -4,6 +4,7 @@
  */
 package controller;
 
+import dao.CoordenadaLocalDao;
 import dao.LocalDao;
 import dao.FormacaoDao;
 import dao.EspacamentoDao;
@@ -18,6 +19,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.CoordenadaLocal;
 import model.Local;
 import model.Formacao;
 import model.Espacamento;
@@ -46,7 +48,8 @@ public class novoLocal extends HttpServlet {
 
             MunicipioDao objeto_municipio_dao = new MunicipioDao();
             List<Municipio> municipios = objeto_municipio_dao.listarMunicipios();
-            request.setAttribute("municipios", municipios);            
+            request.setAttribute("municipios", municipios);  
+              
         } finally { 
              request.setAttribute("local", new Local());
              request.getRequestDispatcher("novoLocal.jsp").forward(request, response);
