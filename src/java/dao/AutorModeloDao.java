@@ -19,29 +19,11 @@ import model.AutorModelo;
  *
  * @author paulozeferino
  */
-public class AutorModeloDao {
-    
-    private Connection con = null;
-    
+public class AutorModeloDao extends MainDao {
     
     public AutorModeloDao()
     {
-        try {
-            Class.forName("org.postgresql.Driver");
-//              this.con = DriverManager
-//                    .getConnection(
-//                    "jdbc:postgresql://localhost:5432/database_doutorado",
-//                    "postgres", "qwe123@");
-
-              this.con = DriverManager
-                    .getConnection(
-                    "jdbc:postgresql://localhost:5432/JCarbon1",
-                    "postgres", "root");
-              
-              
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(AutorModeloDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        super();
     }
     
     public void cadastrar(AutorModelo autorModelo) throws SQLException

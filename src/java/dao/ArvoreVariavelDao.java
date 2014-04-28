@@ -19,29 +19,12 @@ import model.ArvoreVariavel;
  *
  * @author jaime
  */
-public class ArvoreVariavelDao {
-    
-    private Connection con = null;
+public class ArvoreVariavelDao extends MainDao {
     
     
     public ArvoreVariavelDao()
     {
-        try {
-            Class.forName("org.postgresql.Driver");
-//              this.con = DriverManager
-//                    .getConnection(
-//                    "jdbc:postgresql://localhost:5432/database_doutorado",
-//                    "postgres", "qwe123@");
-
-              this.con = DriverManager
-                    .getConnection(
-                    "jdbc:postgresql://localhost:5432/JCarbon1",
-                    "postgres", "root");
-              
-              
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(ArvoreVariavelDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        super();
     }
      
     public void cadastrar(ArvoreVariavel arvoreVariavel) throws SQLException

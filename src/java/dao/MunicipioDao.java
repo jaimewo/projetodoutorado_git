@@ -20,29 +20,11 @@ import model.MunicipioLocal;
  *
  * @author jaime
  */
-public class MunicipioDao {
-    
-    private Connection con = null;
-    
+public class MunicipioDao extends MainDao {
     
     public MunicipioDao()
     {
-        try {
-            Class.forName("org.postgresql.Driver");
-//              this.con = DriverManager
-//                    .getConnection(
-//                    "jdbc:postgresql://localhost:5432/database_doutorado",
-//                    "postgres", "qwe123@");
-
-              this.con = DriverManager
-                    .getConnection(
-                    "jdbc:postgresql://localhost:5432/JCarbon1",
-                    "postgres", "root");
-              
-              
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(MunicipioDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        super();
     }
    public Municipio getMunicipio(String idMunicipio) throws SQLException
    {
