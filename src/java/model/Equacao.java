@@ -21,6 +21,7 @@ public class Equacao extends Model  {
     public double r2;
     public double r2Ajust;
     public double syx;
+    public int idtTrabalhoCientifico;
     
     public Equacao()
     {
@@ -31,6 +32,7 @@ public class Equacao extends Model  {
         this.r2 = 0.0;
         this.r2Ajust = 0.0;
         this.syx = 0.0;
+        this.idtTrabalhoCientifico = 0;
     }
     
     public String getIdString()
@@ -100,6 +102,14 @@ public class Equacao extends Model  {
 
     public void setSyx(double syx) {
         this.syx = syx;
+    }
+
+    public int getIdtTrabalhoCientifico() {
+        return idtTrabalhoCientifico;
+    }
+
+    public void setIdtTrabalhoCientifico(int idtTrabalhoCientifico) {
+        this.idtTrabalhoCientifico = idtTrabalhoCientifico;
     }
 
     

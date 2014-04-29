@@ -108,6 +108,36 @@ public class TrabalhoCientificoDao extends MainDao {
         return trabalhosCientificos.get(0);
    }
    
+   public TrabalhoCientifico getTrabalhoCientifico(int id) throws SQLException
+   {
+        List<TrabalhoCientifico> trabalhosCientificos = new ArrayList<TrabalhoCientifico>();
+        PreparedStatement p = this.con.prepareStatement("SELECT id,"
+                +                                              "titulo,"
+                +                                              "ano, "
+                +                                              "idtipodisponibilidade,"
+                +                                              "idmetodoquantificacaobiomassa,"
+                +                                              "idmetodoquantificacaocarbono,"
+                +                                              "idautor "
+                +                                              "FROM trabalhocientifico where id = ?");
+        p.setInt(1, id);
+        ResultSet rs = p.executeQuery();
+        while(rs.next()){
+           TrabalhoCientifico trabalhoCientifico = new TrabalhoCientifico();
+           trabalhoCientifico.setId(rs.getInt("id"));
+           trabalhoCientifico.setTitulo(rs.getString("titulo"));
+           trabalhoCientifico.setAno(rs.getInt("ano"));
+           trabalhoCientifico.setIdTipoDisponibilidade(rs.getInt("idtipodisponibilidade"));
+           trabalhoCientifico.setIdMetodoQuantificacaoBiomassa(rs.getInt("idmetodoquantificacaobiomassa"));
+           trabalhoCientifico.setIdMetodoQuantificacaoCarbono(rs.getInt("idmetodoquantificacaocarbono"));
+           trabalhoCientifico.setIdAutor(rs.getInt("idautor"));
+           
+           trabalhosCientificos.add(trabalhoCientifico);
+        }
+        rs.close();
+        p.close();
+        return trabalhosCientificos.get(0);
+   }
+   
    public List<TrabalhoCientifico> listarTrabalhosCientificos() throws Exception{
         List<TrabalhoCientifico> trabalhosCientificos = new ArrayList<TrabalhoCientifico>();
         PreparedStatement p = this.con.prepareStatement("SELECT * FROM trabalhoCientifico");

@@ -10,6 +10,7 @@ import dao.LocalDetalheBiomassaDao;
 import dao.LocalDetalheCarbonoDao;
 import dao.LocalDetalheVolumeDao;
 import dao.ParcelaDao;
+import dao.TrabalhoCientificoDao;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ import model.LocalDetalheBiomassa;
 import model.LocalDetalheCarbono;
 import model.LocalDetalheVolume;
 import model.Parcela;
+import model.TrabalhoCientifico;
 import org.apache.commons.math3.distribution.TDistribution;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 
@@ -32,7 +34,7 @@ import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
  *
  * @author jaime
  */
-public class calcularComParcela extends HttpServlet {
+public class calcularComArvores extends HttpServlet {
 
     double mediaParcela = 0.0;
     double variancia = 0.0;
@@ -56,9 +58,16 @@ public class calcularComParcela extends HttpServlet {
             throws ServletException, IOException, SQLException, Exception {
         try {
             String idLocalStr = request.getParameter("id");
+            
             LocalDao controller = new LocalDao();
             Local local = controller.getLocal(idLocalStr);
             request.setAttribute("local", local );
+            
+            TrabalhoCientificoDao trabalhoCientificoDao = new TrabalhoCientificoDao();
+            TrabalhoCientifico trabalhoCientifico = trabalhoCientificoDao.getTrabalhoCientifico(local.getIdTrabalhoCientifico());
+            
+            
+            
             
             List<Parcela> parcelas = new ArrayList<Parcela>();
             ParcelaDao parcelaDao = new ParcelaDao();
