@@ -4,6 +4,8 @@
  */
 package model;
 
+import dao.TrabalhoCientificoDao;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -24,6 +26,8 @@ public class Local extends Model  {
     public int idFormacao;
     public int idEspacamento;
     public int idTrabalhoCientifico;
+    
+    public TrabalhoCientifico trabalhoCientifico;
     
     public Local()
     {
@@ -125,6 +129,14 @@ public class Local extends Model  {
 
     public void setIdTrabalhoCientifico(int idTrabalhoCientifico) {
         this.idTrabalhoCientifico = idTrabalhoCientifico;
+    }
+    
+    public TrabalhoCientifico getTrabalhoCientifico() throws SQLException {
+        
+        TrabalhoCientificoDao trabalhoCientificoDao = new TrabalhoCientificoDao();
+        trabalhoCientifico = trabalhoCientificoDao.getTrabalhoCientifico(this.idTrabalhoCientifico);
+        
+        return trabalhoCientifico;
     }
 
     public boolean eh_valido()

@@ -4,6 +4,7 @@
  */
 package model;
 
+import dao.EquacaoDao;
 import java.util.ArrayList;
 
 /**
@@ -20,8 +21,9 @@ public class TrabalhoCientifico extends Model  {
     public int idMetodoQuantificacaoBiomassa;
     public int idMetodoQuantificacaoCarbono;
     public int idAutor;
-
     
+    public ArrayList<Equacao> equacoesTrabalho;
+
     public TrabalhoCientifico()
     {
         this.titulo = "";
@@ -88,6 +90,16 @@ public class TrabalhoCientifico extends Model  {
 
     public void setIdAutor(int idAutor) {
         this.id = idAutor;
+    }
+    public ArrayList<Equacao> getEquacoesTrabalho() throws Exception {
+        
+        ArrayList<Equacao> equacoesTrabalho = new ArrayList<Equacao>();
+        
+        EquacaoDao equacaoDao = new EquacaoDao();
+
+        equacoesTrabalho = equacaoDao.listarEquacoesTrabalho(this.id);
+        
+        return equacoesTrabalho;
     }
     
     public boolean eh_valido()

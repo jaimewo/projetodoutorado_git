@@ -125,5 +125,39 @@ public class EquacaoDao extends MainDao{
         p.close();
         return equacoes;
     }
+   public ArrayList<Equacao> listarEquacoesTrabalho(int idTrabalhoCientifico) throws Exception{
+        ArrayList<Equacao> equacoesTrabalho = new ArrayList<Equacao>();
+        PreparedStatement p = this.con.prepareStatement("SELECT e.id,"
+                + "                                             e.expressaoequacao, "
+                + "                                             e.expressaomodelo, "
+                + "                                             e.idvariavelinteresse,"
+                + "                                             e.idautormodelo,"
+                + "                                             e.r2,"
+                + "                                             e.r2ajust,"
+                + "                                             e.syx,"
+                + "                                             e.idtrabalhocientifico "
+                + "                                      FROM trabalhocientifico tc "
+                + "                                      INNER JOIN equacaotrabalhocientifico etc ON tc.id = etc.idtrabalhocientifico "
+                + "                                      INNER JOIN equacao e ON etc.idequacao = e.id "
+                + "                                      WHERE tc.id = ?");
+        p.setInt(1, idTrabalhoCientifico);
+        ResultSet rs = p.executeQuery();
+        while(rs.next()){
+           Equacao equacao = new Equacao();
+           equacao.setId(rs.getInt("id"));
+           equacao.setExpressaoEquacao(rs.getString("expressaoequacao"));
+           equacao.setExpressaoModelo(rs.getString("expressaomodelo"));
+           equacao.setIdVariavelInteresse(rs.getInt("idvariavelinteresse"));
+           equacao.setIdAutorModelo(rs.getInt("idautormodelo"));
+           equacao.setR2(rs.getDouble("r2"));
+           equacao.setR2Ajust(rs.getInt("r2ajust"));
+           equacao.setSyx(rs.getDouble("syx"));
+           equacao.setIdtTrabalhoCientifico(rs.getInt("idTrabalhoCientifico"));
+           equacoesTrabalho.add(equacao);
+        }
+        rs.close();
+        p.close();
+        return equacoesTrabalho;
+    }
     
 }
