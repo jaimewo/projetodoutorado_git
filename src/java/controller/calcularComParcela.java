@@ -62,7 +62,7 @@ public class calcularComParcela extends HttpServlet {
             
             List<Parcela> parcelas = new ArrayList<Parcela>();
             ParcelaDao parcelaDao = new ParcelaDao();
-            parcelas = parcelaDao.listarParcelas(local);
+            parcelas = parcelaDao.listarParcelas(local.getId());
             
             LocalDetalheBiomassa localDetalheBiomassa = calculaBiomassaComParcela(local,parcelas);
             request.setAttribute("localDetalheBiomassa", localDetalheBiomassa);

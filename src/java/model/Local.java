@@ -4,6 +4,8 @@
  */
 package model;
 
+import dao.MunicipioLocalDao;
+import dao.ParcelaDao;
 import dao.TrabalhoCientificoDao;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -28,6 +30,8 @@ public class Local extends Model  {
     public int idTrabalhoCientifico;
     
     public TrabalhoCientifico trabalhoCientifico;
+    public ArrayList<MunicipioLocal> municipiosLocal;
+    public ArrayList<Parcela> parcelas;
     
     public Local()
     {
@@ -138,6 +142,32 @@ public class Local extends Model  {
         
         return trabalhoCientifico;
     }
+
+    public ArrayList<MunicipioLocal> getMunicipiosLocal() throws Exception {
+        ArrayList<MunicipioLocal> municipiosLocal = new ArrayList<MunicipioLocal>();
+        MunicipioLocalDao municipioLocalDao = new MunicipioLocalDao();
+        municipiosLocal = municipioLocalDao.listarMunicipioLocal(this.id);
+        
+        return municipiosLocal;
+    }
+
+    public void setMunicipiosLocal(ArrayList<MunicipioLocal> municipiosLocal) {
+        this.municipiosLocal = municipiosLocal;
+    }
+
+    public ArrayList<Parcela> getParcelas() throws Exception {
+        ArrayList<Parcela> parcelas = new ArrayList<Parcela>();
+        ParcelaDao parcelaDao = new ParcelaDao();
+        
+        parcelas = parcelaDao.listarParcelas(this.id);
+        
+        return parcelas;
+    }
+
+    public void setParcelas(ArrayList<Parcela> parcelas) {
+        this.parcelas = parcelas;
+    }
+
 
     public boolean eh_valido()
     {

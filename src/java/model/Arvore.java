@@ -4,6 +4,7 @@
  */
 package model;
 
+import dao.VariavelArvoreDao;
 import java.util.ArrayList;
 
 /**
@@ -22,6 +23,8 @@ public class Arvore extends Model  {
     public double qtdeCarbonoEst;
     public double qtdeVolumeObs;
     public double qtdeVolumeEst;
+    
+    public ArrayList<VariavelArvore> variaveisArvore;
     
     public Arvore()
     {
@@ -111,5 +114,14 @@ public class Arvore extends Model  {
     public void setQtdeVolumeEst(double qtdeVolumeEst) {
         this.qtdeVolumeEst = qtdeVolumeEst;
     }
-    
+
+    public ArrayList<VariavelArvore> getVariaveisArvore() throws Exception {
+        ArrayList<VariavelArvore> variaveisArvore = new ArrayList<VariavelArvore>();
+        VariavelArvoreDao variaveisArvoreDao = new VariavelArvoreDao();
+        variaveisArvore = variaveisArvoreDao.listarVariaveisArvore(this.id);        
+        
+        return variaveisArvore;
+    }
+
+
 }

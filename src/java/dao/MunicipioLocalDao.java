@@ -88,23 +88,34 @@ public class MunicipioLocalDao extends MainDao{
         return municipiosLocal.get(0);
    }
    
-   public List<MunicipioLocal> listarMunicipioLocal(String idLocal, List<Municipio> municipios) throws Exception{
-        List<MunicipioLocal> municipiosLocal = new ArrayList<MunicipioLocal>();
+   public ArrayList<MunicipioLocal> listarMunicipioLocal(int idLocal) throws Exception{
+        ArrayList<MunicipioLocal> municipiosLocal = new ArrayList<MunicipioLocal>();
         
-        PreparedStatement p = this.con.prepareStatement("SELECT m.nome as nome, ml.indprincipal as indprincipal"
+        PreparedStatement p = this.con.prepareStatement("SELECT ml.id as id, "
+                + "                                             ml.indprincipal as indprincipal, "
+                + "                                             m.id as idmunicipio, "
+                + "                                             m.idestado as idestado, "
+                + "                                             m.nome as nome "
                 + "                                      FROM local l "
                 + "                                      INNER JOIN municipiolocal ml ON l.id = ml.idlocal "
                 + "                                      INNER JOIN municipio m ON ml.idmunicipio = m.id "
                 + "                                      WHERE l.id = ?");
-        p.setInt(1, Integer.parseInt(idLocal));
+        p.setInt(1, idLocal);
         ResultSet rs = p.executeQuery();
         while(rs.next()){
-           MunicipioLocal municipioLocal = new MunicipioLocal();
            Municipio municipio = new Municipio();
+           municipio.setId(rs.getInt("idmunicipio"));
+           municipio.setIdEstado(rs.getInt("idestado"));
            municipio.setNome(rs.getString("nome"));
-           municipioLocal.setIndPrincipal(rs.getBoolean("indPrincipal"));
+           
+           MunicipioLocal municipioLocal = new MunicipioLocal();
+           municipioLocal.setId(rs.getInt("id"));
+           municipioLocal.setIdLocal(idLocal);
+           municipioLocal.setIdMunicipio(rs.getInt("idmunicipio"));
+           municipioLocal.setIndPrincipal(rs.getBoolean("indprincipal"));
+           municipioLocal.setMunicipio(municipio);
+
            municipiosLocal.add(municipioLocal);
-           municipios.add(municipio);
         }
         rs.close();
         p.close();

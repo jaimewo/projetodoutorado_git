@@ -18,6 +18,8 @@ public class MunicipioLocal extends Model  {
     public int idMunicipio;
     public boolean indPrincipal;
     
+    public Municipio municipio;
+    
     public MunicipioLocal()
     {
         this.idLocal = 0;
@@ -61,6 +63,14 @@ public class MunicipioLocal extends Model  {
 
     public void setIndPrincipal(boolean indPrincipal) {
         this.indPrincipal = indPrincipal;
+    }
+
+    public Municipio getMunicipio() {
+        return municipio;
+    }
+
+    public void setMunicipio(Municipio municipio) {
+        this.municipio = municipio;
     }
 
 

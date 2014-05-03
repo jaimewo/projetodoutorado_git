@@ -23,6 +23,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Arvore;
 import model.Equacao;
 import model.Local;
 import model.LocalDetalheBiomassa;
@@ -116,6 +117,9 @@ public class calcularComArvores extends HttpServlet {
     }
 
     private void calculaBiomaComArvores(Local local) {
+        
+        Arvore arvore = new Arvore();
+        arvore.getVariaveisArvore().get(0).getVariavel().getSigla();
     }
 
     private void calculaCarbonoComArvores(Local local) {

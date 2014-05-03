@@ -4,6 +4,8 @@
  */
 package model;
 
+import dao.ArvoreDao;
+import dao.ParcelaDao;
 import java.util.ArrayList;
 
 /**
@@ -29,6 +31,8 @@ public class Parcela extends Model  {
     public double qtdeVolumeMin;
     public double qtdeVolumeMed;
     public double qtdeVolumeMax;
+    
+    public ArrayList<Arvore> arvores;
 
     public Parcela()
     {
@@ -180,6 +184,19 @@ public class Parcela extends Model  {
 
     public void setQtdeVolumeMax(double qtdeVolumeMax) {
         this.qtdeVolumeMax = qtdeVolumeMax;
+    }
+
+    public ArrayList<Arvore> getArvores() throws Exception {
+        ArrayList<Arvore> arvores = new ArrayList<Arvore>();
+        ArvoreDao arvoreDao = new ArvoreDao();
+        
+        arvores = arvoreDao.listarArvores(this.id);
+        
+        return arvores;
+    }
+
+    public void setArvores(ArrayList<Arvore> arvores) {
+        this.arvores = arvores;
     }
 
 }

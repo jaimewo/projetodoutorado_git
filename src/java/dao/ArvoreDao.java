@@ -109,10 +109,12 @@ public class ArvoreDao extends MainDao {
         return arvores.get(0);
    }
    
-   public List<Arvore> listarArvorees() throws Exception{
-        List<Arvore> arvores = new ArrayList<Arvore>();
-        PreparedStatement p = this.con.prepareStatement("SELECT * FROM arvore");
+   public ArrayList<Arvore> listarArvores(int idParcela) throws Exception{
+        ArrayList<Arvore> arvores = new ArrayList<Arvore>();
+        PreparedStatement p = this.con.prepareStatement("SELECT * FROM arvore WHERE idparcela = ?");
+        p.setInt(1, idParcela);
         ResultSet rs = p.executeQuery();
+        
         while(rs.next()){
            Arvore arvore = new Arvore();
            arvore.setId(rs.getInt("id"));

@@ -140,10 +140,10 @@ public class ParcelaDao extends MainDao {
         return parcelas.get(0);
    }
    
-   public List<Parcela> listarParcelas(Local local) throws Exception{
-        List<Parcela> parcelas = new ArrayList<Parcela>();
+   public ArrayList<Parcela> listarParcelas(int idLocal) throws Exception{
+        ArrayList<Parcela> parcelas = new ArrayList<Parcela>();
         PreparedStatement p = this.con.prepareStatement("SELECT * FROM parcela WHERE idLocal = ?");
-        int idLocal = Integer.parseInt(local.getIdString());       
+           
         p.setInt(1, idLocal);
         ResultSet rs = p.executeQuery();
         while(rs.next()){
