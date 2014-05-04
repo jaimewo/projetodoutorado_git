@@ -171,5 +171,14 @@ public class LocalDao extends MainDao {
         p.close();
         return locais;
     }
+
+    public void updateBiomassa(Local local) throws SQLException {
+        PreparedStatement p = this.con.prepareStatement("UPDATE local SET qtdebiomassa = ? WHERE id = ?");
+        p.setDouble(1, local.getQtdeBiomassa());
+        
+        p.setInt(2, local.getId());
+        p.executeUpdate();
+        p.close();
+    }
     
 }

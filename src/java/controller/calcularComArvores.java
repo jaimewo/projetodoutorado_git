@@ -7,6 +7,7 @@ package controller;
 
 
 
+import dao.ArvoreDao;
 import dao.LocalDao;
 import dao.LocalDetalheBiomassaDao;
 import dao.LocalDetalheCarbonoDao;
@@ -31,8 +32,11 @@ import model.LocalDetalheCarbono;
 import model.LocalDetalheVolume;
 import model.Parcela;
 import model.TrabalhoCientifico;
+import model.VariavelArvore;
 import org.apache.commons.math3.distribution.TDistribution;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
+import org.nfunk.jep.*;
+
 
 /**
  *
@@ -40,47 +44,75 @@ import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
  */
 public class calcularComArvores extends HttpServlet {
 
-    double mediaParcela = 0.0;
-    double variancia = 0.0;
-    double desvioPadrao = 0.0;
-    double qtdeParcelasLocal =  0.0;
-    double umMenosF = 0.0;
-    double erroPadrao = 0.0;
-    double coeficienteVariacao = 0.0;
-    double erro = 0.0;
-    double t = 0.0;
-    double erroAbsoluto = 0.0;
-    double erroRelativo = 0.0;
-    double intervaloConfiancaMinMedia = 0.0;
-    double intervaloConfiancaMaxMedia = 0.0;
-    double mediaLocal = 0.0;
-    double intervaloConfiancaMinTotal = 0.0;
-    double intervaloConfiancaMaxTotal = 0.0;
-    int tamanhoAmostra;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, Exception {
         try {
-            String idLocalStr = request.getParameter("id");
+//            String idLocalStr = request.getParameter("id");
+//            if (idLocalStr == null) {
+//               Local local = new Local();
+//               local.setId(1);
+//               local.setQtdeBiomassa(0.0);
+//               request.setAttribute("local", local );  
+//               request.getRequestDispatcher("calcularComArvores.jsp").forward(request, response);
+                
+            String idLocalStr = "1";
             
-            LocalDao controller = new LocalDao();
-            Local local = controller.getLocal(idLocalStr);
-            request.setAttribute("local", local );
-            
+            LocalDao localDao = new LocalDao();
+            Local local = localDao.getLocal(idLocalStr);
+  
+            double biomassaEstLocal = 0.0;
+              
             ArrayList<Equacao> equacoesTrabalho = new ArrayList<Equacao>();
             equacoesTrabalho = local.getTrabalhoCientifico().getEquacoesTrabalho();
             
-            for (Equacao e : equacoesTrabalho) {
-                switch (e.getIdVariavelInteresse()) {
-                    case 1: 
-                        calculaBiomaComArvores(local);
-                    case 2: 
-                        calculaCarbonoComArvores(local);
-                    case 3: 
-                        calculaVolumeComArvores(local);
+            ArrayList<Parcela> parcelasLocal = new ArrayList<Parcela>();
+            parcelasLocal = local.getParcelas();
+            
+            for (Parcela parcela : parcelasLocal) {
+                double biomassaEstParcela = 0.0;
+                ParcelaDao parcelaDao = new ParcelaDao();
+                ArrayList<Arvore> arvoresParcela = new ArrayList<Arvore>();
+                arvoresParcela = parcela.getArvores();
+                
+                for (Arvore arvore : arvoresParcela) {
+                    double biomassaEst = 0.0;
+                    ArvoreDao arvoreDao = new ArvoreDao();
+                    ArrayList<VariavelArvore> variaveisArvore = new ArrayList<>();
+                    variaveisArvore = arvore.getVariaveisArvore();
+                    
+                    for (Equacao e : equacoesTrabalho) {
+                        switch (e.getIdVariavelInteresse()) {
+                          case 1: 
+                               biomassaEst = calculaBiomaComArvores(variaveisArvore,e);
+                               arvore.setQtdeBiomassaEst(biomassaEst);
+                               arvoreDao.updateBiomassa(arvore);
+                               biomassaEstParcela =+ biomassaEst;
+                          case 2: 
+                               calculaCarbonoComArvores(variaveisArvore,e);
+                          case 3: 
+                               calculaVolumeComArvores(variaveisArvore,e);
+                        }
+                    }                    
                 }
+                parcela.setQtdeBiomassa(biomassaEstParcela);
+                parcelaDao.updateBiomassa(parcela);
             }
-            request.getRequestDispatcher("??????.jsp").forward(request, response);
+//            Chamar calcularComParcelas para estimar biomassa do Local
+            local.setQtdeBiomassa(biomassaEstLocal);
+            localDao.updateBiomassa(local);
+            
+            
+            
+/*            
+            biomassaEstLocal = 10.0;
+            local.setQtdeBiomassa(biomassaEstLocal);
+            
+*/            
+            request.setAttribute("local", local );          
+
+            request.getRequestDispatcher("calcularComArvores.jsp").forward(request, response);
+
         } finally {            
              
         }
@@ -93,9 +125,9 @@ public class calcularComArvores extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(calcularComParcela.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(calcularComArvores.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
-            Logger.getLogger(calcularComParcela.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(calcularComArvores.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -105,27 +137,43 @@ public class calcularComArvores extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(calcularComParcela.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(calcularComArvores.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
-            Logger.getLogger(calcularComParcela.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(calcularComArvores.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
     public String getServletInfo() {
-        return "Editar Local";
+        return "CalcularComArvores";
     }
 
-    private void calculaBiomaComArvores(Local local) {
+    private double calculaBiomaComArvores(ArrayList<VariavelArvore> variaveisArvore,Equacao equacao) {
+        //http://www.singularsys.com/jep/doc/html/index.html
+        JEP myParser = new JEP();
+        myParser.addStandardFunctions();
+        myParser.addStandardConstants();
         
-        Arvore arvore = new Arvore();
-        arvore.getVariaveisArvore().get(0).getVariavel().getSigla();
+        double resultado = 0.0;
+                
+        for (VariavelArvore variavelArvore : variaveisArvore) {
+            String sigla = variavelArvore.getVariavel().getSigla();
+            Double valor = variavelArvore.getValor();
+        
+            myParser.addVariable(sigla, valor);
+        }  
+            
+        myParser.parseExpression(equacao.getExpressaoEquacao());
+        
+        resultado = myParser.getValue();
+        return resultado;
+
     }
 
-    private void calculaCarbonoComArvores(Local local) {
+    private void calculaCarbonoComArvores(ArrayList<VariavelArvore> variaveisArvore,Equacao equacao) {
     }
 
-    private void calculaVolumeComArvores(Local local) {
+    private void calculaVolumeComArvores(ArrayList<VariavelArvore> variaveisArvore,Equacao equacao) {
     }
  
 }

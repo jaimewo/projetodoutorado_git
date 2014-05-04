@@ -132,5 +132,13 @@ public class ArvoreDao extends MainDao {
         p.close();
         return arvores;
     }
+
+    public void updateBiomassa(Arvore arvore) throws SQLException {
+        PreparedStatement p = this.con.prepareStatement("UPDATE arvore SET qtdebiomassaest = ? where id = ?");
+        p.setDouble(1, arvore.getQtdeBiomassaEst());
+
+        p.setInt(2, arvore.getId());
+        p.executeUpdate();
+        p.close();   }
     
 }

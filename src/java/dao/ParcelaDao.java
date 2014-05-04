@@ -169,5 +169,15 @@ public class ParcelaDao extends MainDao {
         p.close();
         return parcelas;
     }
+
+    public void updateBiomassa(Parcela parcela) throws SQLException {
+        PreparedStatement p = this.con.prepareStatement("UPDATE parcela SET qtdebiomassa = ? WHERE id = ?");
+        p.setDouble(1,  parcela.getQtdeBiomassa());
+        
+        p.setInt(2, parcela.getId());
+        p.executeUpdate();
+        p.close();
+
+    }
     
 }
