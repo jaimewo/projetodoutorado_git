@@ -48,6 +48,7 @@ Thumbs.db
 /nbbuild
 /nbdist
 /nbproject
+/src/java/dao/MainDao.java
 nb-configuration.xml
 nbactions.xml
 build.xml
