@@ -41,7 +41,7 @@ public class Variavel extends Model  {
     }
 
     public void setSigla(String sigla) {
-        this.nome = sigla;
+        this.sigla = sigla;
     }
     
     public String getNome() {

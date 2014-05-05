@@ -28,10 +28,14 @@ public class MainDao {
            try {
                
             Class.forName("org.postgresql.Driver");
+//              this.con = DriverManager
+//                    .getConnection(
+//                    "jdbc:postgresql://"+ADDRESS+":"+PORTA+"/"+DATABASE_NAME,
+//                    "postgres", "qwe123@");
               this.con = DriverManager
                     .getConnection(
-                    "jdbc:postgresql://"+ADDRESS+":"+PORTA+"/"+DATABASE_NAME,
-                    "postgres", "qwe123@");
+                    "jdbc:postgresql://localhost:5432/JCarbon1",
+                    "postgres", "root");                
               
               
         } catch (ClassNotFoundException | SQLException ex) {

@@ -118,8 +118,8 @@ public class ArvoreDao extends MainDao {
         while(rs.next()){
            Arvore arvore = new Arvore();
            arvore.setId(rs.getInt("id"));
-           arvore.setId(rs.getInt("idparcela"));
-           arvore.setId(rs.getInt("numarvore"));
+           arvore.setIdParcela(rs.getInt("idparcela"));
+           arvore.setNumArvore(rs.getInt("numarvore"));
            arvore.setQtdeBiomassaObs(rs.getDouble("qtdebiomassaobs"));
            arvore.setQtdeBiomassaEst(rs.getDouble("qtdebiomassaest"));
            arvore.setQtdeCarbonoObs(rs.getDouble("qtdecarbonoobs"));

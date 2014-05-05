@@ -98,7 +98,7 @@ public class VariavelArvoreDao extends MainDao {
                 + "                                      WHERE a.id = ?");
 
         
-        
+        p.setInt(1, idArvore);       
         ResultSet rs = p.executeQuery();
         while(rs.next()){
            Variavel variavel = new Variavel();
