@@ -50,7 +50,7 @@ Thumbs.db
 /nbproject
 nb-configuration.xml
 nbactions.xml
-
+build.xml
 #Ignore SublimeText files.
 *.sublime-project
 *.sublime-workspace
