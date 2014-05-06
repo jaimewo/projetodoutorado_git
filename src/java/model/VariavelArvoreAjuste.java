@@ -18,6 +18,8 @@ public class VariavelArvoreAjuste extends Model  {
     public int idVariavel;
     public double valor;
     
+    public Variavel variavel;
+    
     public VariavelArvoreAjuste()
     {
         this.idArvoreAjuste = 0;
@@ -61,5 +63,13 @@ public class VariavelArvoreAjuste extends Model  {
     public void setValor(double valor) {
         this.valor = valor;
     }
-    
+ 
+    public Variavel getVariavel() {
+        return variavel;
+    }
+
+    public void setVariavel(Variavel variavel) {
+        this.variavel = variavel;
+    }
+       
 }

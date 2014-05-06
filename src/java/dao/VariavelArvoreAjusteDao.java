@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Variavel;
 import model.VariavelArvoreAjuste;
 
 /**
@@ -86,17 +87,36 @@ public class VariavelArvoreAjusteDao extends MainDao {
         return variaveisArvoreAjuste.get(0);
    }
    
-   public List<VariavelArvoreAjuste> listarVariaveisArvoreAjuste() throws Exception{
-        List<VariavelArvoreAjuste> variaveisArvoreAjuste = new ArrayList<VariavelArvoreAjuste>();
-        PreparedStatement p = this.con.prepareStatement("SELECT * FROM variavelarvoreajuste");
+   public ArrayList<VariavelArvoreAjuste> listarVariaveisArvoreAjuste(int idArvoreAjuste) throws Exception{
+        ArrayList<VariavelArvoreAjuste> variaveisArvoreAjuste = new ArrayList<VariavelArvoreAjuste>();
+        PreparedStatement p = this.con.prepareStatement("SELECT vaa.id as id, "
+                + "                                             vaa.valor as valor, "
+                + "                                             v.id as idvariavel, "
+                + "                                             v.sigla as sigla, "
+                + "                                             v.nome as nome "
+                + "                                      FROM arvore a "
+                + "                                      INNER JOIN variavelarvoreajuste vaa ON a.id = vaa.idarvore "
+                + "                                      INNER JOIN variavel v ON vaa.idvariavel = v.id "
+                + "                                      WHERE a.id = ?");
+
+        
+        p.setInt(1, idArvoreAjuste);       
         ResultSet rs = p.executeQuery();
         while(rs.next()){
+           Variavel variavel = new Variavel();
+           variavel.setId(rs.getInt("idvariavel"));
+           variavel.setSigla(rs.getString("sigla"));
+           variavel.setNome(rs.getString("nome"));
+           
            VariavelArvoreAjuste variavelArvoreAjuste = new VariavelArvoreAjuste();
            variavelArvoreAjuste.setId(rs.getInt("id"));
-           variavelArvoreAjuste.setIdArvoreAjuste(rs.getInt("idarvoreajuste"));
+           variavelArvoreAjuste.setIdArvoreAjuste(idArvoreAjuste);
            variavelArvoreAjuste.setIdVariavel(rs.getInt("idvariavel"));
            variavelArvoreAjuste.setValor(rs.getDouble("valor"));
+           variavelArvoreAjuste.setVariavel(variavel);
+
            variaveisArvoreAjuste.add(variavelArvoreAjuste);
+
         }
         rs.close();
         p.close();

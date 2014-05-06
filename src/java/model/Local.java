@@ -4,6 +4,7 @@
  */
 package model;
 
+import dao.ArvoreAjusteDao;
 import dao.MunicipioLocalDao;
 import dao.ParcelaDao;
 import dao.TrabalhoCientificoDao;
@@ -33,6 +34,7 @@ public class Local extends Model  {
     public TrabalhoCientifico trabalhoCientifico;
     public ArrayList<MunicipioLocal> municipiosLocal;
     public ArrayList<Parcela> parcelas;
+    public ArrayList<ArvoreAjuste> arvoresAjuste;
     
     public Local()
     {
@@ -169,6 +171,18 @@ public class Local extends Model  {
         this.parcelas = parcelas;
     }
 
+    public ArrayList<ArvoreAjuste> getArvoresAjuste() throws Exception {
+        ArrayList<ArvoreAjuste> arvoresAjuste = new ArrayList<ArvoreAjuste>();
+        ArvoreAjusteDao arvoreAjusteDao = new ArvoreAjusteDao();
+        
+        arvoresAjuste = arvoreAjusteDao.listarArvoresAjuste(this.id);
+        
+        return arvoresAjuste;
+    }
+
+    public void setArvoreAjuste(ArrayList<ArvoreAjuste> arvoresAjuste) {
+        this.arvoresAjuste = arvoresAjuste;
+    }
 
     public boolean eh_valido()
     {

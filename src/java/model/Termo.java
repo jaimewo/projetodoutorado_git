@@ -12,17 +12,16 @@ import java.util.ArrayList;
  */
 public class Termo extends Model  {
     
-    
-    public int id;
+        public int id;
     public int idEquacao;
     public String expressao;
-    public int ordem;
+    public int sequencia;
     
     public Termo()
     {
         this.expressao = "";
         this.idEquacao = 0;
-        this.ordem = 0;
+        this.sequencia = 0;
     }
     
     public String getIdString()
@@ -54,12 +53,13 @@ public class Termo extends Model  {
         this.idEquacao = idEquacao;
     }
 
-    public int getOrdem() {
-        return ordem;
+    public int getSequencia() {
+        return sequencia;
     }
 
-    public void setOrdem(int ordem) {
-        this.ordem = ordem;
+    public void setSequencia(int sequencia) {
+        this.sequencia = sequencia;
     }
+
     
 }

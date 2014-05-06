@@ -111,9 +111,10 @@ public class ArvoreAjusteDao extends MainDao {
         return arvoreAjustes.get(0);
    }
    
-   public List<ArvoreAjuste> listarArvoresAjuste() throws Exception{
-        List<ArvoreAjuste> arvoresAjuste = new ArrayList<ArvoreAjuste>();
-        PreparedStatement p = this.con.prepareStatement("SELECT * FROM arvoreajuste");
+   public ArrayList<ArvoreAjuste> listarArvoresAjuste(int idLocal) throws Exception{
+        ArrayList<ArvoreAjuste> arvoresAjuste = new ArrayList<ArvoreAjuste>();
+        PreparedStatement p = this.con.prepareStatement("SELECT * FROM arvoreajuste WHERE idlocal = ?");
+        p.setInt(1, idLocal);
         ResultSet rs = p.executeQuery();
         while(rs.next()){
            ArvoreAjuste arvoreAjuste = new ArvoreAjuste();
@@ -132,5 +133,5 @@ public class ArvoreAjusteDao extends MainDao {
         p.close();
         return arvoresAjuste;
     }
-    
+
 }

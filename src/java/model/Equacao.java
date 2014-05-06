@@ -4,6 +4,7 @@
  */
 package model;
 
+import dao.TermoDao;
 import java.util.ArrayList;
 
 /**
@@ -22,6 +23,8 @@ public class Equacao extends Model  {
     public double r2Ajust;
     public double syx;
     public int idtTrabalhoCientifico;
+    
+    public ArrayList<Termo> termos;
     
     public Equacao()
     {
@@ -112,7 +115,16 @@ public class Equacao extends Model  {
         this.idtTrabalhoCientifico = idtTrabalhoCientifico;
     }
 
-    
+     public ArrayList<Termo> getTermos() throws Exception {
+        
+        ArrayList<Termo> termos = new ArrayList<Termo>();
+        
+        TermoDao termoDao = new TermoDao();
+
+        termos = termoDao.listarTermos(this.id);
+        
+        return termos;
+    }   
     public boolean eh_valido()
     {
         if(this.getExpressaoEquacao() == null || this.getExpressaoEquacao().isEmpty())
@@ -128,5 +140,10 @@ public class Equacao extends Model  {
         return this.erros;
     }
 
-    
+    public void ajustarModelo() {
+        // Buscar ArvoreAjuste
+        jjj PAREI AQUI
+        
+        
+    }
 }

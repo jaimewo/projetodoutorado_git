@@ -30,11 +30,11 @@ public class TermoDao extends MainDao {
     {
         PreparedStatement p = this.con.prepareStatement("INSERT INTO termo (idequacao, "
                     +                                                      "expressao,"
-                    +                                                      "ordem"
+                    +                                                      "sequencia"
                     +                                                      ") VALUES (?,?,?)");
         p.setInt   (1,  termo.getIdEquacao());
         p.setString(2,  termo.getExpressao());
-        p.setInt   (3,  termo.getOrdem());
+        p.setInt   (3,  termo.getSequencia());
          
         p.executeUpdate();
         p.close();
@@ -54,11 +54,11 @@ public class TermoDao extends MainDao {
    {
         PreparedStatement p = this.con.prepareStatement("UPDATE termo SET idequacao = ?, "
                 +                                                        "expressao = ?,"
-                +                                                        "ordem = ?"
+                +                                                        "sequencia = ?"
                 +                                                        " WHERE id = ?");
         p.setInt   (1,  termo.getIdEquacao());
         p.setString(2,  termo.getExpressao());
-        p.setInt   (3,  termo.getOrdem());
+        p.setInt   (3,  termo.getSequencia());
         
         p.setInt(4, termo.getId());
         p.executeUpdate();
@@ -76,7 +76,7 @@ public class TermoDao extends MainDao {
            termo.setId(rs.getInt("id"));
            termo.setIdEquacao(rs.getInt("idequacao"));
            termo.setExpressao(rs.getString("expressao"));
-           termo.setOrdem(rs.getInt("ordem"));
+           termo.setSequencia(rs.getInt("sequencia"));
            termos.add(termo);
         }
         rs.close();
@@ -84,16 +84,17 @@ public class TermoDao extends MainDao {
         return termos.get(0);
    }
    
-   public List<Termo> listarTermos() throws Exception{
-        List<Termo> termos = new ArrayList<Termo>();
-        PreparedStatement p = this.con.prepareStatement("SELECT * FROM termo");
+   public ArrayList<Termo> listarTermos(int idEquacao) throws Exception{
+        ArrayList<Termo> termos = new ArrayList<Termo>();
+        PreparedStatement p = this.con.prepareStatement("SELECT * FROM termo WHERE idequacao = ?");
+        p.setInt(1, idEquacao);
         ResultSet rs = p.executeQuery();
         while(rs.next()){
            Termo termo = new Termo();
            termo.setId(rs.getInt("id"));
            termo.setIdEquacao(rs.getInt("idequacao"));
            termo.setExpressao(rs.getString("expressao"));
-           termo.setOrdem(rs.getInt("ordem"));
+           termo.setSequencia(rs.getInt("sequencia"));
            termos.add(termo);
         }
         rs.close();
