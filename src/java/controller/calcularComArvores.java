@@ -59,7 +59,7 @@ public class calcularComArvores extends HttpServlet {
             String idLocalStr = "1";
             
             LocalDao localDao = new LocalDao();
-            Local local = localDao.getLocal(idLocalStr);
+            Local local = localDao.getLocal(Integer.parseInt(idLocalStr));
   
             double biomassaEstLocal = 0.0;
               

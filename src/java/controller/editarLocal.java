@@ -36,9 +36,9 @@ public class editarLocal extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, Exception {
         try {
-             String idLocal = request.getParameter("id");
+             String idLocalStr = request.getParameter("id");
              LocalDao controller = new LocalDao();
-             Local objeto_local = controller.getLocal(idLocal);
+             Local objeto_local = controller.getLocal(Integer.parseInt(idLocalStr));
              request.setAttribute("local", objeto_local );
              
             FormacaoDao objeto_formacao_dao = new FormacaoDao();
@@ -54,7 +54,7 @@ public class editarLocal extends HttpServlet {
             request.setAttribute("municipios", municipios);
             
             CoordenadaLocalDao objeto_coordenadaLocal_dao = new CoordenadaLocalDao();
-            CoordenadaLocal objeto_coordenadaLocal = objeto_coordenadaLocal_dao.getCoordenadaLocal(idLocal);
+            CoordenadaLocal objeto_coordenadaLocal = objeto_coordenadaLocal_dao.getCoordenadaLocal(idLocalStr);
             request.setAttribute("coordenadaLocal", objeto_coordenadaLocal );            
             
             TrabalhoCientificoDao objeto_trabalhoCientifico_dao = new TrabalhoCientificoDao();

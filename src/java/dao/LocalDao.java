@@ -122,11 +122,11 @@ public class LocalDao extends MainDao {
         p.close();
     }
    
-   public Local getLocal(String id) throws SQLException
+   public Local getLocal(int id) throws SQLException
    {
         List<Local> locais = new ArrayList<Local>();
         PreparedStatement p = this.con.prepareStatement("SELECT * FROM local where id = ?");
-        p.setInt(1, Integer.parseInt(id));
+        p.setInt(1, id);
         ResultSet rs = p.executeQuery();
         while(rs.next()){
            Local local = new Local();

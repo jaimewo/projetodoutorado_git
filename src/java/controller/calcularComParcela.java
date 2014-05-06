@@ -57,7 +57,7 @@ public class calcularComParcela extends HttpServlet {
         try {
             String idLocalStr = request.getParameter("id");
             LocalDao controller = new LocalDao();
-            Local local = controller.getLocal(idLocalStr);
+            Local local = controller.getLocal(Integer.parseInt(idLocalStr));
             request.setAttribute("local", local );
             
             List<Parcela> parcelas = new ArrayList<Parcela>();

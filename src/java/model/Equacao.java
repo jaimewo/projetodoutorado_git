@@ -4,8 +4,10 @@
  */
 package model;
 
+import dao.LocalDao;
 import dao.TermoDao;
 import java.util.ArrayList;
+import org.nfunk.jep.JEP;
 
 /**
  *
@@ -140,9 +142,58 @@ public class Equacao extends Model  {
         return this.erros;
     }
 
-    public void ajustarModelo() {
-        // Buscar ArvoreAjuste
-        jjj PAREI AQUI
+    public void ajustarModelo(int idLocal) throws Exception {
+        //http://www.singularsys.com/jep/doc/html/index.html
+        JEP myParser = new JEP();
+        myParser.addStandardFunctions();
+        myParser.addStandardConstants();
+        
+        double resultado = 0.0;
+                
+        for (VariavelArvore variavelArvore : variaveisArvore) {
+            String sigla = variavelArvore.getVariavel().getSigla();
+            Double valor = variavelArvore.getValor();
+        
+            myParser.addVariable(sigla, valor);
+        }  
+            
+        myParser.parseExpression(equacao.getExpressaoEquacao());
+        
+        resultado = myParser.getValue();
+        return resultado;
+        
+        
+        
+        
+        
+        
+        ArrayList<Termo> termos = getTermos();                
+        
+        Local local = new Local();
+        
+        LocalDao localDao = new LocalDao();
+        local = localDao.getLocal(idLocal);
+        
+        ArrayList<ArvoreAjuste> arvoresAjuste = new ArrayList<ArvoreAjuste>();
+        arvoresAjuste = local.getArvoresAjuste();
+        
+        for (Termo termo: termos) {
+            for(ArvoreAjuste arvoreAjuste: arvoresAjuste) {
+               ArrayList<VariavelArvoreAjuste> variaveisArvoreAjuste = new ArrayList<VariavelArvoreAjuste>();
+               variaveisArvoreAjuste = arvoreAjuste.getVariaveisArvoreAjuste();
+               
+               for (VariavelArvoreAjuste variavelArvoreAjuste: variaveisArvoreAjuste) {
+                   String sigla = variavelArvoreAjuste.getVariavel().getSigla();
+                   Double valor = variavelArvoreAjuste.getValor();
+                   myParser.addVariable(sigla, valor);
+               }
+               myParser.parseExpression(termo.getExpressao());
+               resultado = myParser.getValue();
+               
+               //update TermoArvoreAjuste.valor = resultado
+            }
+        }
+        
         
         
     }

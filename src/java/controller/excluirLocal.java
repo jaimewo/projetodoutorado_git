@@ -23,9 +23,9 @@ public class excluirLocal extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         try {
-             String id = request.getParameter("id");
+             String idLocalStr = request.getParameter("id");
              LocalDao controller = new LocalDao();
-             Local objeto_local = controller.getLocal(id);
+             Local objeto_local = controller.getLocal(Integer.parseInt(idLocalStr));
              controller.deletar(objeto_local);
               RequestDispatcher r = request.getRequestDispatcher("/listarLocais");    
              r.forward( request, response );  
