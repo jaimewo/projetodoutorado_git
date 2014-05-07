@@ -8,6 +8,7 @@ import dao.LocalDao;
 import dao.TermoDao;
 import java.util.ArrayList;
 import org.nfunk.jep.JEP;
+import org.apache.commons.math3.stat.regression.OLSMultipleLinearRegression;
 
 /**
  *
@@ -143,29 +144,13 @@ public class Equacao extends Model  {
     }
 
     public void ajustarModelo(int idLocal) throws Exception {
-        //http://www.singularsys.com/jep/doc/html/index.html
-        JEP myParser = new JEP();
+        
+        JEP myParser = new JEP(); //http://www.singularsys.com/jep/doc/html/index.html
+        
         myParser.addStandardFunctions();
         myParser.addStandardConstants();
         
-        double resultado = 0.0;
-                
-        for (VariavelArvore variavelArvore : variaveisArvore) {
-            String sigla = variavelArvore.getVariavel().getSigla();
-            Double valor = variavelArvore.getValor();
-        
-            myParser.addVariable(sigla, valor);
-        }  
-            
-        myParser.parseExpression(equacao.getExpressaoEquacao());
-        
-        resultado = myParser.getValue();
-        return resultado;
-        
-        
-        
-        
-        
+        double resultadoTermo = 0.0;
         
         ArrayList<Termo> termos = getTermos();                
         
@@ -188,7 +173,7 @@ public class Equacao extends Model  {
                    myParser.addVariable(sigla, valor);
                }
                myParser.parseExpression(termo.getExpressao());
-               resultado = myParser.getValue();
+               resultadoTermo = myParser.getValue();
                
                //update TermoArvoreAjuste.valor = resultado
             }
