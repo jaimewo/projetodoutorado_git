@@ -161,9 +161,21 @@ public class Equacao extends Model  {
         
         ArrayList<ArvoreAjuste> arvoresAjuste = new ArrayList<ArvoreAjuste>();
         arvoresAjuste = local.getArvoresAjuste();
+
+        double[] valorObservado= new double[arvoresAjuste.size()];
+        int iArvoreAjuste = 0;
+        
+        int qtdeTermos = termos.size();
+        
+        double[][] valorEntrada= new double[arvoresAjuste.size()][qtdeTermos];
+        int iTermo = 0;
         
         for (Termo termo: termos) {
             for(ArvoreAjuste arvoreAjuste: arvoresAjuste) {
+                
+               valorObservado[iArvoreAjuste] = arvoreAjuste.getQtdeBiomassaObs();
+               iArvoreAjuste++;
+               
                ArrayList<VariavelArvoreAjuste> variaveisArvoreAjuste = new ArrayList<VariavelArvoreAjuste>();
                variaveisArvoreAjuste = arvoreAjuste.getVariaveisArvoreAjuste();
                
@@ -174,11 +186,14 @@ public class Equacao extends Model  {
                }
                myParser.parseExpression(termo.getExpressao());
                resultadoTermo = myParser.getValue();
-               
+               valorEntrada[iArvoreAjuste][iTermo] = resultadoTermo;
                //update TermoArvoreAjuste.valor = resultado
             }
         }
-        
+        int qtdeArvoresAjuste = iArvoreAjuste--;
+        OLSMultipleLinearRegression regression = new OLSMultipleLinearRegression();        
+        regression.newSampleData(valorObservado, valorEntrada);
+        double[] valorCoeficiente = regression.estimateRegressionParameters();
         
         
     }
