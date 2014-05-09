@@ -95,7 +95,7 @@ public class VariavelArvoreAjusteDao extends MainDao {
                 + "                                             v.sigla as sigla, "
                 + "                                             v.nome as nome "
                 + "                                      FROM arvore a "
-                + "                                      INNER JOIN variavelarvoreajuste vaa ON a.id = vaa.idarvore "
+                + "                                      INNER JOIN variavelarvoreajuste vaa ON a.id = vaa.idarvoreajuste "
                 + "                                      INNER JOIN variavel v ON vaa.idvariavel = v.id "
                 + "                                      WHERE a.id = ?");
 
