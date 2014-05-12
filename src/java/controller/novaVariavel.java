@@ -29,7 +29,12 @@ public class novaVariavel extends HttpServlet {
         try {
             
         } finally { 
-             request.setAttribute("variavel", new Variavel());
+             Variavel variavel = (Variavel) request.getAttribute("variavel");
+             if(variavel == null)
+                request.setAttribute("variavel", new Variavel());
+             else
+                 request.setAttribute("variavel",variavel);
+             
              request.getRequestDispatcher("novaVariavel.jsp").forward(request, response);
              
        

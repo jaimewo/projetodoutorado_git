@@ -43,6 +43,7 @@ public class updateBioma extends HttpServlet {
              {
                  RequestDispatcher r = request.getRequestDispatcher("/editarBioma?id="+id);  
                  request.setAttribute("erros", objeto_bioma.getErrors());
+                 request.setAttribute("bioma", objeto_bioma);
                  r.forward( request, response );  
              }
         } finally {            

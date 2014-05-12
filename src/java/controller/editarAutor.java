@@ -26,9 +26,17 @@ public class editarAutor extends HttpServlet {
             throws ServletException, IOException, SQLException {
         try {
              String idAutor = request.getParameter("id");
+             Autor autor = (Autor) request.getAttribute("autor");
+             if(autor == null){
              AutorDao controller = new AutorDao();
              Autor objeto_autor = controller.getAutor(idAutor);
              request.setAttribute("autor", objeto_autor );
+             }
+             else
+             {
+                 request.setAttribute("autor", autor );
+             }
+             
              request.getRequestDispatcher("editarAutor.jsp").forward(request, response);
         } finally {            
              

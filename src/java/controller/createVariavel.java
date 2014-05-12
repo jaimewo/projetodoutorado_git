@@ -39,6 +39,7 @@ public class createVariavel extends HttpServlet {
                     RequestDispatcher r = request.getRequestDispatcher("/novaVariavel");    
                     request.setAttribute("variavel", variavel);
                     request.setAttribute("erros", variavel.getErrors());
+                    request.setAttribute("varial", variavel);
                     r.forward( request, response );  
                 }
         } finally {            

@@ -47,7 +47,7 @@
                         <option value="">Selecione um bioma</option>
                        <% List<Bioma> biomas = (List<Bioma>) request.getAttribute("biomas");%>
                         <% for (Bioma b : biomas) {%>
-                        <option value="<%=b.getIdString()%>"><%=b.getDescricao()%></option>
+                        <option value="<%=b.getIdString()%>" <%= b.getId() == objeto_formacao.getIdBioma() ? "selected" : "" %>><%=b.getDescricao()%></option>
                         <%}%>
                     </select>
                 </div>

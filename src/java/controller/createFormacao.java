@@ -46,6 +46,8 @@ public class createFormacao extends HttpServlet {
                     request.setAttribute("formacao", formacao);
                     request.setAttribute("erros", formacao.getErrors());
                     r.forward( request, response );  
+                    
+                    
                 }
         } finally {            
             

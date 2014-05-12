@@ -32,7 +32,12 @@ public class novaFormacao extends HttpServlet {
             request.setAttribute("biomas", biomas);
             
         } finally { 
-             request.setAttribute("formacao", new Formacao());
+            
+            Formacao f = (Formacao) request.getAttribute("formacao");
+            if(f == null)
+                request.setAttribute("formacao", new Formacao());
+            else
+                request.setAttribute("formacao", f);
              request.getRequestDispatcher("novaFormacao.jsp").forward(request, response);
              
        

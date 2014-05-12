@@ -29,6 +29,7 @@ public class updateAutor extends HttpServlet {
             
              String nome = request.getParameter("autor[nome]");
              String id = request.getParameter("autor[id]");
+             
              Autor objeto_autor = new Autor();
              objeto_autor.setNome(nome);
              objeto_autor.setId(Integer.parseInt(id));
@@ -43,6 +44,7 @@ public class updateAutor extends HttpServlet {
              {
                  RequestDispatcher r = request.getRequestDispatcher("/editarAutor?id="+id);  
                  request.setAttribute("erros", objeto_autor.getErrors());
+                 request.setAttribute("autor", objeto_autor);
                  r.forward( request, response );  
              }
         } finally {            
