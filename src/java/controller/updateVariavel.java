@@ -45,6 +45,7 @@ public class updateVariavel extends HttpServlet {
              {
                  RequestDispatcher r = request.getRequestDispatcher("/editarVariavel?id="+id);  
                  request.setAttribute("erros", objeto_variavel.getErrors());
+                 request.setAttribute("objeto_variavel", objeto_variavel);
                  r.forward( request, response );  
              }
         } finally {            

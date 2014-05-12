@@ -29,10 +29,13 @@ public class novoMetodoQuantificacaoBiomassa extends HttpServlet {
         try {
             
         } finally { 
-             request.setAttribute("metodoQuantificacaoBiomassa", new MetodoQuantificacaoBiomassa());
-             request.getRequestDispatcher("novoMetodoQuantificacaoBiomassa.jsp").forward(request, response);
-             
-       
+            MetodoQuantificacaoBiomassa metodoQuantificacaoBiomassa = (MetodoQuantificacaoBiomassa) request.getAttribute("metodoQuantificacaoBiomassa");
+            if(metodoQuantificacaoBiomassa == null) {
+               request.setAttribute("metodoQuantificacaoBiomassa", new MetodoQuantificacaoBiomassa());
+            } else {
+                request.setAttribute("metodoQuantificacaoBiomassa", metodoQuantificacaoBiomassa);
+            }
+            request.getRequestDispatcher("novoMetodoQuantificacaoBiomassa.jsp").forward(request, response);
         }
     }
 

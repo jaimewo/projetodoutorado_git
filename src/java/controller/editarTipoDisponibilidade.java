@@ -25,11 +25,16 @@ public class editarTipoDisponibilidade extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         try {
-             String idTipoDisponibilidade = request.getParameter("id");
-             TipoDisponibilidadeDao controller = new TipoDisponibilidadeDao();
-             TipoDisponibilidade objeto_tipoDisponibilidade = controller.getTipoDisponibilidade(idTipoDisponibilidade);
-             request.setAttribute("tipoDisponibilidade", objeto_tipoDisponibilidade );
-             request.getRequestDispatcher("editarTipoDisponibilidade.jsp").forward(request, response);
+            String idTipoDisponibilidade = request.getParameter("id");
+            TipoDisponibilidade tipoDisponibilidade = (TipoDisponibilidade) request.getAttribute("tipoDisponibilidade");
+            if(tipoDisponibilidade == null){               
+               TipoDisponibilidadeDao controller = new TipoDisponibilidadeDao();
+               TipoDisponibilidade objeto_tipoDisponibilidade = controller.getTipoDisponibilidade(idTipoDisponibilidade);
+               request.setAttribute("tipoDisponibilidade", objeto_tipoDisponibilidade );
+            }else {
+               request.setAttribute("tipoDisponibilidade", tipoDisponibilidade );
+            }             
+            request.getRequestDispatcher("editarTipoDisponibilidade.jsp").forward(request, response);
         } finally {            
              
         }

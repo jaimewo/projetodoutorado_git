@@ -28,11 +28,10 @@ public class editarBioma extends HttpServlet {
              String idBioma = request.getParameter("id");
              Bioma bioma = (Bioma) request.getAttribute("bioma");
              if(bioma == null){
-             BiomaDao controller = new BiomaDao();
-             Bioma objeto_bioma = controller.getBioma(idBioma);
-             request.setAttribute("bioma", objeto_bioma );
-             }else
-             {
+                BiomaDao controller = new BiomaDao();
+                Bioma objeto_bioma = controller.getBioma(idBioma);
+                request.setAttribute("bioma", objeto_bioma );
+             }else {
                  request.setAttribute("bioma", bioma );
              }
              request.getRequestDispatcher("editarBioma.jsp").forward(request, response);

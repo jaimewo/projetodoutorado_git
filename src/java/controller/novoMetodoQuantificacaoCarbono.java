@@ -29,10 +29,13 @@ public class novoMetodoQuantificacaoCarbono extends HttpServlet {
         try {
             
         } finally { 
-             request.setAttribute("metodoQuantificacaoCarbono", new MetodoQuantificacaoCarbono());
-             request.getRequestDispatcher("novoMetodoQuantificacaoCarbono.jsp").forward(request, response);
-             
-       
+            MetodoQuantificacaoCarbono metodoQuantificacaoCarbono = (MetodoQuantificacaoCarbono) request.getAttribute("metodoQuantificacaoCarbono");
+            if(metodoQuantificacaoCarbono == null) {
+               request.setAttribute("metodoQuantificacaoCarbono", new MetodoQuantificacaoCarbono());
+            } else {
+                request.setAttribute("metodoQuantificacaoCarbono", metodoQuantificacaoCarbono);
+            }
+            request.getRequestDispatcher("novoMetodoQuantificacaoCarbono.jsp").forward(request, response);
         }
     }
 

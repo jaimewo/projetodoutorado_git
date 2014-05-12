@@ -134,6 +134,7 @@ public class updateLocal extends HttpServlet {
                 }else {
                    RequestDispatcher r = request.getRequestDispatcher("/editarLocal?id="+id); 
                    request.setAttribute("erros", local.getErrors());
+                   request.setAttribute("local", local);
                    r.forward( request, response );  
                 }
         } finally {            

@@ -43,6 +43,7 @@ public class updateTipoDisponibilidade extends HttpServlet {
              {
                  RequestDispatcher r = request.getRequestDispatcher("/editarTipoDisponibilidade?id="+id);
                  request.setAttribute("erros", objeto_tipoDisponibilidade.getErrors());
+                 request.setAttribute("tipoDisponibilidade", objeto_tipoDisponibilidade);
                  r.forward( request, response );  
              }
         } finally {            

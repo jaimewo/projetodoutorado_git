@@ -43,6 +43,7 @@ public class updateAutorModelo extends HttpServlet {
              {
                  RequestDispatcher r = request.getRequestDispatcher("/editarAutorModelo?id="+id); 
                  request.setAttribute("erros", objeto_autorModelo.getErrors());
+                 request.setAttribute("autorModelo", objeto_autorModelo);
                  r.forward( request, response );  
              }
         } finally {            

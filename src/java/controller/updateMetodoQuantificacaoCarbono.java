@@ -43,6 +43,7 @@ public class updateMetodoQuantificacaoCarbono extends HttpServlet {
              {
                  RequestDispatcher r = request.getRequestDispatcher("/editarMetodoQuantificacaoCarbono?id="+id); 
                  request.setAttribute("erros", objeto_metodoQuantificacaoCarbono.getErrors());
+                 request.setAttribute("metodoQuantificacaoCarbono", objeto_metodoQuantificacaoCarbono);
                  r.forward( request, response );  
              }
         } finally {            

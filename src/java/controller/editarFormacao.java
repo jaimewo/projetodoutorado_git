@@ -28,16 +28,20 @@ public class editarFormacao extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, Exception {
         try {
-             String idFormacao = request.getParameter("id");
-             FormacaoDao controller = new FormacaoDao();
-             Formacao objeto_formacao = controller.getFormacao(idFormacao);
-             request.setAttribute("formacao", objeto_formacao );
-             
+            String idFormacao = request.getParameter("id");
+            Formacao formacao = (Formacao) request.getAttribute("formacao");
+            if(formacao == null){             
+               FormacaoDao controller = new FormacaoDao();
+               Formacao objeto_formacao = controller.getFormacao(idFormacao);
+               request.setAttribute("formacao", objeto_formacao );
+            }else {
+               request.setAttribute("formacao", formacao );
+            }             
             BiomaDao objeto_bioma_dao = new BiomaDao();
             List<Bioma> biomas = objeto_bioma_dao.listarBiomas();
             request.setAttribute("biomas", biomas);
 
-             request.getRequestDispatcher("editarFormacao.jsp").forward(request, response);
+            request.getRequestDispatcher("editarFormacao.jsp").forward(request, response);
         } finally {            
              
         }

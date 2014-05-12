@@ -25,11 +25,16 @@ public class editarMetodoQuantificacaoCarbono extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         try {
-             String idMetodoQuantificacaoCarbono = request.getParameter("id");
-             MetodoQuantificacaoCarbonoDao controller = new MetodoQuantificacaoCarbonoDao();
-             MetodoQuantificacaoCarbono objeto_metodoQuantificacaoCarbono = controller.getMetodoQuantificacaoCarbono(idMetodoQuantificacaoCarbono);
-             request.setAttribute("metodoQuantificacaoCarbono", objeto_metodoQuantificacaoCarbono );
-             request.getRequestDispatcher("editarMetodoQuantificacaoCarbono.jsp").forward(request, response);
+            String idMetodoQuantificacaoCarbono = request.getParameter("id");
+            MetodoQuantificacaoCarbono metodoQuantificacaoCarbono = (MetodoQuantificacaoCarbono) request.getAttribute("metodoQuantificacaoCarbonoa");
+            if(metodoQuantificacaoCarbono == null){             
+               MetodoQuantificacaoCarbonoDao controller = new MetodoQuantificacaoCarbonoDao();
+               MetodoQuantificacaoCarbono objeto_metodoQuantificacaoCarbono = controller.getMetodoQuantificacaoCarbono(idMetodoQuantificacaoCarbono);
+               request.setAttribute("metodoQuantificacaoCarbono", objeto_metodoQuantificacaoCarbono );
+            }else {
+               request.setAttribute("metodoQuantificacaoCarbono", metodoQuantificacaoCarbono );
+            }             
+            request.getRequestDispatcher("editarMetodoQuantificacaoCarbono.jsp").forward(request, response);
         } finally {            
              
         }

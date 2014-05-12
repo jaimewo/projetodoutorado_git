@@ -25,9 +25,13 @@ public class novoTipoDisponibilidade extends HttpServlet {
             
             
         } finally { 
-             request.setAttribute("tipoDisponibilidade", new TipoDisponibilidade());
-             request.getRequestDispatcher("novoTipoDisponibilidade.jsp").forward(request, response);
-       
+            TipoDisponibilidade tipoDisponibilidade = (TipoDisponibilidade) request.getAttribute("tipoDisponibilidade");
+            if(tipoDisponibilidade == null) {
+               request.setAttribute("tipoDisponibilidade", new TipoDisponibilidade());
+            } else {
+                request.setAttribute("tipoDisponibilidade", tipoDisponibilidade);
+            }
+            request.getRequestDispatcher("novoTipoDisponibilidade.jsp").forward(request, response);
         }
     }
 

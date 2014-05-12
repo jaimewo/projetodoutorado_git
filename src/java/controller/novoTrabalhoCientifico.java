@@ -50,10 +50,13 @@ public class novoTrabalhoCientifico extends HttpServlet {
             request.setAttribute("autores", autores);
             
         } finally { 
-             request.setAttribute("trabalhoCientifico", new TrabalhoCientifico());
-             request.getRequestDispatcher("novoTrabalhoCientifico.jsp").forward(request, response);
-             
-       
+            TrabalhoCientifico trabalhoCientifico = (TrabalhoCientifico) request.getAttribute("trabalhoCientifico");
+            if(trabalhoCientifico == null) {
+               request.setAttribute("trabalhoCientifico", new TrabalhoCientifico());
+            } else {
+                request.setAttribute("trabalhoCientifico", trabalhoCientifico);
+            }
+            request.getRequestDispatcher("novoTrabalhoCientifico.jsp").forward(request, response);
         }
     }
 

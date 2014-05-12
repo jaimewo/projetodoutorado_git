@@ -29,10 +29,13 @@ public class novoModelo extends HttpServlet {
 
             
         } finally { 
-             request.setAttribute("equacao", new Equacao());
-             request.getRequestDispatcher("novoModelo.jsp").forward(request, response);
-             
-       
+            Equacao equacao = (Equacao) request.getAttribute("equacao");
+            if(equacao == null) {
+               request.setAttribute("equacao", new Equacao());
+            } else {
+                request.setAttribute("equacao", equacao);
+            }
+            request.getRequestDispatcher("novoModelo.jsp").forward(request, response);
         }
     }
 

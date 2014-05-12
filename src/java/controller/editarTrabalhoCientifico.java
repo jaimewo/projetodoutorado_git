@@ -35,10 +35,14 @@ public class editarTrabalhoCientifico extends HttpServlet {
             throws ServletException, IOException, SQLException, Exception {
         try {
             String idTrabalhoCientifico = request.getParameter("id");
-            TrabalhoCientificoDao controller = new TrabalhoCientificoDao();
-            TrabalhoCientifico objeto_trabalhoCientifico = controller.getTrabalhoCientifico(idTrabalhoCientifico);
-            request.setAttribute("trabalhoCientifico", objeto_trabalhoCientifico );
-             
+            TrabalhoCientifico trabalhoCientifico = (TrabalhoCientifico) request.getAttribute("trabalhoCientifico");
+            if(trabalhoCientifico == null){             
+              TrabalhoCientificoDao controller = new TrabalhoCientificoDao();
+              TrabalhoCientifico objeto_trabalhoCientifico = controller.getTrabalhoCientifico(idTrabalhoCientifico);
+              request.setAttribute("trabalhoCientifico", objeto_trabalhoCientifico );
+            }else {
+               request.setAttribute("trabalhoCientifico", trabalhoCientifico );
+            }              
             TipoDisponibilidadeDao objeto_tipoDisponibilidade_dao = new TipoDisponibilidadeDao();
             List<TipoDisponibilidade> tiposDisponibilidade = objeto_tipoDisponibilidade_dao.listarTiposDisponibilidade();
             request.setAttribute("tiposDisponibilidade", tiposDisponibilidade);

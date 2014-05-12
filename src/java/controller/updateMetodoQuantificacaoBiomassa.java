@@ -43,6 +43,7 @@ public class updateMetodoQuantificacaoBiomassa extends HttpServlet {
              {
                  RequestDispatcher r = request.getRequestDispatcher("/editarMetodoQuantificacaoBiomassa?id="+id);  
                  request.setAttribute("erros", objeto_metodoQuantificacaoBiomassa.getErrors());
+                 request.setAttribute("metodoQuantificacaoBiomassa", objeto_metodoQuantificacaoBiomassa);
                  r.forward( request, response );  
              }
         } finally {            

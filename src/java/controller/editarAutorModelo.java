@@ -26,9 +26,14 @@ public class editarAutorModelo extends HttpServlet {
             throws ServletException, IOException, SQLException {
         try {
              String idAutorModelo = request.getParameter("id");
-             AutorModeloDao controller = new AutorModeloDao();
-             AutorModelo objeto_autorModelo = controller.getAutorModelo(idAutorModelo);
-             request.setAttribute("autorModelo", objeto_autorModelo );
+             AutorModelo autorModelo = (AutorModelo) request.getAttribute("autorModelo");
+             if(autorModelo == null){
+                AutorModeloDao controller = new AutorModeloDao();
+                AutorModelo objeto_autorModelo = controller.getAutorModelo(idAutorModelo);
+                request.setAttribute("autorModelo", objeto_autorModelo );
+             } else {
+                 request.setAttribute("autorModelo", autorModelo );
+             }                
              request.getRequestDispatcher("editarAutorModelo.jsp").forward(request, response);
         } finally {            
              
