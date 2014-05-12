@@ -143,7 +143,7 @@ public class Equacao extends Model  {
         return this.erros;
     }
 
-    public void ajustarModelo(int idLocal) throws Exception {
+    public void ajustarModelo(Local local) throws Exception {
         
         JEP myParser = new JEP(); //http://www.singularsys.com/jep/doc/html/index.html
         
@@ -151,30 +151,20 @@ public class Equacao extends Model  {
         myParser.addStandardConstants();
         
         double resultadoTermo = 0.0;
-        
-        ArrayList<Termo> termos = getTermos();                
-        
-        Local local = new Local();
-        
-        LocalDao localDao = new LocalDao();
-        local = localDao.getLocal(idLocal);
+                
+        ArrayList<Termo> termos = getTermos();              
         
         ArrayList<ArvoreAjuste> arvoresAjuste = new ArrayList<ArvoreAjuste>();
         arvoresAjuste = local.getArvoresAjuste();
 
-        double[] valorObservado= new double[arvoresAjuste.size()];
+        double[] valorObservado = new double[arvoresAjuste.size()];
         int iArvoreAjuste = 0;
         
-        int qtdeTermos = termos.size();
-        
-        double[][] valorEntrada= new double[arvoresAjuste.size()][qtdeTermos];
+        double[][] valorEntrada= new double[arvoresAjuste.size()][termos.size()];
         int iTermo = 0;
-        
-        for (Termo termo: termos) {
-            for(ArvoreAjuste arvoreAjuste: arvoresAjuste) {
-                
-               valorObservado[iArvoreAjuste] = arvoreAjuste.getQtdeBiomassaObs();
-               iArvoreAjuste++;
+        for(ArvoreAjuste arvoreAjuste: arvoresAjuste) {
+
+            for (Termo termo: termos) {
                
                ArrayList<VariavelArvoreAjuste> variaveisArvoreAjuste = new ArrayList<VariavelArvoreAjuste>();
                variaveisArvoreAjuste = arvoreAjuste.getVariaveisArvoreAjuste();
@@ -187,10 +177,15 @@ public class Equacao extends Model  {
                myParser.parseExpression(termo.getExpressao());
                resultadoTermo = myParser.getValue();
                valorEntrada[iArvoreAjuste][iTermo] = resultadoTermo;
+               
+               iTermo++;
                //update TermoArvoreAjuste.valor = resultado
             }
+            valorObservado[iArvoreAjuste] = arvoreAjuste.getQtdeBiomassaObs();
+            iArvoreAjuste++;
+            iTermo = 0;
         }
-        int qtdeArvoresAjuste = iArvoreAjuste--;
+        //int qtdeArvoresAjuste = iArvoreAjuste;
         OLSMultipleLinearRegression regression = new OLSMultipleLinearRegression();        
         regression.newSampleData(valorObservado, valorEntrada);
         double[] valorCoeficiente = regression.estimateRegressionParameters();

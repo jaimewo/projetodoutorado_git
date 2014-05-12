@@ -119,8 +119,8 @@ public class ArvoreAjusteDao extends MainDao {
         while(rs.next()){
            ArvoreAjuste arvoreAjuste = new ArvoreAjuste();
            arvoreAjuste.setId(rs.getInt("id"));
-           arvoreAjuste.setId(rs.getInt("idlocal"));
-           arvoreAjuste.setId(rs.getInt("numarvore"));
+           arvoreAjuste.setIdLocal(rs.getInt("idlocal"));
+           arvoreAjuste.setNumArvore(rs.getInt("numarvore"));
            arvoreAjuste.setQtdeBiomassaObs(rs.getDouble("qtdebiomassaobs"));
            arvoreAjuste.setQtdeBiomassaEst(rs.getDouble("qtdebiomassaest"));
            arvoreAjuste.setQtdeCarbonoObs(rs.getDouble("qtdecarbonoobs"));
