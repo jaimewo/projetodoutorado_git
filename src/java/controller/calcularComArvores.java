@@ -84,10 +84,10 @@ public class calcularComArvores extends HttpServlet {
                     for (Equacao e : equacoesTrabalho) {
                         switch (e.getIdVariavelInteresse()) {
                           case 1: 
-                               biomassaEst = calculaBiomaComArvores(variaveisArvore,e);
+                               biomassaEst = calculaBiomassaComArvores(variaveisArvore,e);
                                arvore.setQtdeBiomassaEst(biomassaEst);
                                arvoreDao.updateBiomassa(arvore);
-                               biomassaEstParcela =+ biomassaEst;
+                               biomassaEstParcela += biomassaEst;
                           case 2: 
                                calculaCarbonoComArvores(variaveisArvore,e);
                           case 3: 
@@ -98,7 +98,7 @@ public class calcularComArvores extends HttpServlet {
                 parcela.setQtdeBiomassa(biomassaEstParcela);
                 parcelaDao.updateBiomassa(parcela);
             }
-//            Chamar calcularComParcelas para estimar biomassa do Local
+//PEND            Chamar calcularComParcelas para estimar biomassa do Local
             local.setQtdeBiomassa(biomassaEstLocal);
             localDao.updateBiomassa(local);
             
@@ -148,7 +148,7 @@ public class calcularComArvores extends HttpServlet {
         return "CalcularComArvores";
     }
 
-    private double calculaBiomaComArvores(ArrayList<VariavelArvore> variaveisArvore,Equacao equacao) {
+    private double calculaBiomassaComArvores(ArrayList<VariavelArvore> variaveisArvore,Equacao equacao) {
         //http://www.singularsys.com/jep/doc/html/index.html
         JEP myParser = new JEP();
         myParser.addStandardFunctions();
