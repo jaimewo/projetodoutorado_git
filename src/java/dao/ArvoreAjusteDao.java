@@ -50,7 +50,7 @@ public class ArvoreAjusteDao extends MainDao {
                     +                                                          "qtdevolumeest"
                     +                                                          ") VALUES (?,?,?,?,?,?,?,?)");
             p.setInt(1, arvoreAjuste.getIdLocal());
-            p.setInt(2, arvoreAjuste.getNumArvore());
+            p.setInt(2, arvoreAjuste.getNumArvoreAjuste());
             p.setDouble(3, arvoreAjuste.getQtdeBiomassaObs());
             p.setDouble(4, arvoreAjuste.getQtdeBiomassaEst());
             p.setDouble(5, arvoreAjuste.getQtdeCarbonoObs());
@@ -70,11 +70,31 @@ public class ArvoreAjusteDao extends MainDao {
             p.close();
         
     }
+    public void deletarLocal(Local local) throws SQLException
+    {
+        PreparedStatement p = this.con.prepareStatement("SELECT * FROM arvoreajuste where idlocal = ?");
+        
+        p.setInt(1, local.getId());
+        
+        ResultSet rs = p.executeQuery();
+        while(rs.next()){
+           int idArvoreAjuste = rs.getInt("id");
+           
+           VariavelArvoreAjusteDao variavelArvoreAjusteDao = new VariavelArvoreAjusteDao();
+           variavelArvoreAjusteDao.deletarArvoreAjuste(idArvoreAjuste);
+        }
+        rs.close();
+        
+        p = this.con.prepareStatement("DELETE from arvoreAjuste where idlocal = ?");
+        p.setInt(1, local.getId());
+        p.executeUpdate();
+        p.close();
+    }
     
    public void update(ArvoreAjuste arvoreAjuste) throws Exception 
    {
         PreparedStatement p = this.con.prepareStatement("UPDATE arvoreAjuste SET idlocal = ?,"
-                +                                                         " numarvore = ?,"
+                +                                                         " numarvoreajuste = ?,"
                 +                                                         " qtdebiomassaobs = ?,"
                 +                                                         " qtdebiomassaest = ?,"
                 +                                                         " qtdecarbonoobs = ?,"
@@ -83,7 +103,7 @@ public class ArvoreAjusteDao extends MainDao {
                 +                                                         " qtdevolumeest = ?"
                 +                                                         " where id = ?");
         p.setInt(1, arvoreAjuste.getIdLocal());
-        p.setInt(2, arvoreAjuste.getNumArvore());
+        p.setInt(2, arvoreAjuste.getNumArvoreAjuste());
         p.setDouble(3, arvoreAjuste.getQtdeBiomassaObs());
         p.setDouble(4, arvoreAjuste.getQtdeBiomassaEst());
         p.setDouble(5, arvoreAjuste.getQtdeCarbonoObs());
@@ -106,7 +126,7 @@ public class ArvoreAjusteDao extends MainDao {
            ArvoreAjuste arvoreAjuste = new ArvoreAjuste();
            arvoreAjuste.setId(rs.getInt("id"));
            arvoreAjuste.setIdLocal(rs.getInt("idlocal"));
-           arvoreAjuste.setNumArvore(rs.getInt("numarvore"));
+           arvoreAjuste.setNumArvoreAjuste(rs.getInt("numarvoreajuste"));
            arvoreAjuste.setQtdeBiomassaObs(rs.getDouble("qtdebiomassaobs"));
            arvoreAjuste.setQtdeBiomassaEst(rs.getDouble("qtdebiomassaest"));
            arvoreAjuste.setQtdeCarbonoObs(rs.getDouble("qtdecarbonoobs"));
@@ -122,7 +142,7 @@ public class ArvoreAjusteDao extends MainDao {
    public ArvoreAjuste getArvoreAjuste(Local local, int numArvore) throws SQLException
    {
         List<ArvoreAjuste> arvoreAjustes = new ArrayList<ArvoreAjuste>();
-        PreparedStatement p = this.con.prepareStatement("SELECT * FROM arvoreajuste where idlocal = ? AND numarvore = ?");
+        PreparedStatement p = this.con.prepareStatement("SELECT * FROM arvoreajuste where idlocal = ? AND numarvoreajuste = ?");
         
         p.setInt(1, local.getId());
         p.setInt(2, numArvore);
@@ -132,7 +152,7 @@ public class ArvoreAjusteDao extends MainDao {
            ArvoreAjuste arvoreAjuste = new ArvoreAjuste();
            arvoreAjuste.setId(rs.getInt("id"));
            arvoreAjuste.setIdLocal(rs.getInt("idlocal"));
-           arvoreAjuste.setNumArvore(rs.getInt("numarvore"));
+           arvoreAjuste.setNumArvoreAjuste(rs.getInt("numarvoreajuste"));
            arvoreAjuste.setQtdeBiomassaObs(rs.getDouble("qtdebiomassaobs"));
            arvoreAjuste.setQtdeBiomassaEst(rs.getDouble("qtdebiomassaest"));
            arvoreAjuste.setQtdeCarbonoObs(rs.getDouble("qtdecarbonoobs"));
@@ -155,7 +175,7 @@ public class ArvoreAjusteDao extends MainDao {
            ArvoreAjuste arvoreAjuste = new ArvoreAjuste();
            arvoreAjuste.setId(rs.getInt("id"));
            arvoreAjuste.setIdLocal(rs.getInt("idlocal"));
-           arvoreAjuste.setNumArvore(rs.getInt("numarvore"));
+           arvoreAjuste.setNumArvoreAjuste(rs.getInt("numarvoreajuste"));
            arvoreAjuste.setQtdeBiomassaObs(rs.getDouble("qtdebiomassaobs"));
            arvoreAjuste.setQtdeBiomassaEst(rs.getDouble("qtdebiomassaest"));
            arvoreAjuste.setQtdeCarbonoObs(rs.getDouble("qtdecarbonoobs"));
@@ -170,11 +190,12 @@ public class ArvoreAjusteDao extends MainDao {
     }
     public void importar(Local local) throws SQLException
     {
+        deletarLocal(local);
         
         try {
 
             //Criação de um buffer para a ler de uma stream
-            BufferedReader StrR = new BufferedReader(new FileReader("c:\\tabela.csv"));
+            BufferedReader StrR = new BufferedReader(new FileReader("c:\\teste\\arvoreajuste.csv"));
 
             String Str;
             String[] linha;
@@ -186,7 +207,6 @@ public class ArvoreAjusteDao extends MainDao {
             String qtdeVolumeObsStr = "";
             
             ArrayList<Variavel> variaveisLidas = new ArrayList<Variavel>();
-            ArrayList<String> valorVariaveis = new ArrayList<String>();
             VariavelDao variavelDao = new VariavelDao();
 
             while((Str = StrR.readLine())!= null){
@@ -194,7 +214,9 @@ public class ArvoreAjusteDao extends MainDao {
                 //passando como parametro o divisor ";".
                 linha = Str.split(";");
                 numLinha++;
-                
+                numCelula = 0;
+
+                ArrayList<String> valorVariaveis = new ArrayList<String>();                
                 //O foreach é usadao para imprimir cada célula do array de String.
                 for (String celula : linha) {
                     numCelula++;
@@ -234,25 +256,27 @@ public class ArvoreAjusteDao extends MainDao {
                     }
 
                 }
-                // Insere VariavelArvoreAjuste
-                ArvoreAjuste arvoreAjuste = new ArvoreAjuste();
-                arvoreAjuste.setIdLocal(local.getId());
-                arvoreAjuste.setNumArvore(Integer.parseInt(numArvoreStr));
-                arvoreAjuste.setQtdeBiomassaObs(Double.parseDouble(qtdeBiomassaObsStr));
-                arvoreAjuste.setQtdeCarbonoObs(Double.parseDouble(qtdeCarbonoObsStr));
-                arvoreAjuste.setQtdeVolumeObs(Double.parseDouble(qtdeVolumeObsStr));
-                cadastrar(arvoreAjuste);
-                arvoreAjuste = getArvoreAjuste(local,Integer.parseInt(numArvoreStr));
-                int i=0;
-                for (Variavel variavelLida: variaveisLidas) {
-                    VariavelArvoreAjuste variavelArvoreAjuste = new VariavelArvoreAjuste();
-                    variavelArvoreAjuste.setIdArvoreAjuste(arvoreAjuste.getId());
-                    variavelArvoreAjuste.setIdVariavel(variavelLida.getId());
-                    variavelArvoreAjuste.setValor(Double.parseDouble(valorVariaveis.get(i)));
-                    variavelArvoreAjuste.setVariavel(variavelLida);
-                    VariavelArvoreAjusteDao variavelArvoreAjusteDao = new VariavelArvoreAjusteDao();
-                    variavelArvoreAjusteDao.cadastrar(variavelArvoreAjuste);
-                    i++;
+                if (numLinha>1) {
+                    // Insere VariavelArvoreAjuste
+                    ArvoreAjuste arvoreAjuste = new ArvoreAjuste();
+                    arvoreAjuste.setIdLocal(local.getId());
+                    arvoreAjuste.setNumArvoreAjuste(Integer.parseInt(numArvoreStr));
+                    arvoreAjuste.setQtdeBiomassaObs(Double.parseDouble(qtdeBiomassaObsStr));
+                    arvoreAjuste.setQtdeCarbonoObs(Double.parseDouble(qtdeCarbonoObsStr));
+                    arvoreAjuste.setQtdeVolumeObs(Double.parseDouble(qtdeVolumeObsStr));
+                    cadastrar(arvoreAjuste);
+                    arvoreAjuste = getArvoreAjuste(local,Integer.parseInt(numArvoreStr));
+                    int i=0;
+                    for (Variavel variavelLida: variaveisLidas) {
+                        VariavelArvoreAjuste variavelArvoreAjuste = new VariavelArvoreAjuste();
+                        variavelArvoreAjuste.setIdArvoreAjuste(arvoreAjuste.getId());
+                        variavelArvoreAjuste.setIdVariavel(variavelLida.getId());
+                        variavelArvoreAjuste.setValor(Double.parseDouble(valorVariaveis.get(i)));
+                        variavelArvoreAjuste.setVariavel(variavelLida);
+                        VariavelArvoreAjusteDao variavelArvoreAjusteDao = new VariavelArvoreAjusteDao();
+                        variavelArvoreAjusteDao.cadastrar(variavelArvoreAjuste);
+                        i++;
+                    }
                 }
             }
             
@@ -264,5 +288,5 @@ public class ArvoreAjusteDao extends MainDao {
         } catch (IOException ex){
             ex.printStackTrace();
         }
-    }
+   }
 }

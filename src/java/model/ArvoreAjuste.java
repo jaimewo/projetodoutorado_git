@@ -16,7 +16,7 @@ public class ArvoreAjuste extends Model  {
     
     public int id;
     public int idLocal;
-    public int numArvore;
+    public int numArvoreAjuste;
     public double qtdeBiomassaObs;
     public double qtdeBiomassaEst;
     public double qtdeCarbonoObs;
@@ -29,7 +29,7 @@ public class ArvoreAjuste extends Model  {
     public ArvoreAjuste()
     {
         this.idLocal = 0;
-        this.numArvore = 0;
+        this.numArvoreAjuste = 0;
         this.qtdeBiomassaObs = 0.0;
         this.qtdeBiomassaEst = 0.0;
         this.qtdeCarbonoObs = 0.0;
@@ -59,12 +59,12 @@ public class ArvoreAjuste extends Model  {
         this.idLocal = idLocal;
     }
 
-    public int getNumArvore() {
-        return numArvore;
+    public int getNumArvoreAjuste() {
+        return numArvoreAjuste;
     }
 
-    public void setNumArvore(int numArvore) {
-        this.numArvore = numArvore;
+    public void setNumArvoreAjuste(int numArvoreAjuste) {
+        this.numArvoreAjuste = numArvoreAjuste;
     }
 
     public double getQtdeBiomassaObs() {
