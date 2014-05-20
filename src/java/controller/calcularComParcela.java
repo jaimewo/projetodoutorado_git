@@ -6,7 +6,7 @@ package controller;
 
 
 import dao.LocalDao;
-import dao.LocalDetalheBiomassaDao;
+import dao.EstatisticaDao;
 import dao.LocalDetalheCarbonoDao;
 import dao.LocalDetalheVolumeDao;
 import dao.ParcelaDao;
@@ -127,7 +127,7 @@ public class calcularComParcela extends HttpServlet {
         LocalDao localDao = new LocalDao();
         localDao.update(local);
     
-        LocalDetalheBiomassaDao localDetalheBiomassaDao = new LocalDetalheBiomassaDao();
+        EstatisticaDao localDetalheBiomassaDao = new EstatisticaDao();
         localDetalheBiomassa = localDetalheBiomassaDao.getLocalDetalheBiomassa(local.getId());
 
         localDetalheBiomassa.setCoeficienteVariacao(coeficienteVariacao);

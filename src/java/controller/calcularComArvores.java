@@ -9,7 +9,7 @@ package controller;
 
 import dao.ArvoreDao;
 import dao.LocalDao;
-import dao.LocalDetalheBiomassaDao;
+import dao.EstatisticaDao;
 import dao.LocalDetalheCarbonoDao;
 import dao.LocalDetalheVolumeDao;
 import dao.ParcelaDao;

@@ -15,6 +15,7 @@ public class Estatistica extends Model  {
     
     public int id;
     public int idLocal;
+    public int idVariavelInteresse;
     public double qtdeMinima;
     public double qtdeMedia;
     public double qtdeMaxima;
@@ -28,14 +29,15 @@ public class Estatistica extends Model  {
     public double erroRelativo;
     public double intervaloConfiancaMinParcela;
     public double intervaloConfiancaMaxParcela;
-    public double idVariavelInteresse;
+
     
     public Estatistica()
     {
         this.idLocal = 0;
-        this.qtdeBiomassaMin = 0.0;
-        this.qtdeBiomassaMed = 0.0;
-        this.qtdeBiomassaMax = 0.0;
+        this.idVariavelInteresse = 0;
+        this.qtdeMinima = 0.0;
+        this.qtdeMedia = 0.0;
+        this.qtdeMaxima = 0.0;
         this.mediaParcela = 0.0;
         this.variancia = 0.0;
         this.varianciaMedia = 0.0;
@@ -69,28 +71,28 @@ public class Estatistica extends Model  {
         this.idLocal = idLocal;
     }
 
-    public double getQtdeBiomassaMin() {
-        return qtdeBiomassaMin;
+    public double getQtdeMinima() {
+        return qtdeMinima;
     }
 
-    public void setQtdeBiomassaMin(double qtdeBiomassaMin) {
-        this.qtdeBiomassaMin = qtdeBiomassaMin;
+    public void setQtdeMinima(double qtdeMinima) {
+        this.qtdeMinima = qtdeMinima;
     }
 
-    public double getQtdeBiomassaMed() {
-        return qtdeBiomassaMed;
+    public double getQtdeMedia() {
+        return qtdeMedia;
     }
 
-    public void setQtdeBiomassaMed(double qtdeBiomassaMed) {
-        this.qtdeBiomassaMed = qtdeBiomassaMed;
+    public void setQtdeMedia(double qtdeMedia) {
+        this.qtdeMedia = qtdeMedia;
     }
 
-    public double getQtdeBiomassaMax() {
-        return qtdeBiomassaMax;
+    public double getQtdeMaxima() {
+        return qtdeMaxima;
     }
 
-    public void setQtdeBiomassaMax(double qtdeBiomassaMax) {
-        this.qtdeBiomassaMax = qtdeBiomassaMax;
+    public void setQtdeMaxima(double qtdeMaxima) {
+        this.qtdeMaxima = qtdeMaxima;
     }
 
     public double getMediaParcela() {
@@ -172,5 +174,15 @@ public class Estatistica extends Model  {
     public void setIntervaloConfiancaMaxParcela(double intervaloConfiancaMaxParcela) {
         this.intervaloConfiancaMaxParcela = intervaloConfiancaMaxParcela;
     }
+
+    public int getIdVariavelInteresse() {
+        return idVariavelInteresse;
+    }
+
+    public void setIdVariavelInteresse(int idVariavelInteresse) {
+        this.idVariavelInteresse = idVariavelInteresse;
+    }
+
+
     
 }
