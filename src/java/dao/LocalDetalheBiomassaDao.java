@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.LocalDetalheBiomassa;
+import model.Estatistica;
 
 /**
  *
@@ -26,7 +26,7 @@ public class LocalDetalheBiomassaDao extends MainDao{
     }
 
     
-    public void cadastrar(LocalDetalheBiomassa localDetalheBiomassa) throws SQLException
+    public void cadastrar(Estatistica localDetalheBiomassa) throws SQLException
                         
     {
             PreparedStatement p = this.con.prepareStatement("INSERT INTO localdetalhebiomassa (idlocal, "
@@ -64,7 +64,7 @@ public class LocalDetalheBiomassaDao extends MainDao{
     }
     
     
-    public void deletar(LocalDetalheBiomassa localDetalheBiomassa) throws SQLException
+    public void deletar(Estatistica localDetalheBiomassa) throws SQLException
     {
             PreparedStatement p = this.con.prepareStatement("DELETE from localdetalhebiomassa where id = ?");
             p.setInt(1, localDetalheBiomassa.getId());
@@ -73,7 +73,7 @@ public class LocalDetalheBiomassaDao extends MainDao{
         
     }
     
-   public void update(LocalDetalheBiomassa localDetalheBiomassa) throws Exception 
+   public void update(Estatistica localDetalheBiomassa) throws Exception 
    {
         PreparedStatement p = this.con.prepareStatement("UPDATE localdetalhebiomassa SET idlocal = ?, "
                     +                                                          "qtdebiomassamin = ?,"
@@ -110,14 +110,14 @@ public class LocalDetalheBiomassaDao extends MainDao{
         p.close();
     }
    
-   public LocalDetalheBiomassa getLocalDetalheBiomassa(String id) throws SQLException
+   public Estatistica getLocalDetalheBiomassa(String id) throws SQLException
    {
-        List<LocalDetalheBiomassa> locaisDetalheBiomassa = new ArrayList<LocalDetalheBiomassa>();
+        List<Estatistica> locaisDetalheBiomassa = new ArrayList<Estatistica>();
         PreparedStatement p = this.con.prepareStatement("SELECT * FROM localdetalhebiomassa where id = ?");
         p.setInt(1, Integer.parseInt(id));
         ResultSet rs = p.executeQuery();
         while(rs.next()){
-           LocalDetalheBiomassa localDetalheBiomassa = new LocalDetalheBiomassa();
+           Estatistica localDetalheBiomassa = new Estatistica();
            localDetalheBiomassa.setId(rs.getInt("id"));
            localDetalheBiomassa.setIdLocal(rs.getInt("idlocal"));
            localDetalheBiomassa.setQtdeBiomassaMin(rs.getDouble("qtdebiomassamin"));
@@ -140,14 +140,14 @@ public class LocalDetalheBiomassaDao extends MainDao{
         return locaisDetalheBiomassa.get(0);
    }
    
-      public LocalDetalheBiomassa getLocalDetalheBiomassa(int idLocal) throws SQLException
+      public Estatistica getLocalDetalheBiomassa(int idLocal) throws SQLException
    {
-        List<LocalDetalheBiomassa> locaisDetalheBiomassa = new ArrayList<LocalDetalheBiomassa>();
+        List<Estatistica> locaisDetalheBiomassa = new ArrayList<Estatistica>();
         PreparedStatement p = this.con.prepareStatement("SELECT * FROM localdetalhebiomassa where id = ?");
         p.setInt(1, idLocal);
         ResultSet rs = p.executeQuery();
         while(rs.next()){
-           LocalDetalheBiomassa localDetalheBiomassa = new LocalDetalheBiomassa();
+           Estatistica localDetalheBiomassa = new Estatistica();
            localDetalheBiomassa.setId(rs.getInt("id"));
            localDetalheBiomassa.setIdLocal(rs.getInt("idlocal"));
            localDetalheBiomassa.setQtdeBiomassaMin(rs.getDouble("qtdebiomassamin"));
@@ -169,12 +169,12 @@ public class LocalDetalheBiomassaDao extends MainDao{
         p.close();
         return locaisDetalheBiomassa.get(0);
    }
-   public List<LocalDetalheBiomassa> listarLocaisDetalheBiomassa() throws Exception{
-        List<LocalDetalheBiomassa> locaisDetalheBiomassa = new ArrayList<LocalDetalheBiomassa>();
+   public List<Estatistica> listarLocaisDetalheBiomassa() throws Exception{
+        List<Estatistica> locaisDetalheBiomassa = new ArrayList<Estatistica>();
         PreparedStatement p = this.con.prepareStatement("SELECT * FROM localdetalhebiomassa");
         ResultSet rs = p.executeQuery();
         while(rs.next()){
-           LocalDetalheBiomassa localDetalheBiomassa = new LocalDetalheBiomassa();
+           Estatistica localDetalheBiomassa = new Estatistica();
            localDetalheBiomassa.setId(rs.getInt("id"));
            localDetalheBiomassa.setIdLocal(rs.getInt("idlocal"));
            localDetalheBiomassa.setQtdeBiomassaMin(rs.getDouble("qtdebiomassamin"));

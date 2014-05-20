@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.Arvore;
 import model.Equacao;
 import model.Local;
-import model.LocalDetalheBiomassa;
+import model.Estatistica;
 import model.LocalDetalheCarbono;
 import model.LocalDetalheVolume;
 import model.Parcela;

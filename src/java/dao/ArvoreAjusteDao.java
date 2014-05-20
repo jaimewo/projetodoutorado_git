@@ -6,6 +6,7 @@ package dao;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -23,13 +24,21 @@ import model.ArvoreAjuste;
 import model.Local;
 import model.Variavel;
 import model.VariavelArvoreAjuste;
+import jxl.Cell;
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.read.biff.BiffException;
 
 /**
  *
  * @author jaime
  */
 public class ArvoreAjusteDao extends MainDao {
-    
+
+private static Workbook planilha; // objeto que receberá um instancia da planilha estudada
+private static Sheet aba; // objeto que será a aba
+private static File arquivo; // arquivo .xls que será lido
+ 
 
     
     
@@ -188,105 +197,113 @@ public class ArvoreAjusteDao extends MainDao {
         p.close();
         return arvoresAjuste;
     }
-    public void importar(Local local) throws SQLException
+    public void importar(Local local) throws SQLException, BiffException
     {
         deletarLocal(local);
-        
+
         try {
+    
+            //arquivo = new File("c:\\teste\\arvoreajuste2003.xls");
+            arquivo = new File("C:\\Users\\jaimewo\\Dropbox\\Jaime\\AA-UFPR\\Doutorado\\Tese\\Implementacao Oficial\\JCarbon\\projetodoutorado_git\\Arquivos\\arvoreajuste2003.xls");
 
-            //Criação de um buffer para a ler de uma stream
-            BufferedReader StrR = new BufferedReader(new FileReader("c:\\teste\\arvoreajuste.csv"));
+            // instancia a planilha
+            planilha = Workbook.getWorkbook(arquivo);
 
-            String Str;
-            String[] linha;
-            int numLinha = 0;
-            int numCelula = 0;
-            String numArvoreStr = "";
-            String qtdeBiomassaObsStr = "";
-            String qtdeCarbonoObsStr = "";
-            String qtdeVolumeObsStr = "";
+            //Obendo as Abas da planilha
+            Sheet[] abas = planilha.getSheets();
+
+            aba = planilha.getSheet(0); // pega a primeira aba, ou seja, aba de indice 0.
+
+            String[][] matriz = new String[aba.getRows()][aba.getColumns()];
+
+            //matriz.length -> representa as linhas da matriz
+            //matriz[0].length -> pega o tamanho da linha [0], ou seja, pega o número de colunas
+            Cell[] cel; // instancia um array de cÃ©lulas que irá auxiliar no povoamento da matriz
+
+            for (int linha = 0; linha < matriz.length; linha++) {
+                cel = aba.getRow(linha);
+                for (int coluna = 0; coluna < matriz[0].length; coluna++) {
+                    // pega os dados da celula cel[j] e adiciona na matriz
+                    matriz[linha][coluna] = cel[coluna].getContents();
+                }
+            }   
             
-            ArrayList<Variavel> variaveisLidas = new ArrayList<Variavel>();
             VariavelDao variavelDao = new VariavelDao();
-
-            while((Str = StrR.readLine())!= null){
-                //Aqui usamos o método split que divide a linha lida em um array de String
-                //passando como parametro o divisor ";".
-                linha = Str.split(";");
-                numLinha++;
-                numCelula = 0;
-
-                ArrayList<String> valorVariaveis = new ArrayList<String>();                
-                //O foreach é usadao para imprimir cada célula do array de String.
-                for (String celula : linha) {
-                    numCelula++;
-                    if(numLinha==1) { //cabeçalho
-                        switch (numCelula) {
-                        case 1: // "Arvore"
+            VariavelArvoreAjusteDao variavelArvoreAjusteDao = new VariavelArvoreAjusteDao();
+            ArrayList<Variavel> variaveisLidas = new ArrayList<Variavel>();
+            int numArvore = 0;
+            double qtdeBiomassaObs = 0.0;
+            double qtdeCarbonoObs = 0.0;
+            double qtdeVolumeObs = 0.0;
+            
+            for (int linha = 0; linha < matriz.length; linha++) {
+                ArrayList<Double> valorVariaveis = new ArrayList<Double>(); 
+                for (int coluna = 0; coluna < matriz[0].length; coluna++) {
+                    if (linha==0) {
+                        switch (coluna) {
+                        case 0: // "Arvore"
                              break;
-                        case 2: // "Biomassa"
-                             break;
-                        case 3: // "Carbono"
-                             break;
-                        case 4: // "Volume"
-                             break;
+                        case 1: // "Biomassa"
+                            break;
+                        case 2: // "Carbono"
+                            break;
+                        case 3: // "Volume"
+                            break;
                         default: // Variáveis
-                             Variavel variavel = variavelDao.getVariavelComSigla(celula);
-                             variaveisLidas.add(variavel);
-                             break;                        
+                            Variavel variavel = variavelDao.getVariavelComSigla(matriz[linha][coluna]);
+                            variaveisLidas.add(variavel);
+                            break;                        
                         }
-                    } else { //demais linhas
-                        switch (numCelula) {
-                        case 1: // Número da Árvore
-                             numArvoreStr = celula;
+                   } else { //demais linhas
+                        switch (coluna) {
+                        case 0: // Número da Árvore
+                             numArvore = Integer.parseInt(matriz[linha][coluna]);
                              break;
-                        case 2: // Valor da Biomassa
-                             qtdeBiomassaObsStr = celula;
+                        case 1: // Valor da Biomassa
+                             qtdeBiomassaObs = Double.parseDouble(matriz[linha][coluna].replace(",","."));
                              break;
-                        case 3: // Valor do Carbono"
-                             qtdeCarbonoObsStr = celula;
+                        case 2: // Valor do Carbono"
+                             qtdeCarbonoObs = Double.parseDouble(matriz[linha][coluna].replace(",","."));
                              break;
-                        case 4: // Valor do Volume
-                             qtdeVolumeObsStr = celula;
+                        case 3: // Valor do Volume
+                             qtdeVolumeObs = Double.parseDouble(matriz[linha][coluna].replace(",","."));;
                              break;
                         default: // Valor das Variáveis
-                             valorVariaveis.add(celula);
+                             valorVariaveis.add(Double.parseDouble(matriz[linha][coluna].replace(",",".")));
                              break;                        
                         }
                     }
-
                 }
-                if (numLinha>1) {
+                if (linha>0) {
                     // Insere VariavelArvoreAjuste
                     ArvoreAjuste arvoreAjuste = new ArvoreAjuste();
                     arvoreAjuste.setIdLocal(local.getId());
-                    arvoreAjuste.setNumArvoreAjuste(Integer.parseInt(numArvoreStr));
-                    arvoreAjuste.setQtdeBiomassaObs(Double.parseDouble(qtdeBiomassaObsStr));
-                    arvoreAjuste.setQtdeCarbonoObs(Double.parseDouble(qtdeCarbonoObsStr));
-                    arvoreAjuste.setQtdeVolumeObs(Double.parseDouble(qtdeVolumeObsStr));
+                    arvoreAjuste.setNumArvoreAjuste(numArvore);
+                    arvoreAjuste.setQtdeBiomassaObs(qtdeBiomassaObs);
+                    arvoreAjuste.setQtdeCarbonoObs(qtdeCarbonoObs);
+                    arvoreAjuste.setQtdeVolumeObs(qtdeVolumeObs);
                     cadastrar(arvoreAjuste);
-                    arvoreAjuste = getArvoreAjuste(local,Integer.parseInt(numArvoreStr));
+                    arvoreAjuste = getArvoreAjuste(local,numArvore);
                     int i=0;
                     for (Variavel variavelLida: variaveisLidas) {
                         VariavelArvoreAjuste variavelArvoreAjuste = new VariavelArvoreAjuste();
                         variavelArvoreAjuste.setIdArvoreAjuste(arvoreAjuste.getId());
                         variavelArvoreAjuste.setIdVariavel(variavelLida.getId());
-                        variavelArvoreAjuste.setValor(Double.parseDouble(valorVariaveis.get(i)));
+                        variavelArvoreAjuste.setValor(valorVariaveis.get(i));
                         variavelArvoreAjuste.setVariavel(variavelLida);
-                        VariavelArvoreAjusteDao variavelArvoreAjusteDao = new VariavelArvoreAjusteDao();
+                        
                         variavelArvoreAjusteDao.cadastrar(variavelArvoreAjuste);
                         i++;
                     }
                 }
             }
-            
-            //Fechamos o buffer
-            StrR.close();
-            
-        } catch (FileNotFoundException e) {
+        
+        
+        } catch (Exception e) {
+
             e.printStackTrace();
-        } catch (IOException ex){
-            ex.printStackTrace();
+
         }
-   }
+    }
 }
+

@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Local;
-import model.LocalDetalheBiomassa;
+import model.Estatistica;
 import model.LocalDetalheCarbono;
 import model.LocalDetalheVolume;
 import model.Parcela;
@@ -64,7 +64,7 @@ public class calcularComParcela extends HttpServlet {
             ParcelaDao parcelaDao = new ParcelaDao();
             parcelas = parcelaDao.listarParcelas(local.getId());
             
-            LocalDetalheBiomassa localDetalheBiomassa = calculaBiomassaComParcela(local,parcelas);
+            Estatistica localDetalheBiomassa = calculaBiomassaComParcela(local,parcelas);
             request.setAttribute("localDetalheBiomassa", localDetalheBiomassa);
             
             LocalDetalheCarbono localDetalheCarbono  = calculaCarbonoComParcela(local,parcelas);
@@ -109,9 +109,9 @@ public class calcularComParcela extends HttpServlet {
         return "Editar Local";
     }
 
-    public LocalDetalheBiomassa calculaBiomassaComParcela(Local local,List<Parcela> parcelas) throws Exception {
+    public Estatistica calculaBiomassaComParcela(Local local,List<Parcela> parcelas) throws Exception {
     
-        LocalDetalheBiomassa localDetalheBiomassa = new LocalDetalheBiomassa();
+        Estatistica localDetalheBiomassa = new Estatistica();
     
         tamanhoAmostra = parcelas.size();
         DescriptiveStatistics estatistica = new DescriptiveStatistics();        

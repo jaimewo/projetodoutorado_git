@@ -10,14 +10,14 @@ import java.util.ArrayList;
  *
  * @author jaime
  */
-public class LocalDetalheBiomassa extends Model  {
+public class Estatistica extends Model  {
     
     
     public int id;
     public int idLocal;
-    public double qtdeBiomassaMin;
-    public double qtdeBiomassaMed;
-    public double qtdeBiomassaMax;
+    public double qtdeMinima;
+    public double qtdeMedia;
+    public double qtdeMaxima;
     public double mediaParcela;
     public double variancia;
     public double desvioPadrao;
@@ -28,8 +28,9 @@ public class LocalDetalheBiomassa extends Model  {
     public double erroRelativo;
     public double intervaloConfiancaMinParcela;
     public double intervaloConfiancaMaxParcela;
+    public double idVariavelInteresse;
     
-    public LocalDetalheBiomassa()
+    public Estatistica()
     {
         this.idLocal = 0;
         this.qtdeBiomassaMin = 0.0;
