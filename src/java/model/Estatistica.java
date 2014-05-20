@@ -4,7 +4,12 @@
  */
 package model;
 
+import dao.EstatisticaDao;
+import dao.LocalDao;
 import java.util.ArrayList;
+import java.util.List;
+import org.apache.commons.math3.distribution.TDistribution;
+import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 
 /**
  *
@@ -27,8 +32,8 @@ public class Estatistica extends Model  {
     public double coeficienteVariacao;
     public double erroAbsoluto;
     public double erroRelativo;
-    public double intervaloConfiancaMinParcela;
-    public double intervaloConfiancaMaxParcela;
+    public double intervaloConfiancaMin;
+    public double intervaloConfiancaMax;
 
     
     public Estatistica()
@@ -45,10 +50,98 @@ public class Estatistica extends Model  {
         this.coeficienteVariacao = 0.0;
         this.erroAbsoluto = 0.0;
         this.erroRelativo = 0.0;
-        this.intervaloConfiancaMinParcela = 0.0;
-        this.intervaloConfiancaMaxParcela = 0.0;
+        this.intervaloConfiancaMin = 0.0;
+        this.intervaloConfiancaMax = 0.0;
         
     }
+    
+    public Estatistica calcularEstatisticas(Local local,List<Parcela> parcelas) throws Exception {
+     
+        int tamanhoAmostra;    
+        double qtdeParcelasLocal =  0.0;
+        double umMenosF = 0.0;
+        double erro = 0.0;        
+        double t = 0.0;
+        double mediaLocal = 0.0;        
+
+        tamanhoAmostra = parcelas.size();
+        DescriptiveStatistics descriptiveStatistics = new DescriptiveStatistics();        
+        
+        for(int i=0;i<tamanhoAmostra;i++) {
+            parcelas.get(i).getParcelasQuantidade().get(id).getQtdeVariavelInteresse();jjj
+            switch (idVariavelInteresse) {
+                case 1: //Biomassa
+                    descriptiveStatistics.addValue(parcelas.get(i).getQtdeBiomassa());            
+                    break;
+                case 2: //Carbono
+                    descriptiveStatistics.addValue(parcelas.get(i).getQtdeCarbono());            
+                    break;
+                case 3: //Volume
+                    descriptiveStatistics.addValue(parcelas.get(i).getQtdeVolume());            
+                    break;            
+            }
+        }
+        
+        
+        //Calcula média, desvio padrão e variância
+        mediaParcela = descriptiveStatistics.getMean();
+        variancia = descriptiveStatistics.getVariance();
+        desvioPadrao = descriptiveStatistics.getStandardDeviation();
+        
+        //Calcula 1-f=1-N/n  onde N=qtdeParcelasArea n=tamanhoAmostra
+        qtdeParcelasLocal =  local.getArea() / local.getAreaParcela();
+        umMenosF = 1 - (tamanhoAmostra / qtdeParcelasLocal);
+        
+        //Calcula erroPadrao = (desvioPadrao / RAIZ(tamanhoAmostra)) * RAIZ(umMenosF)
+        erroPadrao = (desvioPadrao / Math.sqrt(tamanhoAmostra) * Math.sqrt(umMenosF));
+        
+        //Calcula coeficienteVariacao
+        coeficienteVariacao = (desvioPadrao / mediaParcela);
+        
+        //Calcula erro = LE * media  **LE=LimiteErro = 10%
+        erro = 0.1 * mediaParcela;
+        
+        //Constante t. Com 5% (foi usado 0,025 para ser bicaudal) e n=tamanhoAmostra fica:
+        t = getT(0.025,tamanhoAmostra);
+ 
+        erroAbsoluto = erroPadrao * t;
+        erroRelativo = (erroAbsoluto / mediaParcela) * 100;
+        
+        
+        mediaLocal = qtdeParcelasLocal * mediaParcela;
+
+        intervaloConfiancaMin = mediaLocal - qtdeParcelasLocal * erroAbsoluto;
+        intervaloConfiancaMax = mediaLocal + qtdeParcelasLocal * erroAbsoluto;
+        
+        switch (idVariavelInteresse) {
+            case 1: //Biomassa
+                local.setQtdeBiomassa(mediaLocal);
+                break;
+            case 2: //Carbono
+                local.setQtdeCarbono(mediaLocal);
+                break;
+            case 3: //Volume
+                local.setQtdeVolume(mediaLocal);
+                break;            
+        }
+    
+        LocalDao localDao = new LocalDao();
+        localDao.update(local);
+    
+        EstatisticaDao estatisticaDao = new EstatisticaDao();
+        estatisticaDao.update(this);
+    
+        return this;
+    }
+        
+    public static double getT(double nivelDeProbabilidade, double grausDeLiberdade){
+       TDistribution tDist = new TDistribution(grausDeLiberdade);
+       //return Math.abs(tDist.inverseCumulativeProbability(nivelDeProbabilidade));
+       return tDist.inverseCumulativeProbability(nivelDeProbabilidade);
+    }
+     
+    
+    
     
     public String getIdString()
     {
@@ -159,20 +252,20 @@ public class Estatistica extends Model  {
         this.erroRelativo = erroRelativo;
     }
 
-    public double getIntervaloConfiancaMinParcela() {
-        return intervaloConfiancaMinParcela;
+    public double getIntervaloConfiancaMin() {
+        return intervaloConfiancaMin;
     }
 
-    public void setIntervaloConfiancaMinParcela(double intervaloConfiancaMinParcela) {
-        this.intervaloConfiancaMinParcela = intervaloConfiancaMinParcela;
+    public void setIntervaloConfiancaMin(double intervaloConfiancaMin) {
+        this.intervaloConfiancaMin = intervaloConfiancaMin;
     }
 
-    public double getIntervaloConfiancaMaxParcela() {
-        return intervaloConfiancaMaxParcela;
+    public double getIntervaloConfiancaMax() {
+        return intervaloConfiancaMax;
     }
 
-    public void setIntervaloConfiancaMaxParcela(double intervaloConfiancaMaxParcela) {
-        this.intervaloConfiancaMaxParcela = intervaloConfiancaMaxParcela;
+    public void setIntervaloConfiancaMax(double intervaloConfiancaMax) {
+        this.intervaloConfiancaMax = intervaloConfiancaMax;
     }
 
     public int getIdVariavelInteresse() {
