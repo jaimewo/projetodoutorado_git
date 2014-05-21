@@ -4,12 +4,13 @@
  */
 package controller;
 
+import dao.BiomaDao;
 import dao.CoordenadaLocalDao;
-import dao.LocalDao;
-import dao.FormacaoDao;
 import dao.EspacamentoDao;
-import dao.TrabalhoCientificoDao;
+import dao.FormacaoDao;
+import dao.LocalDao;
 import dao.MunicipioDao;
+import dao.TrabalhoCientificoDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -19,12 +20,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Bioma;
 import model.CoordenadaLocal;
-import model.Local;
-import model.Formacao;
 import model.Espacamento;
-import model.TrabalhoCientifico;
+import model.Formacao;
+import model.Local;
 import model.Municipio;
+import model.TrabalhoCientifico;
 /**
  *
  * @author jaime
@@ -49,6 +51,11 @@ public class novoLocal extends HttpServlet {
             MunicipioDao objeto_municipio_dao = new MunicipioDao();
             List<Municipio> municipios = objeto_municipio_dao.listarMunicipios();
             request.setAttribute("municipios", municipios);  
+            
+            
+            BiomaDao objeto_bioma_dao = new BiomaDao();
+            List<Bioma> biomas = objeto_bioma_dao.listarBiomas();
+            request.setAttribute("biomas", biomas);
               
         } finally { 
              request.setAttribute("local", new Local());
