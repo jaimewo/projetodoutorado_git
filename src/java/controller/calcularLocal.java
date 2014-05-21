@@ -40,32 +40,31 @@ import org.nfunk.jep.*;
  *
  * @author jaime
  */
-public class calcularComArvores extends HttpServlet {
+public class calcularLocal extends HttpServlet {
 
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, Exception {
         try {
-//            String idLocalStr = request.getParameter("id");
-//            if (idLocalStr == null) {
-//               Local local = new Local();
-//               local.setId(1);
-//               local.setQtdeBiomassa(0.0);
-//               request.setAttribute("local", local );  
-//               request.getRequestDispatcher("calcularComArvores.jsp").forward(request, response);
+            String idLocalStr = request.getParameter("id");
                 
-            String idLocalStr = "1";
+          //idLocalStr = "1";
+          //int idTipoEstimativa = 2; //Informados valores das Parcelas
+          //int idTipoEstimativa = 3; //Informados valores das Árvores
             
             LocalDao localDao = new LocalDao();
             Local local = localDao.getLocal(Integer.parseInt(idLocalStr));
+          //local.setIdTipoEstimativa(idTipoEstimativa);
             
-            ArrayList<Parcela> parcelasLocal = new ArrayList<Parcela>();
-            parcelasLocal = local.getParcelas();
+            if (local.getIdTipoEstimativa()==3) {
+                ArrayList<Parcela> parcelasLocal = new ArrayList<Parcela>();
+                parcelasLocal = local.getParcelas();
             
-            for (Parcela parcela : parcelasLocal) {
-                parcela.calculaBiomassa(local);
-                parcela.calculaCarbono(local);
-                parcela.calculaVolume(local);
+                for (Parcela parcela : parcelasLocal) {
+                    parcela.calculaBiomassa(local);
+                    parcela.calculaCarbono(local);
+                    parcela.calculaVolume(local);
+                }
             }
             
             local.calculaBiomassaEstatisticas();
@@ -74,7 +73,7 @@ public class calcularComArvores extends HttpServlet {
 
             request.setAttribute("local", local );          
 
-            request.getRequestDispatcher("calcularComArvores.jsp").forward(request, response);
+            request.getRequestDispatcher("??????.jsp").forward(request, response);
 
         } finally {            
              
@@ -88,9 +87,9 @@ public class calcularComArvores extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(calcularComArvores.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(calcularLocal.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
-            Logger.getLogger(calcularComArvores.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(calcularLocal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -100,9 +99,9 @@ public class calcularComArvores extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(calcularComArvores.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(calcularLocal.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
-            Logger.getLogger(calcularComArvores.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(calcularLocal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
