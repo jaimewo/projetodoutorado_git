@@ -34,13 +34,12 @@ public class novaFormacao extends HttpServlet {
         } finally { 
             
             Formacao f = (Formacao) request.getAttribute("formacao");
-            if(f == null)
-                request.setAttribute("formacao", new Formacao());
-            else
+            if(f == null) {
+               request.setAttribute("formacao", new Formacao());
+            } else {
                 request.setAttribute("formacao", f);
-             request.getRequestDispatcher("novaFormacao.jsp").forward(request, response);
-             
-       
+            }
+            request.getRequestDispatcher("novaFormacao.jsp").forward(request, response);
         }
     }
 

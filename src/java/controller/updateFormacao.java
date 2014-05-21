@@ -53,7 +53,8 @@ public class updateFormacao extends HttpServlet {
              }else
              {
                  RequestDispatcher r = request.getRequestDispatcher("/editarFormacao?id="+id); 
-                 request.setAttribute("erros", formacao.getErrors());                
+                 request.setAttribute("erros", formacao.getErrors());
+                 request.setAttribute("formacao", formacao);
                  r.forward( request, response );  
              }
         } finally {            

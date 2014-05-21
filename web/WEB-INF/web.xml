@@ -325,12 +325,8 @@
         <servlet-class>controller.updateModelo</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>calcularComParcela</servlet-name>
-        <servlet-class>controller.calcularComParcela</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>calcularComArvores</servlet-name>
-        <servlet-class>controller.calcularComArvores</servlet-class>
+        <servlet-class>controller.calcularLocal</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>listarBiomas</servlet-name>
@@ -659,10 +655,6 @@
     <servlet-mapping>
         <servlet-name>updateModelo</servlet-name>
         <url-pattern>/updateModelo</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>calcularComParcela</servlet-name>
-        <url-pattern>/calcularComParcela</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>calcularComArvores</servlet-name>

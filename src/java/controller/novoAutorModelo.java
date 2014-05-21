@@ -29,10 +29,13 @@ public class novoAutorModelo extends HttpServlet {
         try {
             
         } finally { 
-             request.setAttribute("autorModelo", new AutorModelo());
-             request.getRequestDispatcher("novoAutorModelo.jsp").forward(request, response);
-             
-       
+            AutorModelo autorModelo = (AutorModelo) request.getAttribute("autorModelo");
+            if(autorModelo == null) {
+               request.setAttribute("autorModelo", new AutorModelo());
+            } else {
+                request.setAttribute("autorModelo", autorModelo);
+            }
+            request.getRequestDispatcher("novoAutorModelo.jsp").forward(request, response);
         }
     }
 

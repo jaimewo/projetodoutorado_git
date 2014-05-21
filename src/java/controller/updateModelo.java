@@ -45,6 +45,7 @@ public class updateModelo extends HttpServlet {
              {
                  RequestDispatcher r = request.getRequestDispatcher("/editarModelo?id="+id); 
                  request.setAttribute("erros", equacao.getErrors());
+                 request.setAttribute("equacao", equacao);
                  r.forward( request, response );  
              }
         } finally {            

@@ -71,7 +71,23 @@ public class VariavelDao extends MainDao {
         p.close();
         return variaveis.get(0);
    }
-   
+   public Variavel getVariavelComSigla(String sigla) throws SQLException
+   {
+        List<Variavel> variaveis = new ArrayList<Variavel>();
+        PreparedStatement p = this.con.prepareStatement("SELECT id,sigla,nome FROM variavel where sigla = ?");
+        p.setString(1, sigla);
+        ResultSet rs = p.executeQuery();
+        while(rs.next()){
+           Variavel variavel = new Variavel();
+           variavel.setId(rs.getInt("id"));
+           variavel.setSigla(rs.getString("sigla"));
+           variavel.setNome(rs.getString("nome"));
+           variaveis.add(variavel);
+        }
+        rs.close();
+        p.close();
+        return variaveis.get(0);
+   }
    public List<Variavel> listarVariaveis() throws Exception{
         List<Variavel> variaveis = new ArrayList<Variavel>();
         PreparedStatement p = this.con.prepareStatement("SELECT * FROM variavel");

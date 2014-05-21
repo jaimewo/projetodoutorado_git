@@ -54,6 +54,7 @@ public class updateTrabalhoCientifico extends HttpServlet {
              {
                  RequestDispatcher r = request.getRequestDispatcher("/editarTrabalhoCientifico?id="+id); 
                  request.setAttribute("erros", trabalhoCientifico.getErrors());
+                 request.setAttribute("trabalhoCientifico", trabalhoCientifico);
                  r.forward( request, response );  
              }
         } finally {            

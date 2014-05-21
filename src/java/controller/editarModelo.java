@@ -26,11 +26,15 @@ public class editarModelo extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, Exception {
         try {
-             String idEquacao = request.getParameter("id");
-             EquacaoDao controller = new EquacaoDao();
-             Equacao objeto_equacao = controller.getEquacao(idEquacao);
-             request.setAttribute("equacao", objeto_equacao );
-
+            String idEquacao = request.getParameter("id");
+            Equacao equacao = (Equacao) request.getAttribute("equacao");
+            if(equacao == null){              
+               EquacaoDao controller = new EquacaoDao();
+               Equacao objeto_equacao = controller.getEquacao(idEquacao);
+               request.setAttribute("equacao", objeto_equacao );
+            }else {
+               request.setAttribute("equacao", equacao );
+            } 
              request.getRequestDispatcher("editarModelo.jsp").forward(request, response);
         } finally {            
              

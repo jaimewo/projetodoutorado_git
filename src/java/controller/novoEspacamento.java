@@ -29,10 +29,13 @@ public class novoEspacamento extends HttpServlet {
         try {
             
         } finally { 
-             request.setAttribute("espacamento", new Espacamento());
-             request.getRequestDispatcher("novoEspacamento.jsp").forward(request, response);
-             
-       
+            Espacamento espacamento = (Espacamento) request.getAttribute("espacamento");
+            if(espacamento == null) {
+               request.setAttribute("espacamento", new Espacamento());
+            } else {
+                request.setAttribute("espacamento", espacamento);
+            }
+            request.getRequestDispatcher("novoEspacamento.jsp").forward(request, response);
         }
     }
 

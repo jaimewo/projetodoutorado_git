@@ -139,6 +139,26 @@ public class ArvoreDao extends MainDao {
 
         p.setInt(2, arvore.getId());
         p.executeUpdate();
-        p.close();   }
+        p.close();   
+    }
+    
+
+    public void updateCarbono(Arvore arvore) throws SQLException {
+        PreparedStatement p = this.con.prepareStatement("UPDATE arvore SET qtdecarbonoest = ? where id = ?");
+        p.setDouble(1, arvore.getQtdeCarbonoEst());
+
+        p.setInt(2, arvore.getId());
+        p.executeUpdate();
+        p.close();   
+    }
+    
+    public void updateVolume(Arvore arvore) throws SQLException {
+        PreparedStatement p = this.con.prepareStatement("UPDATE arvore SET qtdevolumeest = ? where id = ?");
+        p.setDouble(1, arvore.getQtdeVolumeEst());
+
+        p.setInt(2, arvore.getId());
+        p.executeUpdate();
+        p.close();   
+    }
     
 }

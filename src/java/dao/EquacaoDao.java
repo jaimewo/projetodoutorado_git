@@ -34,8 +34,11 @@ public class EquacaoDao extends MainDao{
                     +                                                            "idautormodelo,"
                     +                                                            "r2,"
                     +                                                            "r2ajust,"
-                    +                                                            "syx"
-                    +                                                            ") VALUES (?,?,?,?,?,?,?)");
+                    +                                                            "syx,"
+                    +                                                            "syxperc,"
+                    +                                                            "ia,"
+                    +                                                            "idtrabalhocientifico"
+                    +                                                            ") VALUES (?,?,?,?,?,?,?,?,?,?)");
             p.setString(1, equacao.getExpressaoEquacao());
             p.setString(2, equacao.getExpressaoModelo());
             p.setInt(3, equacao.getIdVariavelInteresse());
@@ -43,6 +46,10 @@ public class EquacaoDao extends MainDao{
             p.setDouble(5, equacao.getR2());
             p.setDouble(6, equacao.getR2Ajust());
             p.setDouble(7, equacao.getSyx());
+            p.setDouble(8, equacao.getSyxPerc());
+            p.setDouble(9, equacao.getIa());
+            p.setInt(10, equacao.getIdTrabalhoCientifico());
+
             
             p.executeUpdate();
             p.close();
@@ -67,7 +74,10 @@ public class EquacaoDao extends MainDao{
                     +                                                      "idautormodelo = ?,"
                     +                                                      "r2 = ?,"
                     +                                                      "r2ajust = ?,"
-                    +                                                      "syx = ? "
+                    +                                                      "syx = ?, "
+                +                                                          "syxperc = ?, "
+                +                                                          "ia = ?, "
+                +                                                          "idtrabalhocientifico = ? "
                 +                                                          "WHERE id = ?");
         p.setString(1, equacao.getExpressaoEquacao());
         p.setString(2, equacao.getExpressaoModelo());
@@ -76,6 +86,9 @@ public class EquacaoDao extends MainDao{
         p.setDouble(5, equacao.getR2());
         p.setDouble(6, equacao.getR2Ajust());
         p.setDouble(7, equacao.getSyx());
+        p.setDouble(8, equacao.getSyxPerc());
+        p.setDouble(9, equacao.getIa());
+        p.setInt(10, equacao.getIdTrabalhoCientifico());
         
         p.setInt(11, equacao.getId());
         p.executeUpdate();
@@ -98,6 +111,9 @@ public class EquacaoDao extends MainDao{
            equacao.setR2(rs.getInt("r2"));
            equacao.setR2Ajust(rs.getInt("r2ajust"));
            equacao.setSyx(rs.getDouble("syx"));
+           equacao.setSyxPerc(rs.getDouble("syxperc"));
+           equacao.setIa(rs.getDouble("ia"));
+           equacao.setIdTrabalhoCientifico(rs.getInt("idtrabalhocientifico"));
            equacoes.add(equacao);
         }
         rs.close();
@@ -119,6 +135,9 @@ public class EquacaoDao extends MainDao{
            equacao.setR2(rs.getInt("r2"));
            equacao.setR2Ajust(rs.getInt("r2ajust"));
            equacao.setSyx(rs.getDouble("syx"));
+           equacao.setSyxPerc(rs.getDouble("syxperc"));
+           equacao.setIa(rs.getDouble("ia"));
+           equacao.setIdTrabalhoCientifico(rs.getInt("idtrabalhocientifico"));
            equacoes.add(equacao);
         }
         rs.close();
@@ -135,6 +154,8 @@ public class EquacaoDao extends MainDao{
                 + "                                             e.r2,"
                 + "                                             e.r2ajust,"
                 + "                                             e.syx,"
+                + "                                             e.syxperc,"
+                + "                                             e.ia,"
                 + "                                             e.idtrabalhocientifico "
                 + "                                      FROM trabalhocientifico tc "
                 + "                                      INNER JOIN equacaotrabalhocientifico etc ON tc.id = etc.idtrabalhocientifico "
@@ -152,7 +173,9 @@ public class EquacaoDao extends MainDao{
            equacao.setR2(rs.getDouble("r2"));
            equacao.setR2Ajust(rs.getInt("r2ajust"));
            equacao.setSyx(rs.getDouble("syx"));
-           equacao.setIdtTrabalhoCientifico(rs.getInt("idTrabalhoCientifico"));
+           equacao.setSyxPerc(rs.getDouble("syxperc"));
+           equacao.setIa(rs.getDouble("ia"));
+           equacao.setIdTrabalhoCientifico(rs.getInt("idTrabalhoCientifico"));
            equacoesTrabalho.add(equacao);
         }
         rs.close();

@@ -40,7 +40,7 @@ public class ParcelaDao extends MainDao {
         p.setDouble(3, parcela.getQtdeBiomassa());
         p.setDouble(4, parcela.getQtdeCarbono());
         p.setDouble(5, parcela.getQtdeVolume());
-         
+        
         p.executeUpdate();
         p.close();
     }
@@ -58,10 +58,10 @@ public class ParcelaDao extends MainDao {
    public void update(Parcela parcela) throws Exception 
    {
         PreparedStatement p = this.con.prepareStatement("UPDATE parcela SET numparcela = ?, "
-                    +                                                      "areaparcela = ?,"
-                    +                                                      "qtdebiomassa = ?,"
-                    +                                                      "qtdecarbono = ?,"
-                    +                                                      "qtdevolume = ?,"
+                    +                                                      "areaparcela = ?, "
+                    +                                                      "qtdebiomassa = ?, "
+                    +                                                      "qtdecarbono = ?, "
+                    +                                                      "qtdevolume = ? "
                 +                                                          " WHERE id = ?");
         p.setInt   (1, parcela.getNumParcela());
         p.setDouble(2, parcela.getAreaParcela());
@@ -70,6 +70,36 @@ public class ParcelaDao extends MainDao {
         p.setDouble(5, parcela.getQtdeVolume());
         
         p.setInt(6, parcela.getId());
+        p.executeUpdate();
+        p.close();
+    }
+    
+   public void updateBiomassa(Parcela parcela) throws Exception 
+   {
+        PreparedStatement p = this.con.prepareStatement("UPDATE parcela SET qtdebiomassa = ? "
+                +                                                          " WHERE id = ?");
+        p.setDouble(1, parcela.getQtdeBiomassa());
+        p.setInt(2, parcela.getId());
+        p.executeUpdate();
+        p.close();
+    }
+    
+   public void updateCarbono(Parcela parcela) throws Exception 
+   {
+        PreparedStatement p = this.con.prepareStatement("UPDATE parcela SET qtdecarbono = ? "
+                +                                                          " WHERE id = ?");
+        p.setDouble(1, parcela.getQtdeCarbono());
+        p.setInt(2, parcela.getId());
+        p.executeUpdate();
+        p.close();
+    }
+    
+   public void updateVolume(Parcela parcela) throws Exception 
+   {
+        PreparedStatement p = this.con.prepareStatement("UPDATE parcela SET qtdevolume = ? "
+                +                                                          " WHERE id = ?");
+        p.setDouble(1, parcela.getQtdeVolume());
+        p.setInt(2, parcela.getId());
         p.executeUpdate();
         p.close();
     }
@@ -114,16 +144,6 @@ public class ParcelaDao extends MainDao {
         rs.close();
         p.close();
         return parcelas;
-    }
-
-    public void updateBiomassa(Parcela parcela) throws SQLException {
-        PreparedStatement p = this.con.prepareStatement("UPDATE parcela SET qtdebiomassa = ? WHERE id = ?");
-        p.setDouble(1,  parcela.getQtdeBiomassa());
-        
-        p.setInt(2, parcela.getId());
-        p.executeUpdate();
-        p.close();
-
     }
     
 }

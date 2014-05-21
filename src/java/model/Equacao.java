@@ -4,11 +4,13 @@
  */
 package model;
 
+import dao.ArvoreAjusteDao;
+import dao.EquacaoDao;
 import dao.LocalDao;
 import dao.TermoDao;
 import java.util.ArrayList;
-import org.nfunk.jep.JEP;
 import org.apache.commons.math3.stat.regression.OLSMultipleLinearRegression;
+import org.nfunk.jep.JEP;
 
 /**
  *
@@ -24,8 +26,10 @@ public class Equacao extends Model  {
     public int idAutorModelo;
     public double r2;
     public double r2Ajust;
+    public double ia;
     public double syx;
-    public int idtTrabalhoCientifico;
+    public double syxPerc;
+    public int idTrabalhoCientifico;
     
     public ArrayList<Termo> termos;
     
@@ -38,7 +42,7 @@ public class Equacao extends Model  {
         this.r2 = 0.0;
         this.r2Ajust = 0.0;
         this.syx = 0.0;
-        this.idtTrabalhoCientifico = 0;
+        this.idTrabalhoCientifico = 0;
     }
     
     public String getIdString()
@@ -110,12 +114,28 @@ public class Equacao extends Model  {
         this.syx = syx;
     }
 
-    public int getIdtTrabalhoCientifico() {
-        return idtTrabalhoCientifico;
+    public double getIa() {
+        return ia;
     }
 
-    public void setIdtTrabalhoCientifico(int idtTrabalhoCientifico) {
-        this.idtTrabalhoCientifico = idtTrabalhoCientifico;
+    public void setIa(double ia) {
+        this.ia = ia;
+    }
+
+    public double getSyxPerc() {
+        return syxPerc;
+    }
+
+    public void setSyxPerc(double syxPerc) {
+        this.syxPerc = syxPerc;
+    }
+
+    public int getIdTrabalhoCientifico() {
+        return idTrabalhoCientifico;
+    }
+
+    public void setIdTrabalhoCientifico(int idTrabalhoCientifico) {
+        this.idTrabalhoCientifico = idTrabalhoCientifico;
     }
 
      public ArrayList<Termo> getTermos() throws Exception {
@@ -157,16 +177,17 @@ public class Equacao extends Model  {
         ArrayList<ArvoreAjuste> arvoresAjuste = new ArrayList<ArvoreAjuste>();
         arvoresAjuste = local.getArvoresAjuste();
 
+        ArrayList<VariavelArvoreAjuste> variaveisArvoreAjuste = new ArrayList<VariavelArvoreAjuste>();
+
         double[] valorObservado = new double[arvoresAjuste.size()];
         int iArvoreAjuste = 0;
         
         double[][] valorEntrada= new double[arvoresAjuste.size()][termos.size()];
         int iTermo = 0;
+
         for(ArvoreAjuste arvoreAjuste: arvoresAjuste) {
 
             for (Termo termo: termos) {
-               
-               ArrayList<VariavelArvoreAjuste> variaveisArvoreAjuste = new ArrayList<VariavelArvoreAjuste>();
                variaveisArvoreAjuste = arvoreAjuste.getVariaveisArvoreAjuste();
                
                for (VariavelArvoreAjuste variavelArvoreAjuste: variaveisArvoreAjuste) {
@@ -179,17 +200,116 @@ public class Equacao extends Model  {
                valorEntrada[iArvoreAjuste][iTermo] = resultadoTermo;
                
                iTermo++;
-               //update TermoArvoreAjuste.valor = resultado
+               
             }
             valorObservado[iArvoreAjuste] = arvoreAjuste.getQtdeBiomassaObs();
             iArvoreAjuste++;
             iTermo = 0;
         }
-        //int qtdeArvoresAjuste = iArvoreAjuste;
+        
         OLSMultipleLinearRegression regression = new OLSMultipleLinearRegression();        
         regression.newSampleData(valorObservado, valorEntrada);
         double[] valorCoeficiente = regression.estimateRegressionParameters();
         
+//Monta equacação a partir dos coeficientes calculados
+        expressaoEquacao = Double.toString(valorCoeficiente[0]);
+        iTermo = 1;
+        for (Termo termo: termos) {
+            expressaoEquacao = expressaoEquacao + "+("+valorCoeficiente[iTermo]+")*"+ termo.getExpressao();
+            iTermo++;
+        }
+        //System.out.println(expressaoEquacao);
+        //Update expressaoEquacao na tabela equacao
         
+
+//Aplica equacaoModelo em todas as ArvoresAjuste para calcular valorEstimado        
+        myParser.parseExpression(expressaoEquacao);
+        for(ArvoreAjuste arvoreAjuste: arvoresAjuste) {
+
+            variaveisArvoreAjuste = arvoreAjuste.getVariaveisArvoreAjuste();
+               
+            for (VariavelArvoreAjuste variavelArvoreAjuste: variaveisArvoreAjuste) {
+                String sigla = variavelArvoreAjuste.getVariavel().getSigla();
+                Double valor = variavelArvoreAjuste.getValor();
+                myParser.addVariable(sigla, valor);
+            }
+                
+            switch (this.idVariavelInteresse) {
+            case 1:
+                arvoreAjuste.setQtdeBiomassaEst(myParser.getValue());
+                break;
+            case 2:
+                arvoreAjuste.setQtdeCarbonoEst(myParser.getValue());
+                break;
+            case 3:
+                arvoreAjuste.setQtdeVolumeEst(myParser.getValue());                
+                break;
+            }
+            ArvoreAjusteDao arvoreAjusteDao = new ArvoreAjusteDao();
+            arvoreAjusteDao.update(arvoreAjuste);
+        }
+
+        
+//Calcula índices estatísticos (r2, r2Ajust, Syx, SysPerc, ia)
+        double valorObs =  0.0;
+        double valorEst =  0.0;
+        double somaObs = 0.0;
+        double mediaObs = 0.0;
+        double somaQuadradoResiduo = 0.0;
+        double somaQuadradoRegressao = 0.0;
+        double somaQuadradoTotais = 0.0;
+        
+        for(ArvoreAjuste arvoreAjuste: arvoresAjuste) {
+            switch (this.idVariavelInteresse) {
+            case 1:
+                 valorObs = arvoreAjuste.getQtdeBiomassaObs();
+                 valorEst = arvoreAjuste.getQtdeBiomassaEst();
+                 break;
+            case 2:
+                 valorObs = arvoreAjuste.getQtdeCarbonoObs();
+                 valorEst = arvoreAjuste.getQtdeCarbonoEst();
+                 break;
+            case 3:
+                 valorObs = arvoreAjuste.getQtdeVolumeObs();
+                 valorEst = arvoreAjuste.getQtdeVolumeEst();
+                 break;
+            }    
+            somaObs += valorObs;
+            somaQuadradoResiduo += Math.pow((valorObs - valorEst), 2);
+        }        
+        
+        mediaObs = somaObs / arvoresAjuste.size();
+        for(ArvoreAjuste arvoreAjuste: arvoresAjuste) {
+            switch (this.idVariavelInteresse) {
+            case 1:
+                 valorObs = arvoreAjuste.getQtdeBiomassaObs();
+                 valorEst = arvoreAjuste.getQtdeBiomassaEst();
+                 break;
+            case 2:
+                 valorObs = arvoreAjuste.getQtdeCarbonoObs();
+                 valorEst = arvoreAjuste.getQtdeCarbonoEst();
+                 break;
+            case 3:
+                 valorObs = arvoreAjuste.getQtdeVolumeObs();
+                 valorEst = arvoreAjuste.getQtdeVolumeEst();
+                 break;
+            }    
+            somaQuadradoRegressao += Math.pow((valorEst - mediaObs), 2);
+            somaQuadradoTotais += Math.pow((valorObs - mediaObs), 2);
+        }
+        
+        //R2Ajust = (1 - r2) * ((n-1)/(n-p-1))   onde n=qtde de arvores na simulacao e p=qtde de termos da equação
+        //Syx = RAIZ (somaQuadradoResiduos/(n-p))
+        //Syx% = (Syx/volumeObsMedio)*100
+        r2 = somaQuadradoRegressao / somaQuadradoTotais;
+        r2Ajust = 1 - (1-r2) * ((arvoresAjuste.size() - 1) / (arvoresAjuste.size() - valorCoeficiente.length));
+        ia = 1 - (somaQuadradoResiduo/somaQuadradoTotais);
+        syx = Math.sqrt(somaQuadradoResiduo/(arvoresAjuste.size() - 2));
+        syxPerc = (syx / mediaObs) * 100;
+        
+        EquacaoDao equacaoDao = new EquacaoDao();
+        equacaoDao.update(this);
     }
+
+
 }

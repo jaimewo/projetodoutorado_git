@@ -15,42 +15,21 @@ import java.util.ArrayList;
 public class Parcela extends Model  {
     
     
-    public int id;
-    public int idLocal;
-    public int numParcela;
-    public double areaParcela;
-    public double qtdeBiomassa;
-    public double qtdeBiomassaMin;
-    public double qtdeBiomassaMed;
-    public double qtdeBiomassaMax;
-    public double qtdeCarbono;
-    public double qtdeCarbonoMin;
-    public double qtdeCarbonoMed;
-    public double qtdeCarbonoMax;
-    public double qtdeVolume;
-    public double qtdeVolumeMin;
-    public double qtdeVolumeMed;
-    public double qtdeVolumeMax;
+    private int id;
+    private int idLocal;
+    private int numParcela;
+    private double areaParcela;
+    private double qtdeBiomassa;
+    private double qtdeCarbono;
+    private double qtdeVolume;
     
-    public ArrayList<Arvore> arvores;
-
+    private ArrayList<Arvore> arvores;
+    
     public Parcela()
     {
         this.idLocal = 0;
         this.numParcela = 0;
         this.areaParcela = 0.0;
-        this.qtdeBiomassa = 0.0;
-        this.qtdeBiomassaMin = 0.0;
-        this.qtdeBiomassaMed = 0.0;
-        this.qtdeBiomassaMax = 0.0;
-        this.qtdeCarbono = 0.0;
-        this.qtdeCarbonoMin = 0.0;
-        this.qtdeCarbonoMed = 0.0;
-        this.qtdeCarbonoMax = 0.0;
-        this.qtdeVolume = 0.0;
-        this.qtdeVolumeMin = 0.0;
-        this.qtdeVolumeMed = 0.0;
-        this.qtdeVolumeMax = 0.0;
     }
     
     public String getIdString()
@@ -98,30 +77,6 @@ public class Parcela extends Model  {
         this.qtdeBiomassa = qtdeBiomassa;
     }
 
-    public double getQtdeBiomassaMin() {
-        return qtdeBiomassaMin;
-    }
-
-    public void setQtdeBiomassaMin(double qtdeBiomassaMin) {
-        this.qtdeBiomassaMin = qtdeBiomassaMin;
-    }
-
-    public double getQtdeBiomassaMed() {
-        return qtdeBiomassaMed;
-    }
-
-    public void setQtdeBiomassaMed(double qtdeBiomassaMed) {
-        this.qtdeBiomassaMed = qtdeBiomassaMed;
-    }
-
-    public double getQtdeBiomassaMax() {
-        return qtdeBiomassaMax;
-    }
-
-    public void setQtdeBiomassaMax(double qtdeBiomassaMax) {
-        this.qtdeBiomassaMax = qtdeBiomassaMax;
-    }
-
     public double getQtdeCarbono() {
         return qtdeCarbono;
     }
@@ -130,60 +85,12 @@ public class Parcela extends Model  {
         this.qtdeCarbono = qtdeCarbono;
     }
 
-    public double getQtdeCarbonoMin() {
-        return qtdeCarbonoMin;
-    }
-
-    public void setQtdeCarbonoMin(double qtdeCarbonoMin) {
-        this.qtdeCarbonoMin = qtdeCarbonoMin;
-    }
-
-    public double getQtdeCarbonoMed() {
-        return qtdeCarbonoMed;
-    }
-
-    public void setQtdeCarbonoMed(double qtdeCarbonoMed) {
-        this.qtdeCarbonoMed = qtdeCarbonoMed;
-    }
-
-    public double getQtdeCarbonoMax() {
-        return qtdeCarbonoMax;
-    }
-
-    public void setQtdeCarbonoMax(double qtdeCarbonoMax) {
-        this.qtdeCarbonoMax = qtdeCarbonoMax;
-    }
-
     public double getQtdeVolume() {
         return qtdeVolume;
     }
 
     public void setQtdeVolume(double qtdeVolume) {
         this.qtdeVolume = qtdeVolume;
-    }
-
-    public double getQtdeVolumeMin() {
-        return qtdeVolumeMin;
-    }
-
-    public void setQtdeVolumeMin(double qtdeVolumeMin) {
-        this.qtdeVolumeMin = qtdeVolumeMin;
-    }
-
-    public double getQtdeVolumeMed() {
-        return qtdeVolumeMed;
-    }
-
-    public void setQtdeVolumeMed(double qtdeVolumeMed) {
-        this.qtdeVolumeMed = qtdeVolumeMed;
-    }
-
-    public double getQtdeVolumeMax() {
-        return qtdeVolumeMax;
-    }
-
-    public void setQtdeVolumeMax(double qtdeVolumeMax) {
-        this.qtdeVolumeMax = qtdeVolumeMax;
     }
 
     public ArrayList<Arvore> getArvores() throws Exception {
@@ -199,4 +106,34 @@ public class Parcela extends Model  {
         this.arvores = arvores;
     }
 
+    public void calculaBiomassa(Local local) throws Exception {
+        ArrayList<Arvore> arvores = new ArrayList();
+        arvores = getArvores();
+        for (Arvore arvore: arvores) {
+            this.qtdeBiomassa += arvore.calculaBiomassaEst(local);
+        }
+        ParcelaDao parcelaDao = new ParcelaDao();
+        parcelaDao.updateBiomassa(this);
+    }
+
+    public void calculaCarbono(Local local) throws Exception {
+        ArrayList<Arvore> arvores = new ArrayList();
+        arvores = getArvores();
+        for (Arvore arvore: arvores) {
+            this.qtdeCarbono += arvore.calculaCarbonoEst(local);
+        }
+        ParcelaDao parcelaDao = new ParcelaDao();
+        parcelaDao.updateCarbono(this);
+        
+    }
+    public void calculaVolume(Local local) throws Exception {
+        ArrayList<Arvore> arvores = new ArrayList();
+        arvores = getArvores();
+        for (Arvore arvore: arvores) {
+            this.qtdeVolume += arvore.calculaVolumeEst(local);
+        }
+        ParcelaDao parcelaDao = new ParcelaDao();
+        parcelaDao.updateVolume(this);
+        
+    }
 }

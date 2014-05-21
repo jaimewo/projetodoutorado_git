@@ -25,11 +25,16 @@ public class editarMetodoQuantificacaoBiomassa extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         try {
-             String idMetodoQuantificacaoBiomassa = request.getParameter("id");
-             MetodoQuantificacaoBiomassaDao controller = new MetodoQuantificacaoBiomassaDao();
-             MetodoQuantificacaoBiomassa objeto_metodoQuantificacaoBiomassa = controller.getMetodoQuantificacaoBiomassa(idMetodoQuantificacaoBiomassa);
-             request.setAttribute("metodoQuantificacaoBiomassa", objeto_metodoQuantificacaoBiomassa );
-             request.getRequestDispatcher("editarMetodoQuantificacaoBiomassa.jsp").forward(request, response);
+            String idMetodoQuantificacaoBiomassa = request.getParameter("id");
+            MetodoQuantificacaoBiomassa metodoQuantificacaoBiomassa = (MetodoQuantificacaoBiomassa) request.getAttribute("metodoQuantificacaoBiomassa");
+            if(metodoQuantificacaoBiomassa == null){             
+               MetodoQuantificacaoBiomassaDao controller = new MetodoQuantificacaoBiomassaDao();
+               MetodoQuantificacaoBiomassa objeto_metodoQuantificacaoBiomassa = controller.getMetodoQuantificacaoBiomassa(idMetodoQuantificacaoBiomassa);
+               request.setAttribute("metodoQuantificacaoBiomassa", objeto_metodoQuantificacaoBiomassa );
+            }else {
+               request.setAttribute("metodoQuantificacaoBiomassa", metodoQuantificacaoBiomassa );
+            }            
+            request.getRequestDispatcher("editarMetodoQuantificacaoBiomassa.jsp").forward(request, response);
         } finally {            
              
         }

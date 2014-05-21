@@ -52,7 +52,14 @@ public class VariavelArvoreAjusteDao extends MainDao {
             p.close();
         
     }
-    
+    public void deletarArvoreAjuste(int idArvoreAjuste) throws SQLException
+    {
+            PreparedStatement p = this.con.prepareStatement("DELETE from variavelarvoreajuste where idarvoreajuste = ?");
+            p.setInt(1, idArvoreAjuste);
+            p.executeUpdate();
+            p.close();
+        
+    }    
    public void update(VariavelArvoreAjuste variavelArvoreAjuste) throws Exception 
    {
         PreparedStatement p = this.con.prepareStatement("UPDATE variavelarvoreajuste SET idarvoreajuste = ?,"

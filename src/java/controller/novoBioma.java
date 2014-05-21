@@ -15,7 +15,7 @@ import model.Bioma;
 
 /**
  *
- * @author paulozeferino
+ * @author jaime
  */
 public class novoBioma extends HttpServlet {
 
@@ -25,9 +25,13 @@ public class novoBioma extends HttpServlet {
             
             
         } finally { 
-             request.setAttribute("bioma", new Bioma());
-             request.getRequestDispatcher("novoBioma.jsp").forward(request, response);
-       
+            Bioma bioma = (Bioma) request.getAttribute("bioma");
+            if(bioma == null) {
+               request.setAttribute("bioma", new Bioma());
+            } else {
+                request.setAttribute("bioma", bioma);
+            }
+            request.getRequestDispatcher("novoBioma.jsp").forward(request, response);
         }
     }
 

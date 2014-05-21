@@ -26,9 +26,14 @@ public class editarEspacamento extends HttpServlet {
             throws ServletException, IOException, SQLException {
         try {
              String idEspacamento = request.getParameter("id");
-             EspacamentoDao controller = new EspacamentoDao();
-             Espacamento objeto_espacamento = controller.getEspacamento(idEspacamento);
-             request.setAttribute("espacamento", objeto_espacamento );
+             Espacamento espacamento = (Espacamento) request.getAttribute("espacamento");
+             if(espacamento == null){             
+                EspacamentoDao controller = new EspacamentoDao();
+                Espacamento objeto_espacamento = controller.getEspacamento(idEspacamento);
+                request.setAttribute("espacamento", objeto_espacamento );
+             }else {
+                 request.setAttribute("espacamento", espacamento );
+             }             
              request.getRequestDispatcher("editarEspacamento.jsp").forward(request, response);
         } finally {            
              

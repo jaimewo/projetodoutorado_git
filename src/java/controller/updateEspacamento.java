@@ -43,6 +43,7 @@ public class updateEspacamento extends HttpServlet {
              {
                  RequestDispatcher r = request.getRequestDispatcher("/editarEspacamento?id="+id);  
                  request.setAttribute("erros", objeto_espacamento.getErrors());
+                 request.setAttribute("espacamento", objeto_espacamento);
                  r.forward( request, response );  
              }
         } finally {            

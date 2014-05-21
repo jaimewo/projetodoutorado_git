@@ -58,10 +58,13 @@ public class novoLocal extends HttpServlet {
             request.setAttribute("biomas", biomas);
               
         } finally { 
-             request.setAttribute("local", new Local());
-             request.getRequestDispatcher("novoLocal.jsp").forward(request, response);
-             
-       
+            Local local = (Local) request.getAttribute("local");
+            if(local == null) {
+               request.setAttribute("local", new Local());
+            } else {
+                request.setAttribute("local", local);
+            }
+            request.getRequestDispatcher("novoLocal.jsp").forward(request, response);
         }
     }
 

@@ -45,6 +45,7 @@ public class updateEquacao extends HttpServlet {
              {
                  RequestDispatcher r = request.getRequestDispatcher("/editarEquacao?id="+id); 
                  request.setAttribute("erros", equacao.getErrors());
+                  request.setAttribute("equacao", equacao);
                  r.forward( request, response );  
              }
         } finally {            
