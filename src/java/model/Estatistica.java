@@ -68,7 +68,6 @@ public class Estatistica extends Model  {
         DescriptiveStatistics descriptiveStatistics = new DescriptiveStatistics();        
         
         for(int i=0;i<tamanhoAmostra;i++) {
-            parcelas.get(i).getParcelasQuantidade().get(id).getQtdeVariavelInteresse();jjj
             switch (idVariavelInteresse) {
                 case 1: //Biomassa
                     descriptiveStatistics.addValue(parcelas.get(i).getQtdeBiomassa());            

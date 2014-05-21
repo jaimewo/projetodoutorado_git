@@ -6,7 +6,6 @@ package model;
 
 import dao.ArvoreDao;
 import dao.ParcelaDao;
-import dao.ParcelaQuantidadeDao;
 import java.util.ArrayList;
 
 /**
@@ -20,10 +19,11 @@ public class Parcela extends Model  {
     public int idLocal;
     public int numParcela;
     public double areaParcela;
+    public double qtdeBiomassa;
+    public double qtdeCarbono;
+    public double qtdeVolume;
     
     public ArrayList<Arvore> arvores;
-    
-    public ArrayList<ParcelaQuantidade> parcelasQuantidade;
     
     public Parcela()
     {
@@ -69,6 +69,30 @@ public class Parcela extends Model  {
         this.areaParcela = areaParcela;
     }
 
+    public double getQtdeBiomassa() {
+        return qtdeBiomassa;
+    }
+
+    public void setQtdeBiomassa(double qtdeBiomassa) {
+        this.qtdeBiomassa = qtdeBiomassa;
+    }
+
+    public double getQtdeCarbono() {
+        return qtdeCarbono;
+    }
+
+    public void setQtdeCarbono(double qtdeCarbono) {
+        this.qtdeCarbono = qtdeCarbono;
+    }
+
+    public double getQtdeVolume() {
+        return qtdeVolume;
+    }
+
+    public void setQtdeVolume(double qtdeVolume) {
+        this.qtdeVolume = qtdeVolume;
+    }
+
     public ArrayList<Arvore> getArvores() throws Exception {
         ArrayList<Arvore> arvores = new ArrayList<Arvore>();
         ArvoreDao arvoreDao = new ArvoreDao();
@@ -80,19 +104,6 @@ public class Parcela extends Model  {
 
     public void setArvores(ArrayList<Arvore> arvores) {
         this.arvores = arvores;
-    }
-
-    public ArrayList<ParcelaQuantidade> getParcelasQuantidade() throws Exception {
-        ArrayList<ParcelaQuantidade> parcelasQuantidade = new ArrayList<ParcelaQuantidade>();
-        ParcelaQuantidadeDao parcelaQuantidadeDao = new ParcelaQuantidadeDao();
-        
-        parcelasQuantidade = parcelaQuantidadeDao.listarParcelasQuantidade(this.id);
-        
-        return parcelasQuantidade;
-    }
-
-    public void setParcelasQuantidade(ArrayList<ParcelaQuantidade> arvores) {
-        this.parcelasQuantidade = parcelasQuantidade;
     }
 
 }

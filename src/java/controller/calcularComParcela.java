@@ -5,11 +5,10 @@
 package controller;
 
 
-import dao.LocalDao;
 import dao.EstatisticaDao;
-import dao.LocalDetalheCarbonoDao;
-import dao.LocalDetalheVolumeDao;
+import dao.LocalDao;
 import dao.ParcelaDao;
+import dao.VariavelInteresseDao;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -20,11 +19,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Local;
 import model.Estatistica;
-import model.LocalDetalheCarbono;
-import model.LocalDetalheVolume;
+import model.Local;
 import model.Parcela;
+import model.VariavelInteresse;
 import org.apache.commons.math3.distribution.TDistribution;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 
@@ -42,7 +40,6 @@ public class calcularComParcela extends HttpServlet {
             String idLocalStr = request.getParameter("id");
             LocalDao controller = new LocalDao();
             Local local = controller.getLocal(Integer.parseInt(idLocalStr));
-            request.setAttribute("local", local );
             
             List<Parcela> parcelas = new ArrayList<Parcela>();
             ParcelaDao parcelaDao = new ParcelaDao();
@@ -51,23 +48,21 @@ public class calcularComParcela extends HttpServlet {
             EstatisticaDao estatisticaDao = new EstatisticaDao();
             estatisticaDao.deletarEstatisticaLocal(local.getId());
 
-            Estatistica estatisticaBiomassa = new Estatistica();
-            estatisticaBiomassa.setIdLocal(local.getId());
-            estatisticaBiomassa.setIdVariavelInteresse(1); //Biomassa
-            estatisticaBiomassa.calcularEstatisticas(local, parcelas);
-            request.setAttribute("estatisticaBiomassa", estatisticaBiomassa);
+            List<VariavelInteresse> variaveisInteresse = new ArrayList<VariavelInteresse>();
+            VariavelInteresseDao variavelInteresseDao = new VariavelInteresseDao();
+            variaveisInteresse = variavelInteresseDao.listarVariaveisInteresse();
+            
+            for (VariavelInteresse variavelInteresse: variaveisInteresse) {
 
-            Estatistica estatisticaCarbono = new Estatistica();
-            estatisticaCarbono.setIdLocal(local.getId());
-            estatisticaCarbono.setIdVariavelInteresse(2); //Carbono
-            estatisticaCarbono.calcularEstatisticas(local, parcelas);
-            request.setAttribute("estatisticaCarbono", estatisticaCarbono);
+                Estatistica estatistica = new Estatistica();
+                estatistica.setIdLocal(local.getId());
+                estatistica.setIdVariavelInteresse(variavelInteresse.getId());
+                estatistica.calcularEstatisticas(local, parcelas);
+                
+            }
 
-            Estatistica estatisticaVolume = new Estatistica();
-            estatisticaVolume.setIdLocal(local.getId());
-            estatisticaVolume.setIdVariavelInteresse(3); //Volume
-            estatisticaVolume.calcularEstatisticas(local, parcelas);
-            request.setAttribute("estatisticaVolume", estatisticaVolume);
+            local = controller.getLocal(Integer.parseInt(idLocalStr));
+            request.setAttribute("local", local );
 
             request.getRequestDispatcher("??????.jsp").forward(request, response);
         } finally {            
