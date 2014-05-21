@@ -41,27 +41,10 @@ public class calcularComParcela extends HttpServlet {
             LocalDao controller = new LocalDao();
             Local local = controller.getLocal(Integer.parseInt(idLocalStr));
             
-            List<Parcela> parcelas = new ArrayList<Parcela>();
-            ParcelaDao parcelaDao = new ParcelaDao();
-            parcelas = parcelaDao.listarParcelas(local.getId());
-            
-            EstatisticaDao estatisticaDao = new EstatisticaDao();
-            estatisticaDao.deletarEstatisticaLocal(local.getId());
+            local.calculaBiomassaEstatisticas();
+            local.calculaCarbonoEstatisticas();
+            local.calculaVolumeEstatisticas();
 
-            List<VariavelInteresse> variaveisInteresse = new ArrayList<VariavelInteresse>();
-            VariavelInteresseDao variavelInteresseDao = new VariavelInteresseDao();
-            variaveisInteresse = variavelInteresseDao.listarVariaveisInteresse();
-            
-            for (VariavelInteresse variavelInteresse: variaveisInteresse) {
-
-                Estatistica estatistica = new Estatistica();
-                estatistica.setIdLocal(local.getId());
-                estatistica.setIdVariavelInteresse(variavelInteresse.getId());
-                estatistica.calcularEstatisticas(local, parcelas);
-                
-            }
-
-            local = controller.getLocal(Integer.parseInt(idLocalStr));
             request.setAttribute("local", local );
 
             request.getRequestDispatcher("??????.jsp").forward(request, response);

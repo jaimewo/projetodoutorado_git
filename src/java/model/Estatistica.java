@@ -124,9 +124,6 @@ public class Estatistica extends Model  {
                 break;            
         }
     
-        LocalDao localDao = new LocalDao();
-        localDao.update(local);
-    
         EstatisticaDao estatisticaDao = new EstatisticaDao();
         estatisticaDao.update(this);
     

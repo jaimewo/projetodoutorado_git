@@ -10,10 +10,9 @@ package controller;
 import dao.ArvoreDao;
 import dao.LocalDao;
 import dao.EstatisticaDao;
-import dao.LocalDetalheCarbonoDao;
-import dao.LocalDetalheVolumeDao;
 import dao.ParcelaDao;
 import dao.TrabalhoCientificoDao;
+import dao.VariavelInteresseDao;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -28,11 +27,10 @@ import model.Arvore;
 import model.Equacao;
 import model.Local;
 import model.Estatistica;
-import model.LocalDetalheCarbono;
-import model.LocalDetalheVolume;
 import model.Parcela;
 import model.TrabalhoCientifico;
 import model.VariavelArvore;
+import model.VariavelInteresse;
 import org.apache.commons.math3.distribution.TDistribution;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.nfunk.jep.*;
@@ -60,55 +58,20 @@ public class calcularComArvores extends HttpServlet {
             
             LocalDao localDao = new LocalDao();
             Local local = localDao.getLocal(Integer.parseInt(idLocalStr));
-  
-            double biomassaEstLocal = 0.0;
-              
-            ArrayList<Equacao> equacoesTrabalho = new ArrayList<Equacao>();
-            equacoesTrabalho = local.getTrabalhoCientifico().getEquacoesTrabalho();
             
             ArrayList<Parcela> parcelasLocal = new ArrayList<Parcela>();
             parcelasLocal = local.getParcelas();
             
             for (Parcela parcela : parcelasLocal) {
-                double biomassaEstParcela = 0.0;
-                ParcelaDao parcelaDao = new ParcelaDao();
-                ArrayList<Arvore> arvoresParcela = new ArrayList<Arvore>();
-                arvoresParcela = parcela.getArvores();
-                
-                for (Arvore arvore : arvoresParcela) {
-                    double biomassaEst = 0.0;
-                    ArvoreDao arvoreDao = new ArvoreDao();
-                    ArrayList<VariavelArvore> variaveisArvore = new ArrayList<>();
-                    variaveisArvore = arvore.getVariaveisArvore();
-                    
-                    for (Equacao e : equacoesTrabalho) {
-                        switch (e.getIdVariavelInteresse()) {
-                          case 1: 
-                               biomassaEst = calculaBiomassaComArvores(variaveisArvore,e);
-                               arvore.setQtdeBiomassaEst(biomassaEst);
-                               arvoreDao.updateBiomassa(arvore);
-                               biomassaEstParcela += biomassaEst;
-                          case 2: 
-                               calculaCarbonoComArvores(variaveisArvore,e);
-                          case 3: 
-                               calculaVolumeComArvores(variaveisArvore,e);
-                        }
-                    }                    
-                }
-                parcela.setQtdeBiomassa(biomassaEstParcela);
-                parcelaDao.updateBiomassa(parcela);
+                parcela.calculaBiomassa(local);
+                parcela.calculaCarbono(local);
+                parcela.calculaVolume(local);
             }
-//PEND            Chamar calcularComParcelas para estimar biomassa do Local
-            local.setQtdeBiomassa(biomassaEstLocal);
-            localDao.updateBiomassa(local);
             
-            
-            
-/*            
-            biomassaEstLocal = 10.0;
-            local.setQtdeBiomassa(biomassaEstLocal);
-            
-*/            
+            local.calculaBiomassaEstatisticas();
+            local.calculaCarbonoEstatisticas();
+            local.calculaVolumeEstatisticas();
+
             request.setAttribute("local", local );          
 
             request.getRequestDispatcher("calcularComArvores.jsp").forward(request, response);
@@ -148,32 +111,4 @@ public class calcularComArvores extends HttpServlet {
         return "CalcularComArvores";
     }
 
-    private double calculaBiomassaComArvores(ArrayList<VariavelArvore> variaveisArvore,Equacao equacao) {
-        //http://www.singularsys.com/jep/doc/html/index.html
-        JEP myParser = new JEP();
-        myParser.addStandardFunctions();
-        myParser.addStandardConstants();
-        
-        double resultado = 0.0;
-                
-        for (VariavelArvore variavelArvore : variaveisArvore) {
-            String sigla = variavelArvore.getVariavel().getSigla();
-            Double valor = variavelArvore.getValor();
-        
-            myParser.addVariable(sigla, valor);
-        }  
-            
-        myParser.parseExpression(equacao.getExpressaoEquacao());
-        
-        resultado = myParser.getValue();
-        return resultado;
-
-    }
-
-    private void calculaCarbonoComArvores(ArrayList<VariavelArvore> variaveisArvore,Equacao equacao) {
-    }
-
-    private void calculaVolumeComArvores(ArrayList<VariavelArvore> variaveisArvore,Equacao equacao) {
-    }
- 
 }

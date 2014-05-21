@@ -4,8 +4,11 @@
  */
 package model;
 
+import dao.ArvoreDao;
 import dao.VariavelArvoreDao;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import org.nfunk.jep.JEP;
 
 /**
  *
@@ -14,15 +17,15 @@ import java.util.ArrayList;
 public class Arvore extends Model  {
     
     
-    public int id;
-    public int idParcela;
-    public int numArvore;
-    public double qtdeBiomassaObs;
-    public double qtdeBiomassaEst;
-    public double qtdeCarbonoObs;
-    public double qtdeCarbonoEst;
-    public double qtdeVolumeObs;
-    public double qtdeVolumeEst;
+    private int id;
+    private int idParcela;
+    private int numArvore;
+    private double qtdeBiomassaObs;
+    private double qtdeBiomassaEst;
+    private double qtdeCarbonoObs;
+    private double qtdeCarbonoEst;
+    private double qtdeVolumeObs;
+    private double qtdeVolumeEst;
     
     public ArrayList<VariavelArvore> variaveisArvore;
     
@@ -123,5 +126,68 @@ public class Arvore extends Model  {
         return variaveisArvore;
     }
 
+    public Double calculaBiomassaEst(Local local) throws SQLException, Exception {
+        int idVarivelInteresse = 1; //Biomassa
+        qtdeBiomassaEst = calculaQuantidade(local,idVarivelInteresse);
+        ArvoreDao arvoreDao = new ArvoreDao();
+        arvoreDao.updateBiomassa(this);
+        return qtdeBiomassaEst;
+    }
+
+    public Double calculaCarbonoEst(Local local) throws SQLException, Exception {
+        int idVarivelInteresse = 2; //Carbono
+        qtdeCarbonoEst = calculaQuantidade(local,idVarivelInteresse);
+        ArvoreDao arvoreDao = new ArvoreDao();
+        arvoreDao.updateCarbono(this);
+        return qtdeCarbonoEst;
+    }
+    
+    public Double calculaVolumeEst(Local local) throws SQLException, Exception {
+        int idVarivelInteresse = 3; //Volume
+        qtdeVolumeEst = calculaQuantidade(local,idVarivelInteresse);
+        ArvoreDao arvoreDao = new ArvoreDao();
+        arvoreDao.updateVolume(this);
+        return qtdeVolumeEst;
+    }
+    
+    
+    private Double calculaQuantidade(Local local, int idVariavelInteresse) throws SQLException, Exception {
+
+        Double resultado = 0.0;
+        this.variaveisArvore = getVariaveisArvore();
+
+        ArrayList<Equacao> equacoesTrabalho = new ArrayList<Equacao>();
+        equacoesTrabalho = local.getTrabalhoCientifico().getEquacoesTrabalho();
+        
+        for (Equacao equacao : equacoesTrabalho) {
+            if (equacao.getIdVariavelInteresse()==idVariavelInteresse) {
+                resultado = aplicaParser(variaveisArvore,equacao);
+            }
+        }
+        
+        return resultado;
+    
+    }
+    private Double aplicaParser(ArrayList<VariavelArvore> variaveisArvore, Equacao equacao) throws SQLException {
+        //http://www.singularsys.com/jep/doc/html/index.html
+        JEP myParser = new JEP();
+        myParser.addStandardFunctions();
+        myParser.addStandardConstants();
+
+        double resultado = 0.0;
+        
+        for (VariavelArvore variavelArvore : variaveisArvore) {
+            String sigla = variavelArvore.getVariavel().getSigla();
+            Double valor = variavelArvore.getValor();
+        
+            myParser.addVariable(sigla, valor);
+        }  
+            
+        myParser.parseExpression(equacao.getExpressaoEquacao());
+        
+        resultado = myParser.getValue();
+        return resultado;
+    
+    }
 
 }

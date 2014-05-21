@@ -15,15 +15,15 @@ import java.util.ArrayList;
 public class Parcela extends Model  {
     
     
-    public int id;
-    public int idLocal;
-    public int numParcela;
-    public double areaParcela;
-    public double qtdeBiomassa;
-    public double qtdeCarbono;
-    public double qtdeVolume;
+    private int id;
+    private int idLocal;
+    private int numParcela;
+    private double areaParcela;
+    private double qtdeBiomassa;
+    private double qtdeCarbono;
+    private double qtdeVolume;
     
-    public ArrayList<Arvore> arvores;
+    private ArrayList<Arvore> arvores;
     
     public Parcela()
     {
@@ -106,4 +106,34 @@ public class Parcela extends Model  {
         this.arvores = arvores;
     }
 
+    public void calculaBiomassa(Local local) throws Exception {
+        ArrayList<Arvore> arvores = new ArrayList();
+        arvores = getArvores();
+        for (Arvore arvore: arvores) {
+            this.qtdeBiomassa += arvore.calculaBiomassaEst(local);
+        }
+        ParcelaDao parcelaDao = new ParcelaDao();
+        parcelaDao.updateBiomassa(this);
+    }
+
+    public void calculaCarbono(Local local) throws Exception {
+        ArrayList<Arvore> arvores = new ArrayList();
+        arvores = getArvores();
+        for (Arvore arvore: arvores) {
+            this.qtdeCarbono += arvore.calculaCarbonoEst(local);
+        }
+        ParcelaDao parcelaDao = new ParcelaDao();
+        parcelaDao.updateCarbono(this);
+        
+    }
+    public void calculaVolume(Local local) throws Exception {
+        ArrayList<Arvore> arvores = new ArrayList();
+        arvores = getArvores();
+        for (Arvore arvore: arvores) {
+            this.qtdeVolume += arvore.calculaVolumeEst(local);
+        }
+        ParcelaDao parcelaDao = new ParcelaDao();
+        parcelaDao.updateVolume(this);
+        
+    }
 }

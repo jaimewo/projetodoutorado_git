@@ -5,11 +5,15 @@
 package model;
 
 import dao.ArvoreAjusteDao;
+import dao.EstatisticaDao;
+import dao.LocalDao;
 import dao.MunicipioLocalDao;
 import dao.ParcelaDao;
 import dao.TrabalhoCientificoDao;
+import dao.VariavelInteresseDao;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -19,22 +23,22 @@ import java.util.ArrayList;
 public class Local extends Model  {
     
     
-    public int id;
-    public String descricao;
-    public double area;
-    public double areaParcela;
-    public double qtdeBiomassa;
-    public double qtdeCarbono;
-    public double qtdeVolume;
-    public int idTipoEstimativa;
-    public int idFormacao;
-    public int idEspacamento;
-    public int idTrabalhoCientifico;
+    private int id;
+    private String descricao;
+    private double area;
+    private double areaParcela;
+    private double qtdeBiomassa;
+    private double qtdeCarbono;
+    private double qtdeVolume;
+    private int idTipoEstimativa;
+    private int idFormacao;
+    private int idEspacamento;
+    private int idTrabalhoCientifico;
     
-    public TrabalhoCientifico trabalhoCientifico;
-    public ArrayList<MunicipioLocal> municipiosLocal;
-    public ArrayList<Parcela> parcelas;
-    public ArrayList<ArvoreAjuste> arvoresAjuste;
+    private TrabalhoCientifico trabalhoCientifico;
+    private ArrayList<MunicipioLocal> municipiosLocal;
+    private ArrayList<Parcela> parcelas;
+    private ArrayList<ArvoreAjuste> arvoresAjuste;
     
     public Local()
     {
@@ -184,6 +188,45 @@ public class Local extends Model  {
         this.arvoresAjuste = arvoresAjuste;
     }
 
+    public void calculaBiomassaEstatisticas() throws Exception {
+        
+        ArrayList<Parcela> parcelas = new ArrayList();
+        parcelas = getParcelas();
+
+        EstatisticaDao estatisticaDao = new EstatisticaDao();
+        estatisticaDao.deletarEstatisticaLocal(id);
+
+        Estatistica estatistica = new Estatistica();
+        estatistica.setIdLocal(id);
+        estatistica.setIdVariavelInteresse(1); //Biomassa
+        estatistica.calcularEstatisticas(this, parcelas);
+    
+        LocalDao localDao = new LocalDao();
+        localDao.updateBiomassa(this);                
+        
+    }
+    public void calculaCarbonoEstatisticas() throws Exception {
+        
+        ArrayList<Parcela> parcelas = new ArrayList();
+        parcelas = getParcelas();
+        
+        calculaEstatisticas(parcelas, 2); //Carbono
+    
+        LocalDao localDao = new LocalDao();
+        localDao.updateCarbono(this);                
+        
+    }    
+    public void calculaVolumeEstatisticas() throws Exception {
+        
+        ArrayList<Parcela> parcelas = new ArrayList();
+        parcelas = getParcelas();
+        
+        calculaEstatisticas(parcelas, 3); //Volume
+    
+        LocalDao localDao = new LocalDao();
+        localDao.updateVolume(this);                
+        
+    }    
     public boolean eh_valido()
     {
         if(this.getDescricao() == null || this.getDescricao().isEmpty())
@@ -219,5 +262,16 @@ public class Local extends Model  {
         return this.erros;
     }
 
+    private void calculaEstatisticas(ArrayList<Parcela> parcelas, int idVariavelInteresse) throws Exception {
     
+        EstatisticaDao estatisticaDao = new EstatisticaDao();
+        estatisticaDao.deletarEstatisticaLocal(id);
+
+        Estatistica estatistica = new Estatistica();
+        estatistica.setIdLocal(id);
+        estatistica.setIdVariavelInteresse(idVariavelInteresse);
+    
+        estatistica.calcularEstatisticas(this, parcelas);
+    
+    }     
 }
