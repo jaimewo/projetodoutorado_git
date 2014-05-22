@@ -1,0 +1,6 @@
+Primeiro retirar o importarPlanilha e gravarPlanilhaExemplo do arvoreAjusteDao (passei para o model)
+model.Arvore no fim do importarPlanilha, ver mensagem do que deve ser feito.
+Depois fazer o gravarPlanilhaExemplo qu está logo abaixo
+Depois testar o importar e gravar exemplo da model.Parcela e model.Arvore
+Depois disso, montar um esquema para controlar as planilhas importadas e criadas para exemplo verificando qual
+pasta será utilizada e qual nomes dos arquivos.

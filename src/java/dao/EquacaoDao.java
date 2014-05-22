@@ -48,7 +48,7 @@ public class EquacaoDao extends MainDao{
             p.setDouble(7, equacao.getSyx());
             p.setDouble(8, equacao.getSyxPerc());
             p.setDouble(9, equacao.getIa());
-            p.setInt(10, equacao.getIdTrabalhoCientifico());
+            p.setInt(10, equacao.getIdtTrabalhoCientifico());
 
             
             p.executeUpdate();
@@ -88,7 +88,7 @@ public class EquacaoDao extends MainDao{
         p.setDouble(7, equacao.getSyx());
         p.setDouble(8, equacao.getSyxPerc());
         p.setDouble(9, equacao.getIa());
-        p.setInt(10, equacao.getIdTrabalhoCientifico());
+        p.setInt(10, equacao.getIdtTrabalhoCientifico());
         
         p.setInt(11, equacao.getId());
         p.executeUpdate();
@@ -113,7 +113,7 @@ public class EquacaoDao extends MainDao{
            equacao.setSyx(rs.getDouble("syx"));
            equacao.setSyxPerc(rs.getDouble("syxperc"));
            equacao.setIa(rs.getDouble("ia"));
-           equacao.setIdTrabalhoCientifico(rs.getInt("idtrabalhocientifico"));
+           equacao.setIdtTrabalhoCientifico(rs.getInt("idTrabalhoCientifico"));
            equacoes.add(equacao);
         }
         rs.close();
@@ -137,7 +137,7 @@ public class EquacaoDao extends MainDao{
            equacao.setSyx(rs.getDouble("syx"));
            equacao.setSyxPerc(rs.getDouble("syxperc"));
            equacao.setIa(rs.getDouble("ia"));
-           equacao.setIdTrabalhoCientifico(rs.getInt("idtrabalhocientifico"));
+           equacao.setIdtTrabalhoCientifico(rs.getInt("idTrabalhoCientifico"));
            equacoes.add(equacao);
         }
         rs.close();
@@ -175,7 +175,7 @@ public class EquacaoDao extends MainDao{
            equacao.setSyx(rs.getDouble("syx"));
            equacao.setSyxPerc(rs.getDouble("syxperc"));
            equacao.setIa(rs.getDouble("ia"));
-           equacao.setIdTrabalhoCientifico(rs.getInt("idTrabalhoCientifico"));
+           equacao.setIdtTrabalhoCientifico(rs.getInt("idTrabalhoCientifico"));
            equacoesTrabalho.add(equacao);
         }
         rs.close();

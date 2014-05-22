@@ -41,7 +41,6 @@
                                     <li><a href="listarMetodosQuantificacaoCarbono">Metodos de Quantificação de Carbono</a></li>
                                     <li><a href="listarVariaveis">Variáveis</a></li>
                                     <li><a href="listarAutoresModelo">Autores de Modelos</a></li>
-                                    <li><a href="calcularComArvores">Calcular com Árvores</a></li>
                                 </ul>
                             </li>
                         </ul>

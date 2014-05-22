@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Arvore;
+import model.Local;
 
 /**
  *
@@ -60,6 +61,20 @@ public class ArvoreDao extends MainDao {
         
     }
     
+    public void deletarLocal(Local local) throws SQLException
+    {
+        PreparedStatement p = this.con.prepareStatement("SELECT * FROM parcela where idlocal = ?");
+        p.setInt(1, local.getId());
+        ResultSet rs = p.executeQuery();
+        while(rs.next()){
+           PreparedStatement p1 = this.con.prepareStatement("DELETE from arvore where idparcela = ?"); 
+           p1.setInt(1, rs.getInt("idparcela"));
+           p1.executeUpdate();
+           p1.close();
+        }        
+        rs.close();
+        p.close();
+    }    
    public void update(Arvore arvore) throws Exception 
    {
         PreparedStatement p = this.con.prepareStatement("UPDATE arvore SET idparcela = ?,"

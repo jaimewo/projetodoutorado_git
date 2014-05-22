@@ -102,14 +102,14 @@
                     </div>
                 </div>
                         
-                                <div class="field control-group">
-                                    <label for="local_latitude" class="control-label">Latitude,Longitude <a href="#" id="add_lat_long">+</a></label>
-                <div id="lat_long" class="controls">
-                    <p>
-                        (<input type="text" name="coordenadaLocal[latitude]"  />,<input type="text" name="coordenadaLocal[longitude]"  />)
-                    </p>
-                </div>
-            </div> 
+                <div class="field control-group">
+                    <label for="local_latitude" class="control-label">Latitude,Longitude <a href="#" id="add_lat_long">+</a></label>
+                    <div id="lat_long" class="controls">
+                        <p>
+                            (<input type="text" name="coordenadaLocal[latitude]"  />,<input type="text" name="coordenadaLocal[longitude]"  />)
+                        </p>
+                    </div>
+                </div> 
       
                 <div class="field control-group">
                     <label for="local_trabalhoCientifico" class="control-label">Trabalho Científico</label>
@@ -143,7 +143,7 @@
                      <label for="local_descricao" class="control-label"><b>Arquivo com dados</b></label>
                     <div class="controls">
                         <input type="file" name="arquivo"  />
-                        <a href="#" id="btn_modelo" class="btn btn-inverse" >Baixar Modelo</a>
+                        <a href="#" id="btn_modelo" class="btn btn-inverse" >Baixar Exemplo</a>
                     </div>
                      <br />
                      <br />

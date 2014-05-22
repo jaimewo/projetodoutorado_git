@@ -55,6 +55,15 @@ public class ParcelaDao extends MainDao {
         
     }
     
+    public void deletarParcela(Local local) throws SQLException
+    {
+        PreparedStatement p = this.con.prepareStatement("DELETE from parcela where idlocal = ?");
+        p.setInt(1, local.getId());
+        p.executeUpdate();
+        p.close();
+        
+    }
+    
    public void update(Parcela parcela) throws Exception 
    {
         PreparedStatement p = this.con.prepareStatement("UPDATE parcela SET numparcela = ?, "

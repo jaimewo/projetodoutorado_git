@@ -103,5 +103,22 @@ public class VariavelDao extends MainDao {
         p.close();
         return variaveis;
     }
-    
+    public ArrayList<Variavel> listarVariaveis(int idEquacao) throws Exception{
+        ArrayList<Variavel> variaveis = new ArrayList<Variavel>();
+        PreparedStatement p = this.con.prepareStatement("SELECT v.id AS id,v.nome AS nome, v.sigla AS sigla "
+                + "                                      FROM variavel v JOIN variavelequacao ve ON v.id = ve.idvariavel"
+                + "                                      WHERE ve.idequacao = ?");
+        p.setInt(1, idEquacao);
+        ResultSet rs = p.executeQuery();
+        while(rs.next()){
+           Variavel variavel = new Variavel();
+           variavel.setId(rs.getInt("id"));
+           variavel.setNome(rs.getString("nome"));
+           variavel.setSigla(rs.getString("sigla"));
+           variaveis.add(variavel);
+        }
+        rs.close();
+        p.close();
+        return variaveis;
+    }   
 }
