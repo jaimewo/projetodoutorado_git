@@ -42,6 +42,12 @@ public class ParcelaDao extends MainDao {
         p.setDouble(5, parcela.getQtdeVolume());
         
         p.executeUpdate();
+        
+        
+        
+        
+        
+        
         p.close();
     }
     
@@ -118,6 +124,28 @@ public class ParcelaDao extends MainDao {
         List<Parcela> parcelas = new ArrayList<Parcela>();
         PreparedStatement p = this.con.prepareStatement("SELECT * FROM parcela where id = ?");
         p.setInt(1, Integer.parseInt(id));
+        ResultSet rs = p.executeQuery();
+        while(rs.next()){
+           Parcela parcela = new Parcela();
+           parcela.setId(rs.getInt("id"));
+           parcela.setNumParcela(rs.getInt("numparcela"));
+           parcela.setAreaParcela(rs.getDouble("areaparcela"));
+           parcela.setQtdeBiomassa(rs.getDouble("qtdebiomassa"));
+           parcela.setQtdeCarbono(rs.getDouble("qtdecarbono"));
+           parcela.setQtdeVolume(rs.getDouble("qtdevolume"));
+           parcelas.add(parcela);
+        }
+        rs.close();
+        p.close();
+        return parcelas.get(0);
+   }
+   
+   public Parcela getParcela(Local local,int numParcela) throws SQLException
+   {
+        List<Parcela> parcelas = new ArrayList<Parcela>();
+        PreparedStatement p = this.con.prepareStatement("SELECT * FROM parcela where idlocal = ? AND numparcela = ?");
+        p.setInt(1, local.getId());
+        p.setInt(2, numParcela);
         ResultSet rs = p.executeQuery();
         while(rs.next()){
            Parcela parcela = new Parcela();

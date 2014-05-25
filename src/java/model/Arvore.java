@@ -216,7 +216,7 @@ public class Arvore extends Model  {
         try {
     
             //arquivo = new File("c:\\teste\\arvoreajuste2003.xls");
-            arquivo = new File("C:\\Users\\jaimewo\\Dropbox\\Jaime\\AA-UFPR\\Doutorado\\Tese\\Implementacao Oficial\\JCarbon\\projetodoutorado_git\\Arquivos\\arvorea.xls");
+            arquivo = new File("C:\\Users\\jaimewo\\Dropbox\\Jaime\\AA-UFPR\\Doutorado\\Tese\\Implementacao Oficial\\JCarbon\\projetodoutorado_git\\Arquivos\\arvore.xls");
 
             // instancia a planilha
             planilha = Workbook.getWorkbook(arquivo);
@@ -321,7 +321,33 @@ public class Arvore extends Model  {
             parcela.setArvores(arvores);
             
             ParcelaDao parcelaDao = new ParcelaDao();
-            parcelaDao.cadastrar(parcela);jjjjj
+            parcelaDao.cadastrar(parcela);
+            parcela = parcelaDao.getParcela(local,numParcela);
+            
+            int i=0;
+            for (Arvore arvore: arvores) {
+                arvore.setIdParcela(parcela.getId());
+                arvoreDao.cadastrar(arvore);
+                arvoreDao.getArvore(parcela, numArvore);jjj
+                        i++;
+                    }
+
+            
+            
+                                arvoreAjuste = arvoreAjusteDao.getArvoreAjuste(local,numArvore);
+                    int i=0;
+                    for (Variavel variavelLida: variaveisLidas) {
+                        VariavelArvoreAjuste variavelArvoreAjuste = new VariavelArvoreAjuste();
+                        variavelArvoreAjuste.setIdArvoreAjuste(arvoreAjuste.getId());
+                        variavelArvoreAjuste.setIdVariavel(variavelLida.getId());
+                        variavelArvoreAjuste.setValor(valorVariaveis.get(i));
+                        variavelArvoreAjuste.setVariavel(variavelLida);
+                        
+                        variavelArvoreAjusteDao.cadastrar(variavelArvoreAjuste);
+                        i++;
+                    }
+            
+            jjjjj
                     Alterar o parcelaDao.cadastrar para incluir, além das parcelas, as árvores da parcela e variáveis das árvores. Fazer 
                             isso somente quando forem passadas as árvores já que na entrada de dados somente com os valores das parcelas,
                             não serão informadas as árvores.

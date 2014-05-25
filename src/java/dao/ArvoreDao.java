@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Arvore;
 import model.Local;
+import model.Parcela;
 
 /**
  *
@@ -105,6 +106,31 @@ public class ArvoreDao extends MainDao {
         List<Arvore> arvores = new ArrayList<Arvore>();
         PreparedStatement p = this.con.prepareStatement("SELECT * FROM arvore where id = ?");
         p.setInt(1, Integer.parseInt(idArvore));
+        ResultSet rs = p.executeQuery();
+        while(rs.next()){
+           Arvore arvore = new Arvore();
+           arvore.setId(rs.getInt("id"));
+           arvore.setIdParcela(rs.getInt("idparcela"));
+           arvore.setNumArvore(rs.getInt("numarvore"));
+           arvore.setQtdeBiomassaObs(rs.getDouble("qtdebiomassaobs"));
+           arvore.setQtdeBiomassaEst(rs.getDouble("qtdebiomassaest"));
+           arvore.setQtdeCarbonoObs(rs.getDouble("qtdecarbonoobs"));
+           arvore.setQtdeCarbonoEst(rs.getDouble("qtdecarbonoest"));
+           arvore.setQtdeVolumeObs(rs.getDouble("qtdevolumeobs"));
+           arvore.setQtdeVolumeEst(rs.getDouble("qtdevolumeest"));
+           arvores.add(arvore);
+        }
+        rs.close();
+        p.close();
+        return arvores.get(0);
+   }
+   
+   public Arvore getArvore(Parcela parcela, int numArvore) throws SQLException
+   {
+        List<Arvore> arvores = new ArrayList<Arvore>();
+        PreparedStatement p = this.con.prepareStatement("SELECT * FROM arvore where idparcela = ? AND numarvore = ?");
+        p.setInt(1, parcela.getId());
+        p.setInt(2, numArvore);
         ResultSet rs = p.executeQuery();
         while(rs.next()){
            Arvore arvore = new Arvore();
