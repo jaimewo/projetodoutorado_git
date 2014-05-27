@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import model.Arvore;
 import model.Local;
 import model.Parcela;
+import model.VariavelArvore;
 
 /**
  *
@@ -29,7 +30,7 @@ public class ArvoreDao extends MainDao {
      super();
     }
      
-    public void cadastrar(Arvore arvore) throws SQLException
+    public void cadastrar(Arvore arvore) throws SQLException, Exception
     {
             PreparedStatement p = this.con.prepareStatement("INSERT INTO arvore(idparcela,"
                     +                                                          "numarvore,"
@@ -49,6 +50,16 @@ public class ArvoreDao extends MainDao {
             p.setDouble(7, arvore.getQtdeVolumeObs());
             p.setDouble(8, arvore.getQtdeVolumeEst());
             p.executeUpdate();
+            
+            if (arvore.getVariaveisArvore().size()>0) {
+                arvore = getArvore(arvore.getIdParcela(),arvore.getNumArvore());
+                for (VariavelArvore variavelArvore: arvore.getVariaveisArvore()) {
+                    variavelArvore.setIdArvore(arvore.getId());
+                    VariavelArvoreDao variavelarvoreDao = new VariavelArvoreDao();
+                    variavelarvoreDao.cadastrar(variavelArvore);
+                }
+            }
+            
             p.close();
     }
     
@@ -125,11 +136,11 @@ public class ArvoreDao extends MainDao {
         return arvores.get(0);
    }
    
-   public Arvore getArvore(Parcela parcela, int numArvore) throws SQLException
+   public Arvore getArvore(int idParcela, int numArvore) throws SQLException
    {
         List<Arvore> arvores = new ArrayList<Arvore>();
         PreparedStatement p = this.con.prepareStatement("SELECT * FROM arvore where idparcela = ? AND numarvore = ?");
-        p.setInt(1, parcela.getId());
+        p.setInt(1, idParcela);
         p.setInt(2, numArvore);
         ResultSet rs = p.executeQuery();
         while(rs.next()){

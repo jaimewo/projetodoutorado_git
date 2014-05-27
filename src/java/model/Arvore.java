@@ -313,7 +313,6 @@ public class Arvore extends Model  {
                     arvores.add(this);
                 }
             }
-        
             Parcela parcela = new Parcela();
             parcela.setIdLocal(local.getId());
             parcela.setNumParcela(numParcela);
@@ -322,36 +321,6 @@ public class Arvore extends Model  {
             
             ParcelaDao parcelaDao = new ParcelaDao();
             parcelaDao.cadastrar(parcela);
-            parcela = parcelaDao.getParcela(local,numParcela);
-            
-            int i=0;
-            for (Arvore arvore: arvores) {
-                arvore.setIdParcela(parcela.getId());
-                arvoreDao.cadastrar(arvore);
-                arvoreDao.getArvore(parcela, numArvore);jjj
-                        i++;
-                    }
-
-            
-            
-                                arvoreAjuste = arvoreAjusteDao.getArvoreAjuste(local,numArvore);
-                    int i=0;
-                    for (Variavel variavelLida: variaveisLidas) {
-                        VariavelArvoreAjuste variavelArvoreAjuste = new VariavelArvoreAjuste();
-                        variavelArvoreAjuste.setIdArvoreAjuste(arvoreAjuste.getId());
-                        variavelArvoreAjuste.setIdVariavel(variavelLida.getId());
-                        variavelArvoreAjuste.setValor(valorVariaveis.get(i));
-                        variavelArvoreAjuste.setVariavel(variavelLida);
-                        
-                        variavelArvoreAjusteDao.cadastrar(variavelArvoreAjuste);
-                        i++;
-                    }
-            
-            jjjjj
-                    Alterar o parcelaDao.cadastrar para incluir, além das parcelas, as árvores da parcela e variáveis das árvores. Fazer 
-                            isso somente quando forem passadas as árvores já que na entrada de dados somente com os valores das parcelas,
-                            não serão informadas as árvores.
-            
         
         } catch (Exception e) {
 

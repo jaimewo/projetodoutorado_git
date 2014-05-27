@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Arvore;
 import model.Local;
 import model.Parcela;
 
@@ -26,7 +27,7 @@ public class ParcelaDao extends MainDao {
         super();
     }
     
-    public void cadastrar(Parcela parcela) throws SQLException
+    public void cadastrar(Parcela parcela) throws SQLException, Exception
                         
     {
         PreparedStatement p = this.con.prepareStatement("INSERT INTO parcela (numparcela, "
@@ -43,11 +44,14 @@ public class ParcelaDao extends MainDao {
         
         p.executeUpdate();
         
-        
-        
-        
-        
-        
+        if (parcela.getArvores().size()>0) {
+            parcela = getParcela(parcela.getIdLocal(),parcela.getNumParcela());
+            for (Arvore arvore: parcela.getArvores()) {
+                arvore.setIdParcela(parcela.getId());
+                ArvoreDao arvoreDao = new ArvoreDao();
+                arvoreDao.cadastrar(arvore);
+            }
+        }
         p.close();
     }
     
@@ -140,11 +144,11 @@ public class ParcelaDao extends MainDao {
         return parcelas.get(0);
    }
    
-   public Parcela getParcela(Local local,int numParcela) throws SQLException
+   public Parcela getParcela(int idLocal,int numParcela) throws SQLException
    {
         List<Parcela> parcelas = new ArrayList<Parcela>();
         PreparedStatement p = this.con.prepareStatement("SELECT * FROM parcela where idlocal = ? AND numparcela = ?");
-        p.setInt(1, local.getId());
+        p.setInt(1, idLocal);
         p.setInt(2, numParcela);
         ResultSet rs = p.executeQuery();
         while(rs.next()){

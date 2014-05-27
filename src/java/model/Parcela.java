@@ -186,9 +186,6 @@ public class Parcela extends Model  {
                 }
             }   
             
-            VariavelDao variavelDao = new VariavelDao();
-            VariavelArvoreAjusteDao variavelArvoreAjusteDao = new VariavelArvoreAjusteDao();
-            ArrayList<Variavel> variaveisLidas = new ArrayList<Variavel>();
             int numArvore = 0;
             double qtdeBiomassaObs = 0.0;
             double qtdeCarbonoObs = 0.0;
