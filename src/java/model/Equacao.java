@@ -4,6 +4,7 @@
  */
 package model;
 
+import dao.ArvoreAjusteDao;
 import dao.EquacaoDao;
 import dao.LocalDao;
 import dao.TermoDao;
@@ -27,6 +28,7 @@ public class Equacao extends Model  {
     public double r2;
     public double r2Ajust;
     public double syx;
+    public double syxPerc;    
     public int idtTrabalhoCientifico;
     
     public ArrayList<Termo> termos;
@@ -41,6 +43,7 @@ public class Equacao extends Model  {
         this.r2 = 0.0;
         this.r2Ajust = 0.0;
         this.syx = 0.0;
+        this.syxPerc = 0.0;        
         this.idtTrabalhoCientifico = 0;
     }
     
@@ -113,6 +116,14 @@ public class Equacao extends Model  {
         this.syx = syx;
     }
 
+    public double getSyxPerc() {
+        return syxPerc;
+    }
+
+    public void setSyxPerc(double syxPerc) {
+        this.syxPerc = syxPerc;
+    }
+
     public int getIdtTrabalhoCientifico() {
         return idtTrabalhoCientifico;
     }
@@ -164,24 +175,22 @@ public class Equacao extends Model  {
         myParser.addStandardConstants();
         
         double resultadoTermo = 0.0;
+        int qtdeVariaveis = 0;
                 
         ArrayList<Termo> termos = getTermos();              
         
         ArrayList<ArvoreAjuste> arvoresAjuste = new ArrayList<ArvoreAjuste>();
         arvoresAjuste = local.getArvoresAjuste();
 
-//JJJ        ArrayList<VariavelArvoreAjuste> variaveisArvoreAjuste = new ArrayList<VariavelArvoreAjuste>();
-
         double[] valorObservado = new double[arvoresAjuste.size()];
         int iArvoreAjuste = 0;
         
         double[][] valorEntrada= new double[arvoresAjuste.size()][termos.size()];
         int iTermo = 0;
-
+        
         for(ArvoreAjuste arvoreAjuste: arvoresAjuste) {
 
             for (Termo termo: termos) {
-//JJJ               variaveisArvoreAjuste = arvoreAjuste.getVariaveisArvoreAjuste();
                
                for (VariavelArvoreAjuste variavelArvoreAjuste: arvoreAjuste.variaveisArvoreAjuste) {
                    String sigla = variavelArvoreAjuste.getVariavel().getSigla();
@@ -215,9 +224,10 @@ public class Equacao extends Model  {
 //Aplica equacaoModelo em todas as ArvoresAjuste para calcular valorEstimado        
         myParser.parseExpression(expressaoEquacao);
         for(ArvoreAjuste arvoreAjuste: arvoresAjuste) {
-
+            ArvoreAjusteDao arvoreAjusteDao = new ArvoreAjusteDao();
             arvoreAjuste.variaveisArvoreAjuste = arvoreAjuste.getVariaveisArvoreAjuste();
-               
+            qtdeVariaveis = arvoreAjuste.variaveisArvoreAjuste.size();
+            
             for (VariavelArvoreAjuste variavelArvoreAjuste: arvoreAjuste.variaveisArvoreAjuste) {
                 String sigla = variavelArvoreAjuste.getVariavel().getSigla();
                 Double valor = variavelArvoreAjuste.getValor();
@@ -227,13 +237,15 @@ public class Equacao extends Model  {
             switch (this.idVariavelInteresse) {
             case 1:
                 arvoreAjuste.setQtdeBiomassaEst(myParser.getValue());
-            //Update arvoreAjuste
+                arvoreAjusteDao.updateBiomassa(arvoreAjuste);
                 break;
             case 2:
                 arvoreAjuste.setQtdeCarbonoEst(myParser.getValue());
+                arvoreAjusteDao.updateCarbono(arvoreAjuste);
                 break;
             case 3:
                 arvoreAjuste.setQtdeVolumeEst(myParser.getValue());                
+                arvoreAjusteDao.updateVolume(arvoreAjuste);
                 break;
             }
         }
@@ -293,22 +305,15 @@ public class Equacao extends Model  {
             quadradoTotais.add(Math.pow((valorObs - mediaObs), 2));
             somaQuadradoTotais += Math.pow((valorObs - mediaObs), 2);
         }
-        
-       
-        r2 = somaQuadradoRegressao / somaQuadradoTotais;
-        
-        //R2Ajust = (1 - r2) * ((n-1)/(n-p-1))   onde n=qtde de arvores na simulacao e p=qtde de termos da equação
-        //PEND
-        //PEND r2Ajust = 1 - (1-r2) * ((arvoresAjuste.size() - 1) / (arvoresAjuste.size() - 2 - 1));
-               
-        //PEND ia = 1 - (somaQuadradoResiduo/somaQuadradoTotais);
 
-        
+        r2 = 1-(somaQuadradoResiduo / somaQuadradoTotais);
+        r2Ajust = 1 - (1-r2) * ((arvoresAjuste.size() - 1) / (arvoresAjuste.size() - qtdeVariaveis - 1));        
+
         //Syx = RAIZ (somaQuadradoResiduos/(n-p))
         syx = Math.sqrt(somaQuadradoResiduo/(arvoresAjuste.size() - 2));
         
         //Syx% = (Syx/volumeObsMedio)*100
-        //PEND syxPerc = (syx / mediaObs) * 100;
+        syxPerc = (syx / mediaObs) * 100;
         
         EquacaoDao equacaoDao = new EquacaoDao();
         equacaoDao.update(this);

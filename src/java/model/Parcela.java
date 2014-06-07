@@ -185,6 +185,11 @@ public class Parcela extends Model  {
                     matriz[linha][coluna] = cel[coluna].getContents();
                 }
             }   
+
+            if (!consistePlanilhaImportada(local,matriz)) {
+                //Montar msg erro para a Controller
+                return;
+            }
             
             int numArvore = 0;
             double qtdeBiomassaObs = 0.0;
@@ -226,6 +231,47 @@ public class Parcela extends Model  {
             e.printStackTrace();
         }
     }
+    public boolean consistePlanilhaImportada(Local local, String[][] matriz) throws SQLException, Exception {
+            
+        for (int coluna = 0; coluna < matriz[0].length; coluna++) {
+            int colunaAux=coluna+1;
+            switch (coluna) {
+              case 0: // "Parcela"
+                   if (!matriz[0][0].equalsIgnoreCase("Parcela")) {
+                       System.out.println("Titulo da coluna "+colunaAux+ " deve ser Parcela");
+                       return false;
+                   }
+                   break;
+              case 1: // "Area"
+                   if (!matriz[0][1].equalsIgnoreCase("Area")) {
+                       System.out.println("Titulo da coluna "+colunaAux+ " deve ser Area");
+                       return false;
+                   }
+                   break;
+              case 2: // "Biomassa"
+                   if (!matriz[0][2].equalsIgnoreCase("Biomassa")) {
+                       System.out.println("Titulo da coluna "+colunaAux+ " deve ser Biomassa");
+                       return false;
+                   }
+                   break;
+              case 3: // "Carbono"
+                   if (!matriz[0][3].equalsIgnoreCase("Carbono")) {
+                       System.out.println("Titulo da coluna "+colunaAux+ " deve ser Carbono");
+                       return false;
+                   }
+                   break;
+              case 4: // "Volume"
+                   if (!matriz[0][4].equalsIgnoreCase("Volume")) {
+                       System.out.println("Titulo da coluna "+colunaAux+ " deve ser Volume");
+                       return false;
+                   }
+                   break;
+            }
+        }           
+        
+        return true;
+    }    
+    
     
     public void gravarPlanilhaExemplo(Local local) throws SQLException, BiffException, IOException, Exception
     {

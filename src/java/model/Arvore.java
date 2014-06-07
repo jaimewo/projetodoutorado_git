@@ -4,8 +4,6 @@
  */
 package model;
 
-
-
 import dao.ArvoreDao;
 import dao.ParcelaDao;
 import dao.VariavelArvoreDao;
@@ -241,6 +239,11 @@ public class Arvore extends Model  {
                     matriz[linha][coluna] = cel[coluna].getContents();
                 }
             }   
+
+            if (!consistePlanilhaImportada(local,matriz)) {
+                //Montar msg erro para a Controller
+                return;
+            }
             
             VariavelDao variavelDao = new VariavelDao();
 
@@ -334,7 +337,80 @@ public class Arvore extends Model  {
 
         }
     }
-    
+    public boolean consistePlanilhaImportada(Local local, String[][] matriz) throws SQLException, Exception {
+            
+        ArrayList<Variavel> variaveis = new ArrayList<Variavel>();
+        ArrayList<String> siglasVariavel = new ArrayList<String>();
+        
+        ArrayList<Equacao> equacoesTrabalho = new ArrayList<Equacao>();
+        equacoesTrabalho = local.getTrabalhoCientifico().getEquacoesTrabalho();
+        for(Equacao equacao: equacoesTrabalho) {
+            variaveis = equacao.getVariaveis();
+            for(Variavel variavel: variaveis) {
+                boolean achou = false;
+                for (String sigla: siglasVariavel){
+                    if(sigla.equalsIgnoreCase(variavel.getSigla())) {
+                        achou = true;
+                    }
+                }            
+                if (!achou) {
+                    siglasVariavel.add(variavel.getSigla());
+                }
+            }
+        }
+        for (int coluna = 0; coluna < matriz[0].length; coluna++) {
+            int colunaAux=coluna+1;
+            switch (coluna) {
+              case 0: // "Parcela"
+                   if (!matriz[0][0].equalsIgnoreCase("Parcela")) {
+                       System.out.println("Titulo da coluna "+colunaAux+ " deve ser Parcela");
+                       return false;
+                   }
+                   break;
+              case 1: // "Area da Parcela"
+                   if (!matriz[0][1].equalsIgnoreCase("Area da Parcela")) {
+                       System.out.println("Titulo da coluna "+colunaAux+ " deve ser Area da Parcela");
+                       return false;
+                   }
+                   break;
+              case 2: // "Arvore"
+                   if (!matriz[0][2].equalsIgnoreCase("Arvore")) {
+                       System.out.println("Titulo da coluna "+colunaAux+ " deve ser Arvore");
+                       return false;
+                   }
+                   break;
+              case 3: // "Biomassa"
+                   if (!matriz[0][3].equalsIgnoreCase("Biomassa")) {
+                       System.out.println("Titulo da coluna "+colunaAux+ " deve ser Biomassa");
+                       return false;
+                   }
+                   break;
+              case 4: // "Carbono"
+                   if (!matriz[0][4].equalsIgnoreCase("Carbono")) {
+                       System.out.println("Titulo da coluna "+colunaAux+ " deve ser Carbono");
+                       return false;
+                   }
+                   break;
+              case 5: // "Volume"
+                   if (!matriz[0][5].equalsIgnoreCase("Volume")) {
+                       System.out.println("Titulo da coluna "+colunaAux+ " deve ser Volume");
+                       return false;
+                   }
+                   break;
+              default: // Variáveis
+                  int iVariavel = coluna-6;
+                  String xPlanilha = matriz[0][coluna];
+                  String xVariavel = siglasVariavel.get(iVariavel);
+                   if (!matriz[0][coluna].equalsIgnoreCase(siglasVariavel.get(iVariavel))) {                  
+                       System.out.println("Titulo da coluna "+colunaAux+ " deve ser "+siglasVariavel.get(iVariavel));                  
+                       return false;
+                   }
+                   break;
+            }
+        }           
+        
+        return true;
+    }    
     public void gravarPlanilhaExemplo(Local local) throws SQLException, BiffException, IOException, Exception
     {
 //http://jmmwrite.wordpress.com/2011/02/09/gerar-xls-planilha-excell-com-java/        
@@ -348,12 +424,12 @@ public class Arvore extends Model  {
         jxl.write.Number number = new jxl.write.Number(0, 1, 1);
         sheet.addCell(number);
         
-        label = new Label(1, 0, "Área Parcela");
+        label = new Label(1, 0, "Area da Parcela");
         sheet.addCell(label);
         number = new jxl.write.Number(1, 1, 1);
         sheet.addCell(number);
         
-        label = new Label(2, 0, "Árvore");
+        label = new Label(2, 0, "Arvore");
         sheet.addCell(label);
         number = new jxl.write.Number(2, 1, 1);
         sheet.addCell(number);

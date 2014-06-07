@@ -1,3 +1,12 @@
+Módulos alterados no Inventário V2 para passar para o git: 
+Equacao
+EquacaoDao
+ArvoreAjusteDao
+ArvoreAjuste
+Arvore
+Parcela
+
+
 Estava no teste de Ajustar Modelo. Testar com as 3 variaveis interesse no local=9.
 Depois Jogar cálculo do R2, etc do DBUsina para Equacao.java
 
@@ -6,10 +15,12 @@ Depois testar Botão Calcular da tela de Incluir Local com um local que tenha som
 ajustada por uma expressaoModelo.
 
 
-Módulos alterados no Inventário V2 para passar para o git: 
+
      
 	
 
 
 Montar um esquema para controlar as planilhas importadas e criadas para exemplo verificando qual
 pasta será utilizada e qual nomes dos arquivos.
+
+Em todos os getxxx nos Dao, ver como retornar quando não encontra nada (return xxx.(0))

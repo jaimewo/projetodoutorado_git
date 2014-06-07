@@ -146,6 +146,33 @@ public class ArvoreAjusteDao extends MainDao {
         p.close();
     }
    
+    public void updateBiomassa(ArvoreAjuste arvoreAjuste) throws SQLException {
+        PreparedStatement p = this.con.prepareStatement("UPDATE arvoreajuste SET qtdebiomassaest = ? where id = ?");
+        p.setDouble(1, arvoreAjuste.getQtdeBiomassaEst());
+
+        p.setInt(2, arvoreAjuste.getId());
+        p.executeUpdate();
+        p.close();   
+    }
+    
+
+    public void updateCarbono(ArvoreAjuste arvoreAjuste) throws SQLException {
+        PreparedStatement p = this.con.prepareStatement("UPDATE arvoreajuste SET qtdecarbonoest = ? where id = ?");
+        p.setDouble(1, arvoreAjuste.getQtdeCarbonoEst());
+
+        p.setInt(2, arvoreAjuste.getId());
+        p.executeUpdate();
+        p.close();   
+    }
+    
+    public void updateVolume(ArvoreAjuste arvoreAjuste) throws SQLException {
+        PreparedStatement p = this.con.prepareStatement("UPDATE arvoreajuste SET qtdevolumeest = ? where id = ?");
+        p.setDouble(1, arvoreAjuste.getQtdeVolumeEst());
+
+        p.setInt(2, arvoreAjuste.getId());
+        p.executeUpdate();
+        p.close();   
+    }   
    public ArvoreAjuste getArvoreAjuste(String id) throws SQLException
    {
         List<ArvoreAjuste> arvoreAjustes = new ArrayList<ArvoreAjuste>();
