@@ -32,7 +32,8 @@ public class ArvoreDao extends MainDao {
      
     public void cadastrar(Arvore arvore) throws SQLException, Exception
     {
-            PreparedStatement p = this.con.prepareStatement("INSERT INTO arvore(idparcela,"
+
+        String sql = "INSERT INTO arvore(idparcela,"
                     +                                                          "numarvore,"
                     +                                                          "qtdebiomassaobs,"
                     +                                                          "qtdebiomassaest,"
@@ -40,27 +41,31 @@ public class ArvoreDao extends MainDao {
                     +                                                          "qtdecarbonoest,"
                     +                                                          "qtdevolumeobs,"
                     +                                                          "qtdevolumeest"
-                    +                                                          ") VALUES (?,?,?,?,?,?,?,?)");
-            p.setInt(1, arvore.getIdParcela());
-            p.setInt(2, arvore.getNumArvore());
-            p.setDouble(3, arvore.getQtdeBiomassaObs());
-            p.setDouble(4, arvore.getQtdeBiomassaEst());
-            p.setDouble(5, arvore.getQtdeCarbonoObs());
-            p.setDouble(6, arvore.getQtdeCarbonoEst());
-            p.setDouble(7, arvore.getQtdeVolumeObs());
-            p.setDouble(8, arvore.getQtdeVolumeEst());
-            p.executeUpdate();
+                    +                                                          ") VALUES (?,?,?,?,?,?,?,?) RETURNING arvore.id";
+        PreparedStatement p = this.con.prepareStatement(sql);
+        p.setInt(1, arvore.getIdParcela());
+        p.setInt(2, arvore.getNumArvore());
+        p.setDouble(3, arvore.getQtdeBiomassaObs());
+        p.setDouble(4, arvore.getQtdeBiomassaEst());
+        p.setDouble(5, arvore.getQtdeCarbonoObs());
+        p.setDouble(6, arvore.getQtdeCarbonoEst());
+        p.setDouble(7, arvore.getQtdeVolumeObs());
+        p.setDouble(8, arvore.getQtdeVolumeEst());
+        int idArvore = 0;
+        ResultSet rs = p.executeQuery();
+        if(rs.next()){
+           idArvore = rs.getInt(1);
+        }
             
-            if (arvore.getVariaveisArvore().size()>0) {
-                arvore = getArvore(arvore.getIdParcela(),arvore.getNumArvore());
-                for (VariavelArvore variavelArvore: arvore.getVariaveisArvore()) {
-                    variavelArvore.setIdArvore(arvore.getId());
-                    VariavelArvoreDao variavelarvoreDao = new VariavelArvoreDao();
-                    variavelarvoreDao.cadastrar(variavelArvore);
-                }
+        if (arvore.variaveisArvore.size()>0) {
+            for (VariavelArvore variavelArvore: arvore.variaveisArvore) {
+                variavelArvore.setIdArvore(idArvore);
+                VariavelArvoreDao variavelarvoreDao = new VariavelArvoreDao();
+                variavelarvoreDao.cadastrar(variavelArvore);
             }
+        }
             
-            p.close();
+        p.close();
     }
     
     
@@ -75,18 +80,50 @@ public class ArvoreDao extends MainDao {
     
     public void deletarLocal(Local local) throws SQLException
     {
+        /*
         PreparedStatement p = this.con.prepareStatement("SELECT * FROM parcela where idlocal = ?");
         p.setInt(1, local.getId());
         ResultSet rs = p.executeQuery();
         while(rs.next()){
+           int idParcela = rs.getInt("id");
            PreparedStatement p1 = this.con.prepareStatement("DELETE from arvore where idparcela = ?"); 
-           p1.setInt(1, rs.getInt("idparcela"));
+           p1.setInt(1, idParcela);
            p1.executeUpdate();
            p1.close();
         }        
         rs.close();
         p.close();
-    }    
+        */
+    
+        PreparedStatement p = this.con.prepareStatement("SELECT * FROM parcela where idlocal = ?");
+        p.setInt(1, local.getId());
+        ResultSet rs = p.executeQuery();
+        while(rs.next()){
+           int idParcela = rs.getInt("id");
+           PreparedStatement p1 = this.con.prepareStatement("SELECT * FROM arvore where idparcela = ?");
+           p1.setInt(1, idParcela);
+           ResultSet rs1 = p1.executeQuery();
+           while(rs1.next()){
+               int idArvore = rs1.getInt("id");
+               PreparedStatement p2 = this.con.prepareStatement("DELETE from variavelarvore where idarvore = ?"); 
+               p2.setInt(1, idArvore);
+               p2.executeUpdate();
+               p2.close();
+           }
+           PreparedStatement p3 = this.con.prepareStatement("DELETE from arvore where idparcela = ?"); 
+           p3.setInt(1, idParcela);
+           p3.executeUpdate();
+           p3.close();
+        }        
+        rs.close();
+        PreparedStatement p4 = this.con.prepareStatement("DELETE from parcela where idlocal = ?"); 
+        p4.setInt(1, local.getId());
+        p4.executeUpdate();
+        p4.close();
+        
+        p.close();
+    
+   }    
    public void update(Arvore arvore) throws Exception 
    {
         PreparedStatement p = this.con.prepareStatement("UPDATE arvore SET idparcela = ?,"
@@ -160,6 +197,7 @@ public class ArvoreDao extends MainDao {
         p.close();
         return arvores.get(0);
    }
+
    
    public ArrayList<Arvore> listarArvores(int idParcela) throws Exception{
         ArrayList<Arvore> arvores = new ArrayList<Arvore>();
@@ -178,6 +216,7 @@ public class ArvoreDao extends MainDao {
            arvore.setQtdeCarbonoEst(rs.getDouble("qtdecarbonoest"));
            arvore.setQtdeVolumeObs(rs.getDouble("qtdevolumeobs"));
            arvore.setQtdeVolumeEst(rs.getDouble("qtdevolumeest"));
+          
            arvores.add(arvore);
         }
         rs.close();

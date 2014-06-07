@@ -38,7 +38,7 @@ public class Parcela extends Model  {
     private double qtdeCarbono;
     private double qtdeVolume;
     
-    private ArrayList<Arvore> arvores;
+    public ArrayList<Arvore> arvores;
     
     public Parcela()
     {
@@ -161,8 +161,8 @@ public class Parcela extends Model  {
  
         try {
     
-            //arquivo = new File("c:\\teste\\arvoreajuste2003.xls");
-            arquivo = new File("C:\\Users\\jaimewo\\Dropbox\\Jaime\\AA-UFPR\\Doutorado\\Tese\\Implementacao Oficial\\JCarbon\\projetodoutorado_git\\Arquivos\\parcela.xls");
+            arquivo = new File("c:\\teste\\parcela.xls");
+            //arquivo = new File("C:\\Users\\jaimewo\\Dropbox\\Jaime\\AA-UFPR\\Doutorado\\Tese\\Implementacao Oficial\\JCarbon\\projetodoutorado_git\\Arquivos\\parcela.xls");
 
             // instancia a planilha
             planilha = Workbook.getWorkbook(arquivo);
@@ -216,6 +216,8 @@ public class Parcela extends Model  {
                 if (linha>0) {
                     // Insere Parcela
                     idLocal = local.getId();
+                    ArrayList<Arvore> arvoresParcela = new ArrayList<Arvore>();
+                    arvores = arvoresParcela;
                     parcelaDao.cadastrar(this);
                 }
             }
@@ -229,7 +231,7 @@ public class Parcela extends Model  {
     {
 //http://jmmwrite.wordpress.com/2011/02/09/gerar-xls-planilha-excell-com-java/        
     try {
-        WritableWorkbook workbook = Workbook.createWorkbook(new File("c:\\teste\\arquivo.xls")); 
+        WritableWorkbook workbook = Workbook.createWorkbook(new File("c:\\teste\\parcelaExemplo.xls")); 
         WritableSheet sheet = workbook.createSheet("First Sheet", 0); 
  
         // work with coordinates (from 0,0 to N,k) -> COL, LINE

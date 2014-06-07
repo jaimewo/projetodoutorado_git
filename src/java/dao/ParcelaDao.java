@@ -30,24 +30,29 @@ public class ParcelaDao extends MainDao {
     public void cadastrar(Parcela parcela) throws SQLException, Exception
                         
     {
-        PreparedStatement p = this.con.prepareStatement("INSERT INTO parcela (numparcela, "
+        String sql = "INSERT INTO parcela (numparcela, "
                     +                                                        "areaparcela,"
                     +                                                        "qtdebiomassa,"
                     +                                                        "qtdecarbono,"
-                    +                                                        "qtdevolume"
-                    +                                                        ") VALUES (?,?,?,?,?)");
+                    +                                                        "qtdevolume,"
+                    +                                                        "idlocal"
+                    +                                                        ") VALUES (?,?,?,?,?,?) RETURNING parcela.id";
+        PreparedStatement p = this.con.prepareStatement(sql);
         p.setInt   (1, parcela.getNumParcela());
         p.setDouble(2, parcela.getAreaParcela());
         p.setDouble(3, parcela.getQtdeBiomassa());
         p.setDouble(4, parcela.getQtdeCarbono());
         p.setDouble(5, parcela.getQtdeVolume());
+        p.setInt   (6, parcela.getIdLocal());
+        int idParcela = 0;
+        ResultSet rs = p.executeQuery();
+        if(rs.next()){
+           idParcela = rs.getInt(1);
+        }
         
-        p.executeUpdate();
-        
-        if (parcela.getArvores().size()>0) {
-            parcela = getParcela(parcela.getIdLocal(),parcela.getNumParcela());
-            for (Arvore arvore: parcela.getArvores()) {
-                arvore.setIdParcela(parcela.getId());
+        if (parcela.arvores.size()>0) {
+            for (Arvore arvore: parcela.arvores) {
+                arvore.setIdParcela(idParcela);
                 ArvoreDao arvoreDao = new ArvoreDao();
                 arvoreDao.cadastrar(arvore);
             }

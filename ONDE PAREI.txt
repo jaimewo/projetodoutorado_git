@@ -1,7 +1,15 @@
-Testar InventarioMain, fazer debug passo a passo para importar planilha de árvores. No ParcelaDao.cadastrar o array de arvores está chegando vazio.
-Depois que passar, ver se o mesmo acontece no ArvoreDao.cadastrar no momento de cadastrar VariavelArvore.
-	Módulos alterados no Inventário V2 para passar para o git: 
-        Arvore, ArvoreDao
+Estava no teste de Ajustar Modelo. Testar com as 3 variaveis interesse no local=9.
+Depois Jogar cálculo do R2, etc do DBUsina para Equacao.java
+
+
+Depois testar Botão Calcular da tela de Incluir Local com um local que tenha somente expressaoEquacao, depois um com expressaoEquacao
+ajustada por uma expressaoModelo.
+
+
+Módulos alterados no Inventário V2 para passar para o git: 
+     
+	
+
 
 Montar um esquema para controlar as planilhas importadas e criadas para exemplo verificando qual
 pasta será utilizada e qual nomes dos arquivos.

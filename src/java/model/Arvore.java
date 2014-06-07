@@ -4,6 +4,8 @@
  */
 package model;
 
+
+
 import dao.ArvoreDao;
 import dao.ParcelaDao;
 import dao.VariavelArvoreDao;
@@ -214,10 +216,10 @@ public class Arvore extends Model  {
         File arquivo; // arquivo .xls que será lido
  
         try {
-    
-            //arquivo = new File("c:\\teste\\arvoreajuste2003.xls");
-            arquivo = new File("C:\\Users\\jaimewo\\Dropbox\\Jaime\\AA-UFPR\\Doutorado\\Tese\\Implementacao Oficial\\JCarbon\\projetodoutorado_git\\Arquivos\\arvore.xls");
-
+            
+            //Ultra arquivo = new File("C:\\Users\\jaimewo\\Dropbox\\Jaime\\AA-UFPR\\Doutorado\\Tese\\Implementacao Oficial\\JCarbon\\projetodoutorado_git\\Arquivos\\arvore.xls");
+            //arquivo = new File("E:\\Dropbox\\Jaime\\AA-UFPR\\Doutorado\\Tese\\Implementacao Oficial\\JCarbon\\projetodoutorado_git\\Arquivos\\arvore.xls");
+            arquivo = new File("c:\\teste\\arvore.xls");
             // instancia a planilha
             planilha = Workbook.getWorkbook(arquivo);
 
@@ -253,6 +255,7 @@ public class Arvore extends Model  {
             
             for (int linha = 0; linha < matriz.length; linha++) {
                 ArrayList<Double> valorVariaveis = new ArrayList<Double>(); 
+                Arvore arvore = new Arvore();
                 for (int coluna = 0; coluna < matriz[0].length; coluna++) {
                     if (linha==0) {
                         switch (coluna) {
@@ -282,16 +285,16 @@ public class Arvore extends Model  {
                              areaParcela = Double.parseDouble(matriz[linha][coluna].replace(",","."));
                              break;
                         case 2: // Número da Árvore
-                             this.numArvore = Integer.parseInt(matriz[linha][coluna]);
+                             arvore.numArvore = Integer.parseInt(matriz[linha][coluna]);
                              break;
                         case 3: // Valor da Biomassa
-                             this.qtdeBiomassaObs = Double.parseDouble(matriz[linha][coluna].replace(",","."));
+                             arvore.qtdeBiomassaObs = Double.parseDouble(matriz[linha][coluna].replace(",","."));
                              break;
                         case 4: // Valor do Carbono"
-                             this.qtdeCarbonoObs = Double.parseDouble(matriz[linha][coluna].replace(",","."));
+                             arvore.qtdeCarbonoObs = Double.parseDouble(matriz[linha][coluna].replace(",","."));
                              break;
                         case 5: // Valor do Volume
-                             this.qtdeVolumeObs = Double.parseDouble(matriz[linha][coluna].replace(",","."));;
+                             arvore.qtdeVolumeObs = Double.parseDouble(matriz[linha][coluna].replace(",","."));;
                              break;
                         default: // Valor das Variáveis
                              valorVariaveis.add(Double.parseDouble(matriz[linha][coluna].replace(",",".")));
@@ -299,18 +302,21 @@ public class Arvore extends Model  {
                         }
                     }
                 }
+                ArrayList<VariavelArvore> variaveisArvoreAux = new ArrayList<VariavelArvore>();
+                
                 if (linha>0) {
                     int i=0;
                     for (Variavel variavelLida: variaveisLidas) {
                         VariavelArvore variavelArvore = new VariavelArvore();
-                        variavelArvore.setIdArvore(this.id);
+                        variavelArvore.setIdArvore(arvore.id);
                         variavelArvore.setIdVariavel(variavelLida.getId());
                         variavelArvore.setValor(valorVariaveis.get(i));
                         variavelArvore.setVariavel(variavelLida);
-                        variaveisArvore.add(variavelArvore);
+                        variaveisArvoreAux.add(variavelArvore);
                         i++;
                     }
-                    arvores.add(this);
+                    arvore.variaveisArvore = variaveisArvoreAux; 
+                    arvores.add(arvore);
                 }
             }
             Parcela parcela = new Parcela();
@@ -333,28 +339,38 @@ public class Arvore extends Model  {
     {
 //http://jmmwrite.wordpress.com/2011/02/09/gerar-xls-planilha-excell-com-java/        
     try {
-        WritableWorkbook workbook = Workbook.createWorkbook(new File("c:\\teste\\arquivo.xls")); 
+        WritableWorkbook workbook = Workbook.createWorkbook(new File("c:\\teste\\arvore.xls")); 
         WritableSheet sheet = workbook.createSheet("First Sheet", 0); 
  
         // work with coordinates (from 0,0 to N,k) -> COL, LINE
-        Label label = new Label(0, 0, "Árvore");
+        Label label = new Label(0, 0, "Parcela");
         sheet.addCell(label);
         jxl.write.Number number = new jxl.write.Number(0, 1, 1);
         sheet.addCell(number);
- 
-        label = new Label(1, 0, "Biomassa");
+        
+        label = new Label(1, 0, "Área Parcela");
         sheet.addCell(label);
-        number = new jxl.write.Number(1, 1, 10);
+        number = new jxl.write.Number(1, 1, 1);
         sheet.addCell(number);
- 
-        label = new Label(2, 0, "Carbono");
+        
+        label = new Label(2, 0, "Árvore");
         sheet.addCell(label);
-        number = new jxl.write.Number(2, 1, 10);
+        number = new jxl.write.Number(2, 1, 1);
         sheet.addCell(number);
- 
-        label = new Label(3, 0, "Volume");
+        
+        label = new Label(3, 0, "Biomassa");
         sheet.addCell(label);
         number = new jxl.write.Number(3, 1, 10);
+        sheet.addCell(number);
+ 
+        label = new Label(4, 0, "Carbono");
+        sheet.addCell(label);
+        number = new jxl.write.Number(4, 1, 10);
+        sheet.addCell(number);
+ 
+        label = new Label(5, 0, "Volume");
+        sheet.addCell(label);
+        number = new jxl.write.Number(5, 1, 10);
         sheet.addCell(number);
  
         ArrayList<Variavel> variaveis = new ArrayList<Variavel>();
@@ -377,7 +393,7 @@ public class Arvore extends Model  {
             }
         }
         
-        int i=4;
+        int i=6;
         
         for(String sigla: siglasVariavel) {
             label = new Label(i, 0, sigla);

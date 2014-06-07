@@ -88,9 +88,10 @@ public class CoordenadaLocalDao extends MainDao {
         return coordenadasLocal.get(0);
    }
    
-   public List<CoordenadaLocal> listarCoordenadaLocales() throws Exception{
-        List<CoordenadaLocal> coordenadasLocal = new ArrayList<CoordenadaLocal>();
-        PreparedStatement p = this.con.prepareStatement("SELECT * FROM coordenadalocal");
+   public ArrayList<CoordenadaLocal> listarCoordenadasLocal(int idLocal) throws Exception{
+        ArrayList<CoordenadaLocal> coordenadasLocal = new ArrayList<CoordenadaLocal>();
+        PreparedStatement p = this.con.prepareStatement("SELECT * FROM coordenadalocal WHERE idlocal = ?");
+        p.setInt(1, idLocal);
         ResultSet rs = p.executeQuery();
         while(rs.next()){
            CoordenadaLocal coordenadaLocal = new CoordenadaLocal();

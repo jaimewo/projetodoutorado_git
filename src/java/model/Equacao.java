@@ -4,6 +4,7 @@
  */
 package model;
 
+import dao.EquacaoDao;
 import dao.LocalDao;
 import dao.TermoDao;
 import dao.VariavelDao;
@@ -18,17 +19,14 @@ import org.nfunk.jep.JEP;
 public class Equacao extends Model  {
     
     
-    private int id;
-    private String expressaoEquacao;
-    private String expressaoModelo;
-    private int idVariavelInteresse;
-    private int idAutorModelo;
-    private double r2;
-    private double r2Ajust;
-    private double syx;
-    private double syxPerc;
-    private double ia;
-    
+    public int id;
+    public String expressaoEquacao;
+    public String expressaoModelo;
+    public int idVariavelInteresse;
+    public int idAutorModelo;
+    public double r2;
+    public double r2Ajust;
+    public double syx;
     public int idtTrabalhoCientifico;
     
     public ArrayList<Termo> termos;
@@ -115,22 +113,6 @@ public class Equacao extends Model  {
         this.syx = syx;
     }
 
-    public double getSyxPerc() {
-        return syxPerc;
-    }
-
-    public void setSyxPerc(double syxPerc) {
-        this.syxPerc = syxPerc;
-    }
-
-    public double getIa() {
-        return ia;
-    }
-
-    public void setIa(double ia) {
-        this.ia = ia;
-    }
-
     public int getIdtTrabalhoCientifico() {
         return idtTrabalhoCientifico;
     }
@@ -188,7 +170,7 @@ public class Equacao extends Model  {
         ArrayList<ArvoreAjuste> arvoresAjuste = new ArrayList<ArvoreAjuste>();
         arvoresAjuste = local.getArvoresAjuste();
 
-        ArrayList<VariavelArvoreAjuste> variaveisArvoreAjuste = new ArrayList<VariavelArvoreAjuste>();
+//JJJ        ArrayList<VariavelArvoreAjuste> variaveisArvoreAjuste = new ArrayList<VariavelArvoreAjuste>();
 
         double[] valorObservado = new double[arvoresAjuste.size()];
         int iArvoreAjuste = 0;
@@ -199,9 +181,9 @@ public class Equacao extends Model  {
         for(ArvoreAjuste arvoreAjuste: arvoresAjuste) {
 
             for (Termo termo: termos) {
-               variaveisArvoreAjuste = arvoreAjuste.getVariaveisArvoreAjuste();
+//JJJ               variaveisArvoreAjuste = arvoreAjuste.getVariaveisArvoreAjuste();
                
-               for (VariavelArvoreAjuste variavelArvoreAjuste: variaveisArvoreAjuste) {
+               for (VariavelArvoreAjuste variavelArvoreAjuste: arvoreAjuste.variaveisArvoreAjuste) {
                    String sigla = variavelArvoreAjuste.getVariavel().getSigla();
                    Double valor = variavelArvoreAjuste.getValor();
                    myParser.addVariable(sigla, valor);
@@ -217,7 +199,7 @@ public class Equacao extends Model  {
             iArvoreAjuste++;
             iTermo = 0;
         }
-        //int qtdeArvoresAjuste = iArvoreAjuste;
+        int qtdeArvoresAjuste = iArvoreAjuste;
         OLSMultipleLinearRegression regression = new OLSMultipleLinearRegression();        
         regression.newSampleData(valorObservado, valorEntrada);
         double[] valorCoeficiente = regression.estimateRegressionParameters();
@@ -229,16 +211,14 @@ public class Equacao extends Model  {
             expressaoEquacao = expressaoEquacao + "+("+valorCoeficiente[iTermo]+")*"+ termo.getExpressao();
             iTermo++;
         }
-        //System.out.println(expressaoEquacao);
-        //Update expressaoEquacao na tabela equacao
 
 //Aplica equacaoModelo em todas as ArvoresAjuste para calcular valorEstimado        
         myParser.parseExpression(expressaoEquacao);
         for(ArvoreAjuste arvoreAjuste: arvoresAjuste) {
 
-            variaveisArvoreAjuste = arvoreAjuste.getVariaveisArvoreAjuste();
+            arvoreAjuste.variaveisArvoreAjuste = arvoreAjuste.getVariaveisArvoreAjuste();
                
-            for (VariavelArvoreAjuste variavelArvoreAjuste: variaveisArvoreAjuste) {
+            for (VariavelArvoreAjuste variavelArvoreAjuste: arvoreAjuste.variaveisArvoreAjuste) {
                 String sigla = variavelArvoreAjuste.getVariavel().getSigla();
                 Double valor = variavelArvoreAjuste.getValor();
                 myParser.addVariable(sigla, valor);
@@ -329,6 +309,11 @@ public class Equacao extends Model  {
         
         //Syx% = (Syx/volumeObsMedio)*100
         //PEND syxPerc = (syx / mediaObs) * 100;
+        
+        EquacaoDao equacaoDao = new EquacaoDao();
+        equacaoDao.update(this);
+
+
         
         
     }

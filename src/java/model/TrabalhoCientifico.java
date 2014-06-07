@@ -59,7 +59,7 @@ public class TrabalhoCientifico extends Model  {
     }
 
     public void setAno(int ano) {
-        this.id = ano;
+        this.ano = ano;
     }
     
     public int getIdTipoDisponibilidade() {
@@ -89,7 +89,7 @@ public class TrabalhoCientifico extends Model  {
     }
 
     public void setIdAutor(int idAutor) {
-        this.id = idAutor;
+        this.idAutor = idAutor;
     }
     public ArrayList<Equacao> getEquacoesTrabalho() throws Exception {
         

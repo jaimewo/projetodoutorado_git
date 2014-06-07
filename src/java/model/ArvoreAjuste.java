@@ -50,6 +50,7 @@ public class ArvoreAjuste extends Model  {
         this.qtdeCarbonoEst = 0.0;
         this.qtdeVolumeObs = 0.0;
         this.qtdeVolumeEst = 0.0;
+        variaveisArvoreAjuste = new ArrayList<VariavelArvoreAjuste>();
     }
     
     public String getIdString()
@@ -148,8 +149,8 @@ public class ArvoreAjuste extends Model  {
  
         try {
     
-            //arquivo = new File("c:\\teste\\arvoreajuste2003.xls");
-            arquivo = new File("C:\\Users\\jaimewo\\Dropbox\\Jaime\\AA-UFPR\\Doutorado\\Tese\\Implementacao Oficial\\JCarbon\\projetodoutorado_git\\Arquivos\\arvoreajuste2003.xls");
+            arquivo = new File("c:\\teste\\arvoreajuste.xls");
+            //arquivo = new File("C:\\Users\\jaimewo\\Dropbox\\Jaime\\AA-UFPR\\Doutorado\\Tese\\Implementacao Oficial\\JCarbon\\projetodoutorado_git\\Arquivos\\arvoreajuste2003.xls");
 
             // instancia a planilha
             planilha = Workbook.getWorkbook(arquivo);
@@ -176,13 +177,14 @@ public class ArvoreAjuste extends Model  {
             VariavelDao variavelDao = new VariavelDao();
             VariavelArvoreAjusteDao variavelArvoreAjusteDao = new VariavelArvoreAjusteDao();
             ArrayList<Variavel> variaveisLidas = new ArrayList<Variavel>();
-            int numArvore = 0;
+            int numArvoreAjuste = 0;
             double qtdeBiomassaObs = 0.0;
             double qtdeCarbonoObs = 0.0;
             double qtdeVolumeObs = 0.0;
             
             for (int linha = 0; linha < matriz.length; linha++) {
                 ArrayList<Double> valorVariaveis = new ArrayList<Double>(); 
+
                 for (int coluna = 0; coluna < matriz[0].length; coluna++) {
                     if (linha==0) {
                         switch (coluna) {
@@ -202,7 +204,7 @@ public class ArvoreAjuste extends Model  {
                    } else { //demais linhas
                         switch (coluna) {
                         case 0: // Número da Árvore
-                             numArvore = Integer.parseInt(matriz[linha][coluna]);
+                             numArvoreAjuste = Integer.parseInt(matriz[linha][coluna]);
                              break;
                         case 1: // Valor da Biomassa
                              qtdeBiomassaObs = Double.parseDouble(matriz[linha][coluna].replace(",","."));
@@ -223,14 +225,11 @@ public class ArvoreAjuste extends Model  {
                     // Insere VariavelArvoreAjuste
                     ArvoreAjuste arvoreAjuste = new ArvoreAjuste();
                     arvoreAjuste.setIdLocal(local.getId());
-                    arvoreAjuste.setNumArvoreAjuste(numArvore);
+                    arvoreAjuste.setNumArvoreAjuste(numArvoreAjuste);
                     arvoreAjuste.setQtdeBiomassaObs(qtdeBiomassaObs);
                     arvoreAjuste.setQtdeCarbonoObs(qtdeCarbonoObs);
                     arvoreAjuste.setQtdeVolumeObs(qtdeVolumeObs);
                     
-                    arvoreAjusteDao.cadastrar(arvoreAjuste);
-                    
-                    arvoreAjuste = arvoreAjusteDao.getArvoreAjuste(local,numArvore);
                     int i=0;
                     for (Variavel variavelLida: variaveisLidas) {
                         VariavelArvoreAjuste variavelArvoreAjuste = new VariavelArvoreAjuste();
@@ -238,10 +237,10 @@ public class ArvoreAjuste extends Model  {
                         variavelArvoreAjuste.setIdVariavel(variavelLida.getId());
                         variavelArvoreAjuste.setValor(valorVariaveis.get(i));
                         variavelArvoreAjuste.setVariavel(variavelLida);
-                        
-                        variavelArvoreAjusteDao.cadastrar(variavelArvoreAjuste);
+                        arvoreAjuste.variaveisArvoreAjuste.add(variavelArvoreAjuste);
                         i++;
                     }
+                    arvoreAjusteDao.cadastrar(arvoreAjuste);
                 }
             }
         
@@ -257,7 +256,7 @@ public class ArvoreAjuste extends Model  {
     {
 //http://jmmwrite.wordpress.com/2011/02/09/gerar-xls-planilha-excell-com-java/        
     try {
-        WritableWorkbook workbook = Workbook.createWorkbook(new File("c:\\teste\\arquivo.xls")); 
+        WritableWorkbook workbook = Workbook.createWorkbook(new File("c:\\teste\\arvoreAjusteExemplo.xls")); 
         WritableSheet sheet = workbook.createSheet("First Sheet", 0); 
  
         // work with coordinates (from 0,0 to N,k) -> COL, LINE

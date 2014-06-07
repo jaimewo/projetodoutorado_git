@@ -52,25 +52,43 @@ public class ArvoreAjusteDao extends MainDao {
      
     public void cadastrar(ArvoreAjuste arvoreAjuste) throws SQLException
     {
-            PreparedStatement p = this.con.prepareStatement("INSERT INTO arvoreAjuste(idlocal,"
-                    +                                                          "numarvoreAjuste,"
+
+        String sql = "INSERT INTO arvoreajuste(idlocal,"
+                    +                                                          "numarvoreajuste,"
                     +                                                          "qtdebiomassaobs,"
                     +                                                          "qtdebiomassaest,"
                     +                                                          "qtdecarbonoobs,"
                     +                                                          "qtdecarbonoest,"
                     +                                                          "qtdevolumeobs,"
                     +                                                          "qtdevolumeest"
-                    +                                                          ") VALUES (?,?,?,?,?,?,?,?)");
-            p.setInt(1, arvoreAjuste.getIdLocal());
-            p.setInt(2, arvoreAjuste.getNumArvoreAjuste());
-            p.setDouble(3, arvoreAjuste.getQtdeBiomassaObs());
-            p.setDouble(4, arvoreAjuste.getQtdeBiomassaEst());
-            p.setDouble(5, arvoreAjuste.getQtdeCarbonoObs());
-            p.setDouble(6, arvoreAjuste.getQtdeCarbonoEst());
-            p.setDouble(7, arvoreAjuste.getQtdeVolumeObs());
-            p.setDouble(8, arvoreAjuste.getQtdeVolumeEst());
-            p.executeUpdate();
-            p.close();
+                    +                                                          ") VALUES (?,?,?,?,?,?,?,?) RETURNING arvoreajuste.id";
+        PreparedStatement p = this.con.prepareStatement(sql);
+        p.setInt(1, arvoreAjuste.getIdLocal());
+        p.setInt(2, arvoreAjuste.getNumArvoreAjuste());
+        p.setDouble(3, arvoreAjuste.getQtdeBiomassaObs());
+        p.setDouble(4, arvoreAjuste.getQtdeBiomassaEst());
+        p.setDouble(5, arvoreAjuste.getQtdeCarbonoObs());
+        p.setDouble(6, arvoreAjuste.getQtdeCarbonoEst());
+        p.setDouble(7, arvoreAjuste.getQtdeVolumeObs());
+        p.setDouble(8, arvoreAjuste.getQtdeVolumeEst());
+        int idArvoreAjuste = 0;
+        ResultSet rs = p.executeQuery();
+        if(rs.next()){
+           idArvoreAjuste = rs.getInt(1);
+        }
+            
+        if (arvoreAjuste.variaveisArvoreAjuste.size()>0) {
+            for (VariavelArvoreAjuste variavelArvoreAjuste: arvoreAjuste.variaveisArvoreAjuste) {
+                variavelArvoreAjuste.setIdArvoreAjuste(idArvoreAjuste);
+                VariavelArvoreAjusteDao variavelarvoreAjusteDao = new VariavelArvoreAjusteDao();
+                variavelarvoreAjusteDao.cadastrar(variavelArvoreAjuste);
+            }
+        }
+            
+        p.close();
+            
+            
+            
     }
     
     
@@ -194,6 +212,7 @@ public class ArvoreAjusteDao extends MainDao {
            arvoreAjuste.setQtdeCarbonoEst(rs.getDouble("qtdecarbonoest"));
            arvoreAjuste.setQtdeVolumeObs(rs.getDouble("qtdevolumeobs"));
            arvoreAjuste.setQtdeVolumeEst(rs.getDouble("qtdevolumeest"));
+           arvoreAjuste.variaveisArvoreAjuste = arvoreAjuste.getVariaveisArvoreAjuste();
            arvoresAjuste.add(arvoreAjuste);
         }
         rs.close();

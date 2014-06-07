@@ -29,10 +29,10 @@ public class LocalDao extends MainDao {
       super();
     }
     
-    public void cadastrar(Local local,List<MunicipioLocal> municipiosLocal,List<CoordenadaLocal> coordenadasLocal) throws SQLException
+    public void cadastrar(Local local) throws SQLException, Exception
                         
     {
-            PreparedStatement p = this.con.prepareStatement("INSERT INTO local (descricao, "
+            String sql = "INSERT INTO local (descricao, "
                     +                                                          "area,"
                     +                                                          "areaparcela,"
                     +                                                          "qtdebiomassa,"
@@ -42,7 +42,8 @@ public class LocalDao extends MainDao {
                     +                                                          "idformacao,"
                     +                                                          "idespacamento,"
                     +                                                          "idtrabalhocientifico"
-                    +                                                          ") VALUES (?,?,?,?,?,?,?,?,?,?)");
+                    +                                                          ") VALUES (?,?,?,?,?,?,?,?,?,?) RETURNING local.id";
+            PreparedStatement p = this.con.prepareStatement(sql);
             p.setString(1, local.getDescricao());
             p.setDouble(2, local.getArea());
             p.setDouble(3, local.getAreaParcela());
@@ -53,34 +54,36 @@ public class LocalDao extends MainDao {
             p.setInt(8, local.getIdFormacao());
             p.setInt(9, local.getIdEspacamento());
             p.setInt(10, local.getIdTrabalhoCientifico());
-            p.executeUpdate();
-
-            for (MunicipioLocal ml : municipiosLocal) {
+            int idLocal = 0;
+            ResultSet rs = p.executeQuery();
+            if(rs.next()){
+              idLocal = rs.getInt(1);
+            }
+             p.close();          
+            for (MunicipioLocal ml : local.municipiosLocal) {
                 p = this.con.prepareStatement("INSERT INTO municipiolocal (idlocal, "
                     +                                                      "idmunicipio,"
                     +                                                      "indprincipal"
                     +                                                      ") VALUES (?,?,?)");
-                p.setInt(1, ml.getIdLocal());
+                p.setInt(1, idLocal);
                 p.setInt(2, ml.getIdMunicipio());
-                p.setBoolean(3, true);
+                p.setBoolean(3,ml.isIndPrincipal());
                 p.executeUpdate();
             }
-
-            for (CoordenadaLocal cl : coordenadasLocal) {
+             p.close();           
+            for (CoordenadaLocal cl : local.coordenadasLocal) {
                 p = this.con.prepareStatement("INSERT INTO coordenadalocal (idlocal, "
                     +                                                      "latitude,"
                     +                                                      "longitude"
                     +                                                      ") VALUES (?,?,?)");
-                p.setInt(1, cl.getIdLocal());
+                p.setInt(1, idLocal);
                 p.setDouble(2, cl.getLatitude());
                 p.setDouble(3, cl.getLongitude());
                 p.executeUpdate();
             }
             
             p.close();
-            
-            
-            //FALTA CADASTRAR MunicipioLocal e CoordenadaLocal
+
     }
     
     
