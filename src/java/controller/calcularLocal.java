@@ -67,9 +67,9 @@ public class calcularLocal extends HttpServlet {
                 }
             }
             
-            local.calculaBiomassaEstatisticas();
-            local.calculaCarbonoEstatisticas();
-            local.calculaVolumeEstatisticas();
+//            local.calculaBiomassaEstatisticas();
+//            local.calculaCarbonoEstatisticas();
+//            local.calculaVolumeEstatisticas();
 
             request.setAttribute("local", local );          
 

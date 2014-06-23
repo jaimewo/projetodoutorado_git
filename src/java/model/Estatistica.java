@@ -53,6 +53,7 @@ public class Estatistica extends Model  {
         this.intervaloConfiancaMin = 0.0;
         this.intervaloConfiancaMax = 0.0;
         
+        
     }
     
     public Estatistica calcularEstatisticas(Local local,List<Parcela> parcelas) throws Exception {

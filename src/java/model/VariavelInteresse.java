@@ -4,8 +4,6 @@
  */
 package model;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author jaime
@@ -13,62 +11,10 @@ import java.util.ArrayList;
 public class VariavelInteresse extends Model  {
     
     
-    public int id;
-    public String sigla;
-    public String nome;
-    
-    public VariavelInteresse()
-    {
-        this.nome = "";
-        this.sigla = "";
-    }
-    
-    public String getIdString()
-    {
-        return String.valueOf(this.getId());
-    }
-    
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getSigla() {
-        return sigla;
-    }
-
-    public void setSigla(String sigla) {
-        this.nome = sigla;
-    }
-    
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-    public boolean eh_valido()
-    {
-        if(this.getSigla() == null || this.getSigla().isEmpty())
-        {
-            this.setErro("Sigla ", "deve ser informada");
-        }
+    public static int BIOMASSA = 1;
+    public static int CARBONO = 2;
+    public static int VOLUME = 3;
         
-        if(this.getNome() == null || this.getNome().isEmpty())
-        {
-            this.setErro("Nome ", "deve ser informado");
-        }
-        return (this.erros.isEmpty());
-        
-    }
     
-    public ArrayList<Error> getErrors()
-    {
-        return this.erros;
-    } 
     
 }

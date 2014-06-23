@@ -116,7 +116,7 @@ public class createLocal extends HttpServlet {
                 if(local.eh_valido())
                 {
                     LocalDao objeto_dao_local = new LocalDao();
-                    objeto_dao_local.cadastrar(local, municipiosLocal, coordenadasLocal);
+                  //  objeto_dao_local.cadastrar(local, municipiosLocal, coordenadasLocal);
                     RequestDispatcher r = request.getRequestDispatcher("/listarLocais");
                     request.setAttribute("mensagem", "Local adicionado com sucesso!");
                     r.forward( request, response );  
