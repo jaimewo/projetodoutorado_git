@@ -49,13 +49,18 @@
                 <label for="modelo_expressaomodelo" class="control-label">Modelo</label>
                 <div class="controls">
                     <input type="text" name="modelo[expressaoModelo]" value="<%=objeto_equacao.getExpressaoModelo()%>"  class="input-xxlarge" readonly="true"/>
+                    <a href="#">-</a>
                 </div>
             </div>
                 
             <div class="field control-group">
-                <label for="modelo_expressaomodelo" class="control-label">Termo</label>
+                <label for="modelo_expressaomodelo" class="control-label"><b>Termo</b></label>
+                <br />
+                <br />
                 <div class="controls">
-                    <input type="text" name="modelo[expressaoModelo]" value="<%=objeto_equacao.getExpressaoModelo()%>"  class="input-xxlarge" readonly="true"/>
+                    <input type="text" name="modelo[termo]" class="input-small" readonly="true" value="b0"/> *
+                    <input type="text" name="modelo[termo]" class="input-large" readonly="true" />
+                    <a href="#">+</a>
                 </div>
             </div>
                 
