@@ -31,12 +31,35 @@
                 </div>
             <%}%>           
         <form action="createEquacao" method="POST" class="form-horizontal"  accept-charset="iso-8859-1,utf-8">
+            
+            <div class="field control-group">
+                <label for="modelo_expressaomodelo" class="control-label">Equação para cálculo de</label>
+                <div class="controls">
+                    <select name="modelo[equacao_para_calculo_de]">
+                        <option value="-1">Selecione uma opção</option>
+                        <option value="1">Biomassa (B)</option>
+                        <option value="2"> Carbono (C) </option>
+                        <option value="3"> Volume (V)</option>
+                        
+                    </select>
+                </div>
+            </div>
+            
             <div class="field control-group">
                 <label for="modelo_expressaomodelo" class="control-label">Modelo</label>
                 <div class="controls">
-                    <input type="text" name="modelo[expressaoModelo]" value="<%=objeto_equacao.getExpressaoModelo()%>" />
+                    <input type="text" name="modelo[expressaoModelo]" value="<%=objeto_equacao.getExpressaoModelo()%>"  class="input-xxlarge" readonly="true"/>
                 </div>
             </div>
+                
+            <div class="field control-group">
+                <label for="modelo_expressaomodelo" class="control-label">Termo</label>
+                <div class="controls">
+                    <input type="text" name="modelo[expressaoModelo]" value="<%=objeto_equacao.getExpressaoModelo()%>"  class="input-xxlarge" readonly="true"/>
+                </div>
+            </div>
+                
+                
             
             <div class="actions form-actions">
                 <input type="submit" name="submit" value ="Salvar" class="btn btn-inverse"/>

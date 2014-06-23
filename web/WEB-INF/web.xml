@@ -329,8 +329,8 @@
         <servlet-class>controller.calcularLocal</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>listarModelo</servlet-name>
-        <servlet-class>controller.listarModelo</servlet-class>
+        <servlet-name>listarEquacao</servlet-name>
+        <servlet-class>controller.listarEquacao</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>listarBiomas</servlet-name>
@@ -665,8 +665,8 @@
         <url-pattern>/calcularComArvores</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>listarModelo</servlet-name>
-        <url-pattern>/listarModelo</url-pattern>
+        <servlet-name>listarEquacao</servlet-name>
+        <url-pattern>/listarEquacao</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

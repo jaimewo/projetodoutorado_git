@@ -16,7 +16,7 @@
     <body>
         <%@include  file="menu.jsp" %>
         <div class="container">
-            <h1>Equações</h1>
+            <h1>Modelos</h1>
             <%if(request.getAttribute("mensagem") != null && !request.getAttribute("mensagem").toString().isEmpty()){%>
                 <div class="alert alert-success">
                     <%= request.getAttribute("mensagem").toString()%>
