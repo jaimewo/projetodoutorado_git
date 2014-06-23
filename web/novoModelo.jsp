@@ -14,6 +14,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+       
+        <link type="text/css" href="css/jquery.keypad.css" rel="stylesheet"> 
+        <script type="text/javascript" src="js/jquery.js"></script> 
+        <script type="text/javascript" src="js/jquery.keypad.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+         
          <title>JCarbon - Novo Modelo</title>
     </head>
     <body>
@@ -63,15 +69,24 @@
                     <a href="#">+</a>
                 </div>
             </div>
-                
-                
             
+            <div class="field control-group">
+                <label for="modelo_expressaomodelo" class="control-label"><b>Operadores</b></label>
+            </div>
+                    
+            <div >
+                <input type="text" id="teste" />
+            </div>
+                    
+            <script type="text/javascript">
+                 
+            </script>
+                                        
             <div class="actions form-actions">
                 <input type="submit" name="submit" value ="Salvar" class="btn btn-inverse"/>
                 <a href="listarModelos" class="btn" >Voltar</a>
             </div>
         </form>
-        </div>
         
     </body>
 </html>
