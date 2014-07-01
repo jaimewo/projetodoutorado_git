@@ -31,9 +31,7 @@ public class EstatisticaDao extends MainDao{
     {
             PreparedStatement p = this.con.prepareStatement("INSERT INTO estatistica (idlocal, "
                     +                                                          "idvariavelinteresse,"
-                    +                                                          "qtdeminima,"
                     +                                                          "qtdemedia,"
-                    +                                                          "qtdemaxima,"
                     +                                                          "mediaparcela,"
                     +                                                          "variancia,"
                     +                                                          "desviopadrao,"
@@ -44,22 +42,20 @@ public class EstatisticaDao extends MainDao{
                     +                                                          "errorelativo,"
                     +                                                          "intervaloconfiancamin,"
                     +                                                          "intervaloconfiancamax"
-                    +                                                          ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                    +                                                          ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
             p.setInt   (1,  estatistica.getIdLocal());
             p.setInt   (2,  estatistica.getIdVariavelInteresse());            
-            p.setDouble(3,  estatistica.getQtdeMinima());
-            p.setDouble(4,  estatistica.getQtdeMedia());
-            p.setDouble(5,  estatistica.getQtdeMaxima());
-            p.setDouble(6,  estatistica.getMediaParcela());
-            p.setDouble(7,  estatistica.getVariancia());
-            p.setDouble(8,  estatistica.getDesvioPadrao());
-            p.setDouble(9,  estatistica.getVarianciaMedia());
-            p.setDouble(10,  estatistica.getErroPadrao());
-            p.setDouble(11, estatistica.getCoeficienteVariacao());
-            p.setDouble(12, estatistica.getErroAbsoluto());
-            p.setDouble(13, estatistica.getErroRelativo());
-            p.setDouble(14, estatistica.getIntervaloConfiancaMin());
-            p.setDouble(15, estatistica.getIntervaloConfiancaMax());
+            p.setDouble(3,  estatistica.getQtdeMedia());
+            p.setDouble(4,  estatistica.getMediaParcela());
+            p.setDouble(5,  estatistica.getVariancia());
+            p.setDouble(6,  estatistica.getDesvioPadrao());
+            p.setDouble(7,  estatistica.getVarianciaMedia());
+            p.setDouble(8,  estatistica.getErroPadrao());
+            p.setDouble(9, estatistica.getCoeficienteVariacao());
+            p.setDouble(10, estatistica.getErroAbsoluto());
+            p.setDouble(11, estatistica.getErroRelativo());
+            p.setDouble(12, estatistica.getIntervaloConfiancaMin());
+            p.setDouble(13, estatistica.getIntervaloConfiancaMax());
             
             p.executeUpdate();
             p.close();
@@ -88,9 +84,7 @@ public class EstatisticaDao extends MainDao{
    {
         PreparedStatement p = this.con.prepareStatement("UPDATE estatistica SET idlocal = ?, "
                     +                                                          "idvariavelinteresse = ?,"
-                    +                                                          "qtdeminima = ?,"
                     +                                                          "qtdemedia = ?,"
-                    +                                                          "qtdemaxima = ?,"
                     +                                                          "mediaparcela = ?,"
                     +                                                          "variancia = ?,"
                     +                                                          "desviopadrao = ?,"
@@ -104,21 +98,19 @@ public class EstatisticaDao extends MainDao{
                 +                                                              " WHERE id = ?");
             p.setInt   (1,  estatistica.getIdLocal());
             p.setInt   (2,  estatistica.getIdVariavelInteresse());
-            p.setDouble(3,  estatistica.getQtdeMinima());
-            p.setDouble(4,  estatistica.getQtdeMedia());
-            p.setDouble(5,  estatistica.getQtdeMaxima());
-            p.setDouble(6,  estatistica.getMediaParcela());
-            p.setDouble(7,  estatistica.getVariancia());
-            p.setDouble(8,  estatistica.getDesvioPadrao());
-            p.setDouble(9,  estatistica.getVarianciaMedia());
-            p.setDouble(10,  estatistica.getErroPadrao());
-            p.setDouble(11, estatistica.getCoeficienteVariacao());
-            p.setDouble(12, estatistica.getErroAbsoluto());
-            p.setDouble(13, estatistica.getErroRelativo());
-            p.setDouble(14, estatistica.getIntervaloConfiancaMin());
-            p.setDouble(15, estatistica.getIntervaloConfiancaMax());
+            p.setDouble(3,  estatistica.getQtdeMedia());
+            p.setDouble(4,  estatistica.getMediaParcela());
+            p.setDouble(5,  estatistica.getVariancia());
+            p.setDouble(6,  estatistica.getDesvioPadrao());
+            p.setDouble(7,  estatistica.getVarianciaMedia());
+            p.setDouble(8,  estatistica.getErroPadrao());
+            p.setDouble(9, estatistica.getCoeficienteVariacao());
+            p.setDouble(10, estatistica.getErroAbsoluto());
+            p.setDouble(11, estatistica.getErroRelativo());
+            p.setDouble(12, estatistica.getIntervaloConfiancaMin());
+            p.setDouble(13, estatistica.getIntervaloConfiancaMax());
         
-        p.setInt(16, estatistica.getId());
+        p.setInt(14, estatistica.getId());
         p.executeUpdate();
         p.close();
     }
@@ -134,9 +126,7 @@ public class EstatisticaDao extends MainDao{
            estatistica.setId(rs.getInt("id"));
            estatistica.setIdVariavelInteresse(rs.getInt("idvariavelinteresse"));
            estatistica.setIdLocal(rs.getInt("idlocal"));
-           estatistica.setQtdeMinima(rs.getDouble("qtdeminima"));
            estatistica.setQtdeMedia(rs.getDouble("qtdemedia"));
-           estatistica.setQtdeMaxima(rs.getDouble("qtdemaxima"));
            estatistica.setMediaParcela(rs.getDouble("mediaparcela"));
            estatistica.setVariancia(rs.getDouble("variancia"));
            estatistica.setDesvioPadrao(rs.getDouble("desviopadrao"));
@@ -165,9 +155,7 @@ public class EstatisticaDao extends MainDao{
            estatistica.setId(rs.getInt("id"));
            estatistica.setIdVariavelInteresse(rs.getInt("idvariavelinteresse"));
            estatistica.setIdLocal(rs.getInt("idlocal"));
-           estatistica.setQtdeMinima(rs.getDouble("qtdeminima"));
            estatistica.setQtdeMedia(rs.getDouble("qtdemedia"));
-           estatistica.setQtdeMaxima(rs.getDouble("qtdemaxima"));
            estatistica.setMediaParcela(rs.getDouble("mediaparcela"));
            estatistica.setVariancia(rs.getDouble("variancia"));
            estatistica.setDesvioPadrao(rs.getDouble("desviopadrao"));
@@ -193,9 +181,7 @@ public class EstatisticaDao extends MainDao{
            estatistica.setId(rs.getInt("id"));
            estatistica.setIdLocal(rs.getInt("idlocal"));
            estatistica.setIdVariavelInteresse(rs.getInt("idvariavelinteresse"));
-           estatistica.setQtdeMinima(rs.getDouble("qtdeminima"));
            estatistica.setQtdeMedia(rs.getDouble("qtdemedia"));
-           estatistica.setQtdeMaxima(rs.getDouble("qtdemaxima"));
            estatistica.setMediaParcela(rs.getDouble("mediaparcela"));
            estatistica.setVariancia(rs.getDouble("variancia"));
            estatistica.setDesvioPadrao(rs.getDouble("desviopadrao"));

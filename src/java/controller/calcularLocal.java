@@ -61,25 +61,11 @@ public class calcularLocal extends HttpServlet {
                     parcela.calculaVolume(local);
                 }
             }
-    
+            
             Estatistica estatistica = new Estatistica();
             estatistica.setIdLocal(local.getId());
-    
-            //BIOMASSA
-            estatistica.setIdVariavelInteresse(1);
             estatistica.calcularEstatisticas(local, parcelasLocal);
-            localDao.updateBiomassa(local);
-    
-            //CARBONO
-            estatistica.setIdVariavelInteresse(2); 
-            estatistica.calcularEstatisticas(local, parcelasLocal);
-            localDao.updateCarbono(local);
-    
-            //VOLUME
-            estatistica.setIdVariavelInteresse(3); 
-            estatistica.calcularEstatisticas(local, parcelasLocal);
-            localDao.updateVolume(local);
-
+            localDao.updateQtde(local);
 
             request.setAttribute("local", local );          
 

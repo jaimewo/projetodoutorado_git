@@ -175,29 +175,15 @@ public class LocalDao extends MainDao {
         return locais;
     }
 
-    public void updateBiomassa(Local local) throws SQLException {
-        PreparedStatement p = this.con.prepareStatement("UPDATE local SET qtdebiomassa = ? WHERE id = ?");
+    public void updateQtde(Local local) throws SQLException {
+        PreparedStatement p = this.con.prepareStatement("UPDATE local SET qtdebiomassa = ?,"
+                +                                       "                 qtdecarbono  = ?,"
+                +                                       "                 qtdevolume   = ?"                
+                +                                       " WHERE id = ?");
         p.setDouble(1, local.getQtdeBiomassa());
-        
-        p.setInt(2, local.getId());
-        p.executeUpdate();
-        p.close();
-    }
-
-    public void updateCarbono(Local local) throws SQLException {
-        PreparedStatement p = this.con.prepareStatement("UPDATE local SET qtdecarbono = ? WHERE id = ?");
-        p.setDouble(1, local.getQtdeCarbono());
-        
-        p.setInt(2, local.getId());
-        p.executeUpdate();
-        p.close();
-    }
-
-    public void updateVolume(Local local) throws SQLException {
-        PreparedStatement p = this.con.prepareStatement("UPDATE local SET qtdevolume = ? WHERE id = ?");
-        p.setDouble(1, local.getQtdeVolume());
-        
-        p.setInt(2, local.getId());
+        p.setDouble(2, local.getQtdeCarbono());
+        p.setDouble(3, local.getQtdeVolume());        
+        p.setInt   (4, local.getId());
         p.executeUpdate();
         p.close();
     }

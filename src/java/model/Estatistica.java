@@ -21,9 +21,7 @@ public class Estatistica extends Model  {
     public int id;
     public int idLocal;
     public int idVariavelInteresse;
-    public double qtdeMinima;
     public double qtdeMedia;
-    public double qtdeMaxima;
     public double mediaParcela;
     public double variancia;
     public double desvioPadrao;
@@ -40,9 +38,7 @@ public class Estatistica extends Model  {
     {
         this.idLocal = 0;
         this.idVariavelInteresse = 0;
-        this.qtdeMinima = 0.0;
         this.qtdeMedia = 0.0;
-        this.qtdeMaxima = 0.0;
         this.mediaParcela = 0.0;
         this.variancia = 0.0;
         this.varianciaMedia = 0.0;
@@ -56,14 +52,16 @@ public class Estatistica extends Model  {
         
     }
     
-    public Estatistica calcularEstatisticas(Local local,List<Parcela> parcelas) throws Exception {
+    public void calcularEstatisticas(Local local,ArrayList<Parcela> parcelas) throws Exception {
      
+    for (int iVi=1;iVi<4;iVi++) {
+        idVariavelInteresse = iVi;
+        
         int tamanhoAmostra;    
         double qtdeParcelasLocal =  0.0;
         double umMenosF = 0.0;
         double erro = 0.0;        
         double t = 0.0;
-        double mediaLocal = 0.0;        
 
         tamanhoAmostra = parcelas.size();
         DescriptiveStatistics descriptiveStatistics = new DescriptiveStatistics();        
@@ -107,28 +105,31 @@ public class Estatistica extends Model  {
         erroAbsoluto = erroPadrao * t;
         erroRelativo = (erroAbsoluto / mediaParcela) * 100;
         
-        
-        mediaLocal = qtdeParcelasLocal * mediaParcela;
+        qtdeMedia = qtdeParcelasLocal * mediaParcela;
 
-        intervaloConfiancaMin = mediaLocal - qtdeParcelasLocal * erroAbsoluto;
-        intervaloConfiancaMax = mediaLocal + qtdeParcelasLocal * erroAbsoluto;
+        intervaloConfiancaMin = qtdeMedia - qtdeParcelasLocal * erroAbsoluto;
+        intervaloConfiancaMax = qtdeMedia + qtdeParcelasLocal * erroAbsoluto;
         
         switch (idVariavelInteresse) {
             case 1: //Biomassa
-                local.setQtdeBiomassa(mediaLocal);
+                local.setQtdeBiomassa(qtdeMedia);
                 break;
             case 2: //Carbono
-                local.setQtdeCarbono(mediaLocal);
+                local.setQtdeCarbono(qtdeMedia);
                 break;
             case 3: //Volume
-                local.setQtdeVolume(mediaLocal);
+                local.setQtdeVolume(qtdeMedia);
                 break;            
         }
     
         EstatisticaDao estatisticaDao = new EstatisticaDao();
-        estatisticaDao.update(this);
+        if (idVariavelInteresse==1) {
+            estatisticaDao.deletarEstatisticaLocal(idLocal);
+        }
+        estatisticaDao.cadastrar(this);
     
-        return this;
+
+    }
     }
         
     public static double getT(double nivelDeProbabilidade, double grausDeLiberdade){
@@ -161,28 +162,12 @@ public class Estatistica extends Model  {
         this.idLocal = idLocal;
     }
 
-    public double getQtdeMinima() {
-        return qtdeMinima;
-    }
-
-    public void setQtdeMinima(double qtdeMinima) {
-        this.qtdeMinima = qtdeMinima;
-    }
-
     public double getQtdeMedia() {
         return qtdeMedia;
     }
 
     public void setQtdeMedia(double qtdeMedia) {
         this.qtdeMedia = qtdeMedia;
-    }
-
-    public double getQtdeMaxima() {
-        return qtdeMaxima;
-    }
-
-    public void setQtdeMaxima(double qtdeMaxima) {
-        this.qtdeMaxima = qtdeMaxima;
     }
 
     public double getMediaParcela() {
