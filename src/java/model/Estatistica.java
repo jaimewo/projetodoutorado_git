@@ -133,8 +133,8 @@ public class Estatistica extends Model  {
         
     public static double getT(double nivelDeProbabilidade, double grausDeLiberdade){
        TDistribution tDist = new TDistribution(grausDeLiberdade);
-       //return Math.abs(tDist.inverseCumulativeProbability(nivelDeProbabilidade));
-       return tDist.inverseCumulativeProbability(nivelDeProbabilidade);
+       return Math.abs(tDist.inverseCumulativeProbability(nivelDeProbabilidade));
+       //return tDist.inverseCumulativeProbability(nivelDeProbabilidade);
     }
      
     

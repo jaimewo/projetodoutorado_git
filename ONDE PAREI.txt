@@ -24,3 +24,5 @@ Montar um esquema para controlar as planilhas importadas e criadas para exemplo 
 pasta será utilizada e qual nomes dos arquivos.
 
 Em todos os getxxx nos Dao, ver como retornar quando não encontra nada (return xxx.(0))
+
+Após controllers ok, colocar msg de erro de importação das planilhas quando ela não estiver no formato correto

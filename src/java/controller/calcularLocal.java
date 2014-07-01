@@ -48,28 +48,38 @@ public class calcularLocal extends HttpServlet {
         try {
             String idLocalStr = request.getParameter("id");
                 
-          //idLocalStr = "1";
-          //int idTipoEstimativa = 2; //Informados valores das Parcelas
-          //int idTipoEstimativa = 3; //Informados valores das Árvores
-            
             LocalDao localDao = new LocalDao();
             Local local = localDao.getLocal(Integer.parseInt(idLocalStr));
-          //local.setIdTipoEstimativa(idTipoEstimativa);
             
+            ArrayList<Parcela> parcelasLocal = new ArrayList<Parcela>();
+            parcelasLocal = local.getParcelas();
+    
             if (local.getIdTipoEstimativa()==3) {
-                ArrayList<Parcela> parcelasLocal = new ArrayList<Parcela>();
-                parcelasLocal = local.getParcelas();
-            
                 for (Parcela parcela : parcelasLocal) {
                     parcela.calculaBiomassa(local);
                     parcela.calculaCarbono(local);
                     parcela.calculaVolume(local);
                 }
             }
-            
-//            local.calculaBiomassaEstatisticas();
-//            local.calculaCarbonoEstatisticas();
-//            local.calculaVolumeEstatisticas();
+    
+            Estatistica estatistica = new Estatistica();
+            estatistica.setIdLocal(local.getId());
+    
+            //BIOMASSA
+            estatistica.setIdVariavelInteresse(1);
+            estatistica.calcularEstatisticas(local, parcelasLocal);
+            localDao.updateBiomassa(local);
+    
+            //CARBONO
+            estatistica.setIdVariavelInteresse(2); 
+            estatistica.calcularEstatisticas(local, parcelasLocal);
+            localDao.updateCarbono(local);
+    
+            //VOLUME
+            estatistica.setIdVariavelInteresse(3); 
+            estatistica.calcularEstatisticas(local, parcelasLocal);
+            localDao.updateVolume(local);
+
 
             request.setAttribute("local", local );          
 
