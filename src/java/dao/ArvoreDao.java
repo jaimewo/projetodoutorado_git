@@ -34,14 +34,14 @@ public class ArvoreDao extends MainDao {
     {
 
         String sql = "INSERT INTO arvore(idparcela,"
-                    +                                                          "numarvore,"
-                    +                                                          "qtdebiomassaobs,"
-                    +                                                          "qtdebiomassaest,"
-                    +                                                          "qtdecarbonoobs,"
-                    +                                                          "qtdecarbonoest,"
-                    +                                                          "qtdevolumeobs,"
-                    +                                                          "qtdevolumeest"
-                    +                                                          ") VALUES (?,?,?,?,?,?,?,?) RETURNING arvore.id";
+                    +                   "numarvore,"
+                    +                   "qtdebiomassaobs,"
+                    +                   "qtdebiomassaest,"
+                    +                   "qtdecarbonoobs,"
+                    +                   "qtdecarbonoest,"
+                    +                   "qtdevolumeobs,"
+                    +                   "qtdevolumeest"
+                    +                   ") VALUES (?,?,?,?,?,?,?,?) RETURNING arvore.id";
         PreparedStatement p = this.con.prepareStatement(sql);
         p.setInt(1, arvore.getIdParcela());
         p.setInt(2, arvore.getNumArvore());

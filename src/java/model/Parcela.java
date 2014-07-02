@@ -114,6 +114,10 @@ public class Parcela extends Model  {
         
         arvores = arvoreDao.listarArvores(this.id);
         
+        for (Arvore arvore: arvores) {
+            arvore.variaveisArvore = arvore.getVariaveisArvore();
+        }
+        
         return arvores;
     }
 
@@ -121,35 +125,52 @@ public class Parcela extends Model  {
         this.arvores = arvores;
     }
 
-    public void calculaBiomassa(Local local) throws Exception {
-        ArrayList<Arvore> arvores = new ArrayList();
-        arvores = getArvores();
-        for (Arvore arvore: arvores) {
-            this.qtdeBiomassa += arvore.calculaBiomassaEst(local);
-        }
+    public void calculaQtde(Local local) throws Exception {
+        
+        Double qtdeEstimada = 0.0;
+
         ParcelaDao parcelaDao = new ParcelaDao();
-        parcelaDao.updateBiomassa(this);
+        ArvoreDao arvoreDao = new ArvoreDao();
+        
+        for (int iVi=1;iVi<4;iVi++) {
+            int idVariavelInteresse = iVi;
+        
+            for (Arvore arvore: arvores) {
+                switch (idVariavelInteresse) {
+                    case 1: //Biomassa
+                        qtdeEstimada = arvore.calculaQtdeEstimada(local,idVariavelInteresse);
+                        arvore.setQtdeBiomassaEst(qtdeEstimada);
+                        arvoreDao.updateBiomassa(arvore);                                
+                        this.qtdeBiomassa += qtdeEstimada;
+                        break;
+                    case 2: //Carbono
+                        qtdeEstimada = arvore.calculaQtdeEstimada(local,idVariavelInteresse);
+                        arvore.setQtdeCarbonoEst(qtdeEstimada);
+                        arvoreDao.updateCarbono(arvore);                                
+                        this.qtdeCarbono += qtdeEstimada;
+                        break;
+                    case 3: //Volume
+                        qtdeEstimada = arvore.calculaQtdeEstimada(local,idVariavelInteresse);
+                        arvore.setQtdeVolumeEst(qtdeEstimada);
+                        arvoreDao.updateVolume(arvore);                                
+                        this.qtdeVolume += qtdeEstimada;
+                        break;
+                }
+            }
+            switch (idVariavelInteresse) {
+                case 1: //Biomassa
+                    parcelaDao.updateBiomassa(this);
+                    break;
+                case 2: //Carbono
+                    parcelaDao.updateCarbono(this);
+                    break;
+                case 3: //Volume
+                    parcelaDao.updateVolume(this);
+                    break;
+            }
+        }
     }
 
-    public void calculaCarbono(Local local) throws Exception {
-        ArrayList<Arvore> arvores = new ArrayList();
-        arvores = getArvores();
-        for (Arvore arvore: arvores) {
-            this.qtdeCarbono += arvore.calculaCarbonoEst(local);
-        }
-        ParcelaDao parcelaDao = new ParcelaDao();
-        parcelaDao.updateCarbono(this);
-        
-    }
-    public void calculaVolume(Local local) throws Exception {
-        ArrayList<Arvore> arvores = new ArrayList();
-        arvores = getArvores();
-        for (Arvore arvore: arvores) {
-            this.qtdeVolume += arvore.calculaVolumeEst(local);
-        }
-        ParcelaDao parcelaDao = new ParcelaDao();
-        parcelaDao.updateVolume(this);
-    }
     public void importarPlanilha(Local local) throws SQLException, BiffException
     {
         ParcelaDao parcelaDao = new ParcelaDao();

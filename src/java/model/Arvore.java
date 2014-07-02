@@ -140,46 +140,21 @@ public class Arvore extends Model  {
         return variaveisArvore;
     }
 
-    public Double calculaBiomassaEst(Local local) throws SQLException, Exception {
-        int idVarivelInteresse = 1; //Biomassa
-        qtdeBiomassaEst = calculaQuantidade(local,idVarivelInteresse);
-        ArvoreDao arvoreDao = new ArvoreDao();
-        arvoreDao.updateBiomassa(this);
-        return qtdeBiomassaEst;
-    }
+    
+    public Double calculaQtdeEstimada(Local local, int idVariavelInteresse) throws SQLException, Exception {
 
-    public Double calculaCarbonoEst(Local local) throws SQLException, Exception {
-        int idVarivelInteresse = 2; //Carbono
-        qtdeCarbonoEst = calculaQuantidade(local,idVarivelInteresse);
-        ArvoreDao arvoreDao = new ArvoreDao();
-        arvoreDao.updateCarbono(this);
-        return qtdeCarbonoEst;
-    }
-    
-    public Double calculaVolumeEst(Local local) throws SQLException, Exception {
-        int idVarivelInteresse = 3; //Volume
-        qtdeVolumeEst = calculaQuantidade(local,idVarivelInteresse);
-        ArvoreDao arvoreDao = new ArvoreDao();
-        arvoreDao.updateVolume(this);
-        return qtdeVolumeEst;
-    }
-    
-    
-    private Double calculaQuantidade(Local local, int idVariavelInteresse) throws SQLException, Exception {
-
-        Double resultado = 0.0;
-        this.variaveisArvore = getVariaveisArvore();
+        Double qtdeEstimada = 0.0;
 
         ArrayList<Equacao> equacoesTrabalho = new ArrayList<Equacao>();
         equacoesTrabalho = local.getTrabalhoCientifico().getEquacoesTrabalho();
         
         for (Equacao equacao : equacoesTrabalho) {
             if (equacao.getIdVariavelInteresse()==idVariavelInteresse) {
-                resultado = aplicaParser(variaveisArvore,equacao);
+                qtdeEstimada = aplicaParser(variaveisArvore,equacao);
             }
         }
         
-        return resultado;
+        return qtdeEstimada;
     
     }
     private Double aplicaParser(ArrayList<VariavelArvore> variaveisArvore, Equacao equacao) throws SQLException {
@@ -250,12 +225,9 @@ public class Arvore extends Model  {
 
             ArrayList<Arvore>         arvores            = new ArrayList<Arvore>();
             ArrayList<Variavel>       variaveisLidas     = new ArrayList<Variavel>();
-            ArrayList<VariavelArvore> variaveisArvoreAux = new ArrayList<VariavelArvore>();
+            //ArrayList<VariavelArvore> variaveisArvoreAux = new ArrayList<VariavelArvore>();
             
             int numArvore = 0;
-            double qtdeBiomassaObs = 0.0;
-            double qtdeCarbonoObs = 0.0;
-            double qtdeVolumeObs = 0.0;
             int numParcela = 0;
             int numParcelaAnt = 0;            
             double areaParcela = 0.0;
@@ -273,12 +245,6 @@ public class Arvore extends Model  {
                              break;
                         case 2: // "Arvore"
                              break;
-                        case 3: // "Biomassa"
-                            break;
-                        case 4: // "Carbono"
-                            break;
-                        case 5: // "Volume"
-                            break;
                         default: // Variáveis
                             Variavel variavel = variavelDao.getVariavelComSigla(matriz[linha][coluna]);
                             variaveisLidas.add(variavel);
@@ -312,15 +278,6 @@ public class Arvore extends Model  {
                         case 2: // Número da Árvore
                              arvore.numArvore = Integer.parseInt(matriz[linha][coluna]);
                              break;
-                        case 3: // Valor da Biomassa
-                             arvore.qtdeBiomassaObs = Double.parseDouble(matriz[linha][coluna].replace(",","."));
-                             break;
-                        case 4: // Valor do Carbono"
-                             arvore.qtdeCarbonoObs = Double.parseDouble(matriz[linha][coluna].replace(",","."));
-                             break;
-                        case 5: // Valor do Volume
-                             arvore.qtdeVolumeObs = Double.parseDouble(matriz[linha][coluna].replace(",","."));;
-                             break;
                         default: // Valor das Variáveis
                              valorVariaveis.add(Double.parseDouble(matriz[linha][coluna].replace(",",".")));
                              break;                        
@@ -337,12 +294,13 @@ public class Arvore extends Model  {
                         variavelArvore.setIdVariavel(variavelLida.getId());
                         variavelArvore.setValor(valorVariaveis.get(i));
                         variavelArvore.setVariavel(variavelLida);
-                        variaveisArvoreAux.add(variavelArvore);
+                        arvore.variaveisArvore.add(variavelArvore);
+                        //variaveisArvoreAux.add(variavelArvore);
                         i++;
                     }
-                    arvore.variaveisArvore = variaveisArvoreAux; 
+                    //arvore.variaveisArvore = variaveisArvoreAux; 
                     arvores.add(arvore);
-                    variaveisArvoreAux.clear();
+                    //variaveisArvoreAux.clear();
                     valorVariaveis.clear();
                 }
                 
@@ -403,26 +361,8 @@ public class Arvore extends Model  {
                        return false;
                    }
                    break;
-              case 3: // "Biomassa"
-                   if (!matriz[0][3].equalsIgnoreCase("Biomassa")) {
-                       System.out.println("Titulo da coluna "+colunaAux+ " deve ser Biomassa");
-                       return false;
-                   }
-                   break;
-              case 4: // "Carbono"
-                   if (!matriz[0][4].equalsIgnoreCase("Carbono")) {
-                       System.out.println("Titulo da coluna "+colunaAux+ " deve ser Carbono");
-                       return false;
-                   }
-                   break;
-              case 5: // "Volume"
-                   if (!matriz[0][5].equalsIgnoreCase("Volume")) {
-                       System.out.println("Titulo da coluna "+colunaAux+ " deve ser Volume");
-                       return false;
-                   }
-                   break;
               default: // Variáveis
-                  int iVariavel = coluna-6;
+                  int iVariavel = coluna-3;
                   String xPlanilha = matriz[0][coluna];
                   String xVariavel = siglasVariavel.get(iVariavel);
                    if (!matriz[0][coluna].equalsIgnoreCase(siglasVariavel.get(iVariavel))) {                  
@@ -457,21 +397,6 @@ public class Arvore extends Model  {
         sheet.addCell(label);
         number = new jxl.write.Number(2, 1, 1);
         sheet.addCell(number);
-        
-        label = new Label(3, 0, "Biomassa");
-        sheet.addCell(label);
-        number = new jxl.write.Number(3, 1, 10);
-        sheet.addCell(number);
- 
-        label = new Label(4, 0, "Carbono");
-        sheet.addCell(label);
-        number = new jxl.write.Number(4, 1, 10);
-        sheet.addCell(number);
- 
-        label = new Label(5, 0, "Volume");
-        sheet.addCell(label);
-        number = new jxl.write.Number(5, 1, 10);
-        sheet.addCell(number);
  
         ArrayList<Variavel> variaveis = new ArrayList<Variavel>();
         ArrayList<String> siglasVariavel = new ArrayList<String>();
@@ -493,7 +418,7 @@ public class Arvore extends Model  {
             }
         }
         
-        int i=6;
+        int i=3;
         
         for(String sigla: siglasVariavel) {
             label = new Label(i, 0, sigla);
