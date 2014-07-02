@@ -56,11 +56,10 @@ public class ArvoreDao extends MainDao {
         if(rs.next()){
            idArvore = rs.getInt(1);
         }
-            
+        VariavelArvoreDao variavelarvoreDao = new VariavelArvoreDao();            
         if (arvore.variaveisArvore.size()>0) {
             for (VariavelArvore variavelArvore: arvore.variaveisArvore) {
                 variavelArvore.setIdArvore(idArvore);
-                VariavelArvoreDao variavelarvoreDao = new VariavelArvoreDao();
                 variavelarvoreDao.cadastrar(variavelArvore);
             }
         }

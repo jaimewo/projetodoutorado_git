@@ -49,11 +49,10 @@ public class ParcelaDao extends MainDao {
         if(rs.next()){
            idParcela = rs.getInt(1);
         }
-        
+        ArvoreDao arvoreDao = new ArvoreDao();        
         if (parcela.arvores.size()>0) {
             for (Arvore arvore: parcela.arvores) {
                 arvore.setIdParcela(idParcela);
-                ArvoreDao arvoreDao = new ArvoreDao();
                 arvoreDao.cadastrar(arvore);
             }
         }

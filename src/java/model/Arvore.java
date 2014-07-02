@@ -52,6 +52,7 @@ public class Arvore extends Model  {
         this.qtdeCarbonoEst = 0.0;
         this.qtdeVolumeObs = 0.0;
         this.qtdeVolumeEst = 0.0;
+        this.variaveisArvore = new ArrayList<VariavelArvore>();
     }
     
     public String getIdString()
@@ -244,17 +245,21 @@ public class Arvore extends Model  {
                 //Montar msg erro para a Controller
                 return;
             }
-            
+            ParcelaDao parcelaDao = new ParcelaDao();
             VariavelDao variavelDao = new VariavelDao();
 
-            ArrayList<Arvore> arvores = new ArrayList<Arvore>();
-            ArrayList<Variavel> variaveisLidas = new ArrayList<Variavel>();
+            ArrayList<Arvore>         arvores            = new ArrayList<Arvore>();
+            ArrayList<Variavel>       variaveisLidas     = new ArrayList<Variavel>();
+            ArrayList<VariavelArvore> variaveisArvoreAux = new ArrayList<VariavelArvore>();
+            
             int numArvore = 0;
             double qtdeBiomassaObs = 0.0;
             double qtdeCarbonoObs = 0.0;
             double qtdeVolumeObs = 0.0;
             int numParcela = 0;
+            int numParcelaAnt = 0;            
             double areaParcela = 0.0;
+
             
             for (int linha = 0; linha < matriz.length; linha++) {
                 ArrayList<Double> valorVariaveis = new ArrayList<Double>(); 
@@ -282,8 +287,25 @@ public class Arvore extends Model  {
                    } else { //demais linhas
                         switch (coluna) {
                         case 0: // Número da Parcela
-                             numParcela = Integer.parseInt(matriz[linha][coluna]);
-                             break;
+                            numParcela = Integer.parseInt(matriz[linha][coluna]);
+                            if ((numParcela != numParcelaAnt)
+                            &&  (numParcelaAnt>0)) {
+
+                                Parcela parcela = new Parcela();
+                                parcela.setIdLocal(local.getId());
+                                parcela.setNumParcela(numParcelaAnt);
+                                parcela.setAreaParcela(areaParcela);
+                                parcela.setArvores(arvores);
+
+                                parcelaDao.cadastrar(parcela);
+                    
+                                arvores.clear();
+                                valorVariaveis.clear();
+                                valorVariaveis.clear();
+
+                            }
+                            numParcelaAnt = numParcela;                                                 
+                            break;
                         case 1: // Area Parcela
                              areaParcela = Double.parseDouble(matriz[linha][coluna].replace(",","."));
                              break;
@@ -305,7 +327,7 @@ public class Arvore extends Model  {
                         }
                     }
                 }
-                ArrayList<VariavelArvore> variaveisArvoreAux = new ArrayList<VariavelArvore>();
+
                 
                 if (linha>0) {
                     int i=0;
@@ -320,7 +342,10 @@ public class Arvore extends Model  {
                     }
                     arvore.variaveisArvore = variaveisArvoreAux; 
                     arvores.add(arvore);
+                    variaveisArvoreAux.clear();
+                    valorVariaveis.clear();
                 }
+                
             }
             Parcela parcela = new Parcela();
             parcela.setIdLocal(local.getId());
@@ -328,7 +353,6 @@ public class Arvore extends Model  {
             parcela.setAreaParcela(areaParcela);
             parcela.setArvores(arvores);
             
-            ParcelaDao parcelaDao = new ParcelaDao();
             parcelaDao.cadastrar(parcela);
         
         } catch (Exception e) {
