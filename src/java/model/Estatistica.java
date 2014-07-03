@@ -93,6 +93,9 @@ public class Estatistica extends Model  {
         //Calcula erroPadrao = (desvioPadrao / RAIZ(tamanhoAmostra)) * RAIZ(umMenosF)
         erroPadrao = (desvioPadrao / Math.sqrt(tamanhoAmostra) * Math.sqrt(umMenosF));
         
+        //Calcula varianciaMedia
+        varianciaMedia = (variancia/tamanhoAmostra)*((qtdeParcelasLocal-tamanhoAmostra)/qtdeParcelasLocal);
+        
         //Calcula coeficienteVariacao
         coeficienteVariacao = (desvioPadrao / mediaParcela);
         
@@ -100,7 +103,7 @@ public class Estatistica extends Model  {
         erro = 0.1 * mediaParcela;
         
         //Constante t. Com 5% (foi usado 0,025 para ser bicaudal) e n=tamanhoAmostra fica:
-        t = getT(0.025,tamanhoAmostra);
+        t = getT(0.025,tamanhoAmostra-1);
  
         erroAbsoluto = erroPadrao * t;
         erroRelativo = (erroAbsoluto / mediaParcela) * 100;

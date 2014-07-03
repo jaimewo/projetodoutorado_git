@@ -132,6 +132,10 @@ public class Parcela extends Model  {
         ParcelaDao parcelaDao = new ParcelaDao();
         ArvoreDao arvoreDao = new ArvoreDao();
         
+        this.qtdeBiomassa = 0;
+        this.qtdeCarbono  = 0;
+        this.qtdeVolume   = 0;
+        
         for (int iVi=1;iVi<4;iVi++) {
             int idVariavelInteresse = iVi;
         
