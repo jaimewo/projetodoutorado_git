@@ -53,7 +53,7 @@ public class calcularLocal extends HttpServlet {
             
             ArrayList<Parcela> parcelasLocal = new ArrayList<Parcela>();
             parcelasLocal = local.getParcelas();
-    
+            /*
             if (local.getIdTipoEstimativa()==3) {
                 for (Parcela parcela : parcelasLocal) {
                     parcela.calculaBiomassa(local);
@@ -61,7 +61,7 @@ public class calcularLocal extends HttpServlet {
                     parcela.calculaVolume(local);
                 }
             }
-            
+            */
             Estatistica estatistica = new Estatistica();
             estatistica.setIdLocal(local.getId());
             estatistica.calcularEstatisticas(local, parcelasLocal);

@@ -17,7 +17,7 @@ import model.Bioma;
 
 /**
  *
- * @author paulozeferino
+ * @author jaime
  */
 public class BiomaDao extends MainDao{
     
@@ -28,19 +28,21 @@ public class BiomaDao extends MainDao{
     
     public void cadastrar(Bioma bioma) throws SQLException
     {
-            PreparedStatement p = this.con.prepareStatement("INSERT INTO bioma(descricao) VALUES (?)");
-            p.setString(1, bioma.getDescricao());
-            p.executeUpdate();
-            p.close();
+        PreparedStatement p = this.con.prepareStatement("INSERT INTO bioma(descricao) VALUES (?)");
+        p.setString(1, bioma.getDescricao());
+        p.executeUpdate();
+        p.close();
+        super.con.close();            
     }
     
     
     public void deletar(Bioma bioma) throws SQLException
     {
-            PreparedStatement p = this.con.prepareStatement("DELETE from bioma where id = ?");
-            p.setInt(1, bioma.getId());
-            p.executeUpdate();
-            p.close();
+        PreparedStatement p = this.con.prepareStatement("DELETE from bioma where id = ?");
+        p.setInt(1, bioma.getId());
+        p.executeUpdate();
+        p.close();
+        super.con.close();            
         
     }
     
@@ -51,11 +53,12 @@ public class BiomaDao extends MainDao{
         p.setInt(2, bioma.getId());
         p.executeUpdate();
         p.close();
+        super.con.close();        
     }
    
    public Bioma getBioma(String bioma_id) throws SQLException
    {
-        List<Bioma> biomas = new ArrayList<Bioma>();
+        ArrayList<Bioma> biomas = new ArrayList<Bioma>();
         PreparedStatement p = this.con.prepareStatement("SELECT id,descricao FROM bioma where id = ?");
         p.setInt(1, Integer.parseInt(bioma_id));
         ResultSet rs = p.executeQuery();
@@ -67,11 +70,13 @@ public class BiomaDao extends MainDao{
         }
         rs.close();
         p.close();
+        super.con.close();        
         return biomas.get(0);
    }
    
    public List<Bioma> listarBiomas() throws Exception{
-        List<Bioma> biomas = new ArrayList<Bioma>();
+       
+        ArrayList<Bioma> biomas = new ArrayList<Bioma>();
         PreparedStatement p = this.con.prepareStatement("SELECT * FROM bioma");
         ResultSet rs = p.executeQuery();
         while(rs.next()){
@@ -82,6 +87,7 @@ public class BiomaDao extends MainDao{
         }
         rs.close();
         p.close();
+        super.con.close();        
         return biomas;
     }
     

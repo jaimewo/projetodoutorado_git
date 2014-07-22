@@ -30,48 +30,51 @@ public class CoordenadaLocalDao extends MainDao {
      
     public void cadastrar(CoordenadaLocal coordenadaLocal) throws SQLException
     {
-            PreparedStatement p = this.con.prepareStatement("INSERT INTO coordenadalocal(idlocal,"
+        PreparedStatement p = this.con.prepareStatement("INSERT INTO coordenadalocal(idlocal,"
                     +                                                          "latitude,"
                     +                                                          "longitude"
                     +                                                          ") VALUES (?,?,?)");
-            p.setInt(1, coordenadaLocal.getIdLocal());
-            p.setDouble(2, coordenadaLocal.getLatitude());
-            p.setDouble(3, coordenadaLocal.getLongitude());
-            p.executeUpdate();
-            p.close();
+        p.setInt(1, coordenadaLocal.getIdLocal());
+        p.setDouble(2, coordenadaLocal.getLatitude());
+        p.setDouble(3, coordenadaLocal.getLongitude());
+        p.executeUpdate();
+        p.close();
+        super.con.close();            
     }
     
     
     public void deletar(CoordenadaLocal coordenadaLocal) throws SQLException
     {
-            PreparedStatement p = this.con.prepareStatement("DELETE from coordenadalocal where id = ?");
-            p.setInt(1, coordenadaLocal.getId());
-            p.executeUpdate();
-            p.close();
+        PreparedStatement p = this.con.prepareStatement("DELETE from coordenadalocal where id = ?");
+        p.setInt(1, coordenadaLocal.getId());
+        p.executeUpdate();
+        p.close();
+        super.con.close();            
         
     }
     
    public void update(CoordenadaLocal coordenadaLocal) throws Exception 
    {
-            PreparedStatement p = this.con.prepareStatement("DELETE from coordenadalocal where idlocal = ?");
-            p.setInt(1, coordenadaLocal.getIdLocal());
-            p.executeUpdate();
+        PreparedStatement p = this.con.prepareStatement("DELETE from coordenadalocal where idlocal = ?");
+        p.setInt(1, coordenadaLocal.getIdLocal());
+        p.executeUpdate();
    
-            p = this.con.prepareStatement("INSERT INTO coordenadalocal(idlocal,"
-                    +                                                 "latitude,"
-                    +                                                 "longitude"
-                    +                                                 ") VALUES (?,?,?)");
-            p.setInt(1, coordenadaLocal.getIdLocal());
-            p.setDouble(2, coordenadaLocal.getLatitude());
-            p.setDouble(3, coordenadaLocal.getLongitude());
-            p.executeUpdate();
+        p = this.con.prepareStatement("INSERT INTO coordenadalocal(idlocal,"
+                +                                                 "latitude,"
+                +                                                 "longitude"
+                +                                                 ") VALUES (?,?,?)");
+        p.setInt(1, coordenadaLocal.getIdLocal());
+        p.setDouble(2, coordenadaLocal.getLatitude());
+        p.setDouble(3, coordenadaLocal.getLongitude());
+        p.executeUpdate();
     
-            p.close();
+        p.close();
+        super.con.close();            
     }
    
    public CoordenadaLocal getCoordenadaLocal(String idCoordenadaLocal) throws SQLException
    {
-        List<CoordenadaLocal> coordenadasLocal = new ArrayList<CoordenadaLocal>();
+        ArrayList<CoordenadaLocal> coordenadasLocal = new ArrayList<CoordenadaLocal>();
         PreparedStatement p = this.con.prepareStatement("SELECT * FROM coordenadalocal where id = ?");
         p.setInt(1, Integer.parseInt(idCoordenadaLocal));
         ResultSet rs = p.executeQuery();
@@ -85,10 +88,12 @@ public class CoordenadaLocalDao extends MainDao {
         }
         rs.close();
         p.close();
+        super.con.close();
         return coordenadasLocal.get(0);
    }
    
    public ArrayList<CoordenadaLocal> listarCoordenadasLocal(int idLocal) throws Exception{
+       
         ArrayList<CoordenadaLocal> coordenadasLocal = new ArrayList<CoordenadaLocal>();
         PreparedStatement p = this.con.prepareStatement("SELECT * FROM coordenadalocal WHERE idlocal = ?");
         p.setInt(1, idLocal);
@@ -103,6 +108,7 @@ public class CoordenadaLocalDao extends MainDao {
         }
         rs.close();
         p.close();
+        super.con.close();        
         return coordenadasLocal;
     }
     

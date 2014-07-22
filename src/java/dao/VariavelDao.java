@@ -16,7 +16,7 @@ import model.Variavel;
 
 /**
  *
- * @author paulozeferino
+ * @author jaime
  */
 public class VariavelDao extends MainDao {
     
@@ -27,21 +27,22 @@ public class VariavelDao extends MainDao {
     
     public void cadastrar(Variavel variavel) throws SQLException
     {
-            PreparedStatement p = this.con.prepareStatement("INSERT INTO variavel(sigla,nome) VALUES (?,?)");
-            p.setString(1, variavel.getSigla());
-            p.setString(2, variavel.getNome());
-            p.executeUpdate();
-            p.close();
+        PreparedStatement p = this.con.prepareStatement("INSERT INTO variavel(sigla,nome) VALUES (?,?)");
+        p.setString(1, variavel.getSigla());
+        p.setString(2, variavel.getNome());
+        p.executeUpdate();
+        p.close();
+        super.con.close();        
     }
     
     
     public void deletar(Variavel variavel) throws SQLException
     {
-            PreparedStatement p = this.con.prepareStatement("DELETE from variavel where id = ?");
-            p.setInt(1, variavel.getId());
-            p.executeUpdate();
-            p.close();
-        
+        PreparedStatement p = this.con.prepareStatement("DELETE from variavel where id = ?");
+        p.setInt(1, variavel.getId());
+        p.executeUpdate();
+        p.close();
+        super.con.close();        
     }
     
    public void update(Variavel variavel) throws Exception 
@@ -52,11 +53,12 @@ public class VariavelDao extends MainDao {
         p.setInt(3, variavel.getId());
         p.executeUpdate();
         p.close();
+        super.con.close();        
     }
    
    public Variavel getVariavel(String variavel_id) throws SQLException
    {
-        List<Variavel> variaveis = new ArrayList<Variavel>();
+        ArrayList<Variavel> variaveis = new ArrayList<Variavel>();
         PreparedStatement p = this.con.prepareStatement("SELECT id,sigla,nome FROM variavel where id = ?");
         p.setInt(1, Integer.parseInt(variavel_id));
         ResultSet rs = p.executeQuery();
@@ -69,11 +71,12 @@ public class VariavelDao extends MainDao {
         }
         rs.close();
         p.close();
+        super.con.close();        
         return variaveis.get(0);
    }
    public Variavel getVariavelComSigla(String sigla) throws SQLException
    {
-        List<Variavel> variaveis = new ArrayList<Variavel>();
+        ArrayList<Variavel> variaveis = new ArrayList<Variavel>();
         PreparedStatement p = this.con.prepareStatement("SELECT id,sigla,nome FROM variavel where sigla = ?");
         p.setString(1, sigla);
         ResultSet rs = p.executeQuery();
@@ -86,10 +89,12 @@ public class VariavelDao extends MainDao {
         }
         rs.close();
         p.close();
+        super.con.close();        
         return variaveis.get(0);
    }
-   public List<Variavel> listarVariaveis() throws Exception{
-        List<Variavel> variaveis = new ArrayList<Variavel>();
+   public ArrayList<Variavel> listarVariaveis() throws Exception{
+       
+        ArrayList<Variavel> variaveis = new ArrayList<Variavel>();
         PreparedStatement p = this.con.prepareStatement("SELECT * FROM variavel");
         ResultSet rs = p.executeQuery();
         while(rs.next()){
@@ -101,9 +106,11 @@ public class VariavelDao extends MainDao {
         }
         rs.close();
         p.close();
+        super.con.close();        
         return variaveis;
     }
     public ArrayList<Variavel> listarVariaveis(int idEquacao) throws Exception{
+        
         ArrayList<Variavel> variaveis = new ArrayList<Variavel>();
         PreparedStatement p = this.con.prepareStatement("SELECT v.id AS id,v.nome AS nome, v.sigla AS sigla "
                 + "                                      FROM variavel v JOIN variavelequacao ve ON v.id = ve.idvariavel"
@@ -119,6 +126,7 @@ public class VariavelDao extends MainDao {
         }
         rs.close();
         p.close();
+        super.con.close();        
         return variaveis;
     }   
 }

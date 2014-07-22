@@ -17,7 +17,7 @@ import model.AutorModelo;
 
 /**
  *
- * @author paulozeferino
+ * @author jaime
  */
 public class AutorModeloDao extends MainDao {
     
@@ -28,19 +28,21 @@ public class AutorModeloDao extends MainDao {
     
     public void cadastrar(AutorModelo autorModelo) throws SQLException
     {
-            PreparedStatement p = this.con.prepareStatement("INSERT INTO autormodelo(nome) VALUES (?)");
-            p.setString(1, autorModelo.getNome());
-            p.executeUpdate();
-            p.close();
+        PreparedStatement p = this.con.prepareStatement("INSERT INTO autormodelo(nome) VALUES (?)");
+        p.setString(1, autorModelo.getNome());
+        p.executeUpdate();
+        p.close();
+        super.con.close();            
     }
     
     
     public void deletar(AutorModelo autorModelo) throws SQLException
     {
-            PreparedStatement p = this.con.prepareStatement("DELETE from autormodelo where id = ?");
-            p.setInt(1, autorModelo.getId());
-            p.executeUpdate();
-            p.close();
+        PreparedStatement p = this.con.prepareStatement("DELETE from autormodelo where id = ?");
+        p.setInt(1, autorModelo.getId());
+        p.executeUpdate();
+        p.close();
+        super.con.close();            
         
     }
     
@@ -51,11 +53,12 @@ public class AutorModeloDao extends MainDao {
         p.setInt(2, autorModelo.getId());
         p.executeUpdate();
         p.close();
+        super.con.close();        
     }
    
    public AutorModelo getAutorModelo(String autorModelo_id) throws SQLException
    {
-        List<AutorModelo> autoresModelo = new ArrayList<AutorModelo>();
+        ArrayList<AutorModelo> autoresModelo = new ArrayList<AutorModelo>();
         PreparedStatement p = this.con.prepareStatement("SELECT id,nome FROM autormodelo where id = ?");
         p.setInt(1, Integer.parseInt(autorModelo_id));
         ResultSet rs = p.executeQuery();
@@ -67,11 +70,13 @@ public class AutorModeloDao extends MainDao {
         }
         rs.close();
         p.close();
+        super.con.close();        
         return autoresModelo.get(0);
    }
    
    public List<AutorModelo> listarAutoresModelo() throws Exception{
-        List<AutorModelo> autoresModelo = new ArrayList<AutorModelo>();
+       
+        ArrayList<AutorModelo> autoresModelo = new ArrayList<AutorModelo>();
         PreparedStatement p = this.con.prepareStatement("SELECT * FROM autormodelo");
         ResultSet rs = p.executeQuery();
         while(rs.next()){
@@ -82,6 +87,7 @@ public class AutorModeloDao extends MainDao {
         }
         rs.close();
         p.close();
+        super.con.close();        
         return autoresModelo;
     }
     

@@ -38,6 +38,7 @@ public class TermoDao extends MainDao {
          
         p.executeUpdate();
         p.close();
+        super.con.close();        
     }
     
     
@@ -47,6 +48,7 @@ public class TermoDao extends MainDao {
         p.setInt(1, termo.getId());
         p.executeUpdate();
         p.close();
+        super.con.close();        
         
     }
     
@@ -63,11 +65,12 @@ public class TermoDao extends MainDao {
         p.setInt(4, termo.getId());
         p.executeUpdate();
         p.close();
+        super.con.close();        
     }
    
    public Termo getTermo(String id) throws SQLException
    {
-        List<Termo> termos = new ArrayList<Termo>();
+        ArrayList<Termo> termos = new ArrayList<Termo>();
         PreparedStatement p = this.con.prepareStatement("SELECT * FROM termo where id = ?");
         p.setInt(1, Integer.parseInt(id));
         ResultSet rs = p.executeQuery();
@@ -81,6 +84,7 @@ public class TermoDao extends MainDao {
         }
         rs.close();
         p.close();
+        super.con.close();        
         return termos.get(0);
    }
    
@@ -99,6 +103,7 @@ public class TermoDao extends MainDao {
         }
         rs.close();
         p.close();
+        super.con.close();        
         return termos;
     }
     

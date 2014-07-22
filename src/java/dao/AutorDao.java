@@ -17,7 +17,7 @@ import model.Autor;
 
 /**
  *
- * @author paulozeferino
+ * @author jaime
  */
 public class AutorDao extends MainDao{
     
@@ -35,6 +35,7 @@ public class AutorDao extends MainDao{
             p.setString(1, autor.getNome());
             p.executeUpdate();
             p.close();
+            super.con.close();
     }
     
     
@@ -44,6 +45,7 @@ public class AutorDao extends MainDao{
             p.setInt(1, autor.getId());
             p.executeUpdate();
             p.close();
+            super.con.close();
         
     }
     
@@ -54,11 +56,12 @@ public class AutorDao extends MainDao{
         p.setInt(2, autor.getId());
         p.executeUpdate();
         p.close();
+        super.con.close();        
     }
    
    public Autor getAutor(String autor_id) throws SQLException
    {
-        List<Autor> autores = new ArrayList<Autor>();
+        ArrayList<Autor> autores = new ArrayList<Autor>();
         PreparedStatement p = this.con.prepareStatement("SELECT id,nome FROM autor where id = ?");
         p.setInt(1, Integer.parseInt(autor_id));
         ResultSet rs = p.executeQuery();
@@ -70,11 +73,12 @@ public class AutorDao extends MainDao{
         }
         rs.close();
         p.close();
+        super.con.close();        
         return autores.get(0);
    }
    
    public List<Autor> listarAutores() throws Exception{
-        List<Autor> autores = new ArrayList<Autor>();
+        ArrayList<Autor> autores = new ArrayList<Autor>();
         PreparedStatement p = this.con.prepareStatement("SELECT * FROM autor");
         ResultSet rs = p.executeQuery();
         while(rs.next()){
@@ -85,6 +89,7 @@ public class AutorDao extends MainDao{
         }
         rs.close();
         p.close();
+        super.con.close();        
         return autores;
     }
     

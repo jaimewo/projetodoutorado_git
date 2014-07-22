@@ -30,6 +30,7 @@ import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 import model.ArvoreAjuste;
+import model.ArvoreAjusteQuantidade;
 import model.Equacao;
 import model.Local;
 import model.Variavel;
@@ -41,56 +42,46 @@ import model.VariavelArvoreAjuste;
  */
 public class ArvoreAjusteDao extends MainDao {
 
-
-
-    
-    
+  
     public ArvoreAjusteDao()
     {
       super();
     }
      
-    public void cadastrar(ArvoreAjuste arvoreAjuste) throws SQLException
+    public void cadastrar(ArvoreAjuste arvoreAjuste) throws SQLException, Exception
     {
 
         String sql = "INSERT INTO arvoreajuste(idlocal,"
-                    +                                                          "numarvoreajuste,"
-                    +                                                          "qtdebiomassaobs,"
-                    +                                                          "qtdebiomassaest,"
-                    +                                                          "qtdecarbonoobs,"
-                    +                                                          "qtdecarbonoest,"
-                    +                                                          "qtdevolumeobs,"
-                    +                                                          "qtdevolumeest"
-                    +                                                          ") VALUES (?,?,?,?,?,?,?,?) RETURNING arvoreajuste.id";
+                    +                         "numarvoreajuste "
+                    +                         ") VALUES (?,?) RETURNING arvoreajuste.id";
         PreparedStatement p = this.con.prepareStatement(sql);
         p.setInt(1, arvoreAjuste.getIdLocal());
         p.setInt(2, arvoreAjuste.getNumArvoreAjuste());
-        p.setDouble(3, arvoreAjuste.getQtdeBiomassaObs());
-        p.setDouble(4, arvoreAjuste.getQtdeBiomassaEst());
-        p.setDouble(5, arvoreAjuste.getQtdeCarbonoObs());
-        p.setDouble(6, arvoreAjuste.getQtdeCarbonoEst());
-        p.setDouble(7, arvoreAjuste.getQtdeVolumeObs());
-        p.setDouble(8, arvoreAjuste.getQtdeVolumeEst());
         int idArvoreAjuste = 0;
         ResultSet rs = p.executeQuery();
         if(rs.next()){
            idArvoreAjuste = rs.getInt(1);
         }
-            
+        
         if (arvoreAjuste.variaveisArvoreAjuste.size()>0) {
             for (VariavelArvoreAjuste variavelArvoreAjuste: arvoreAjuste.variaveisArvoreAjuste) {
                 variavelArvoreAjuste.setIdArvoreAjuste(idArvoreAjuste);
-                VariavelArvoreAjusteDao variavelarvoreAjusteDao = new VariavelArvoreAjusteDao();
+                VariavelArvoreAjusteDao variavelarvoreAjusteDao = new VariavelArvoreAjusteDao();            
                 variavelarvoreAjusteDao.cadastrar(variavelArvoreAjuste);
+            }
+        }
+        if (arvoreAjuste.arvoresAjusteQuantidade.size()>0) {
+            for (ArvoreAjusteQuantidade arvoreAjusteQuantidade: arvoreAjuste.arvoresAjusteQuantidade) {
+                arvoreAjusteQuantidade.setIdArvoreAjuste(idArvoreAjuste);
+                ArvoreAjusteQuantidadeDao arvoreAjusteQuantidadeDao = new ArvoreAjusteQuantidadeDao();        
+                arvoreAjusteQuantidadeDao.cadastrar(arvoreAjusteQuantidade);
             }
         }
             
         p.close();
-            
-            
+        super.con.close();
             
     }
-    
     
     public void deletar(ArvoreAjuste arvoreAjuste) throws SQLException
     {
@@ -98,6 +89,7 @@ public class ArvoreAjusteDao extends MainDao {
             p.setInt(1, arvoreAjuste.getId());
             p.executeUpdate();
             p.close();
+            super.con.close();
         
     }
     public void deletarLocal(Local local) throws SQLException
@@ -105,13 +97,18 @@ public class ArvoreAjusteDao extends MainDao {
         PreparedStatement p = this.con.prepareStatement("SELECT * FROM arvoreajuste where idlocal = ?");
         
         p.setInt(1, local.getId());
+
         
         ResultSet rs = p.executeQuery();
         while(rs.next()){
            int idArvoreAjuste = rs.getInt("id");
-           
+
            VariavelArvoreAjusteDao variavelArvoreAjusteDao = new VariavelArvoreAjusteDao();
            variavelArvoreAjusteDao.deletarArvoreAjuste(idArvoreAjuste);
+           
+           ArvoreAjusteQuantidadeDao arvoreAjusteQuantidadeDao = new ArvoreAjusteQuantidadeDao();
+           arvoreAjusteQuantidadeDao.deletarArvoreAjuste(idArvoreAjuste);
+           
         }
         rs.close();
         
@@ -119,60 +116,23 @@ public class ArvoreAjusteDao extends MainDao {
         p.setInt(1, local.getId());
         p.executeUpdate();
         p.close();
+        super.con.close();
     }
     
    public void update(ArvoreAjuste arvoreAjuste) throws Exception 
    {
         PreparedStatement p = this.con.prepareStatement("UPDATE arvoreAjuste SET idlocal = ?,"
                 +                                                         " numarvoreajuste = ?,"
-                +                                                         " qtdebiomassaobs = ?,"
-                +                                                         " qtdebiomassaest = ?,"
-                +                                                         " qtdecarbonoobs = ?,"
-                +                                                         " qtdecarbonoest = ?,"
-                +                                                         " qtdevolumeobs = ?,"
-                +                                                         " qtdevolumeest = ?"
                 +                                                         " where id = ?");
         p.setInt(1, arvoreAjuste.getIdLocal());
         p.setInt(2, arvoreAjuste.getNumArvoreAjuste());
-        p.setDouble(3, arvoreAjuste.getQtdeBiomassaObs());
-        p.setDouble(4, arvoreAjuste.getQtdeBiomassaEst());
-        p.setDouble(5, arvoreAjuste.getQtdeCarbonoObs());
-        p.setDouble(6, arvoreAjuste.getQtdeCarbonoEst());
-        p.setDouble(7, arvoreAjuste.getQtdeVolumeObs());
-        p.setDouble(8, arvoreAjuste.getQtdeVolumeEst());
 
-        p.setInt(9, arvoreAjuste.getId());
+        p.setInt(3, arvoreAjuste.getId());
         p.executeUpdate();
         p.close();
+        super.con.close();
     }
-   
-    public void updateBiomassa(ArvoreAjuste arvoreAjuste) throws SQLException {
-        PreparedStatement p = this.con.prepareStatement("UPDATE arvoreajuste SET qtdebiomassaest = ? where id = ?");
-        p.setDouble(1, arvoreAjuste.getQtdeBiomassaEst());
 
-        p.setInt(2, arvoreAjuste.getId());
-        p.executeUpdate();
-        p.close();   
-    }
-    
-
-    public void updateCarbono(ArvoreAjuste arvoreAjuste) throws SQLException {
-        PreparedStatement p = this.con.prepareStatement("UPDATE arvoreajuste SET qtdecarbonoest = ? where id = ?");
-        p.setDouble(1, arvoreAjuste.getQtdeCarbonoEst());
-
-        p.setInt(2, arvoreAjuste.getId());
-        p.executeUpdate();
-        p.close();   
-    }
-    
-    public void updateVolume(ArvoreAjuste arvoreAjuste) throws SQLException {
-        PreparedStatement p = this.con.prepareStatement("UPDATE arvoreajuste SET qtdevolumeest = ? where id = ?");
-        p.setDouble(1, arvoreAjuste.getQtdeVolumeEst());
-
-        p.setInt(2, arvoreAjuste.getId());
-        p.executeUpdate();
-        p.close();   
-    }   
    public ArvoreAjuste getArvoreAjuste(String id) throws SQLException
    {
         List<ArvoreAjuste> arvoreAjustes = new ArrayList<ArvoreAjuste>();
@@ -184,16 +144,11 @@ public class ArvoreAjusteDao extends MainDao {
            arvoreAjuste.setId(rs.getInt("id"));
            arvoreAjuste.setIdLocal(rs.getInt("idlocal"));
            arvoreAjuste.setNumArvoreAjuste(rs.getInt("numarvoreajuste"));
-           arvoreAjuste.setQtdeBiomassaObs(rs.getDouble("qtdebiomassaobs"));
-           arvoreAjuste.setQtdeBiomassaEst(rs.getDouble("qtdebiomassaest"));
-           arvoreAjuste.setQtdeCarbonoObs(rs.getDouble("qtdecarbonoobs"));
-           arvoreAjuste.setQtdeCarbonoEst(rs.getDouble("qtdecarbonoest"));
-           arvoreAjuste.setQtdeVolumeObs(rs.getDouble("qtdevolumeobs"));
-           arvoreAjuste.setQtdeVolumeEst(rs.getDouble("qtdevolumeest"));
            arvoreAjustes.add(arvoreAjuste);
         }
         rs.close();
         p.close();
+        super.con.close();
         return arvoreAjustes.get(0);
    }
    public ArvoreAjuste getArvoreAjuste(Local local, int numArvore) throws SQLException
@@ -210,20 +165,16 @@ public class ArvoreAjusteDao extends MainDao {
            arvoreAjuste.setId(rs.getInt("id"));
            arvoreAjuste.setIdLocal(rs.getInt("idlocal"));
            arvoreAjuste.setNumArvoreAjuste(rs.getInt("numarvoreajuste"));
-           arvoreAjuste.setQtdeBiomassaObs(rs.getDouble("qtdebiomassaobs"));
-           arvoreAjuste.setQtdeBiomassaEst(rs.getDouble("qtdebiomassaest"));
-           arvoreAjuste.setQtdeCarbonoObs(rs.getDouble("qtdecarbonoobs"));
-           arvoreAjuste.setQtdeCarbonoEst(rs.getDouble("qtdecarbonoest"));
-           arvoreAjuste.setQtdeVolumeObs(rs.getDouble("qtdevolumeobs"));
-           arvoreAjuste.setQtdeVolumeEst(rs.getDouble("qtdevolumeest"));
            arvoreAjustes.add(arvoreAjuste);
         }
         rs.close();
         p.close();
+        super.con.close();
         return arvoreAjustes.get(0);
    }
    
    public ArrayList<ArvoreAjuste> listarArvoresAjuste(int idLocal) throws Exception{
+       
         ArrayList<ArvoreAjuste> arvoresAjuste = new ArrayList<ArvoreAjuste>();
         PreparedStatement p = this.con.prepareStatement("SELECT * FROM arvoreajuste WHERE idlocal = ?");
         p.setInt(1, idLocal);
@@ -233,17 +184,13 @@ public class ArvoreAjusteDao extends MainDao {
            arvoreAjuste.setId(rs.getInt("id"));
            arvoreAjuste.setIdLocal(rs.getInt("idlocal"));
            arvoreAjuste.setNumArvoreAjuste(rs.getInt("numarvoreajuste"));
-           arvoreAjuste.setQtdeBiomassaObs(rs.getDouble("qtdebiomassaobs"));
-           arvoreAjuste.setQtdeBiomassaEst(rs.getDouble("qtdebiomassaest"));
-           arvoreAjuste.setQtdeCarbonoObs(rs.getDouble("qtdecarbonoobs"));
-           arvoreAjuste.setQtdeCarbonoEst(rs.getDouble("qtdecarbonoest"));
-           arvoreAjuste.setQtdeVolumeObs(rs.getDouble("qtdevolumeobs"));
-           arvoreAjuste.setQtdeVolumeEst(rs.getDouble("qtdevolumeest"));
            arvoreAjuste.variaveisArvoreAjuste = arvoreAjuste.getVariaveisArvoreAjuste();
+
            arvoresAjuste.add(arvoreAjuste);
         }
         rs.close();
         p.close();
+        super.con.close();
         return arvoresAjuste;
     }
 }

@@ -6,7 +6,9 @@ package model;
 
 import dao.ArvoreAjusteDao;
 import dao.ArvoreDao;
+import dao.ArvoreQuantidadeDao;
 import dao.ParcelaDao;
+import dao.ParcelaQuantidadeDao;
 import dao.VariavelArvoreAjusteDao;
 import dao.VariavelDao;
 import java.io.File;
@@ -34,17 +36,18 @@ public class Parcela extends Model  {
     private int idLocal;
     private int numParcela;
     private double areaParcela;
-    private double qtdeBiomassa;
-    private double qtdeCarbono;
-    private double qtdeVolume;
+    
+    private double qtde;
     
     public ArrayList<Arvore> arvores;
+    public ArrayList<ParcelaQuantidade> parcelasQuantidade;
     
     public Parcela()
     {
         this.idLocal = 0;
         this.numParcela = 0;
         this.areaParcela = 0.0;
+        this.qtde = 0.0;
     }
     
     public String getIdString()
@@ -84,30 +87,6 @@ public class Parcela extends Model  {
         this.areaParcela = areaParcela;
     }
 
-    public double getQtdeBiomassa() {
-        return qtdeBiomassa;
-    }
-
-    public void setQtdeBiomassa(double qtdeBiomassa) {
-        this.qtdeBiomassa = qtdeBiomassa;
-    }
-
-    public double getQtdeCarbono() {
-        return qtdeCarbono;
-    }
-
-    public void setQtdeCarbono(double qtdeCarbono) {
-        this.qtdeCarbono = qtdeCarbono;
-    }
-
-    public double getQtdeVolume() {
-        return qtdeVolume;
-    }
-
-    public void setQtdeVolume(double qtdeVolume) {
-        this.qtdeVolume = qtdeVolume;
-    }
-
     public ArrayList<Arvore> getArvores() throws Exception {
         ArrayList<Arvore> arvores = new ArrayList<Arvore>();
         ArvoreDao arvoreDao = new ArvoreDao();
@@ -116,68 +95,78 @@ public class Parcela extends Model  {
         
         for (Arvore arvore: arvores) {
             arvore.variaveisArvore = arvore.getVariaveisArvore();
+            arvore.arvoresQuantidade = arvore.getArvoresQuantidade();            
         }
         
         return arvores;
     }
 
+    public ArrayList<ParcelaQuantidade> getParcelasQuantidade() throws Exception {
+        
+        ParcelaQuantidadeDao parcelaQuantidadeDao = new ParcelaQuantidadeDao();
+        parcelasQuantidade = parcelaQuantidadeDao.listarParcelasQuantidade(this.id);
+ 
+        return parcelasQuantidade;
+    }    
+
     public void setArvores(ArrayList<Arvore> arvores) {
         this.arvores = arvores;
     }
 
-    public void calculaQtde(Local local) throws Exception {
-        
-        Double qtdeEstimada = 0.0;
+    public void setParcelasQuantidade(ArrayList<ParcelaQuantidade> parcelasQuantidade) {
+        this.parcelasQuantidade = parcelasQuantidade;
+    }
 
-        ParcelaDao parcelaDao = new ParcelaDao();
-        ArvoreDao arvoreDao = new ArvoreDao();
+    public double getQtde(int idVariavelInteresse,int idMetodoCalculo) throws SQLException {
+        ParcelaQuantidadeDao parcelaQuantidadeDao = new ParcelaQuantidadeDao();
+        qtde = parcelaQuantidadeDao.getQtde(this.id,idVariavelInteresse,idMetodoCalculo);
         
-        this.qtdeBiomassa = 0;
-        this.qtdeCarbono  = 0;
-        this.qtdeVolume   = 0;
+        return qtde;
+    }
+    public void calculaQtdeEstimada(Local local,int idVariavelInteresse,int idMetodoCalculo) throws Exception {
         
-        for (int iVi=1;iVi<4;iVi++) {
-            int idVariavelInteresse = iVi;
+        Double qtdeEstimadaArvore = 0.0;
+        Double qtdeEstimadaParcela = 0.0;      
+        int qtdeVariaveis = 1;
         
-            for (Arvore arvore: arvores) {
-                switch (idVariavelInteresse) {
-                    case 1: //Biomassa
-                        qtdeEstimada = arvore.calculaQtdeEstimada(local,idVariavelInteresse);
-                        arvore.setQtdeBiomassaEst(qtdeEstimada);
-                        arvoreDao.updateBiomassa(arvore);                                
-                        this.qtdeBiomassa += qtdeEstimada;
-                        break;
-                    case 2: //Carbono
-                        qtdeEstimada = arvore.calculaQtdeEstimada(local,idVariavelInteresse);
-                        arvore.setQtdeCarbonoEst(qtdeEstimada);
-                        arvoreDao.updateCarbono(arvore);                                
-                        this.qtdeCarbono += qtdeEstimada;
-                        break;
-                    case 3: //Volume
-                        qtdeEstimada = arvore.calculaQtdeEstimada(local,idVariavelInteresse);
-                        arvore.setQtdeVolumeEst(qtdeEstimada);
-                        arvoreDao.updateVolume(arvore);                                
-                        this.qtdeVolume += qtdeEstimada;
-                        break;
+        double[] qtdeObs = new double[arvores.size()];
+        double[] qtdeEst = new double[arvores.size()];
+        int iArvore = 0;
+
+        ParcelaQuantidade parcelaQuantidade = new ParcelaQuantidade();        
+        ParcelaQuantidadeDao parcelaQuantidadeDao = new ParcelaQuantidadeDao();
+        int iArvoreQuantidade=0;
+        
+        qtdeEstimadaParcela = 0.0;
+            
+        for (Arvore arvore: arvores) {
+            qtdeEstimadaArvore = arvore.calculaQtdeEstimada(local,idVariavelInteresse,idMetodoCalculo);                
+            for(int i=0;i<6;i++) {
+                if ((arvore.arvoresQuantidade.get(i).getIdVariavelInteresse()==idVariavelInteresse)
+                &&  (arvore.arvoresQuantidade.get(i).getIdMetodoCalculo()==idMetodoCalculo)) {
+                    arvore.arvoresQuantidade.get(i).setQtdeEst(qtdeEstimadaArvore);
+                    iArvoreQuantidade=i;
+                    i=6;
                 }
             }
-            switch (idVariavelInteresse) {
-                case 1: //Biomassa
-                    parcelaDao.updateBiomassa(this);
-                    break;
-                case 2: //Carbono
-                    parcelaDao.updateCarbono(this);
-                    break;
-                case 3: //Volume
-                    parcelaDao.updateVolume(this);
-                    break;
-            }
+            ArvoreQuantidadeDao arvoreQuantidadeDao = new ArvoreQuantidadeDao();                  
+            arvoreQuantidadeDao.updateQtdeEst(arvore.arvoresQuantidade.get(iArvoreQuantidade));
+               
+            qtdeEstimadaParcela += qtdeEstimadaArvore;
         }
+        parcelaQuantidade.setIdParcela(id);
+        parcelaQuantidade.setIdVariavelInteresse(idVariavelInteresse);
+        parcelaQuantidade.setIdMetodoCalculo(idMetodoCalculo);
+        parcelaQuantidade.setQtde(qtdeEstimadaParcela);
+        parcelaQuantidadeDao.updateQtde(parcelaQuantidade);
+        
     }
 
     public void importarPlanilha(Local local) throws SQLException, BiffException
     {
         ParcelaDao parcelaDao = new ParcelaDao();
+        ParcelaQuantidadeDao parcelaQuantidadeDao = new ParcelaQuantidadeDao();
+        
         parcelaDao.deletarParcela(local);
 
         Workbook planilha; // objeto que receberá um instancia da planilha estudada
@@ -215,41 +204,74 @@ public class Parcela extends Model  {
                 //Montar msg erro para a Controller
                 return;
             }
+            ArrayList<Arvore> arvores = new ArrayList<Arvore>();                                    
+            ParcelaQuantidade parcelaQuantidade = new ParcelaQuantidade();                                    
+            ArrayList<ParcelaQuantidade> parcelasQuantidade = new ArrayList<ParcelaQuantidade>();                                    
             
-            int numArvore = 0;
-            double qtdeBiomassaObs = 0.0;
-            double qtdeCarbonoObs = 0.0;
-            double qtdeVolumeObs = 0.0;
-            
-            for (int linha = 0; linha < matriz.length; linha++) {
+            for (int linha = 1; linha < matriz.length; linha++) {
+                parcelasQuantidade.clear();                
                 for (int coluna = 0; coluna < matriz[0].length; coluna++) {
-                    if (linha>0) {
-                        switch (coluna) {
-                        case 0: // Número da Parcela
-                             numParcela = Integer.parseInt(matriz[linha][coluna]);
-                             break;
-                        case 1: // Área da Parcela
-                             areaParcela = Double.parseDouble(matriz[linha][coluna].replace(",","."));
-                             break;
-                        case 2: // Valor da Biomassa
-                             qtdeBiomassa = Double.parseDouble(matriz[linha][coluna].replace(",","."));
-                             break;
-                        case 3: // Valor do Carbono"
-                             qtdeCarbono = Double.parseDouble(matriz[linha][coluna].replace(",","."));
-                             break;
-                        case 4: // Valor do Volume
-                             qtdeVolume = Double.parseDouble(matriz[linha][coluna].replace(",","."));;
-                             break;
-                        }
+                    switch (coluna) {
+                    case 0: // Número da Parcela
+                         numParcela = Integer.parseInt(matriz[linha][coluna]);
+                         break;
+                    case 1: // Área da Parcela
+                         areaParcela = Double.parseDouble(matriz[linha][coluna].replace(",","."));
+                         break;
+                    case 2: // Valor da Biomassa
+                         parcelaQuantidade = new ParcelaQuantidade();                                    
+                         parcelaQuantidade.setIdVariavelInteresse(1); //Biomassa
+                         parcelaQuantidade.setIdMetodoCalculo(1);     //Equação
+                         parcelaQuantidade.setIdParcela(id);
+                         parcelaQuantidade.setQtde(Double.parseDouble(matriz[linha][coluna].replace(",",".")));
+                         parcelasQuantidade.add(parcelaQuantidade);
+
+                         parcelaQuantidade = new ParcelaQuantidade();                                    
+                         parcelaQuantidade.setIdVariavelInteresse(1); //Biomassa
+                         parcelaQuantidade.setIdMetodoCalculo(2);     //Data Mining
+                         parcelaQuantidade.setIdParcela(id);
+                         parcelaQuantidade.setQtde(Double.parseDouble(matriz[linha][coluna].replace(",",".")));
+                         parcelasQuantidade.add(parcelaQuantidade);
+
+                         break;
+                    case 3: // Valor do Carbono"
+                         parcelaQuantidade = new ParcelaQuantidade();                                    
+                         parcelaQuantidade.setIdVariavelInteresse(2); //Carbono
+                         parcelaQuantidade.setIdMetodoCalculo(1);     //Equação
+                         parcelaQuantidade.setIdParcela(id);
+                         parcelaQuantidade.setQtde(Double.parseDouble(matriz[linha][coluna].replace(",",".")));
+                         parcelasQuantidade.add(parcelaQuantidade);
+
+                         parcelaQuantidade = new ParcelaQuantidade();                                    
+                         parcelaQuantidade.setIdVariavelInteresse(2); //Carbono
+                         parcelaQuantidade.setIdMetodoCalculo(2);     //Data Mining
+                         parcelaQuantidade.setIdParcela(id);
+                         parcelaQuantidade.setQtde(Double.parseDouble(matriz[linha][coluna].replace(",",".")));
+                         parcelasQuantidade.add(parcelaQuantidade);
+                         break;
+                    case 4: // Valor do Volume
+                         parcelaQuantidade = new ParcelaQuantidade();                                    
+                         parcelaQuantidade.setIdVariavelInteresse(3); //Volume
+                         parcelaQuantidade.setIdMetodoCalculo(1);     //Equação
+                         parcelaQuantidade.setIdParcela(id);
+                         parcelaQuantidade.setQtde(Double.parseDouble(matriz[linha][coluna].replace(",",".")));
+                         parcelasQuantidade.add(parcelaQuantidade);
+
+                         parcelaQuantidade = new ParcelaQuantidade();                                    
+                         parcelaQuantidade.setIdVariavelInteresse(3); //Volume
+                         parcelaQuantidade.setIdMetodoCalculo(2);     //Data Mining
+                         parcelaQuantidade.setIdParcela(id);
+                         parcelaQuantidade.setQtde(Double.parseDouble(matriz[linha][coluna].replace(",",".")));
+                         parcelasQuantidade.add(parcelaQuantidade);
+                         break;
                     }
                 }
-                if (linha>0) {
-                    // Insere Parcela
-                    idLocal = local.getId();
-                    ArrayList<Arvore> arvoresParcela = new ArrayList<Arvore>();
-                    arvores = arvoresParcela;
-                    parcelaDao.cadastrar(this);
-                }
+ 
+                idLocal = local.getId();
+                this.arvores = arvores;
+                this.parcelasQuantidade = parcelasQuantidade;
+                parcelaDao.cadastrar(this);
+ 
             }
         
         } catch (Exception e) {
