@@ -48,8 +48,8 @@ public class retornaDetalhesTrabalhoCientifico extends HttpServlet {
                retorno += "<div><b>";
                retorno += obj_trabalho.getTitulo();
                retorno += " - Autor - ";
-               Autor objeto_autor = new AutorDao().getAutor(obj_trabalho.getIdAutor()+"");
-               retorno += objeto_autor.getNome();
+//               Autor objeto_autor = new AutorDao().getAutor(obj_trabalho.getIdAutor()+"");
+  //             retorno += objeto_autor.getNome();
                retorno += "</b></div>";
                out.println(retorno);
             } catch (SQLException ex) {

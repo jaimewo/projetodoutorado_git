@@ -9,7 +9,6 @@ package controller;
 
 import dao.ArvoreDao;
 import dao.LocalDao;
-import dao.EstatisticaDao;
 import dao.ParcelaDao;
 import dao.TrabalhoCientificoDao;
 import dao.VariavelInteresseDao;
@@ -26,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.Arvore;
 import model.Equacao;
 import model.Local;
-import model.Estatistica;
+
 import model.Parcela;
 import model.TrabalhoCientifico;
 import model.VariavelArvore;
@@ -62,11 +61,7 @@ public class calcularLocal extends HttpServlet {
                 }
             }
             */
-            Estatistica estatistica = new Estatistica();
-            estatistica.setIdLocal(local.getId());
-            estatistica.calcularEstatisticas(local, parcelasLocal);
-            localDao.updateQtde(local);
-
+         
             request.setAttribute("local", local );          
 
             request.getRequestDispatcher("??????.jsp").forward(request, response);

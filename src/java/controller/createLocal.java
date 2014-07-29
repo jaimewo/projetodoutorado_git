@@ -45,7 +45,7 @@ public class createLocal extends HttpServlet {
                 local.setIdFormacao(Integer.parseInt(local_formacao));
                 local.setIdTrabalhoCientifico(Integer.parseInt(local_trabalhoCientifico));
                 local.setArea(Double.parseDouble(area_total));
-                local.setAreaParcela(Double.parseDouble(area_total));
+                //local.setAreaParcela(Double.parseDouble(area_total));
                 local.setIdEspacamento(Integer.parseInt(local_espacamento));
                 
 //                List<MunicipioLocal> municipiosLocal = new ArrayList<MunicipioLocal>();
@@ -128,6 +128,7 @@ public class createLocal extends HttpServlet {
                     LocalDao objeto_dao_local = new LocalDao();
                     //objeto_dao_local.cadastrar(local, municipiosLocal, coordenadasLocal);
                     objeto_dao_local.cadastrar(local);
+                    
 //                    RequestDispatcher r = request.getRequestDispatcher("/listarLocais");
 //                    request.setAttribute("mensagem", "Local adicionado com sucesso!");
 //                    r.forward( request, response );  

@@ -136,13 +136,67 @@
             <br />
                         
             <div class="container" id="valor_calculo" style="display:none;">
-                <input type="radio" name="valor_calculo" value="1"> Deseja informar valores do Local?<br />
-                <input type="radio" name="valor_calculo" value="2"> Deseja cadastrar Parcelas para que o programa faça a estimativa para o Local?<br />
-                <input type="radio" name="valor_calculo" value="3"> Deseja cadastrar Árvores para que o programa faça o cálculo de cada parcela e, em seguida, faça a estimativa para o Local?<br />
-                
+                <a href="#" class="informar_local_manual">Deseja informar valores do Local?</a> 
                 <br />
+                <a href="#" class="informar_parcelas">Deseja cadastrar Parcelas para que o programa faça a estimativa para o Local?</a>
+                <br />
+                <a href="#" class="informar_arvores">Deseja cadastrar Árvores para que o programa faça o cálculo de cada parcela e, em seguida, faça a estimativa para o Local?</a>
                 
-                 <div class="field control-group">
+                <div id="form_local_arvores" style="display: none;">
+                   <div class="field control-group">
+                     <label for="local_descricao" class="control-label"><b>Arquivo com dados</b></label>
+                    <div class="controls">
+                        <input type="file" name="arquivo"  />
+                        <a href="#" id="btn_modelo" class="btn btn-inverse" >Baixar Exemplo de Arvores</a>
+                    </div>
+                     <br />
+                     <br />
+                     <div class="field control-group">
+                         <h3><b>Variável de interesse</b></h3>
+                         <select id="variavel_interesse">
+                             <option id="1">Biomassa</option>
+                             <option id="2">Carbono</option>
+                             <option id="3">Volume</option>
+                         </select>
+                     </div>
+                     <span>
+                         <a href="#" id="btn_calcular" class="btn btn-inverse" >Calcular Usando a Equação</a>
+                         <br />
+                         <div class="field control-group">
+                                    <label for="local_descricao" class="control-label">Total Calculado(t/ha)</label>
+                                    <div class="controls">
+                                        <input type="text" name="local[qtd_carbono_total]" id="total_calculdo" disabled="true"  />
+                                     </div>
+                                    <a href="#" id="ver_detalhe_do_calculo">Ver detalhes do Cálculo usando Equação</a>
+                         </div>
+                         
+                         
+                                 
+                     </span>
+                     
+                              <span>
+                         <a href="#" id="btn_calcular_data_mining" class="btn btn-inverse" >Calcular Usando Data Mining</a>
+                         <br />
+                         <div class="field control-group">
+                                    <label for="local_descricao" class="control-label">Total Calculado(t/ha)</label>
+                                    <div class="controls">
+                                        <input type="text" name="local[qtd_carbono_total]" id="total_calculdo" disabled="true"  />
+                                     </div>
+                                    <a href="#" id="ver_detalhe_do_calculo">Ver detalhes do Cálculo usando Data Mining</a>
+                         </div>
+                         
+                         
+                                 
+                     </span>
+                     
+                </div>
+
+                </div>
+                
+                
+                
+                <div id="form_local_parcelas" style="display: none;">
+                   <div class="field control-group">
                      <label for="local_descricao" class="control-label"><b>Arquivo com dados</b></label>
                     <div class="controls">
                         <input type="file" name="arquivo"  />
@@ -150,8 +204,64 @@
                     </div>
                      <br />
                      <br />
-                     <a href="#" id="btn_calcular" class="btn btn-inverse" >Calcular</a>
+                     <div class="field control-group">
+                         <h3><b>Variável de interesse</b></h3>
+                         <select id="variavel_interesse">
+                             <option id="1">Biomassa</option>
+                             <option id="2">Carbono</option>
+                             <option id="3">Volume</option>
+                         </select>
+                     </div>
+                     <span>
+                         <a href="#" id="btn_calcular" class="btn btn-inverse" >Calcular valor do local</a>
+                         <br />
+                         <div class="field control-group">
+                                    <label for="local_descricao" class="control-label">Total Calculado(t/ha)</label>
+                                    <div class="controls">
+                                        <input type="text" name="local[qtd_carbono_total]" id="total_calculdo" disabled="true"  />
+                                     </div>
+                                    <a href="#" id="ver_detalhe_do_calculo">Ver detalhes do Calculo</a>
+                         </div>
+                         
+                         
+                                 
+                     </span>
+                     
                 </div>
+
+                </div>
+                <div id="form_local_manual" style="display: none;">
+                    
+                              <form>
+                                  <div class="field control-group">
+                                    <label for="local_descricao" class="control-label">Biomassa Total(t/ha)</label>
+                                    <div class="controls">
+                                        <input type="text" name="local[qtd_biomassa_total]" id="local_biomassa"  />
+                                     </div>
+                                   </div>
+                                   
+                                  <div class="field control-group">
+                                    <label for="local_descricao" class="control-label">Carbono Total(t/ha)</label>
+                                    <div class="controls">
+                                        <input type="text" name="local[qtd_carbono_total]" id="local_carbono"  />
+                                     </div>
+                                  </div>
+                                 
+                                   <div class="field control-group">
+                                    <label for="local_descricao" class="control-label">Volume Total(t/ha)</label>
+                                    <div class="controls">
+                                        <input type="text" name="local[qtd_volume_total]" id="local_volume"  />
+                                     </div>
+                                  </div>
+                                     
+                                     <div class="actions form-actions well">
+                    <a href="#" id="btn_salvar_local_manual" class="btn btn-inverse" >Salvar Valores</a>
+                </div>  
+                                     
+                        </form>
+                </div>
+                
+         
                 
             </div>
             
@@ -161,6 +271,22 @@
 
                         
             <script type="text/javascript">
+                
+                $(".informar_arvores").click(function(){
+                    $("#form_local_arvores").toggle();  
+                    return false;
+                });
+                
+                $(".informar_parcelas").click(function(){
+                    $("#form_local_parcelas").toggle();
+                    return false;
+                });
+                
+                
+                $(".informar_local_manual").click(function(){
+                    $("#form_local_manual").toggle();
+                    return false;
+                })
                 $("#add_lat_long").click(
                         function(){
                             $("#lat_long").append("<p>(<input type=text \/>,<input type=text \/>)</p>");
