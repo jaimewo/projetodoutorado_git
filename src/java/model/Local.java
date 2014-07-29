@@ -6,8 +6,10 @@ package model;
 
 import dao.ArvoreAjusteDao;
 import dao.CoordenadaLocalDao;
+import dao.LocalQuantidadeDao;
 import dao.MunicipioLocalDao;
 import dao.ParcelaDao;
+import dao.ParcelaQuantidadeDao;
 import dao.TrabalhoCientificoDao;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -20,23 +22,27 @@ import java.util.ArrayList;
 public class Local extends Model  {
     
     
-    public int id;
-    public String descricao;
-    public double area;
-    public double areaParcela;
-    public double qtdeBiomassa;
-    public double qtdeCarbono;
-    public double qtdeVolume;
-    public int idTipoEstimativa;
-    public int idFormacao;
-    public int idEspacamento;
-    public int idTrabalhoCientifico;
+    private int id;
+    private String descricao;
+    private double area;
+    private double areaParcela;
+    private int idTipoEstimativa;
+    private int idFormacao;
+    private int idEspacamento;
+    private int idTrabalhoCientifico;
+    private int idDMTipoDistancia;
+    private int idDMTipoPonderacao;    
+    private int dmQtdeVizinhos;
+    private boolean dmComLn;
+    
+    private double qtde;
     
     public TrabalhoCientifico trabalhoCientifico;
     public ArrayList<MunicipioLocal> municipiosLocal;
     public ArrayList<Parcela> parcelas;
     public ArrayList<ArvoreAjuste> arvoresAjuste;
     public ArrayList<CoordenadaLocal> coordenadasLocal;
+    public ArrayList<LocalQuantidade> localQuantidades;
     
     public Local()
     {
@@ -46,6 +52,7 @@ public class Local extends Model  {
         this.idEspacamento = 0;
         this.idFormacao = 0;
         this.idTrabalhoCientifico = 0;
+        this.qtde = 0.0;
     }
     
     public String getIdString()
@@ -84,30 +91,6 @@ public class Local extends Model  {
         this.areaParcela = areaParcela;
     }
 
-    public double getQtdeBiomassa() {
-        return qtdeBiomassa;
-    }
-
-    public void setQtdeBiomassa(double qtdeBiomassa) {
-        this.qtdeBiomassa = qtdeBiomassa;
-    }
-
-    public double getQtdeCarbono() {
-        return qtdeCarbono;
-    }
-
-    public void setQtdeCarbono(double qtdeCarbono) {
-        this.qtdeCarbono = qtdeCarbono;
-    }
-
-    public double getQtdeVolume() {
-        return qtdeVolume;
-    }
-
-    public void setQtdeVolume(double qtdeVolume) {
-        this.qtdeVolume = qtdeVolume;
-    }
-
     public int getIdTipoEstimativa() {
         return idTipoEstimativa;
     }
@@ -139,6 +122,38 @@ public class Local extends Model  {
     public void setIdTrabalhoCientifico(int idTrabalhoCientifico) {
         this.idTrabalhoCientifico = idTrabalhoCientifico;
     }
+
+    public int getIdDMTipoDistancia() {
+        return idDMTipoDistancia;
+    }
+
+    public void setIdDMTipoDistancia(int idDMTipoDistancia) {
+        this.idDMTipoDistancia = idDMTipoDistancia;
+    }
+
+    public int getIdDMTipoPonderacao() {
+        return idDMTipoPonderacao;
+    }
+
+    public void setIdDMTipoPonderacao(int idDMTipoPonderacao) {
+        this.idDMTipoPonderacao = idDMTipoPonderacao;
+    }
+
+    public int getDmQtdeVizinhos() {
+        return dmQtdeVizinhos;
+    }
+
+    public void setDmQtdeVizinhos(int dmQtdeVizinhos) {
+        this.dmQtdeVizinhos = dmQtdeVizinhos;
+    }
+
+    public boolean isDmComLn() {
+        return dmComLn;
+    }
+
+    public void setDmComLn(boolean dmComLn) {
+        this.dmComLn = dmComLn;
+    }
     
     public TrabalhoCientifico getTrabalhoCientifico() throws SQLException {
         
@@ -161,10 +176,14 @@ public class Local extends Model  {
     }
 
     public ArrayList<Parcela> getParcelas() throws Exception {
-        ArrayList<Parcela> parcelas = new ArrayList<Parcela>();
+
         ParcelaDao parcelaDao = new ParcelaDao();
-        
         parcelas = parcelaDao.listarParcelas(this.id);
+
+        for (Parcela parcela: parcelas) {
+            parcela.arvores = parcela.getArvores();
+            parcela.parcelasQuantidade = parcela.getParcelasQuantidade();
+        }
         
         return parcelas;
     }
@@ -173,12 +192,15 @@ public class Local extends Model  {
         this.parcelas = parcelas;
     }
 
-    public ArrayList<ArvoreAjuste> getArvoresAjuste() throws Exception {
+    public ArrayList<ArvoreAjuste> getArvoresAjuste(int idVariavelInteresse,int idMetodoCalculo) throws Exception {
         ArrayList<ArvoreAjuste> arvoresAjuste = new ArrayList<ArvoreAjuste>();
         ArvoreAjusteDao arvoreAjusteDao = new ArvoreAjusteDao();
         
         arvoresAjuste = arvoreAjusteDao.listarArvoresAjuste(this.id);
-        
+
+        for (ArvoreAjuste arvoreAjuste: arvoresAjuste) {
+            arvoreAjuste.arvoresAjusteQuantidade = arvoreAjuste.getArvoresAjusteQuantidade(idVariavelInteresse,idMetodoCalculo);
+        }        
         return arvoresAjuste;
     }
 
@@ -197,6 +219,19 @@ public class Local extends Model  {
     public void setCoordenadasLocal(ArrayList<CoordenadaLocal> coordenadasLocal) {
         this.coordenadasLocal = coordenadasLocal;
     }
+    
+
+    public double getQtde(int idVariavelInteresse,int idMetodoCalculo) throws SQLException {
+        LocalQuantidadeDao localQuantidadeDao = new LocalQuantidadeDao();
+        qtde = localQuantidadeDao.getQtde(this.id,idVariavelInteresse,idMetodoCalculo);
+        
+        return qtde;
+    }    
+
+    public void setLocalQuantidades(ArrayList<LocalQuantidade> localQuantidades) {
+        this.localQuantidades = localQuantidades;
+    }
+    
     public boolean eh_valido()
     {
 //        if(this.getDescricao() == null || this.getDescricao().isEmpty())

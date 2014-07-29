@@ -30,24 +30,26 @@ public class VariavelArvoreDao extends MainDao {
      
     public void cadastrar(VariavelArvore variavelArvore) throws SQLException
     {
-            PreparedStatement p = this.con.prepareStatement("INSERT INTO variavelarvore(idarvore,"
-                    +                                                                  "idvariavel,"
-                    +                                                                  "valor"
-                    +                                                                  ") VALUES (?,?,?)");
-            p.setInt(1, variavelArvore.getIdArvore());
-            p.setInt(2, variavelArvore.getIdVariavel());
-            p.setDouble(3, variavelArvore.getValor());
-            p.executeUpdate();
-            p.close();
+        PreparedStatement p = this.con.prepareStatement("INSERT INTO variavelarvore(idarvore,"
+                +                                                                  "idvariavel,"
+                +                                                                  "valor"
+                +                                                                  ") VALUES (?,?,?)");
+        p.setInt(1, variavelArvore.getIdArvore());
+        p.setInt(2, variavelArvore.getIdVariavel());
+        p.setDouble(3, variavelArvore.getValor());
+        p.executeUpdate();
+        p.close();
+        super.con.close();
     }
     
     
     public void deletar(VariavelArvore variavelArvore) throws SQLException
     {
-            PreparedStatement p = this.con.prepareStatement("DELETE from variavelarvore where id = ?");
-            p.setInt(1, variavelArvore.getId());
-            p.executeUpdate();
-            p.close();
+        PreparedStatement p = this.con.prepareStatement("DELETE from variavelarvore where id = ?");
+        p.setInt(1, variavelArvore.getId());
+        p.executeUpdate();
+        p.close();
+        super.con.close();
         
     }
     
@@ -64,11 +66,12 @@ public class VariavelArvoreDao extends MainDao {
         p.setInt(4, variavelArvore.getId());
         p.executeUpdate();
         p.close();
+        super.con.close();
     }
    
    public VariavelArvore getVariavelArvore(String idArvore) throws SQLException
    {
-        List<VariavelArvore> variaveisArvore = new ArrayList<VariavelArvore>();
+        ArrayList<VariavelArvore> variaveisArvore = new ArrayList<VariavelArvore>();
         PreparedStatement p = this.con.prepareStatement("SELECT * FROM variavelarvore where id = ?");
         p.setInt(1, Integer.parseInt(idArvore));
         ResultSet rs = p.executeQuery();
@@ -82,10 +85,12 @@ public class VariavelArvoreDao extends MainDao {
         }
         rs.close();
         p.close();
+        super.con.close();
         return variaveisArvore.get(0);
    }
    
    public ArrayList<VariavelArvore> listarVariaveisArvore(int idArvore) throws Exception{
+       
         ArrayList<VariavelArvore> variaveisArvore = new ArrayList<VariavelArvore>();
         PreparedStatement p = this.con.prepareStatement("SELECT va.id as id, "
                 + "                                             va.valor as valor, "
@@ -103,7 +108,8 @@ public class VariavelArvoreDao extends MainDao {
         while(rs.next()){
            Variavel variavel = new Variavel();
            variavel.setId(rs.getInt("idvariavel"));
-           variavel.setSigla(rs.getString("sigla"));
+           String sigla = rs.getString("sigla");
+           variavel.setSigla(sigla);
            variavel.setNome(rs.getString("nome"));
            
            VariavelArvore variavelArvore = new VariavelArvore();
@@ -118,6 +124,7 @@ public class VariavelArvoreDao extends MainDao {
         }
         rs.close();
         p.close();
+        super.con.close();
         return variaveisArvore;
     }
     

@@ -32,32 +32,35 @@ public class VariavelArvoreAjusteDao extends MainDao {
      
     public void cadastrar(VariavelArvoreAjuste variavelArvoreAjuste) throws SQLException
     {
-            PreparedStatement p = this.con.prepareStatement("INSERT INTO variavelarvoreajuste(idarvoreajuste,"
-                    +                                                          "idvariavel,"
-                    +                                                          "valor"
-                    +                                                          ") VALUES (?,?,?)");
-            p.setInt(1, variavelArvoreAjuste.getIdArvoreAjuste());
-            p.setInt(2, variavelArvoreAjuste.getIdVariavel());
-            p.setDouble(3, variavelArvoreAjuste.getValor());
-            p.executeUpdate();
-            p.close();
+        PreparedStatement p = this.con.prepareStatement("INSERT INTO variavelarvoreajuste(idarvoreajuste,"
+                +                                                          "idvariavel,"
+                +                                                          "valor"
+                +                                                          ") VALUES (?,?,?)");
+        p.setInt(1, variavelArvoreAjuste.getIdArvoreAjuste());
+        p.setInt(2, variavelArvoreAjuste.getIdVariavel());
+        p.setDouble(3, variavelArvoreAjuste.getValor());
+        p.executeUpdate();
+        p.close();
+        super.con.close();
     }
     
     
     public void deletar(VariavelArvoreAjuste variavelArvoreAjuste) throws SQLException
     {
-            PreparedStatement p = this.con.prepareStatement("DELETE from variavelarvoreajuste where id = ?");
-            p.setInt(1, variavelArvoreAjuste.getId());
-            p.executeUpdate();
-            p.close();
+        PreparedStatement p = this.con.prepareStatement("DELETE from variavelarvoreajuste where id = ?");
+        p.setInt(1, variavelArvoreAjuste.getId());
+        p.executeUpdate();
+        p.close();
+        super.con.close();
         
     }
     public void deletarArvoreAjuste(int idArvoreAjuste) throws SQLException
     {
-            PreparedStatement p = this.con.prepareStatement("DELETE from variavelarvoreajuste where idarvoreajuste = ?");
-            p.setInt(1, idArvoreAjuste);
-            p.executeUpdate();
-            p.close();
+        PreparedStatement p = this.con.prepareStatement("DELETE from variavelarvoreajuste where idarvoreajuste = ?");
+        p.setInt(1, idArvoreAjuste);
+        p.executeUpdate();
+        p.close();
+        super.con.close();
         
     }    
    public void update(VariavelArvoreAjuste variavelArvoreAjuste) throws Exception 
@@ -73,11 +76,12 @@ public class VariavelArvoreAjusteDao extends MainDao {
         p.setInt(4, variavelArvoreAjuste.getId());
         p.executeUpdate();
         p.close();
+        super.con.close();
     }
    
    public VariavelArvoreAjuste getVariavelArvoreAjuste(String idArvore) throws SQLException
    {
-        List<VariavelArvoreAjuste> variaveisArvoreAjuste = new ArrayList<VariavelArvoreAjuste>();
+        ArrayList<VariavelArvoreAjuste> variaveisArvoreAjuste = new ArrayList<VariavelArvoreAjuste>();
         PreparedStatement p = this.con.prepareStatement("SELECT * FROM variavelarvoreajuste where id = ?");
         p.setInt(1, Integer.parseInt(idArvore));
         ResultSet rs = p.executeQuery();
@@ -91,20 +95,22 @@ public class VariavelArvoreAjusteDao extends MainDao {
         }
         rs.close();
         p.close();
+        super.con.close();
         return variaveisArvoreAjuste.get(0);
    }
    
    public ArrayList<VariavelArvoreAjuste> listarVariaveisArvoreAjuste(int idArvoreAjuste) throws Exception{
+       
         ArrayList<VariavelArvoreAjuste> variaveisArvoreAjuste = new ArrayList<VariavelArvoreAjuste>();
         PreparedStatement p = this.con.prepareStatement("SELECT vaa.id as id, "
                 + "                                             vaa.valor as valor, "
                 + "                                             v.id as idvariavel, "
                 + "                                             v.sigla as sigla, "
                 + "                                             v.nome as nome "
-                + "                                      FROM arvore a "
-                + "                                      INNER JOIN variavelarvoreajuste vaa ON a.id = vaa.idarvoreajuste "
+                + "                                      FROM arvoreajuste aa "
+                + "                                      INNER JOIN variavelarvoreajuste vaa ON aa.id = vaa.idarvoreajuste "
                 + "                                      INNER JOIN variavel v ON vaa.idvariavel = v.id "
-                + "                                      WHERE a.id = ?");
+                + "                                      WHERE aa.id = ?");
 
         
         p.setInt(1, idArvoreAjuste);       
@@ -127,6 +133,7 @@ public class VariavelArvoreAjusteDao extends MainDao {
         }
         rs.close();
         p.close();
+        super.con.close();
         return variaveisArvoreAjuste;
     }
     

@@ -28,7 +28,7 @@ public class MunicipioDao extends MainDao {
     }
    public Municipio getMunicipio(String idMunicipio) throws SQLException
    {
-        List<Municipio> municipios = new ArrayList<Municipio>();
+        ArrayList<Municipio> municipios = new ArrayList<Municipio>();
         PreparedStatement p = this.con.prepareStatement("SELECT id,nome,idestado FROM municipio where id = ?");
         p.setInt(1, Integer.parseInt(idMunicipio));
         ResultSet rs = p.executeQuery();
@@ -41,11 +41,13 @@ public class MunicipioDao extends MainDao {
         }
         rs.close();
         p.close();
+        super.con.close();        
         return municipios.get(0);
    }
    
-   public List<Municipio> listarMunicipios() throws Exception{
-        List<Municipio> municipios = new ArrayList<Municipio>();
+   public ArrayList<Municipio> listarMunicipios() throws Exception{
+       
+        ArrayList<Municipio> municipios = new ArrayList<Municipio>();
         PreparedStatement p = this.con.prepareStatement("SELECT * FROM municipio");
         ResultSet rs = p.executeQuery();
         while(rs.next()){
@@ -57,11 +59,13 @@ public class MunicipioDao extends MainDao {
         }
         rs.close();
         p.close();
+        super.con.close();        
         return municipios;
     }
    
-   public List<Municipio> listarMunicipioLocal(String idLocal, List<MunicipioLocal> municipiosLocal) throws Exception{
-        List<Municipio> municipios = new ArrayList<Municipio>();
+   public ArrayList<Municipio> listarMunicipioLocal(String idLocal, List<MunicipioLocal> municipiosLocal) throws Exception{
+       
+        ArrayList<Municipio> municipios = new ArrayList<Municipio>();
         
         PreparedStatement p = this.con.prepareStatement("SELECT m.nome as nome, ml.indprincipal as indprincipal"
                 + "                                      FROM local l "
@@ -80,6 +84,7 @@ public class MunicipioDao extends MainDao {
         }
         rs.close();
         p.close();
+        super.con.close();        
         return municipios;
     }
     

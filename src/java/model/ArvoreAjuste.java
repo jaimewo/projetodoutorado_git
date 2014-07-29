@@ -5,6 +5,7 @@
 package model;
 
 import dao.ArvoreAjusteDao;
+import dao.ArvoreAjusteQuantidadeDao;
 import dao.VariavelArvoreAjusteDao;
 import dao.VariavelDao;
 import java.io.File;
@@ -31,26 +32,23 @@ public class ArvoreAjuste extends Model  {
     public int id;
     public int idLocal;
     public int numArvoreAjuste;
-    public double qtdeBiomassaObs;
-    public double qtdeBiomassaEst;
-    public double qtdeCarbonoObs;
-    public double qtdeCarbonoEst;
-    public double qtdeVolumeObs;
-    public double qtdeVolumeEst;
+    
+    public double qtdeObs;
+    public double qtdeEst;    
         
     public ArrayList<VariavelArvoreAjuste> variaveisArvoreAjuste;
+        
+    public ArrayList<ArvoreAjusteQuantidade> arvoresAjusteQuantidade;
     
     public ArvoreAjuste()
     {
         this.idLocal = 0;
         this.numArvoreAjuste = 0;
-        this.qtdeBiomassaObs = 0.0;
-        this.qtdeBiomassaEst = 0.0;
-        this.qtdeCarbonoObs = 0.0;
-        this.qtdeCarbonoEst = 0.0;
-        this.qtdeVolumeObs = 0.0;
-        this.qtdeVolumeEst = 0.0;
-        variaveisArvoreAjuste = new ArrayList<VariavelArvoreAjuste>();
+        this.qtdeObs = 0.0;
+        this.qtdeEst = 0.0;        
+        
+        this.variaveisArvoreAjuste = new ArrayList<VariavelArvoreAjuste>();
+        this.arvoresAjusteQuantidade = new ArrayList<ArvoreAjusteQuantidade>();        
     }
     
     public String getIdString()
@@ -81,63 +79,39 @@ public class ArvoreAjuste extends Model  {
     public void setNumArvoreAjuste(int numArvoreAjuste) {
         this.numArvoreAjuste = numArvoreAjuste;
     }
-
-    public double getQtdeBiomassaObs() {
-        return qtdeBiomassaObs;
-    }
-
-    public void setQtdeBiomassaObs(double qtdeBiomassaObs) {
-        this.qtdeBiomassaObs = qtdeBiomassaObs;
-    }
-
-    public double getQtdeBiomassaEst() {
-        return qtdeBiomassaEst;
-    }
-
-    public void setQtdeBiomassaEst(double qtdeBiomassaEst) {
-        this.qtdeBiomassaEst = qtdeBiomassaEst;
-    }
-
-    public double getQtdeCarbonoObs() {
-        return qtdeCarbonoObs;
-    }
-
-    public void setQtdeCarbonoObs(double qtdeCarbonoObs) {
-        this.qtdeCarbonoObs = qtdeCarbonoObs;
-    }
-
-    public double getQtdeCarbonoEst() {
-        return qtdeCarbonoEst;
-    }
-
-    public void setQtdeCarbonoEst(double qtdeCarbonoEst) {
-        this.qtdeCarbonoEst = qtdeCarbonoEst;
-    }
-
-    public double getQtdeVolumeObs() {
-        return qtdeVolumeObs;
-    }
-
-    public void setQtdeVolumeObs(double qtdeVolumeObs) {
-        this.qtdeVolumeObs = qtdeVolumeObs;
-    }
-
-    public double getQtdeVolumeEst() {
-        return qtdeVolumeEst;
-    }
-
-    public void setQtdeVolumeEst(double qtdeVolumeEst) {
-        this.qtdeVolumeEst = qtdeVolumeEst;
-    }
  
     public ArrayList<VariavelArvoreAjuste> getVariaveisArvoreAjuste() throws Exception {
         ArrayList<VariavelArvoreAjuste> variaveisArvoreAjuste = new ArrayList<VariavelArvoreAjuste>();
         VariavelArvoreAjusteDao variaveisArvoreAjusteDao = new VariavelArvoreAjusteDao();
+        
         variaveisArvoreAjuste = variaveisArvoreAjusteDao.listarVariaveisArvoreAjuste(this.id);     
         
         return variaveisArvoreAjuste;
     }   
-    
+ 
+    public ArrayList<ArvoreAjusteQuantidade> getArvoresAjusteQuantidade(int idVariavelInteresse,int idMetodoCalculo) throws Exception {
+        
+        ArrayList<ArvoreAjusteQuantidade> arvoresAjusteQuantidade = new ArrayList<ArvoreAjusteQuantidade>();
+        ArvoreAjusteQuantidadeDao arvoreAjusteQuantidadeDao = new ArvoreAjusteQuantidadeDao();
+        arvoresAjusteQuantidade = arvoreAjusteQuantidadeDao.listarArvoresAjusteQuantidade(this.id,idVariavelInteresse,idMetodoCalculo);     
+        
+        return arvoresAjusteQuantidade;
+    }   
+
+    public double getQtdeObs(int idVariavelInteresse,int idMetodoCalculo) throws SQLException {
+        ArvoreAjusteQuantidadeDao arvoreAjusteQuantidadeDao = new ArvoreAjusteQuantidadeDao();
+        qtdeObs = arvoreAjusteQuantidadeDao.getQtdeObs(this.id,idVariavelInteresse,idMetodoCalculo);  
+        
+        return qtdeObs;
+    }
+
+    public double getQtdeEst(int idVariavelInteresse,int idMetodoCalculo) throws SQLException {
+        ArvoreAjusteQuantidadeDao arvoreAjusteQuantidadeDao = new ArvoreAjusteQuantidadeDao();
+        qtdeEst = arvoreAjusteQuantidadeDao.getQtdeEst(this.id,idVariavelInteresse,idMetodoCalculo);  
+        
+        return qtdeEst;
+    }
+
     public void importarPlanilha(Local local) throws SQLException, BiffException
     {
         ArvoreAjusteDao arvoreAjusteDao = new ArvoreAjusteDao();
@@ -179,9 +153,10 @@ public class ArvoreAjuste extends Model  {
                 return;
             }
                     
-            VariavelDao variavelDao = new VariavelDao();
-            VariavelArvoreAjusteDao variavelArvoreAjusteDao = new VariavelArvoreAjusteDao();
             ArrayList<Variavel> variaveisLidas = new ArrayList<Variavel>();
+            
+            ArvoreAjusteQuantidade arvoreAjusteQuantidade = new ArvoreAjusteQuantidade();                                    
+            
             int numArvoreAjuste = 0;
             double qtdeBiomassaObs = 0.0;
             double qtdeCarbonoObs = 0.0;
@@ -189,6 +164,7 @@ public class ArvoreAjuste extends Model  {
             
             for (int linha = 0; linha < matriz.length; linha++) {
                 ArrayList<Double> valorVariaveis = new ArrayList<Double>(); 
+                ArrayList<ArvoreAjusteQuantidade> arvoresAjusteQuantidade = new ArrayList<ArvoreAjusteQuantidade>();                                    
 
                 for (int coluna = 0; coluna < matriz[0].length; coluna++) {
                     if (linha==0) {
@@ -202,6 +178,7 @@ public class ArvoreAjuste extends Model  {
                         case 3: // "Volume"
                             break;
                         default: // Variáveis
+                            VariavelDao variavelDao = new VariavelDao();
                             Variavel variavel = variavelDao.getVariavelComSigla(matriz[linha][coluna]);
                             variaveisLidas.add(variavel);
                             break;                        
@@ -212,14 +189,51 @@ public class ArvoreAjuste extends Model  {
                              numArvoreAjuste = Integer.parseInt(matriz[linha][coluna]);
                              break;
                         case 1: // Valor da Biomassa
-                             qtdeBiomassaObs = Double.parseDouble(matriz[linha][coluna].replace(",","."));
+                             arvoreAjusteQuantidade = new ArvoreAjusteQuantidade();                                    
+                             arvoreAjusteQuantidade.setIdVariavelInteresse(1); //Biomassa
+                             arvoreAjusteQuantidade.setIdMetodoCalculo(1);     //Equação
+                             arvoreAjusteQuantidade.setIdArvoreAjuste(id);
+                             arvoreAjusteQuantidade.setQtdeObs(Double.parseDouble(matriz[linha][coluna].replace(",",".")));
+                             arvoresAjusteQuantidade.add(arvoreAjusteQuantidade);
+
+                             arvoreAjusteQuantidade = new ArvoreAjusteQuantidade();                                    
+                             arvoreAjusteQuantidade.setIdVariavelInteresse(1); //Biomassa
+                             arvoreAjusteQuantidade.setIdMetodoCalculo(2);     //Data Mining
+                             arvoreAjusteQuantidade.setIdArvoreAjuste(id);
+                             arvoreAjusteQuantidade.setQtdeObs(Double.parseDouble(matriz[linha][coluna].replace(",",".")));
+                             arvoresAjusteQuantidade.add(arvoreAjusteQuantidade);
+
                              break;
                         case 2: // Valor do Carbono"
-                             qtdeCarbonoObs = Double.parseDouble(matriz[linha][coluna].replace(",","."));
-                             break;
+                             arvoreAjusteQuantidade = new ArvoreAjusteQuantidade();                                    
+                             arvoreAjusteQuantidade.setIdVariavelInteresse(2); //Carbono
+                             arvoreAjusteQuantidade.setIdMetodoCalculo(1);     //Equação
+                             arvoreAjusteQuantidade.setIdArvoreAjuste(id);
+                             arvoreAjusteQuantidade.setQtdeObs(Double.parseDouble(matriz[linha][coluna].replace(",",".")));
+                             arvoresAjusteQuantidade.add(arvoreAjusteQuantidade);
+                             
+                             arvoreAjusteQuantidade = new ArvoreAjusteQuantidade();                                    
+                             arvoreAjusteQuantidade.setIdVariavelInteresse(2); //Carbono
+                             arvoreAjusteQuantidade.setIdMetodoCalculo(2);     //Data Mining
+                             arvoreAjusteQuantidade.setIdArvoreAjuste(id);
+                             arvoreAjusteQuantidade.setQtdeObs(Double.parseDouble(matriz[linha][coluna].replace(",",".")));
+                             arvoresAjusteQuantidade.add(arvoreAjusteQuantidade);
+                            break;
                         case 3: // Valor do Volume
-                             qtdeVolumeObs = Double.parseDouble(matriz[linha][coluna].replace(",","."));;
-                             break;
+                             arvoreAjusteQuantidade = new ArvoreAjusteQuantidade();                                    
+                             arvoreAjusteQuantidade.setIdVariavelInteresse(3); //Volume
+                             arvoreAjusteQuantidade.setIdMetodoCalculo(1);     //Equação
+                             arvoreAjusteQuantidade.setIdArvoreAjuste(id);
+                             arvoreAjusteQuantidade.setQtdeObs(Double.parseDouble(matriz[linha][coluna].replace(",",".")));
+                             arvoresAjusteQuantidade.add(arvoreAjusteQuantidade);
+
+                             arvoreAjusteQuantidade = new ArvoreAjusteQuantidade();                                    
+                             arvoreAjusteQuantidade.setIdVariavelInteresse(3); //Volume
+                             arvoreAjusteQuantidade.setIdMetodoCalculo(2);     //Data Mining
+                             arvoreAjusteQuantidade.setIdArvoreAjuste(id);
+                             arvoreAjusteQuantidade.setQtdeObs(Double.parseDouble(matriz[linha][coluna].replace(",",".")));
+                             arvoresAjusteQuantidade.add(arvoreAjusteQuantidade);
+                             break;                            
                         default: // Valor das Variáveis
                              valorVariaveis.add(Double.parseDouble(matriz[linha][coluna].replace(",",".")));
                              break;                        
@@ -231,9 +245,6 @@ public class ArvoreAjuste extends Model  {
                     ArvoreAjuste arvoreAjuste = new ArvoreAjuste();
                     arvoreAjuste.setIdLocal(local.getId());
                     arvoreAjuste.setNumArvoreAjuste(numArvoreAjuste);
-                    arvoreAjuste.setQtdeBiomassaObs(qtdeBiomassaObs);
-                    arvoreAjuste.setQtdeCarbonoObs(qtdeCarbonoObs);
-                    arvoreAjuste.setQtdeVolumeObs(qtdeVolumeObs);
                     
                     int i=0;
                     for (Variavel variavelLida: variaveisLidas) {
@@ -245,6 +256,9 @@ public class ArvoreAjuste extends Model  {
                         arvoreAjuste.variaveisArvoreAjuste.add(variavelArvoreAjuste);
                         i++;
                     }
+                    idLocal = local.getId();
+                    arvoreAjuste.arvoresAjusteQuantidade = arvoresAjusteQuantidade;
+                    arvoreAjusteDao = new ArvoreAjusteDao();    
                     arvoreAjusteDao.cadastrar(arvoreAjuste);
                 }
             }

@@ -31,22 +31,15 @@ public class EquacaoDao extends MainDao{
             PreparedStatement p = this.con.prepareStatement("INSERT INTO equacao (expressaoequacao,"
                     +                                                            "expressaomodelo,"
                     +                                                            "idvariavelinteresse,"
-                    +                                                            "idautormodelo,"
-                    +                                                            "r2,"
-                    +                                                            "r2ajust,"
-                    +                                                            "syx,"
-                    +                                                            "syxperc"                    
-                    +                                                            ") VALUES (?,?,?,?,?,?,?,?)");
+                    +                                                            "idautormodelo"
+                    +                                                            ") VALUES (?,?,?,?)");
             p.setString(1, equacao.getExpressaoEquacao());
             p.setString(2, equacao.getExpressaoModelo());
             p.setInt(3, equacao.getIdVariavelInteresse());
             p.setInt(4, equacao.getIdAutorModelo());
-            p.setDouble(5, equacao.getR2());
-            p.setDouble(6, equacao.getR2Ajust());
-            p.setDouble(7, equacao.getSyx());
-            p.setDouble(8, equacao.getSyxPerc());            
             p.executeUpdate();
             p.close();
+            super.con.close();
             
     }
     
@@ -57,7 +50,7 @@ public class EquacaoDao extends MainDao{
             p.setInt(1, equacao.getId());
             p.executeUpdate();
             p.close();
-        
+            super.con.close();
     }
     
    public void update(Equacao equacao) throws Exception 
@@ -65,29 +58,22 @@ public class EquacaoDao extends MainDao{
         PreparedStatement p = this.con.prepareStatement("UPDATE equacao SET expressaoequacao = ?, "
                     +                                                      "expressaomodelo = ?,"
                     +                                                      "idvariavelinteresse = ?,"
-                    +                                                      "idautormodelo = ?,"
-                    +                                                      "r2 = ?,"
-                    +                                                      "r2ajust = ?,"
-                    +                                                      "syx = ?, "
-                    +                                                      "syxperc = ? "                
+                    +                                                      "idautormodelo = ? "
                 +                                                          "WHERE id = ?");
         p.setString(1, equacao.getExpressaoEquacao());
         p.setString(2, equacao.getExpressaoModelo());
         p.setInt(3, equacao.getIdVariavelInteresse());
         p.setInt(4, equacao.getIdAutorModelo());
-        p.setDouble(5, equacao.getR2());
-        p.setDouble(6, equacao.getR2Ajust());
-        p.setDouble(7, equacao.getSyx());
-        p.setDouble(8, equacao.getSyxPerc());        
         
         p.setInt(9, equacao.getId());
         p.executeUpdate();
         p.close();
+        super.con.close();
     }
    
    public Equacao getEquacao(String id) throws SQLException
    {
-        List<Equacao> equacoes = new ArrayList<Equacao>();
+        ArrayList<Equacao> equacoes = new ArrayList<Equacao>();
         PreparedStatement p = this.con.prepareStatement("SELECT * FROM equacao where id = ?");
         p.setInt(1, Integer.parseInt(id));
         ResultSet rs = p.executeQuery();
@@ -98,21 +84,19 @@ public class EquacaoDao extends MainDao{
            equacao.setExpressaoModelo(rs.getString("expressaomodelo"));
            equacao.setIdVariavelInteresse(rs.getInt("idvariavelinteresse"));
            equacao.setIdAutorModelo(rs.getInt("idautormodelo"));
-           equacao.setR2(rs.getInt("r2"));
-           equacao.setR2Ajust(rs.getInt("r2ajust"));
-           equacao.setSyx(rs.getDouble("syx"));
-           equacao.setSyxPerc(rs.getDouble("syxperc"));
            
            equacoes.add(equacao);
            
         }
         rs.close();
         p.close();
+        super.con.close();
         return equacoes.get(0);
    }
    
    public List<Equacao> listarEquacoes() throws Exception{
-        List<Equacao> equacoes = new ArrayList<Equacao>();
+       
+        ArrayList<Equacao> equacoes = new ArrayList<Equacao>();
         PreparedStatement p = this.con.prepareStatement("SELECT * FROM equacao");
         ResultSet rs = p.executeQuery();
         while(rs.next()){
@@ -122,27 +106,21 @@ public class EquacaoDao extends MainDao{
            equacao.setExpressaoModelo(rs.getString("expressaomodelo"));
            equacao.setIdVariavelInteresse(rs.getInt("idvariavelinteresse"));
            equacao.setIdAutorModelo(rs.getInt("idautormodelo"));
-           equacao.setR2(rs.getInt("r2"));
-           equacao.setR2Ajust(rs.getInt("r2ajust"));
-           equacao.setSyx(rs.getDouble("syx"));
-           equacao.setSyxPerc(rs.getDouble("syxperc"));
            equacoes.add(equacao);
         }
         rs.close();
         p.close();
+        super.con.close();
         return equacoes;
     }
    public ArrayList<Equacao> listarEquacoesTrabalho(int idTrabalhoCientifico) throws Exception{
+       
         ArrayList<Equacao> equacoesTrabalho = new ArrayList<Equacao>();
         PreparedStatement p = this.con.prepareStatement("SELECT e.id,"
                 + "                                             e.expressaoequacao, "
                 + "                                             e.expressaomodelo, "
                 + "                                             e.idvariavelinteresse,"
                 + "                                             e.idautormodelo,"
-                + "                                             e.r2,"
-                + "                                             e.r2ajust,"
-                + "                                             e.syx,"
-                + "                                             e.syxperc,"                
                 + "                                             e.idtrabalhocientifico "
                 + "                                      FROM trabalhocientifico tc "
                 + "                                      INNER JOIN equacaotrabalhocientifico etc ON tc.id = etc.idtrabalhocientifico "
@@ -157,15 +135,12 @@ public class EquacaoDao extends MainDao{
            equacao.setExpressaoModelo(rs.getString("expressaomodelo"));
            equacao.setIdVariavelInteresse(rs.getInt("idvariavelinteresse"));
            equacao.setIdAutorModelo(rs.getInt("idautormodelo"));
-           equacao.setR2(rs.getDouble("r2"));
-           equacao.setR2Ajust(rs.getInt("r2ajust"));
-           equacao.setSyx(rs.getDouble("syx"));
-           equacao.setSyxPerc(rs.getDouble("syxperc"));           
            equacao.setIdtTrabalhoCientifico(rs.getInt("idTrabalhoCientifico"));
            equacoesTrabalho.add(equacao);
         }
         rs.close();
         p.close();
+        super.con.close();
         return equacoesTrabalho;
     }
     

@@ -1,26 +1,80 @@
-Módulos alterados no Inventário V2 para passar para o git: 
-Equacao
-EquacaoDao
-ArvoreAjusteDao
-ArvoreAjuste
-Arvore
-Parcela
+MetodoCalculo
+=============
+OK Asta - criar ArvoreQuantidade, ParcelaQuantidade,LocalQuantidade,MetodoCalculo
+
+OK      - retirar atributos de Arvore,Parcela,Local
+
+OK      - incluir idMetodoCalculo em Estatistica
+
+OK Post -   "
+
+OK criar model.ArvoreQuantidade, ParcelaQuantidade,LocalQuantidade,MetodoCalculo
+
+OK criar dao.ArvoreQuantidadeDao, ParcelaQuantidadeDao,LocalQuantidadeDao,MetodoCalculoDao
+
+OK model.Arvore - no cálculo e no importarPlanilha - retirarQtde e colocar na Qtde
+
+OK dao.ArvoreDao - retirar Qtde
+
+ok model.Parcela - Retirar qtde, implementar claculaQtdeUsandoEquacao
+
+ok dao.ParcelaDao - Retirar qtde
+
+ok model.Local - Retirar qtde
+
+ok dao.LocalDao - Retirar qtde
 
 
-Estava no teste de Ajustar Modelo. Testar com as 3 variaveis interesse no local=9.
-Depois Jogar cálculo do R2, etc do DBUsina para Equacao.java
+   Asta,Post - criar ArvoreAjusteQuantidade e EstatisticaAjuste
+
+   Asta,Post - retirar atributos de ArvoreAjuste e Equacao
+
+   criar model e dao ArvoreAjusteQuantidade e EstatisticaAjuste
+
+   retirar atributos do model e dao de ArvoreAjuste e Equacao
+ 
+   arvoreAjuste - revisar importarPlanilha 
+
+   equacao - revisar ajustarModelo para usar arvoreAjusteQuantidade e gravar em EstatisticaAjuste
+
+   Testar Ajuste de Equacao
 
 
-Depois testar Botão Calcular da tela de Incluir Local com um local que tenha somente expressaoEquacao, depois um com expressaoEquacao
-ajustada por uma expressaoModelo.
+
+DM
+==
+OK Asta, Post
+
+OK criar model DMTipoDistancia, DMTipoPonderacao
+
+OK criar dao.DMTipoDistanciaDao, DMTipoPonderacaoDao
+
+OK incluir atibutos novos em model.local e localDao
+
+OK model.parcela, inlcuir chamada a model.arvore.calculaUsandoDM
+
+   model.arvore, inlcuir calculaUsandoDM com todo o algoritmo de DM (ajustar)
+
+   Alterar InventarioMain para testar
+
+   Testar
 
 
 
-     
-	
+Módulos para passa para GIT
+===========================
+model.DMTipoDistancia
+model.DMTipoDistancia
+model.DMTipoPonderacao
+dao.DMTipoDistanciaDao
+dao.DMTipoPonderacaoDao
+model e Dao 	ArvoreQuantidade
+		ParcelaQuantidade
+		LocalQuantidade
+		MetodoCalculo
+
+model e dao local, parcela, arvore, estatistica ArvoreAjusteQuantidade,
+            EstatisticaAjuste, ArvoreAjuste, Equacao
 
 
-Montar um esquema para controlar as planilhas importadas e criadas para exemplo verificando qual
-pasta será utilizada e qual nomes dos arquivos.
-
-Em todos os getxxx nos Dao, ver como retornar quando não encontra nada (return xxx.(0))
+POR FIM, VER SE PRECISA ArvoreQuantidade.qtdeObs

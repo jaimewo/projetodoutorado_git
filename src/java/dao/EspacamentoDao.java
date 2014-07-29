@@ -17,7 +17,7 @@ import model.Espacamento;
 
 /**
  *
- * @author paulozeferino
+ * @author jaime
  */
 public class EspacamentoDao extends MainDao {
     
@@ -29,19 +29,21 @@ public class EspacamentoDao extends MainDao {
     
     public void cadastrar(Espacamento espacamento) throws SQLException
     {
-            PreparedStatement p = this.con.prepareStatement("INSERT INTO espacamento(descricao) VALUES (?)");
-            p.setString(1, espacamento.getDescricao());
-            p.executeUpdate();
-            p.close();
+        PreparedStatement p = this.con.prepareStatement("INSERT INTO espacamento(descricao) VALUES (?)");
+        p.setString(1, espacamento.getDescricao());
+        p.executeUpdate();
+        p.close();
+        super.con.close();            
     }
     
     
     public void deletar(Espacamento espacamento) throws SQLException
     {
-            PreparedStatement p = this.con.prepareStatement("DELETE from espacamento where id = ?");
-            p.setInt(1, espacamento.getId());
-            p.executeUpdate();
-            p.close();
+        PreparedStatement p = this.con.prepareStatement("DELETE from espacamento where id = ?");
+        p.setInt(1, espacamento.getId());
+        p.executeUpdate();
+        p.close();
+        super.con.close();            
         
     }
     
@@ -52,11 +54,12 @@ public class EspacamentoDao extends MainDao {
         p.setInt(2, espacamento.getId());
         p.executeUpdate();
         p.close();
+        super.con.close();        
     }
    
    public Espacamento getEspacamento(String espacamento_id) throws SQLException
    {
-        List<Espacamento> espacamentos = new ArrayList<Espacamento>();
+        ArrayList<Espacamento> espacamentos = new ArrayList<Espacamento>();
         PreparedStatement p = this.con.prepareStatement("SELECT id,descricao FROM espacamento where id = ?");
         p.setInt(1, Integer.parseInt(espacamento_id));
         ResultSet rs = p.executeQuery();
@@ -68,11 +71,13 @@ public class EspacamentoDao extends MainDao {
         }
         rs.close();
         p.close();
+        super.con.close();        
         return espacamentos.get(0);
    }
    
-   public List<Espacamento> listarEspacamentos() throws Exception{
-        List<Espacamento> espacamentos = new ArrayList<Espacamento>();
+   public ArrayList<Espacamento> listarEspacamentos() throws Exception{
+       
+       ArrayList<Espacamento> espacamentos = new ArrayList<Espacamento>();
         PreparedStatement p = this.con.prepareStatement("SELECT * FROM espacamento");
         ResultSet rs = p.executeQuery();
         while(rs.next()){
@@ -83,6 +88,7 @@ public class EspacamentoDao extends MainDao {
         }
         rs.close();
         p.close();
+        super.con.close();        
         return espacamentos;
     }
     

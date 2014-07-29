@@ -30,22 +30,24 @@ public class MunicipioLocalDao extends MainDao{
     
     public void cadastrar(MunicipioLocal municipioLocal) throws SQLException
     {
-            PreparedStatement p = this.con.prepareStatement("INSERT INTO municipioLocal(idlocal,idmunicipio,indprincipal) VALUES (?,?,?)");
-            p.setInt(1, municipioLocal.getIdLocal());
-            p.setInt(2, municipioLocal.getIdMunicipio());
-            p.setBoolean(3, municipioLocal.isIndPrincipal());
+        PreparedStatement p = this.con.prepareStatement("INSERT INTO municipioLocal(idlocal,idmunicipio,indprincipal) VALUES (?,?,?)");
+        p.setInt(1, municipioLocal.getIdLocal());
+        p.setInt(2, municipioLocal.getIdMunicipio());
+        p.setBoolean(3, municipioLocal.isIndPrincipal());
 
-            p.executeUpdate();
-            p.close();
+        p.executeUpdate();
+        p.close();
+        super.con.close();        
     }
     
     
     public void deletar(MunicipioLocal municipioLocal) throws SQLException
     {
-            PreparedStatement p = this.con.prepareStatement("DELETE from municipioLocal where id = ?");
-            p.setInt(1, municipioLocal.getId());
-            p.executeUpdate();
-            p.close();
+        PreparedStatement p = this.con.prepareStatement("DELETE from municipioLocal where id = ?");
+        p.setInt(1, municipioLocal.getId());
+        p.executeUpdate();
+        p.close();
+        super.con.close();
         
     }
     
@@ -63,12 +65,13 @@ public class MunicipioLocalDao extends MainDao{
 
         p.executeUpdate();
         p.close();
+        super.con.close();        
     }
    
    public MunicipioLocal getMunicipioLocal(String idMunicipioLocal, Municipio municipio) throws SQLException
    {
-        List<MunicipioLocal> municipiosLocal = new ArrayList<MunicipioLocal>();
-        List<Municipio> municipios = new ArrayList<Municipio>();
+        ArrayList<MunicipioLocal> municipiosLocal = new ArrayList<MunicipioLocal>();
+        ArrayList<Municipio> municipios = new ArrayList<Municipio>();
         
         PreparedStatement p = this.con.prepareStatement("SELECT ml.id AS id,m.nome AS nome, ml.indprincipal AS indprincipal"
                 + "                                      FROM municipio m JOIN municipiolocal ml ON m.id = ml.idlocal"
@@ -85,10 +88,12 @@ public class MunicipioLocalDao extends MainDao{
         }
         rs.close();
         p.close();
+        super.con.close();        
         return municipiosLocal.get(0);
    }
    
    public ArrayList<MunicipioLocal> listarMunicipioLocal(int idLocal) throws Exception{
+       
         ArrayList<MunicipioLocal> municipiosLocal = new ArrayList<MunicipioLocal>();
         
         PreparedStatement p = this.con.prepareStatement("SELECT ml.id as id, "
@@ -119,6 +124,7 @@ public class MunicipioLocalDao extends MainDao{
         }
         rs.close();
         p.close();
+        super.con.close();        
         return municipiosLocal;
     }
     

@@ -30,21 +30,23 @@ public class FormacaoDao extends MainDao {
     
     public void cadastrar(Formacao formacao) throws SQLException
     {
-            PreparedStatement p = this.con.prepareStatement("INSERT INTO formacao (descricao, idbioma) VALUES (?,?)");
-            p.setString(1, formacao.getDescricao());
-            p.setInt(2, formacao.getIdBioma());
+        PreparedStatement p = this.con.prepareStatement("INSERT INTO formacao (descricao, idbioma) VALUES (?,?)");
+        p.setString(1, formacao.getDescricao());
+        p.setInt(2, formacao.getIdBioma());
             
-            p.executeUpdate();
-            p.close();
+        p.executeUpdate();
+        p.close();
+        super.con.close();        
     }
     
     
     public void deletar(Formacao formacao) throws SQLException
     {
-            PreparedStatement p = this.con.prepareStatement("DELETE from formacao where id = ?");
-            p.setInt(1, formacao.getId());
-            p.executeUpdate();
-            p.close();
+        PreparedStatement p = this.con.prepareStatement("DELETE from formacao where id = ?");
+        p.setInt(1, formacao.getId());
+        p.executeUpdate();
+        p.close();
+        super.con.close();        
         
     }
     
@@ -56,11 +58,12 @@ public class FormacaoDao extends MainDao {
         p.setInt(3, formacao.getId());
         p.executeUpdate();
         p.close();
+        super.con.close();        
     }
    
    public Formacao getFormacao(String id) throws SQLException
    {
-        List<Formacao> formacoes = new ArrayList<Formacao>();
+        ArrayList<Formacao> formacoes = new ArrayList<Formacao>();
         PreparedStatement p = this.con.prepareStatement("SELECT id,descricao,idbioma FROM formacao where id = ?");
         p.setInt(1, Integer.parseInt(id));
         ResultSet rs = p.executeQuery();
@@ -73,11 +76,13 @@ public class FormacaoDao extends MainDao {
         }
         rs.close();
         p.close();
+        super.con.close();        
         return formacoes.get(0);
    }
    
    public List<Formacao> listarFormacoes() throws Exception{
-        List<Formacao> formacoes = new ArrayList<Formacao>();
+       
+        ArrayList<Formacao> formacoes = new ArrayList<Formacao>();
         PreparedStatement p = this.con.prepareStatement("SELECT * FROM formacao");
         ResultSet rs = p.executeQuery();
         while(rs.next()){
@@ -89,6 +94,7 @@ public class FormacaoDao extends MainDao {
         }
         rs.close();
         p.close();
+        super.con.close();        
         return formacoes;
     }
    
