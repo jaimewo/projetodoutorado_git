@@ -13,17 +13,23 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-       
-        <link type="text/css" href="css/jquery.keypad.css" rel="stylesheet"> 
-        <script type="text/javascript" src="js/jquery.js"></script> 
-        <script type="text/javascript" src="js/jquery.keypad.js"></script>
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<link href="http://code.jquery.com/ui/1.9.0/themes/ui-darkness/jquery-ui.css" rel="stylesheet">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.js"></script>
+	<script src="http://code.jquery.com/ui/1.9.0/jquery-ui.min.js"></script>
+	<link href="css/keyboard.css" rel="stylesheet">
+	<script src="js/jquery.keyboard.js"></script>
+	<script src="js/jquery.mousewheel.js"></script>
          
+        	<script>
+		$(function(){
+			$('#keyboard').keyboard({layout:'num'});
+		});
+	</script>
+        
          <title>JCarbon - Novo Modelo</title>
     </head>
     <body>
-        <%@include  file="menu.jsp" %>
+        
         <div class="container">
             <h1>Novo Modelo</h1>
            <% Equacao objeto_equacao = (Equacao) request.getAttribute("equacao");%>
@@ -65,7 +71,7 @@
                 <br />
                 <div class="controls">
                     <input type="text" name="modelo[termo]" class="input-small" readonly="true" value="b0"/> *
-                    <input type="text" name="modelo[termo]" class="input-large" readonly="true" />
+                    <input type="text" name="modelo[termo]" class="input-large"  id="keyboard" />
                     <a href="#">+</a>
                 </div>
             </div>
@@ -74,13 +80,7 @@
                 <label for="modelo_expressaomodelo" class="control-label"><b>Operadores</b></label>
             </div>
                     
-            <div >
-                <input type="text" id="teste" />
-            </div>
                     
-            <script type="text/javascript">
-                 
-            </script>
                                         
             <div class="actions form-actions">
                 <input type="submit" name="submit" value ="Salvar" class="btn btn-inverse"/>

@@ -199,31 +199,32 @@ public class Local extends Model  {
     }
     public boolean eh_valido()
     {
-        if(this.getDescricao() == null || this.getDescricao().isEmpty())
-        {
-            this.setErro("Descrição ", "não pode ficar em branco");
-        }
-        if(this.getArea() == 0)
-        {
-            this.setErro("Área ", "deve ser informada");
-        }        
-        if(this.getAreaParcela() == 0)
-        {
-            this.setErro("Área da Parcela ", "deve ser informada");
-        }                
-        if(this.getIdFormacao() == 0)
-        {
-            this.setErro("Formação ", "deve ser informada");
-        }                
-        if(this.getIdEspacamento() == 0)
-        {
-            this.setErro("Espaçamento ", "deve ser informado");
-        }                
-        if(this.getIdTrabalhoCientifico() == 0)
-        {
-            this.setErro("Trabalho Científico ", "deve ser informado");
-        }                        
-        return (this.erros.isEmpty());
+//        if(this.getDescricao() == null || this.getDescricao().isEmpty())
+//        {
+//            this.setErro("Descrição ", "não pode ficar em branco");
+//        }
+//        if(this.getArea() == 0)
+//        {
+//            this.setErro("Área ", "deve ser informada");
+//        }        
+//        if(this.getAreaParcela() == 0)
+//        {
+//            this.setErro("Área da Parcela ", "deve ser informada");
+//        }                
+//        if(this.getIdFormacao() == 0)
+//        {
+//            this.setErro("Formação ", "deve ser informada");
+//        }                
+//        if(this.getIdEspacamento() == 0)
+//        {
+//            this.setErro("Espaçamento ", "deve ser informado");
+//        }                
+//        if(this.getIdTrabalhoCientifico() == 0)
+//        {
+//            this.setErro("Trabalho Científico ", "deve ser informado");
+//        }                        
+//        return (this.erros.isEmpty());
+        return true;
         
     }
     

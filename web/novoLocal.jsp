@@ -38,7 +38,7 @@
                 <div class="field control-group">
                     <label for="local_descricao" class="control-label">Descrição do Local</label>
                     <div class="controls">
-                        <input type="text" name="local[descricao]" value="<%=objeto_local.getDescricao()%>" />
+                        <input type="text" name="local[descricao]" id="local_descricao" value="<%=objeto_local.getDescricao()%>" />
                     </div>
                 </div>
 
@@ -84,15 +84,15 @@
                 <div class="field control-group">
                     <label for="local_area" class="control-label">Área Total(ha)</label>
                     <div class="controls">
-                        <input type="text" name="local[area]" value="<%=objeto_local.getArea()%>" />
+                        <input type="text" name="local[area]" id="area_total" value="<%=objeto_local.getArea()%>" />
                     </div>
                 </div>
 
 
                 <div class="field control-group">
-                    <label for="local_municipio" class="control-label">Município <a href="#">+</a></label>
-                    <div class="controls">
-                        <select id="local_municipio" name="municipio[idMunicipio]">
+                    <label for="local_municipio" class="control-label">Município <a href="#" id="add_municipio">+</a></label>
+                    <div id="municipios" class="controls">
+                        <select id="local_municipio" name="municipio[idMunicipio][]" class="municipios">
                             <option value="">Selecione um município</option>
                             <% List<Municipio> municipios = (List<Municipio>) request.getAttribute("municipios");%>
                             <% for (Municipio m : municipios) {%>
@@ -121,6 +121,9 @@
                             <option value="<%=t.getIdString()%>"><%=t.getTitulo()%></option>
                             <%}%>
                         </select>
+                    </div>
+                    <div id="detalhes_trabalho_cientifico" class="control-label" style="float:right;">
+                        
                     </div>
                 </div>
 
@@ -163,11 +166,61 @@
                             $("#lat_long").append("<p>(<input type=text \/>,<input type=text \/>)</p>");
                             return false;
                         });
+                
+                $("#local_bioma").change(function(){
+                     var local_bioma_id= $('#local_bioma').val();
+                     $("#local_formacao").html("");
+                     $.get('retornaFormacao',{ bioma_id:local_bioma_id },function(responseText) {
+                         
+                        $("#local_formacao").html(responseText);
+                    });
+                    
+              
+                    return false;
+                });
+                                       
+                $('#add_municipio').click(function() {  
+                   
+                 $.get('retornaCidades',{},function(responseText) { 
+                        $("#municipios").append(responseText);
+                    });
+              
+                    return false;
+                });
+            
+                $("#local_trabalhoCientifico").change(function(){
+                    var trabalho_cientifico= $('#local_trabalhoCientifico').val();
+                     $.get('retornaDetalhesTrabalhoCientifico',{ trabalho_id:trabalho_cientifico },function(responseText) {
+                         
+                        $("#detalhes_trabalho_cientifico").html(responseText);
+                    });
+                    
+              
+                    return false;
+                });
+    
+    
+                        
                  $("#btn_salvar").click(function(){
                      alert('Simulação de submter o formulário!!!');
+                     
+                     $.post('createLocal',{local_descricao:$("#local_descricao").val(), 
+                                           local_bioma:$("#local_bioma").val(),
+                                           local_formacao: $("#local_formacao").val(),
+                                           local_espacamento: $("#local_espacamento").val(),
+                                           area_total: $("#area_total").val(),
+                                           local_trabalhoCientifico: $("#local_trabalhoCientifico").val()
+                                           
+                                           
+                     
+        },function(responseText) {
+                        //$("#detalhes_trabalho_cientifico").html(responseText);
+                    });
                      $("#valor_calculo").show();
                      
                  });
+                 
+                
                         
                         
                         
