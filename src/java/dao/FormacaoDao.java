@@ -97,5 +97,23 @@ public class FormacaoDao extends MainDao {
         super.con.close();        
         return formacoes;
     }
+   
+    public List<Formacao> listarFormacoesByIdBioma(String idbioma) throws Exception{
+        List<Formacao> formacoes = new ArrayList<Formacao>();
+        PreparedStatement p = this.con.prepareStatement("SELECT * FROM formacao where idbioma= ?");
+        p.setInt(1, Integer.parseInt(idbioma));
+        ResultSet rs = p.executeQuery();
+        while(rs.next()){
+            System.out.println("Entrei aqui pq tenho registro");
+           Formacao formacao = new Formacao();
+           formacao.setId(rs.getInt("id"));
+           formacao.setDescricao(rs.getString("descricao"));
+           formacao.setIdBioma(rs.getInt("idbioma"));
+           formacoes.add(formacao);
+        }
+        rs.close();
+        p.close();
+        return formacoes;
+    }
     
 }

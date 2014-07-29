@@ -328,6 +328,18 @@
         <servlet-name>listarEquacao</servlet-name>
         <servlet-class>controller.listarEquacao</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>retornaCidades</servlet-name>
+        <servlet-class>controller.retornaCidades</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>retornaDetalhesTrabalhoCientifico</servlet-name>
+        <servlet-class>controller.retornaDetalhesTrabalhoCientifico</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>retornaFormacao</servlet-name>
+        <servlet-class>controller.retornaFormacao</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>listarBiomas</servlet-name>
         <url-pattern>/listarBiomas</url-pattern>
@@ -659,6 +671,18 @@
     <servlet-mapping>
         <servlet-name>listarEquacao</servlet-name>
         <url-pattern>/listarEquacao</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>retornaCidades</servlet-name>
+        <url-pattern>/retornaCidades</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>retornaDetalhesTrabalhoCientifico</servlet-name>
+        <url-pattern>/retornaDetalhesTrabalhoCientifico</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>retornaFormacao</servlet-name>
+        <url-pattern>/retornaFormacao</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
