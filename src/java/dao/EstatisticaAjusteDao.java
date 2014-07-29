@@ -29,7 +29,7 @@ public class EstatisticaAjusteDao extends MainDao{
     public void cadastrar(EstatisticaAjuste estatisticaAjuste) throws SQLException
                         
     {
-        PreparedStatement p = this.con.prepareStatement("INSERT INTO estatisticaAjuste (idlocal, "
+            PreparedStatement p = this.con.prepareStatement("INSERT INTO estatisticaAjuste (idlocal, "
                     +                                                          "idvariavelinteresse,"
                     +                                                          "idmetodocalculo,"                    
                     +                                                          "r2,"
@@ -44,47 +44,47 @@ public class EstatisticaAjusteDao extends MainDao{
                     +                                                          "somaquadradoregressao,"                    
                     +                                                          "somaquadradototais"                                        
                     +                                                          ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-        p.setInt   (1,  estatisticaAjuste.getIdLocal());
-        p.setInt   (2,  estatisticaAjuste.getIdVariavelInteresse());            
-        p.setInt   (3,  estatisticaAjuste.getIdMetodoCalculo());                        
-        p.setDouble(4,  estatisticaAjuste.getR2());
-        p.setDouble(5,  estatisticaAjuste.getR2Ajust());
-        p.setDouble(6,  estatisticaAjuste.getSyx());
-        p.setDouble(7,  estatisticaAjuste.getSyxPerc());
-        p.setDouble(8,  estatisticaAjuste.getAic());
-        p.setDouble(9,  estatisticaAjuste.getBic());
-        p.setDouble(10, estatisticaAjuste.getWillmott());
-        p.setDouble(11, estatisticaAjuste.getIa());            
-        p.setDouble(12, estatisticaAjuste.getSomaQuadradoResiduo());                        
-        p.setDouble(13, estatisticaAjuste.getSomaQuadradoRegressao());                        
-        p.setDouble(14, estatisticaAjuste.getSomaQuadradoTotais());                                    
-           
-        p.executeUpdate();
-        p.close();
-        super.con.close();            
+            p.setInt   (1,  estatisticaAjuste.getIdLocal());
+            p.setInt   (2,  estatisticaAjuste.getIdVariavelInteresse());            
+            p.setInt   (3,  estatisticaAjuste.getIdMetodoCalculo());                        
+            p.setDouble(4,  estatisticaAjuste.getR2());
+            p.setDouble(5,  estatisticaAjuste.getR2Ajust());
+            p.setDouble(6,  estatisticaAjuste.getSyx());
+            p.setDouble(7,  estatisticaAjuste.getSyxPerc());
+            p.setDouble(8,  estatisticaAjuste.getAic());
+            p.setDouble(9,  estatisticaAjuste.getBic());
+            p.setDouble(10, estatisticaAjuste.getWillmott());
+            p.setDouble(11, estatisticaAjuste.getIa());            
+            p.setDouble(12, estatisticaAjuste.getSomaQuadradoResiduo());                        
+            p.setDouble(13, estatisticaAjuste.getSomaQuadradoRegressao());                        
+            p.setDouble(14, estatisticaAjuste.getSomaQuadradoTotais());                                    
+            
+            p.executeUpdate();
+            p.close();
     }
     
     public void deletar(EstatisticaAjuste estatisticaAjuste) throws SQLException
     {
-        PreparedStatement p = this.con.prepareStatement("DELETE from estatisticaAjuste where id = ?");
-        p.setInt(1, estatisticaAjuste.getId());
-        p.executeUpdate();
-        p.close();
-        super.con.close();        
-    }        
+            PreparedStatement p = this.con.prepareStatement("DELETE from estatisticaAjuste where id = ?");
+            p.setInt(1, estatisticaAjuste.getId());
+            p.executeUpdate();
+            p.close();
+        
+    }
+        
     
     public void deletarEstatisticaAjusteLocal(EstatisticaAjuste estatisticaAjuste) throws SQLException
     {
-        PreparedStatement p = this.con.prepareStatement("DELETE from estatisticaAjuste "
-                +                                       "where idlocal = ? " 
-                +                                       "and   idvariavelinteresse = ? "
-                +                                       "and   idmetodocalculo = ?");
-        p.setInt(1, estatisticaAjuste.idLocal);
-        p.setInt(2, estatisticaAjuste.idVariavelInteresse);            
-        p.setInt(3, estatisticaAjuste.idMetodoCalculo);                        
-        p.executeUpdate();
-        p.close();
-        super.con.close();        
+            PreparedStatement p = this.con.prepareStatement("DELETE from estatisticaAjuste "
+                    +                                       "where idlocal = ? " 
+                    +                                       "and   idvariavelinteresse = ? "
+                    +                                       "and   idmetodocalculo = ?");
+            p.setInt(1, estatisticaAjuste.idLocal);
+            p.setInt(2, estatisticaAjuste.idVariavelInteresse);            
+            p.setInt(3, estatisticaAjuste.idMetodoCalculo);                        
+            p.executeUpdate();
+            p.close();
+        
     }
     
    public void update(EstatisticaAjuste estatisticaAjuste) throws Exception 
@@ -122,7 +122,6 @@ public class EstatisticaAjusteDao extends MainDao{
         p.setInt(15, estatisticaAjuste.getId());
         p.executeUpdate();
         p.close();
-        super.con.close();        
     }
    
    public EstatisticaAjuste getEstatisticaAjuste(String id) throws SQLException
@@ -152,15 +151,21 @@ public class EstatisticaAjusteDao extends MainDao{
         }
         rs.close();
         p.close();
-        super.con.close();        
         return estatisticaAjustes.get(0);
     }
    
-    public EstatisticaAjuste getEstatisticaAjuste(int idLocal) throws SQLException
+    public EstatisticaAjuste getEstatisticaAjuste(int idLocal,int idVariavelInteresse, int idMetodoCalculo) throws SQLException
     {
         ArrayList<EstatisticaAjuste> estatisticaAjustes = new ArrayList<EstatisticaAjuste>();
-        PreparedStatement p = this.con.prepareStatement("SELECT * FROM estatisticaAjuste where id = ?");
+        PreparedStatement p = this.con.prepareStatement("SELECT * "
+                +                                       "FROM estatisticaAjuste "
+                +                                       "WHERE idlocal = ? "
+                +                                       "AND   idvariavelinteresse = ? "
+                +                                       "AND   idmetodocalculo = ? ");
         p.setInt(1, idLocal);
+        p.setInt(2, idVariavelInteresse);
+        p.setInt(3, idMetodoCalculo);
+
         ResultSet rs = p.executeQuery();
         while(rs.next()){
            EstatisticaAjuste estatisticaAjuste = new EstatisticaAjuste();
@@ -182,7 +187,6 @@ public class EstatisticaAjusteDao extends MainDao{
         }
         rs.close();
         p.close();
-        super.con.close();        
         return estatisticaAjustes.get(0);
    }
    public ArrayList<EstatisticaAjuste> listarEstatisticaAjustes() throws Exception{
@@ -210,7 +214,6 @@ public class EstatisticaAjusteDao extends MainDao{
         }
         rs.close();
         p.close();
-        super.con.close();        
         return estatisticaAjustes;
     }
     

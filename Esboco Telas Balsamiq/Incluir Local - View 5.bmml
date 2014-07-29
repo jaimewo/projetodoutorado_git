@@ -1,0 +1,246 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1093" measuredH="672" mockupW="1056" mockupH="668">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::Label" x="37" y="50" w="59" h="-1" measuredW="54" measuredH="28" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>Local%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="com.balsamiq.mockups::Label" x="37" y="168" w="-1" h="-1" measuredW="98" measuredH="28" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>Munic%EDpios%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::ComboBox" x="141" y="170" w="-1" h="-1" measuredW="113" measuredH="24" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Antonina%20%28PR%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::Label" x="37" y="204" w="-1" h="-1" measuredW="126" measuredH="28" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>Coordenadas%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::Label" x="37" y="106" w="-1" h="-1" measuredW="90" measuredH="28" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>Forma%E7%E3o%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="8" controlTypeID="com.balsamiq.mockups::Label" x="37" y="78" w="-1" h="-1" measuredW="59" measuredH="28" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>Bioma%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="34" controlTypeID="com.balsamiq.mockups::Label" x="37" y="132" w="-1" h="-1" measuredW="128" measuredH="28" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>Espa%E7amento%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="36" controlTypeID="com.balsamiq.mockups::TextInput" x="100" y="51" w="255" h="-1" measuredW="79" measuredH="26" zOrder="7" locked="false" isInGroup="-1"/>
+    <control controlID="37" controlTypeID="com.balsamiq.mockups::ComboBox" x="131" y="108" w="-1" h="-1" measuredW="175" measuredH="24" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Floresta%20Ombr%F3fila%20Mista</text>
+      </controlProperties>
+    </control>
+    <control controlID="39" controlTypeID="com.balsamiq.mockups::ComboBox" x="131" y="80" w="-1" h="-1" measuredW="132" measuredH="24" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Floresta%20Atl%E2ntica</text>
+      </controlProperties>
+    </control>
+    <control controlID="41" controlTypeID="com.balsamiq.mockups::ComboBox" x="172" y="137" w="-1" h="-1" measuredW="61" measuredH="24" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>3%20x%202</text>
+      </controlProperties>
+    </control>
+    <control controlID="45" controlTypeID="com.balsamiq.mockups::Label" x="342" y="168" w="-1" h="-1" measuredW="13" measuredH="28" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13369344</color>
+        <size>20</size>
+        <text>+</text>
+      </controlProperties>
+    </control>
+    <control controlID="47" controlTypeID="com.balsamiq.mockups::CheckBox" x="260" y="171" w="-1" h="-1" measuredW="71" measuredH="22" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Principal</text>
+      </controlProperties>
+    </control>
+    <control controlID="48" controlTypeID="com.balsamiq.mockups::TextInput" x="163" y="205" w="158" h="-1" measuredW="79" measuredH="26" zOrder="13" locked="false" isInGroup="-1"/>
+    <control controlID="49" controlTypeID="com.balsamiq.mockups::Label" x="342" y="204" w="-1" h="-1" measuredW="13" measuredH="28" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13369344</color>
+        <size>20</size>
+        <text>+</text>
+      </controlProperties>
+    </control>
+    <control controlID="54" controlTypeID="com.balsamiq.mockups::Label" x="37" y="4" w="-1" h="-1" measuredW="155" measuredH="36" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>28</size>
+        <text>Incluir%20Local</text>
+      </controlProperties>
+    </control>
+    <control controlID="55" controlTypeID="com.balsamiq.mockups::Label" x="37" y="248" w="-1" h="-1" measuredW="170" measuredH="28" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>Trabalho%20Cient%EDfico%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="62" controlTypeID="com.balsamiq.mockups::Label" x="601" y="250" w="-1" h="-1" measuredW="53" measuredH="28" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>Autor%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="63" controlTypeID="com.balsamiq.mockups::Label" x="663" y="252" w="-1" h="-1" measuredW="309" measuredH="21" zOrder="18" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>KIRTCHNER%2CSANQUETTA%20e%20SCHUMACHER%20%20%282002%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="71" controlTypeID="com.balsamiq.mockups::Label" x="663" y="289" w="-1" h="-1" measuredW="159" measuredH="24" zOrder="19" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>16</size>
+        <text>Equa%E7%F5es%20-%20Biomassa%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="72" controlTypeID="com.balsamiq.mockups::Label" x="832" y="291" w="-1" h="-1" measuredW="261" measuredH="21" zOrder="20" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>B%3Dexp%28-1.192%20+%201.229%20*%20ln%28DAP%B2*densidade%29%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="73" controlTypeID="com.balsamiq.mockups::Label" x="663" y="318" w="-1" h="-1" measuredW="154" measuredH="24" zOrder="21" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>16</size>
+        <text>%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20-%20Carbono%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="74" controlTypeID="com.balsamiq.mockups::Label" x="832" y="320" w="-1" h="-1" measuredW="50" measuredH="21" zOrder="22" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>C%3DB*0.5</text>
+      </controlProperties>
+    </control>
+    <control controlID="75" controlTypeID="com.balsamiq.mockups::Label" x="663" y="342" w="-1" h="-1" measuredW="143" measuredH="24" zOrder="23" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>16</size>
+        <text>%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20-%20Volume%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="76" controlTypeID="com.balsamiq.mockups::Label" x="832" y="344" w="-1" h="-1" measuredW="249" measuredH="21" zOrder="24" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Ln%28Volume%29%3D-7.68262+%282.05409*Ln%28DAP%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="77" controlTypeID="com.balsamiq.mockups::Button" x="37" y="320" w="-1" h="-1" measuredW="60" measuredH="27" zOrder="25" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Salvar</text>
+      </controlProperties>
+    </control>
+    <control controlID="78" controlTypeID="com.balsamiq.mockups::Button" x="37" y="522" w="-1" h="-1" measuredW="194" measuredH="27" zOrder="26" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Escolher%20Arquivo%20de%20Parcelas</text>
+      </controlProperties>
+    </control>
+    <control controlID="80" controlTypeID="com.balsamiq.mockups::Label" x="253" y="646" w="-1" h="-1" measuredW="163" measuredH="24" zOrder="27" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>16</size>
+        <text>Total%20Calculado%20%28t/ha%29%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="85" controlTypeID="com.balsamiq.mockups::ComboBox" x="219" y="250" w="-1" h="-1" measuredW="339" measuredH="24" zOrder="28" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>KIRTCHNER%2CSANQUETTA%20e%20SCHUMACHER%20%20%282002%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="86" controlTypeID="com.balsamiq.mockups::Label" x="663" y="371" w="-1" h="-1" measuredW="163" measuredH="24" zOrder="29" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>16</size>
+        <text>Mocdelos%20%20-%20Biomassa%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="87" controlTypeID="com.balsamiq.mockups::Label" x="832" y="373" w="-1" h="-1" measuredW="223" measuredH="21" zOrder="30" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>B%3Dexp%28b0%20+%20b1%20*%20ln%28DAP%B2*densidade%29%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="88" controlTypeID="com.balsamiq.mockups::Label" x="663" y="400" w="-1" h="-1" measuredW="154" measuredH="24" zOrder="31" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>16</size>
+        <text>%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20-%20Carbono%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="89" controlTypeID="com.balsamiq.mockups::Label" x="832" y="402" w="-1" h="-1" measuredW="48" measuredH="21" zOrder="32" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>C%3DB*b0</text>
+      </controlProperties>
+    </control>
+    <control controlID="90" controlTypeID="com.balsamiq.mockups::Label" x="663" y="424" w="-1" h="-1" measuredW="143" measuredH="24" zOrder="33" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>16</size>
+        <text>%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20-%20Volume%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="91" controlTypeID="com.balsamiq.mockups::Label" x="832" y="426" w="-1" h="-1" measuredW="171" measuredH="21" zOrder="34" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Ln%28Volume%29%3Db0+%28b1*Ln%28DAP%29</text>
+      </controlProperties>
+    </control>
+    <control controlID="92" controlTypeID="com.balsamiq.mockups::RadioButton" x="49" y="472" w="-1" h="-1" measuredW="756" measuredH="22" zOrder="35" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Deseja%20cadastrar%20%C1rvores%20para%20que%20o%20Programa%20fa%E7a%20o%20c%E1lculo%20de%20cada%20Parcela%20e%2C%20em%20seguida%2C%20fa%E7a%20a%20estimativa%20para%20o%20Local%3F</text>
+      </controlProperties>
+    </control>
+    <control controlID="93" controlTypeID="com.balsamiq.mockups::RadioButton" x="47" y="442" w="-1" h="-1" measuredW="488" measuredH="22" zOrder="36" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Deseja%20cadastrar%20Parcelas%20para%20que%20o%20Programa%20fa%E7a%20a%20estimativa%20para%20o%20Local%3F</text>
+      </controlProperties>
+    </control>
+    <control controlID="94" controlTypeID="com.balsamiq.mockups::TextInput" x="254" y="522" w="257" h="-1" measuredW="131" measuredH="27" zOrder="37" locked="false" isInGroup="-1">
+      <controlProperties>
+        <backgroundAlpha>0.5</backgroundAlpha>
+        <color>6710886</color>
+        <text>arquivo%20selecionado</text>
+      </controlProperties>
+    </control>
+    <control controlID="95" controlTypeID="com.balsamiq.mockups::Button" x="524" y="522" w="-1" h="-1" measuredW="213" measuredH="27" zOrder="38" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Baixar%20arquivo%20exemplo%20Parcelas</text>
+      </controlProperties>
+    </control>
+    <control controlID="96" controlTypeID="com.balsamiq.mockups::RadioButton" x="49" y="410" w="-1" h="-1" measuredW="218" measuredH="22" zOrder="39" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Deseja%20informar%20valores%20do%20Local%3F</text>
+      </controlProperties>
+    </control>
+    <control controlID="97" controlTypeID="com.balsamiq.mockups::Button" x="37" y="645" w="196" h="27" measuredW="162" measuredH="27" zOrder="40" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Calcular%20Valor%20do%20Local%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="98" controlTypeID="com.balsamiq.mockups::TextInput" x="416" y="645" w="124" h="-1" measuredW="79" measuredH="26" zOrder="41" locked="false" isInGroup="-1">
+      <controlProperties>
+        <backgroundAlpha>0.5</backgroundAlpha>
+        <color>6710886</color>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="102" controlTypeID="com.balsamiq.mockups::Button" x="544" y="645" w="-1" h="-1" measuredW="163" measuredH="27" zOrder="42" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Ver%20Detalhes%20do%20C%E1lculo</text>
+      </controlProperties>
+    </control>
+    <control controlID="105" controlTypeID="com.balsamiq.mockups::Label" x="37" y="564" w="-1" h="-1" measuredW="196" measuredH="28" zOrder="43" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>Vari%E1vel%20de%20Interesse%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="106" controlTypeID="com.balsamiq.mockups::ComboBox" x="246" y="568" w="-1" h="-1" measuredW="88" measuredH="62" zOrder="44" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Biomassa%0ACarbono%0AVolume</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

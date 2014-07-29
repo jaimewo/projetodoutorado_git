@@ -32,8 +32,10 @@ public class EstatisticaInventario extends Model  {
     public double coeficienteVariacao;
     public double erroAbsoluto;
     public double erroRelativo;
-    public double intervaloConfiancaMin;
-    public double intervaloConfiancaMax;
+    public double intervaloConfiancaMinMedia;
+    public double intervaloConfiancaMaxMedia;
+    public double intervaloConfiancaMinTotal;
+    public double intervaloConfiancaMaxTotal;
 
     
     public EstatisticaInventario()
@@ -49,8 +51,10 @@ public class EstatisticaInventario extends Model  {
         this.coeficienteVariacao = 0.0;
         this.erroAbsoluto = 0.0;
         this.erroRelativo = 0.0;
-        this.intervaloConfiancaMin = 0.0;
-        this.intervaloConfiancaMax = 0.0;
+        this.intervaloConfiancaMinMedia = 0.0;
+        this.intervaloConfiancaMaxMedia = 0.0;
+        this.intervaloConfiancaMinTotal = 0.0;
+        this.intervaloConfiancaMaxTotal = 0.0;
         
         
     }
@@ -106,8 +110,11 @@ public class EstatisticaInventario extends Model  {
         
         qtdeMedia = qtdeParcelasLocal * mediaParcela;
 
-        intervaloConfiancaMin = qtdeMedia - qtdeParcelasLocal * erroAbsoluto;
-        intervaloConfiancaMax = qtdeMedia + qtdeParcelasLocal * erroAbsoluto;
+        intervaloConfiancaMinMedia = mediaParcela * erroAbsoluto;
+        intervaloConfiancaMaxMedia = mediaParcela * erroAbsoluto;
+
+        intervaloConfiancaMinTotal = qtdeMedia - qtdeParcelasLocal * erroAbsoluto;
+        intervaloConfiancaMaxTotal = qtdeMedia + qtdeParcelasLocal * erroAbsoluto;
 
         LocalQuantidade localQuantidade = new LocalQuantidade(); 
         
@@ -227,20 +234,36 @@ public class EstatisticaInventario extends Model  {
         this.erroRelativo = erroRelativo;
     }
 
-    public double getIntervaloConfiancaMin() {
-        return intervaloConfiancaMin;
+    public double getIntervaloConfiancaMinMedia() {
+        return intervaloConfiancaMinMedia;
     }
 
-    public void setIntervaloConfiancaMin(double intervaloConfiancaMin) {
-        this.intervaloConfiancaMin = intervaloConfiancaMin;
+    public void setIntervaloConfiancaMinMedia(double intervaloConfiancaMinMedia) {
+        this.intervaloConfiancaMinMedia = intervaloConfiancaMinMedia;
     }
 
-    public double getIntervaloConfiancaMax() {
-        return intervaloConfiancaMax;
+    public double getIntervaloConfiancaMaxMedia() {
+        return intervaloConfiancaMaxMedia;
     }
 
-    public void setIntervaloConfiancaMax(double intervaloConfiancaMax) {
-        this.intervaloConfiancaMax = intervaloConfiancaMax;
+    public void setIntervaloConfiancaMaxMedia(double intervaloConfiancaMaxMedia) {
+        this.intervaloConfiancaMaxMedia = intervaloConfiancaMaxMedia;
+    }
+
+    public double getIntervaloConfiancaMinTotal() {
+        return intervaloConfiancaMinTotal;
+    }
+
+    public void setIntervaloConfiancaMinTotal(double intervaloConfiancaMinTotal) {
+        this.intervaloConfiancaMinTotal = intervaloConfiancaMinTotal;
+    }
+
+    public double getIntervaloConfiancaMaxTotal() {
+        return intervaloConfiancaMaxTotal;
+    }
+
+    public void setIntervaloConfiancaMaxTotal(double intervaloConfiancaMaxTotal) {
+        this.intervaloConfiancaMaxTotal = intervaloConfiancaMaxTotal;
     }
 
     public int getIdVariavelInteresse() {

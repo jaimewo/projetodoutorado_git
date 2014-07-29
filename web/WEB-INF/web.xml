@@ -325,10 +325,6 @@
         <servlet-class>controller.updateModelo</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>calcularComArvores</servlet-name>
-        <servlet-class>controller.calcularLocal</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>listarEquacao</servlet-name>
         <servlet-class>controller.listarEquacao</servlet-class>
     </servlet>
@@ -671,10 +667,6 @@
     <servlet-mapping>
         <servlet-name>updateModelo</servlet-name>
         <url-pattern>/updateModelo</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>calcularComArvores</servlet-name>
-        <url-pattern>/calcularComArvores</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>listarEquacao</servlet-name>
