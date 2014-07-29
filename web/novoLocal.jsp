@@ -182,7 +182,7 @@
                                     <div class="controls">
                                         <input type="text" name="local[qtd_carbono_total]" id="total_calculdo" disabled="true"  />
                                      </div>
-                                    <a href="#" id="ver_detalhe_do_calculo">Ver detalhes do Cálculo usando Data Mining</a>
+                                    <a href="#" id="ver_detalhe_do_calculo">Ver detalhes do Cálculo usando Data Mining  </a>
                          </div>
                          
                          
