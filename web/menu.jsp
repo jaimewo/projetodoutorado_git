@@ -45,6 +45,12 @@
                                     <li><a href="listarEquacao">Equações</a></li>
                                 </ul>
                             </li>
+                            <li class="dropdown">
+                                <a data-toggle="dropdown" class="dropdown-toggle" href="#">Menu para Testes<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="listarDetalhesCalculo">Listar Detalhes do Cálculo</a></li>                                    
+                                </ul>
+                            </li>                       
                         </ul>
                         <form class="navbar-form pull-right">
                             <input type="text" placeholder="Email" class="span2">

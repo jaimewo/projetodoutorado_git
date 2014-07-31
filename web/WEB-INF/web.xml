@@ -340,6 +340,10 @@
         <servlet-name>retornaFormacao</servlet-name>
         <servlet-class>controller.retornaFormacao</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>listarDetalhesCalculo</servlet-name>
+        <servlet-class>controller.listarDetalhesCalculo</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>listarBiomas</servlet-name>
         <url-pattern>/listarBiomas</url-pattern>
@@ -683,6 +687,10 @@
     <servlet-mapping>
         <servlet-name>retornaFormacao</servlet-name>
         <url-pattern>/retornaFormacao</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>listarDetalhesCalculo</servlet-name>
+        <url-pattern>/listarDetalhesCalculo</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
