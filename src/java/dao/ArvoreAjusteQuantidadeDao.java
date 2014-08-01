@@ -171,7 +171,7 @@ public class ArvoreAjusteQuantidadeDao extends MainDao {
         PreparedStatement p = this.con.prepareStatement("SELECT * FROM arvoreajustequantidade "
                 +                                       "WHERE idarvoreajuste = ? "
                 +                                       "AND   idvariavelinteresse = ? "
-                +                                       "AND   idmetodocalculo = ");
+                +                                       "AND   idmetodocalculo = ?");
         p.setInt(1, idArvoreAjuste);
         p.setInt(2, idVariavelInteresse);
         p.setInt(3, idMetodoCalculo);        

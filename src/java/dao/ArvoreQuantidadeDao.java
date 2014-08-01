@@ -82,10 +82,10 @@ public class ArvoreQuantidadeDao extends MainDao {
    {
         double qtdeEst = 0.0;
         
-        PreparedStatement p = this.con.prepareStatement("SELECT * FROM arvoreaquantidade "
+        PreparedStatement p = this.con.prepareStatement("SELECT * FROM arvorequantidade "
                 +                                       "WHERE idarvore = ? "
                 +                                       "AND   idvariavelinteresse = ? "
-                +                                       "AND   idmetodocalculo = ");
+                +                                       "AND   idmetodocalculo = ?");
         p.setInt(1, idArvore);
         p.setInt(2, idVariavelInteresse);
         p.setInt(3, idMetodoCalculo);        
@@ -126,7 +126,7 @@ public class ArvoreQuantidadeDao extends MainDao {
         PreparedStatement p = this.con.prepareStatement("SELECT * FROM arvorequantidade "
                 +                                       "WHERE idarvore = ? "
                 +                                       "AND   idvariavelinteresse = ? "
-                +                                       "AND   idmetodocalculo = ");
+                +                                       "AND   idmetodocalculo = ?");
         p.setInt(1, idArvore);
         p.setInt(2, idVariavelInteresse);
         p.setInt(3, idMetodoCalculo);        

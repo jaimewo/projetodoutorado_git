@@ -366,4 +366,130 @@ public class Parcela extends Model  {
     
     }
     
+    public void gravarPlanilhaValoresEstimados(Local local,int idVariavelInteresse, int idMetodoCalculo) throws SQLException, BiffException, IOException, Exception    {
+//http://jmmwrite.wordpress.com/2011/02/09/gerar-xls-planilha-excell-com-java/        
+    try {
+        
+        String descricaoVariavelInteresse = "";
+        switch (idVariavelInteresse) {
+            case 1:
+                descricaoVariavelInteresse = "Biomassa";
+                break;
+            case 2:
+                descricaoVariavelInteresse = "Carbono";
+                break;            
+            case 3:
+                descricaoVariavelInteresse = "Volume";
+                break;        
+        }
+        
+        String descricaoMetodoCalculo = "";
+        switch (idMetodoCalculo) {
+            case 1:
+                descricaoMetodoCalculo = "Equação";
+                break;
+            case 2:
+                descricaoMetodoCalculo = "Data Mining";
+                break;            
+        }
+        
+        String nomePlanilha = "c:\\teste\\ValorEstimado"+descricaoVariavelInteresse+" Local "+local.getIdString()+" - "+local.getDescricao()+".xls";
+        
+        WritableWorkbook workbook = Workbook.createWorkbook(new File(nomePlanilha)); 
+        WritableSheet sheet = workbook.createSheet("First Sheet", 0); 
+ 
+        // work with coordinates (from 0,0 to N,k) -> COL, LINE
+        Label label = new Label(0, 0, "Local: "+local.getDescricao());
+        sheet.addCell(label);
+        label = new Label(0, 1, "Variavel de Interesse: "+descricaoVariavelInteresse);
+        sheet.addCell(label);
+        label = new Label(0, 2, "Método de Cálculo: "+descricaoMetodoCalculo);
+        sheet.addCell(label);
+
+        label = new Label(0, 4, "Parcela");
+        sheet.addCell(label);
+        label = new Label(1, 4, "Árvore");
+        sheet.addCell(label);
+        
+ 
+        ArrayList<Variavel> variaveis = new ArrayList<Variavel>();
+        ArrayList<String> siglasVariavel = new ArrayList<String>();
+        
+        ArrayList<Equacao> equacoesTrabalho = new ArrayList<Equacao>();
+        equacoesTrabalho = local.getTrabalhoCientifico().getEquacoesTrabalho();
+        for(Equacao equacao: equacoesTrabalho) {
+            variaveis = equacao.getVariaveis();
+            for(Variavel variavel: variaveis) {
+                boolean achou = false;
+                for (String sigla: siglasVariavel){
+                    if(sigla.equalsIgnoreCase(variavel.getSigla())) {
+                        achou = true;
+                    }
+                }            
+                if (!achou) {
+                    siglasVariavel.add(variavel.getSigla());
+                }
+            }
+        }
+        
+        int coluna=2;
+        
+        for(String sigla: siglasVariavel) {
+            label = new Label(coluna, 4, sigla);
+            sheet.addCell(label);
+            coluna++;
+        }
+        
+        label = new Label(coluna, 4, "Valor Estimado");
+        sheet.addCell(label);
+        
+        int linha=5;
+        coluna = 0;        
+        
+        ArrayList<Parcela> parcelas = new ArrayList<Parcela>();
+        ArrayList<Arvore>  arvores  = new ArrayList<Arvore>();
+        
+        ParcelaDao parcelaDao = new ParcelaDao();
+        
+        parcelas = parcelaDao.listarParcelas(local.getId());
+        
+        for(Parcela parcela: parcelas) {
+            arvores = parcela.getArvores();
+            
+            for (Arvore arvore: arvores) {
+                jxl.write.Number number = new jxl.write.Number(coluna, linha, parcela.getNumParcela());
+                sheet.addCell(number);
+                coluna++;
+                
+                number = new jxl.write.Number(coluna, linha, arvore.getNumArvore());
+                sheet.addCell(number);
+                coluna++;
+                
+                for (VariavelArvore variavelArvore: arvore.variaveisArvore) {
+                    //System.out.println("Variavel "+variavelArvore.getVariavel().getSigla()+": "+variavelArvore.getValor());
+                    number = new jxl.write.Number(coluna, linha, variavelArvore.getValor());
+                    sheet.addCell(number);
+                    coluna++;
+                }
+                number = new jxl.write.Number(coluna, linha, arvore.getQtdeEst(idVariavelInteresse, idMetodoCalculo));
+                sheet.addCell(number);
+                coluna=0;   
+                linha++;            
+            }
+            coluna=0;
+            linha++;            
+        }
+
+        workbook.write();
+        workbook.close();
+        
+    } catch (IOException e) {
+        e.printStackTrace();
+    } catch (RowsExceededException e) {
+        e.printStackTrace();
+    } catch (WriteException e) {
+        e.printStackTrace();
+    }
+    
+    }
 }

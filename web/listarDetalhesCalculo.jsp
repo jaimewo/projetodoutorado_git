@@ -49,7 +49,7 @@
                     <input type="text" name="local[descricao]" value="<%=objeto_local.getDescricao()%>" />
                 </div>
             </div>   
-                
+
                 <table class="table table-striped table-condensed">
                     <thead>
                         <tr>
@@ -131,6 +131,15 @@
                         </tr>
                     </tbody>
                 </table>
+                
+                <br />
+                <div class="field control-group">
+                    <label for="local_descricao" class="control-label">Baixar Planilha dos Valores:</label>
+                    <div class="controls">
+                        <a href="#" id="btn_inventatario_equacao" class="btn btn-inverse" >Estimados pela Equação</a>
+                        <a href="#" id="btn_inventatario_dm" class="btn btn-inverse" >Estimados por Data Mining</a>
+                    </div>
+                </div>
 
                 <table class="table table-striped table-condensed">
                     <thead>
@@ -228,6 +237,15 @@
                         </tr>   
                     </tbody>
                 </table>
+                
+                <br />
+                <div class="field control-group">
+                    <label for="local_descricao" class="control-label">Baixar Planilha do Ajuste:</label>
+                    <div class="controls">
+                        <a href="#" id="btn_ajuste_equacao" class="btn btn-inverse" >Da Equação</a>
+                        <a href="#" id="btn_ajuste_dm" class="btn btn-inverse" >Por Data Mining</a>
+                    </div>
+                </div>
                                                 
         </div>
     </body>
