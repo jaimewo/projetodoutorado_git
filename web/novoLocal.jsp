@@ -143,6 +143,7 @@
                 <a href="#" class="informar_arvores">Deseja cadastrar Árvores para que o programa faça o cálculo de cada parcela e, em seguida, faça a estimativa para o Local?</a>
                 
                 <div id="form_local_arvores" style="display: none;">
+                   <form action="#" id="form_action_local_arvores" method="POST">
                    <div class="field control-group">
                      <label for="local_descricao" class="control-label"><b>Arquivo com dados</b></label>
                     <div class="controls">
@@ -153,29 +154,27 @@
                      <br />
                      <div class="field control-group">
                          <h3><b>Variável de interesse</b></h3>
-                         <select id="variavel_interesse">
-                             <option id="1">Biomassa</option>
-                             <option id="2">Carbono</option>
-                             <option id="3">Volume</option>
+                         <select id="variavel_interesse_arvores">
+                             <option value="1">Biomassa</option>
+                             <option value="2">Carbono</option>
+                             <option value="3">Volume</option>
                          </select>
                      </div>
                      <span>
                          <a href="#" id="btn_calcular" class="btn btn-inverse" >Calcular Usando a Equação</a>
                          <br />
                          <div class="field control-group">
-                                    <label for="local_descricao" class="control-label">Total Calculado(t/ha)</label>
-                                    <div class="controls">
-                                        <input type="text" name="local[qtd_carbono_total]" id="total_calculdo" disabled="true"  />
-                                     </div>
-                                    <a href="#" id="ver_detalhe_do_calculo">Ver detalhes do Cálculo usando Equação</a>
+                                <label for="local_descricao" class="control-label">Total Calculado(t/ha)</label>
+                                <div class="controls">
+                                    <input type="text" name="local[qtd_carbono_total]" id="total_calculdo" disabled="true"  />
+                                    <input name="local_id_parcela" id="local_id_arvore" type="hidden" />
+                                </div>
+                                <a href="#" id="ver_detalhe_do_calculo">Ver detalhes do Cálculo usando Equação</a>
                          </div>
-                         
-                         
                                  
                      </span>
-                     
-                              <span>
-                         <a href="#" id="btn_calcular_data_mining" class="btn btn-inverse" >Calcular Usando Data Mining</a>
+                     <span>
+                         <input type="submit" value="btn_calcular_data_mining" name="btn_submit" id="btn_calcular_data_mining" class="btn btn-inverse" >Calcular Usando Data Mining</a>
                          <br />
                          <div class="field control-group">
                                     <label for="local_descricao" class="control-label">Total Calculado(t/ha)</label>
@@ -184,14 +183,25 @@
                                      </div>
                                     <a href="#" id="ver_detalhe_do_calculo">Ver detalhes do Cálculo usando Data Mining  </a>
                          </div>
-                         
-                         
-                                 
                      </span>
-                     
-                </div>
+                    </div>
+                    </form>
 
                 </div>
+                <script type="text/javascript">
+                    $("#form_action_local_arvores").submit(function(){
+                        
+                         $.post('createLocalComArvores',{variavel_interesse:$("#variavel_interesse_arvores").val(),
+                                                       local_id:$("#local_id_parcela").val()
+                                                
+                },function(responseText) {
+                        eval(responseText);
+                    });
+                     
+                 return false;    
+                        
+                    });
+                </script>
                 
                 
                 
