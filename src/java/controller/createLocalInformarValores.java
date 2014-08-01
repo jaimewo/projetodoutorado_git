@@ -35,10 +35,10 @@ public class createLocalInformarValores extends HttpServlet {
 
         
     //Receber da da tela
-    int idLocal = 0; //Pegar idLocal da tela
-    double qtdeBiomassa = 0; //Receber da tela
-    double qtdeCarbono = 0; //Receber da tela
-    double qtdeVolume = 0; //Receber da tela
+    int idLocal = Integer.parseInt(request.getParameter("local_id")); //Pegar idLocal da tela
+    double qtdeBiomassa = Double.parseDouble(request.getParameter("local_biomassa")); //Receber da tela
+    double qtdeCarbono = Double.parseDouble(request.getParameter("local_carbono")); //Receber da tela
+    double qtdeVolume = Double.parseDouble(request.getParameter("local_volume"));; //Receber da tela
     
     LocalQuantidade localQuantidade = new LocalQuantidade();
     localQuantidade.setIdLocal(idLocal);
