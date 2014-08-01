@@ -44,12 +44,19 @@ public class createLocalParcelas extends HttpServlet {
             int idLocal = Integer.parseInt(request.getParameter("local_id")); //Pegar idLocal da tela
             int idVariavelInteresse = Integer.parseInt(request.getParameter("variavel_interesse")); //Pegar o idVariavelInteresse do combo escolhido na tela            
             importarParcelas(idLocal);
-            double qtdTela = calcular(idLocal,idVariavelInteresse);
+            double qtdTela = 0;
+            try{
+             qtdTela = calcular(idLocal,idVariavelInteresse);
             String retorno = "";
-            
+            retorno += "alert('Cálculo efetuado com sucesso!');";
             retorno += "$('#total_calculdo').val('"+qtdTela+"')";
-            System.out.println("Cheguei aquiiiii:"+qtdTela);
             out.println(retorno);
+            }catch(Exception e)
+            {
+               String retorno = "";
+               retorno += "$('#total_calculdo').val('0')";
+               out.println(retorno);
+            }
         }
     }
     
@@ -75,6 +82,7 @@ public class createLocalParcelas extends HttpServlet {
         LocalDao localDao = new LocalDao();
     
         local = localDao.getLocal(idLocal);
+        localDao = new LocalDao();
         local.setIdTipoEstimativa(idTipoEstimativa);
         localDao.update(local);
     

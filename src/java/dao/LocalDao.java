@@ -140,8 +140,7 @@ public class LocalDao extends MainDao {
         p.setInt(9, local.getIdDMTipoPonderacao());                        
         p.setInt(10, local.getDmQtdeVizinhos());                                    
         p.setBoolean(11, local.isDmComLn());                                                
-        
-        p.setInt(15, local.getId());
+        p.setInt(12, local.getId());
         p.executeUpdate();
         p.close();
         super.con.close();        
