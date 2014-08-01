@@ -360,6 +360,10 @@
         <servlet-name>CreateLocalComArvores</servlet-name>
         <servlet-class>controller.CreateLocalComArvores</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CreateLocalcomArvores</servlet-name>
+        <servlet-class>controller.CreateLocalcomArvores</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>listarBiomas</servlet-name>
         <url-pattern>/listarBiomas</url-pattern>
@@ -723,6 +727,10 @@
     <servlet-mapping>
         <servlet-name>CreateLocalComArvores</servlet-name>
         <url-pattern>/CreateLocalComArvores</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateLocalcomArvores</servlet-name>
+        <url-pattern>/CreateLocalcomArvores</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

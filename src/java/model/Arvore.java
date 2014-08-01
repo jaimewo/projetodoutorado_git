@@ -306,7 +306,9 @@ public class Arvore extends Model  {
             
             //Ultra arquivo = new File("C:\\Users\\jaimewo\\Dropbox\\Jaime\\AA-UFPR\\Doutorado\\Tese\\Implementacao Oficial\\JCarbon\\projetodoutorado_git\\Arquivos\\arvore.xls");
             //arquivo = new File("E:\\Dropbox\\Jaime\\AA-UFPR\\Doutorado\\Tese\\Implementacao Oficial\\JCarbon\\projetodoutorado_git\\Arquivos\\arvore.xls");
-            arquivo = new File("c:\\teste\\arvore.xls");
+            System.out.println("Entrei aqui para AbsolutePath");
+            String AbsolutePath = new File(".").getAbsolutePath()+"/arvorelocal"+local.getIdString()+".xls";
+            arquivo = new File(AbsolutePath);
             // instancia a planilha
             planilha = Workbook.getWorkbook(arquivo);
 

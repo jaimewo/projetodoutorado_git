@@ -161,7 +161,8 @@
                          </select>
                      </div>
                      <span>
-                         <a href="#" id="btn_calcular" class="btn btn-inverse" >Calcular Usando a Equação</a>
+                         <input type="hidden" name="btn_clicado" />
+                         <input type="submit" value="Calcular Usando a Equação" name="btn_submit" id="btn_calcular_equacao" class="btn btn-inverse" >
                          <br />
                          <div class="field control-group">
                                 <label for="local_descricao" class="control-label">Total Calculado(t/ha)</label>
@@ -174,7 +175,7 @@
                                  
                      </span>
                      <span>
-                         <input type="submit" value="btn_calcular_data_mining" name="btn_submit" id="btn_calcular_data_mining" class="btn btn-inverse" >Calcular Usando Data Mining</a>
+                         <input type="submit" value="Calcular Usando Data Mining" name="btn_submit" id="btn_calcular_data_mining" class="btn btn-inverse" >
                          <br />
                          <div class="field control-group">
                                     <label for="local_descricao" class="control-label">Total Calculado(t/ha)</label>
@@ -189,9 +190,13 @@
 
                 </div>
                 <script type="text/javascript">
+                    $("#btn_calcular_equacao").click(function(){
+                       $("#btn_clicado").val("1");
+                    });
+                    
                     $("#form_action_local_arvores").submit(function(){
                         
-                         $.post('createLocalComArvores',{variavel_interesse:$("#variavel_interesse_arvores").val(),
+                         $.post('CreateLocalcomArvores',{variavel_interesse:$("#variavel_interesse_arvores").val(),
                                                        local_id:$("#local_id_parcela").val()
                                                 
                 },function(responseText) {
