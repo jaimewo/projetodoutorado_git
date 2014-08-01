@@ -41,25 +41,15 @@ public class createLocalParcelas extends HttpServlet {
             throws ServletException, IOException, SQLException, BiffException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-          
-            System.out.println("Cheguei aquiii");
-            System.out.println("Local:"+request.getParameter("local_id"));
-            System.out.println("Variavel Interesse:"+request.getParameter("variavel_interesse"));
-            //Receber da da tela
             int idLocal = Integer.parseInt(request.getParameter("local_id")); //Pegar idLocal da tela
             int idVariavelInteresse = Integer.parseInt(request.getParameter("variavel_interesse")); //Pegar o idVariavelInteresse do combo escolhido na tela            
-
-
-    //Se pressionado botão "Escolher Arquivo com Parcelas"
-         importarParcelas(idLocal);
-    
-    //Se pressionado botão "Baixa Arquivo Exemplo Parcelas"
-         gravarPlanilhaExemplo(idLocal);
-         
-    //Se pressionado botão "Calcular"
-         calcular(idLocal,idVariavelInteresse);
+            importarParcelas(idLocal);
+            double qtdTela = calcular(idLocal,idVariavelInteresse);
+            String retorno = "";
             
-            
+            retorno += "$('#total_calculdo').val('"+qtdTela+"')";
+            System.out.println("Cheguei aquiiiii:"+qtdTela);
+            out.println(retorno);
         }
     }
     
@@ -76,18 +66,8 @@ public class createLocalParcelas extends HttpServlet {
         
     }
         
-         public void gravarPlanilhaExemplo(int idLocal) throws SQLException, BiffException, Exception {
-
-        Local local = new Local();
-        LocalDao localDao = new LocalDao();
-        local = localDao.getLocal(idLocal);
-
-        Parcela parcela = new Parcela();
-        parcela.gravarPlanilhaExemplo(local);        
-    
-        
-    }
-    public void calcular(int idLocal,int idVariavelInteresse) throws SQLException, BiffException, Exception {
+      
+    public double calcular(int idLocal,int idVariavelInteresse) throws SQLException, BiffException, Exception {
     
         int idTipoEstimativa = 2;  //Fixo devido a seleção do Cálculo com Parcelas
     
@@ -111,6 +91,8 @@ public class createLocalParcelas extends HttpServlet {
     
         //CAMPO PARA SER ENVIADO PARA A TELA para ser exibido no CAMPO Total Calculado (t/ha)
         double qtdeTela = estatisticaInventario.getQtdeMedia();
+        
+        return qtdeTela;
         
     }
 

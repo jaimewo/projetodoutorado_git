@@ -201,7 +201,7 @@
                     <label for="local_descricao" class="control-label"><b>Arquivo com dados</b></label>
                     <div class="controls">
                         <input type="file" name="arquivo"  />
-                        <a href="#" id="btn_modelo" class="btn btn-inverse" >Baixar Exemplo</a>
+                        <a href="#" id="btn_baixar_modelo_parcela" class="btn btn-inverse" >Baixar Exemplo</a>
                         <input name="local_id_parcela" id="local_id_parcela" type="hidden" />
                     </div>
                      <br />
@@ -240,6 +240,13 @@
                     });
                      
                  return false;    
+                 });
+                 
+                 $("#btn_baixar_modelo_parcela").click(function(){
+                       $.post('CreateLocalBaixarModeloParcela',{local_id:$("#local_id").val()
+                },function(responseText) {
+                        eval(responseText);
+                    });
                  });
                 </script>
                 

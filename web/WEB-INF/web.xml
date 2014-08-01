@@ -352,6 +352,10 @@
         <servlet-name>createLocalParcelas</servlet-name>
         <servlet-class>controller.createLocalParcelas</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CreateLocalBaixarModeloParcela</servlet-name>
+        <servlet-class>controller.CreateLocalBaixarModeloParcela</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>listarBiomas</servlet-name>
         <url-pattern>/listarBiomas</url-pattern>
@@ -707,6 +711,10 @@
     <servlet-mapping>
         <servlet-name>createLocalParcelas</servlet-name>
         <url-pattern>/createLocalParcelas</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateLocalBaixarModeloParcela</servlet-name>
+        <url-pattern>/CreateLocalBaixarModeloParcela</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

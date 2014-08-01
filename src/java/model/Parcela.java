@@ -175,7 +175,11 @@ public class Parcela extends Model  {
  
         try {
     
-            arquivo = new File("c:\\teste\\parcela.xls");
+              System.out.println("Entrei aqui para AbsolutePath");
+            String AbsolutePath = new File(".").getAbsolutePath()+"/parceladolocal"+local.getIdString()+".xls";
+            arquivo = new File(AbsolutePath);
+            
+            
             //arquivo = new File("C:\\Users\\jaimewo\\Dropbox\\Jaime\\AA-UFPR\\Doutorado\\Tese\\Implementacao Oficial\\JCarbon\\projetodoutorado_git\\Arquivos\\parcela.xls");
 
             // instancia a planilha
@@ -320,11 +324,16 @@ public class Parcela extends Model  {
     }    
     
     
-    public void gravarPlanilhaExemplo(Local local) throws SQLException, BiffException, IOException, Exception
+    public String gravarPlanilhaExemplo(Local local) throws SQLException, BiffException, IOException, Exception
     {
 //http://jmmwrite.wordpress.com/2011/02/09/gerar-xls-planilha-excell-com-java/        
     try {
-        WritableWorkbook workbook = Workbook.createWorkbook(new File("c:\\teste\\parcelaExemplo.xls")); 
+        
+        System.out.println("Entrei aqui para AbsolutePath");
+        String AbsolutePath = new File(".").getAbsolutePath();
+        System.out.println(AbsolutePath);
+        String path_completo = AbsolutePath+"/exemploparcelas.xls";
+        WritableWorkbook workbook = Workbook.createWorkbook(new File(path_completo)); 
         WritableSheet sheet = workbook.createSheet("First Sheet", 0); 
  
         // work with coordinates (from 0,0 to N,k) -> COL, LINE
@@ -356,13 +365,18 @@ public class Parcela extends Model  {
         workbook.write();
         workbook.close();
         
+        return path_completo;
     } catch (IOException e) {
         e.printStackTrace();
+        return null;
     } catch (RowsExceededException e) {
         e.printStackTrace();
+        return null;
     } catch (WriteException e) {
         e.printStackTrace();
+        return null;
     }
+        
     
     }
     
