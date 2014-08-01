@@ -196,24 +196,26 @@
                 
                 
                 <div id="form_local_parcelas" style="display: none;">
-                   <div class="field control-group">
-                     <label for="local_descricao" class="control-label"><b>Arquivo com dados</b></label>
+                    <form action="#" id="form_action_local_parcelas" method="POST">
+                    <div class="field control-group">
+                    <label for="local_descricao" class="control-label"><b>Arquivo com dados</b></label>
                     <div class="controls">
                         <input type="file" name="arquivo"  />
                         <a href="#" id="btn_modelo" class="btn btn-inverse" >Baixar Exemplo</a>
+                        <input name="local_id_parcela" id="local_id_parcela" type="hidden" />
                     </div>
                      <br />
                      <br />
                      <div class="field control-group">
-                         <h3><b>Variável de interesse</b></h3>
-                         <select id="variavel_interesse">
-                             <option id="1">Biomassa</option>
-                             <option id="2">Carbono</option>
-                             <option id="3">Volume</option>
+                         <h4><b>Variável de interesse</b></h4>
+                         <select id="variavel_interesse_parcelas">
+                             <option value= "1">Biomassa</option>
+                             <option value="2">Carbono</option>
+                             <option value="3">Volume</option>
                          </select>
                      </div>
                      <span>
-                         <a href="#" id="btn_calcular" class="btn btn-inverse" >Calcular valor do local</a>
+                         <input type="submit"  value="Calcular valor do local" id="btn_calcular" class="btn btn-inverse" />
                          <br />
                          <div class="field control-group">
                                     <label for="local_descricao" class="control-label">Total Calculado(t/ha)</label>
@@ -222,14 +224,25 @@
                                      </div>
                                     <a href="#" id="ver_detalhe_do_calculo">Ver detalhes do Calculo</a>
                          </div>
-                         
-                         
-                                 
                      </span>
+                    </div>
+                    </form>
+                </div>
+                
+                <script type="text/javascript">
+                 $("#form_action_local_parcelas").submit(function(){
                      
-                </div>
-
-                </div>
+                         $.post('createLocalParcelas',{variavel_interesse:$("#variavel_interesse_parcelas").val(),
+                                                       local_id:$("#local_id_parcela").val()
+                                                
+                },function(responseText) {
+                        eval(responseText);
+                    });
+                     
+                 return false;    
+                 });
+                </script>
+                
                 <div id="form_local_manual" style="display: none;">
                     
                               <form>
@@ -237,6 +250,7 @@
                                     <label for="local_descricao" class="control-label">Biomassa Total(t/ha)</label>
                                     <div class="controls">
                                         <input type="text" name="local[qtd_biomassa_total]" id="local_biomassa"  />
+                                        <input type="hidden" name="local[local_id]" id="local_id"/>
                                      </div>
                                    </div>
                                    
@@ -273,17 +287,23 @@
             <script type="text/javascript">
                 
                 $(".informar_arvores").click(function(){
+                    $("#form_local_manual").hide();
+                    $("#form_local_parcelas").hide();
                     $("#form_local_arvores").toggle();  
                     return false;
                 });
                 
                 $(".informar_parcelas").click(function(){
+                    $("#form_local_manual").hide();
+                    $("#form_local_arvores").hide();
                     $("#form_local_parcelas").toggle();
                     return false;
                 });
                 
                 
                 $(".informar_local_manual").click(function(){
+                    $("#form_local_arvores").hide(); 
+                    $("#form_local_parcelas").hide();
                     $("#form_local_manual").toggle();
                     return false;
                 })
@@ -326,25 +346,32 @@
                 });
     
     
+                $("#btn_salvar_local_manual").click(function(){
+                    
+                          $.post('createLocalValoresManual',{local_biomassa:$("#local_biomassa").val(), 
+                                                local_carbono:$("#local_carbono").val(),
+                                                local_volume: $("#local_volume").val(),
+                                                local_id:$("#local_id").val()
+                },function(responseText) {
+                        eval(responseText);
+                    });
+                    
+                });
                         
                  $("#btn_salvar").click(function(){
-                     alert('Simulação de submter o formulário!!!');
-                     
                      $.post('createLocal',{local_descricao:$("#local_descricao").val(), 
                                            local_bioma:$("#local_bioma").val(),
                                            local_formacao: $("#local_formacao").val(),
                                            local_espacamento: $("#local_espacamento").val(),
                                            area_total: $("#area_total").val(),
                                            local_trabalhoCientifico: $("#local_trabalhoCientifico").val()
-                                           
-                                           
-                     
-        },function(responseText) {
-                        //$("#detalhes_trabalho_cientifico").html(responseText);
+                      },function(responseText) {
+                        
+                            eval(responseText);
                     });
-                     $("#valor_calculo").show();
-                     
                  });
+                 
+           
                  
                 
                         

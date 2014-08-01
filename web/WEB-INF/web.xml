@@ -344,6 +344,14 @@
         <servlet-name>listarDetalhesCalculo</servlet-name>
         <servlet-class>controller.listarDetalhesCalculo</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>createLocalValoresManual</servlet-name>
+        <servlet-class>controller.createLocalValoresManual</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>createLocalParcelas</servlet-name>
+        <servlet-class>controller.createLocalParcelas</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>listarBiomas</servlet-name>
         <url-pattern>/listarBiomas</url-pattern>
@@ -691,6 +699,14 @@
     <servlet-mapping>
         <servlet-name>listarDetalhesCalculo</servlet-name>
         <url-pattern>/listarDetalhesCalculo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>createLocalValoresManual</servlet-name>
+        <url-pattern>/createLocalValoresManual</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>createLocalParcelas</servlet-name>
+        <url-pattern>/createLocalParcelas</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
