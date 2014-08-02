@@ -196,7 +196,7 @@
                     
                     $("#form_action_local_arvores").submit(function(){
                         
-                         $.post('CreateLocalcomArvores',{variavel_interesse:$("#variavel_interesse_arvores").val(),
+                         $.post('createLocalCalcularComArvores',{variavel_interesse:$("#variavel_interesse_arvores").val(),
                                                        local_id:$("#local_id_parcela").val()
                                                 
                 },function(responseText) {

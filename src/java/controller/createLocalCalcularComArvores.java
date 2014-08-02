@@ -1,91 +1,79 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package controller;
 
 import dao.LocalDao;
-import dao.MunicipioLocalDao;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import jxl.read.biff.BiffException;
 import model.Arvore;
-import model.CoordenadaLocal;
 import model.EstatisticaInventario;
 import model.Local;
-import model.Municipio;
-import model.MunicipioLocal;
 import model.Parcela;
+
 /**
  *
- * @author jaime
+ * @author paulozeferino
  */
 public class createLocalCalcularComArvores extends HttpServlet {
 
-  
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException, Exception {
-
-        
-    //Receber da da tela
-    int idLocal = 0; //Pegar idLocal da tela
-    int idVariavelInteresse = 0; //Pegar o idVariavelInteresse do combo escolhido na tela            
- 
-    //Se pressionado botão "Escolher Arquivo com Árvores"
-         importarArvores(idLocal);
-    
-    //Se pressionado botão "Baixa Arquivo Exemplo Árvores"
-         gravarPlanilhaExemplo(idLocal);
-         
-    //Se pressionado botão "Calcular Usando Equação"
-    //OU pressionado botão "Calcular Usando Data Mining"
-         int idMetodoCalculo = 0;         
-         //Se pressionado botão "Calcular Usando Equação"
-            idMetodoCalculo = 1; //Equação
-         //senão
-            idMetodoCalculo = 2; //DM            
+            throws ServletException, IOException, Exception {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+          
+            int idLocal = Integer.parseInt(request.getParameter("local_id")); //Pegar idLocal da tela
+            int idVariavelInteresse = Integer.parseInt(request.getParameter("variavel_interesse")); //Pegar o idVariavelInteresse do combo escolhido na tela            
+            String btn_clicado = request.getParameter("btn_clicado");
+            System.out.println("Botao clicado"+btn_clicado);
+            try {
+                    importarArvores(idLocal);
+                    int idMetodoCalculo = 0;
+                    if(btn_clicado.equals("1"))
+                    {
+                        System.out.println("Entrei para equação 1111");
+                             idMetodoCalculo = 1; 
+                    }else
+                    {   
+                        System.out.println("Entrei para equação 22222");
+                        idMetodoCalculo = 2; //DM     
+                    }
          //Fim-se
          calcular(idLocal,idVariavelInteresse,idMetodoCalculo);
-    //Fim-se
-        
+                
+                
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(createLocalCalcularComArvores.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (BiffException ex) {
+                Logger.getLogger(createLocalCalcularComArvores.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            
+        }
     }
-
     
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(createLocalCalcularComArvores.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(createLocalCalcularComArvores.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-  
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(createLocalCalcularComArvores.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(createLocalCalcularComArvores.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-  
-    @Override
-    public String getServletInfo() {
-        return "Criar Local";
-    }// </editor-fold>
     
     public void importarArvores(int idLocal) throws SQLException, BiffException {
         // SALVAR A PLANILHA QUE O USUÁRIO ESCOLHEU NA PASTA \...\Arquivos do projeto com o nome
@@ -99,16 +87,6 @@ public class createLocalCalcularComArvores extends HttpServlet {
         
     }
     
-    public void gravarPlanilhaExemplo(int idLocal) throws SQLException, BiffException, Exception {
-    
-        Local local = new Local();
-        LocalDao localDao = new LocalDao();
-        local = localDao.getLocal(idLocal);
-        
-        Arvore arvore = new Arvore();
-        arvore.gravarPlanilhaExemplo(local);
-        
-    }
     public void calcular(int idLocal,int idVariavelInteresse,int idMetodoCalculo) throws SQLException, BiffException, Exception {
     
         int idTipoEstimativa = 3;  //Fixo devido a seleção do Cálculo com Árvores
@@ -160,4 +138,53 @@ public class createLocalCalcularComArvores extends HttpServlet {
         
     }
     
+    
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(createLocalCalcularComArvores.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(createLocalCalcularComArvores.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
 }
