@@ -517,11 +517,14 @@ public class Arvore extends Model  {
         
         return true;
     }    
-    public void gravarPlanilhaExemplo(Local local) throws SQLException, BiffException, IOException, Exception
+    public String gravarPlanilhaExemplo(Local local) throws SQLException, BiffException, IOException, Exception
     {
 //http://jmmwrite.wordpress.com/2011/02/09/gerar-xls-planilha-excell-com-java/        
     try {
-        WritableWorkbook workbook = Workbook.createWorkbook(new File("c:\\teste\\arvoreExemplo.xls")); 
+        
+        String AbsolutePath = new File(".").getAbsolutePath();
+        String path_completo = AbsolutePath+"/exemploarvores.xls";
+        WritableWorkbook workbook = Workbook.createWorkbook(new File(path_completo)); 
         WritableSheet sheet = workbook.createSheet("First Sheet", 0); 
  
         // work with coordinates (from 0,0 to N,k) -> COL, LINE
@@ -573,12 +576,17 @@ public class Arvore extends Model  {
         workbook.write();
         workbook.close();
         
+        return path_completo;
+        
     } catch (IOException e) {
         e.printStackTrace();
+        return null;        
     } catch (RowsExceededException e) {
         e.printStackTrace();
+        return null;        
     } catch (WriteException e) {
         e.printStackTrace();
+        return null;        
     }
     
     }

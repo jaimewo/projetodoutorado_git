@@ -148,7 +148,7 @@
                      <label for="local_descricao" class="control-label"><b>Arquivo com dados</b></label>
                     <div class="controls">
                         <input type="file" name="arquivo"  />
-                        <a href="#" id="btn_modelo" class="btn btn-inverse" >Baixar Exemplo de Arvores</a>
+                        <a href="#" id="btn_modelo_arvore" class="btn btn-inverse" >Baixar Exemplo de Arquivo com Árvores</a>
                     </div>
                      <br />
                      <br />
@@ -206,6 +206,13 @@
                  return false;    
                         
                     });
+                 
+                 $("#btn_baixar_modelo_arvore").click(function(){
+                       $.post('createLocalBaixarModeloArvore',{local_id:$("#local_id").val()
+                },function(responseText) {
+                        eval(responseText);
+                    });
+                 });                    
                 </script>
                 
                 
@@ -216,7 +223,7 @@
                     <label for="local_descricao" class="control-label"><b>Arquivo com dados</b></label>
                     <div class="controls">
                         <input type="file" name="arquivo"  />
-                        <a href="#" id="btn_baixar_modelo_parcela" class="btn btn-inverse" >Baixar Exemplo</a>
+                        <a href="#" id="btn_baixar_modelo_parcela" class="btn btn-inverse" >Baixar Exemplo Arquivo de Parcelas</a>
                         <input name="local_id_parcela" id="local_id_parcela" type="hidden" />
                     </div>
                      <br />
@@ -247,7 +254,7 @@
                 <script type="text/javascript">
                  $("#form_action_local_parcelas").submit(function(){
                      
-                         $.post('createLocalParcelas',{variavel_interesse:$("#variavel_interesse_parcelas").val(),
+                         $.post('createLocalCalcularComParcelas',{variavel_interesse:$("#variavel_interesse_parcelas").val(),
                                                        local_id:$("#local_id_parcela").val()
                                                 
                 },function(responseText) {
@@ -258,7 +265,7 @@
                  });
                  
                  $("#btn_baixar_modelo_parcela").click(function(){
-                       $.post('CreateLocalBaixarModeloParcela',{local_id:$("#local_id").val()
+                       $.post('createLocalBaixarModeloParcela',{local_id:$("#local_id").val()
                 },function(responseText) {
                         eval(responseText);
                     });

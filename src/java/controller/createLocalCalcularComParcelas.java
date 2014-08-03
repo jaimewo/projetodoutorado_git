@@ -24,9 +24,9 @@ import model.Parcela;
 
 /**
  *
- * @author paulozeferino
+ * @author jaime
  */
-public class createLocalParcelas extends HttpServlet {
+public class createLocalCalcularComParcelas extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -120,9 +120,9 @@ public class createLocalParcelas extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (BiffException ex) {
-            Logger.getLogger(createLocalParcelas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(createLocalCalcularComParcelas.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
-            Logger.getLogger(createLocalParcelas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(createLocalCalcularComParcelas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -140,9 +140,9 @@ public class createLocalParcelas extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (BiffException ex) {
-            Logger.getLogger(createLocalParcelas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(createLocalCalcularComParcelas.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
-            Logger.getLogger(createLocalParcelas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(createLocalCalcularComParcelas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

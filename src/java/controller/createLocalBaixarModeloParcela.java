@@ -30,7 +30,7 @@ import model.Parcela;
  *
  * @author paulozeferino
  */
-public class CreateLocalBaixarModeloParcela extends HttpServlet {
+public class createLocalBaixarModeloParcela extends HttpServlet {
 
     
      private static final int BUFSIZE = 4096;
@@ -104,7 +104,7 @@ public class CreateLocalBaixarModeloParcela extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(CreateLocalBaixarModeloParcela.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(createLocalBaixarModeloParcela.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -122,7 +122,7 @@ public class CreateLocalBaixarModeloParcela extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(CreateLocalBaixarModeloParcela.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(createLocalBaixarModeloParcela.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

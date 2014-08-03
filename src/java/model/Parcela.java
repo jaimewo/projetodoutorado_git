@@ -175,8 +175,9 @@ public class Parcela extends Model  {
  
         try {
     
-              System.out.println("Entrei aqui para AbsolutePath");
-            String AbsolutePath = new File(".").getAbsolutePath()+"/parceladolocal"+local.getIdString()+".xls";
+            System.out.println("Entrei aqui para AbsolutePath");
+            //String AbsolutePath = new File(".").getAbsolutePath()+"/parceladolocal"+local.getIdString()+".xls";
+            String AbsolutePath = new File(".").getAbsolutePath()+"/parceladolocal.xls";
             arquivo = new File(AbsolutePath);
             
             

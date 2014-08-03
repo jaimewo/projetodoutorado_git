@@ -349,16 +349,16 @@
         <servlet-class>controller.createLocalValoresManual</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>createLocalParcelas</servlet-name>
-        <servlet-class>controller.createLocalParcelas</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>CreateLocalBaixarModeloParcela</servlet-name>
-        <servlet-class>controller.CreateLocalBaixarModeloParcela</servlet-class>
+        <servlet-class>controller.createLocalBaixarModeloParcela</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CreateLocalComArvores</servlet-name>
         <servlet-class>controller.CreateLocalComArvores</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>createLocalBaixarModeloArvore</servlet-name>
+        <servlet-class>controller.createLocalBaixarModeloArvore</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>listarBiomas</servlet-name>
@@ -713,16 +713,16 @@
         <url-pattern>/createLocalValoresManual</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>createLocalParcelas</servlet-name>
-        <url-pattern>/createLocalParcelas</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>CreateLocalBaixarModeloParcela</servlet-name>
         <url-pattern>/CreateLocalBaixarModeloParcela</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CreateLocalComArvores</servlet-name>
         <url-pattern>/CreateLocalComArvores</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>createLocalBaixarModeloArvore</servlet-name>
+        <url-pattern>/createLocalBaixarModeloArvore</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
