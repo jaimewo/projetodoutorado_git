@@ -172,8 +172,8 @@ public class EstatisticaInventarioDao extends MainDao{
                 +                                       "AND   idvariavelinteresse = ? "
                 +                                       "AND   idmetodocalculo = ?");
         p.setInt(1, idLocal);
-        p.setInt(1, idVariavelInteresse);
-        p.setInt(1, idMetodoCalculo);
+        p.setInt(2, idVariavelInteresse);
+        p.setInt(3, idMetodoCalculo);
         
         ResultSet rs = p.executeQuery();
         while(rs.next()){

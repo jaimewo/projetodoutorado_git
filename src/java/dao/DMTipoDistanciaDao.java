@@ -46,6 +46,22 @@ public class DMTipoDistanciaDao extends MainDao{
         return dmTiposDistancia.get(0);
    }
    
+   public String getDescricao(int id) throws SQLException
+   {
+        String descricao="";
+
+        PreparedStatement p = this.con.prepareStatement("SELECT descricao FROM dmtipodistancia where id = ?");
+        p.setInt(1, id);
+        ResultSet rs = p.executeQuery();
+        while(rs.next()){
+           descricao = rs.getString("descricao");
+        }
+        rs.close();
+        p.close();
+        super.con.close();        
+        return descricao;
+   }
+   
    public ArrayList<DMTipoDistancia> listarTiposDistancia() throws Exception{
         ArrayList<DMTipoDistancia> dmTiposDistancia = new ArrayList<DMTipoDistancia>();
         PreparedStatement p = this.con.prepareStatement("SELECT * FROM dmtipodistancia");

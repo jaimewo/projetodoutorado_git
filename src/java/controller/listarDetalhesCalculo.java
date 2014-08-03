@@ -5,6 +5,8 @@
 package controller;
 
 import dao.AutorDao;
+import dao.DMTipoDistanciaDao;
+import dao.DMTipoPonderacaoDao;
 import dao.EstatisticaInventarioDao;
 import dao.LocalDao;
 import java.io.IOException;
@@ -28,14 +30,7 @@ public class listarDetalhesCalculo extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
         try {
-            
-        //<% Local objeto_local                                 = (Local) request.getAttribute("local");%> 
-        //<% String variavelInteresse                           = (String) request.getAttribute("variavelInteresse");%> 
-        
-        //<% EstatisticaInventario estatisticaInventarioEquacao = (EstatisticaInventario) request.getAttribute("estatisticaInventarioEquacao");%>        
-        //<% EstatisticaInventario estatisticaInventarioDm      = (EstatisticaInventario) request.getAttribute("estatisticaInventarioDm");%>        
-        //<% EstatisticaAjuste estatisticaAjusteEquacao         = (EstatisticaAjuste) request.getAttribute("estatisticaAjusteEquacao");%>        
-        //<% EstatisticaAjuste estatisticaAjusteDm              = (EstatisticaAjuste) request.getAttribute("estatisticaAjusteDm");%>  
+
              
             int idLocal = 1;
             int idMetodoCalculo = 0;
@@ -55,7 +50,29 @@ public class listarDetalhesCalculo extends HttpServlet {
             EstatisticaInventario estatisticaInventarioDm = new EstatisticaInventario();
             estatisticaInventarioDao = new EstatisticaInventarioDao();      
             estatisticaInventarioDm = estatisticaInventarioDao.getEstatisticaInventario(idLocal, idVariavelInteresse, idMetodoCalculo);
+
             
+            DMTipoDistanciaDao dmTipoDistanciaDao = new DMTipoDistanciaDao();
+            String descricaoTipoDistancia =dmTipoDistanciaDao.getDescricao(local.getIdDMTipoDistancia());
+            DMTipoPonderacaoDao dmTipoPonderacaoDao = new DMTipoPonderacaoDao();
+            String descricaoTipoPonderacao =dmTipoPonderacaoDao.getDescricao(local.getIdDMTipoDistancia());
+            
+            String descricaoComLn = "Não";
+            if (local.isDmComLn()) {
+                descricaoComLn = "Sim";
+            } 
+
+            request.setAttribute("local", local);
+            request.setAttribute("variavelInteresse", variavelInteresse);
+            request.setAttribute("descricaoTipoDistancia", descricaoTipoDistancia);
+            request.setAttribute("descricaoTipoPonderacao", descricaoTipoPonderacao);
+            request.setAttribute("descricaoComLn", descricaoComLn);
+            request.setAttribute("estatisticaInventarioEquacao", estatisticaInventarioEquacao);
+            request.setAttribute("estatisticaInventarioDm", estatisticaInventarioDm);
+//            request.setAttribute("estatisticaAjusteEquacao", estatisticaAjusteEquacao);
+//            request.setAttribute("estatisticaAjusteDm", estatisticaAjusteDm);
+            
+           
         } finally { 
             request.getRequestDispatcher("listarDetalhesCalculo.jsp").forward(request, response);
         }

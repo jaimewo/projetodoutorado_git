@@ -19,7 +19,7 @@
     </head>
     <body>
         <%@include  file="menu.jsp" %>
-        <% Local objeto_local                                 = (Local) request.getAttribute("local");%> 
+        <% Local local                                        = (Local) request.getAttribute("local");%> 
         <% String variavelInteresse                           = (String) request.getAttribute("variavelInteresse");%> 
         <% String descricaoTipoDistancia                      = (String) request.getAttribute("descricaoTipoDistancia");%> 
         <% String descricaoTipoPonderacao                     = (String) request.getAttribute("descricaoTipoPonderacao");%> 
@@ -42,11 +42,11 @@
                     <input type="text" name="variavelInteresse" value="<%=variavelInteresse%>" />
                 </div>
             </div> 
-            <input type="hidden" name="local[id]" value ="<%=objeto_local.getIdString()%>" />
+            <input type="hidden" name="local[id]" value ="<%=local.getIdString()%>" />
              <div class="field control-group">
                 <label for="local_descricao" class="control-label">Descrição</label>
                 <div class="controls">
-                    <input type="text" name="local[descricao]" value="<%=objeto_local.getDescricao()%>" />
+                    <input type="text" name="local[descricao]" value="<%=local.getDescricao()%>" />
                 </div>
             </div>   
 
@@ -218,7 +218,7 @@
                         <tr>
                             <td></td>
                             <td>Quantidade de Vizinhos:</td>
-                            <td><%=objeto_local.getDmQtdeVizinhos()%></td>
+                            <td><%=local.getDmQtdeVizinhos()%></td>
                         </tr>
                         <tr>
                             <td></td>

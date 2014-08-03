@@ -45,7 +45,23 @@ public class DMTipoPonderacaoDao extends MainDao{
         super.con.close();        
         return dmTiposPonderacao.get(0);
    }
+
    
+   public String getDescricao(int id) throws SQLException
+   {
+        String descricao="";
+
+        PreparedStatement p = this.con.prepareStatement("SELECT descricao FROM dmtipoponderacao where id = ?");
+        p.setInt(1, id);
+        ResultSet rs = p.executeQuery();
+        while(rs.next()){
+           descricao = rs.getString("descricao");
+        }
+        rs.close();
+        p.close();
+        super.con.close();        
+        return descricao;
+   }   
    public ArrayList<DMTipoPonderacao> listarTiposPonderacao() throws Exception{
         ArrayList<DMTipoPonderacao> dmTiposPonderacao = new ArrayList<DMTipoPonderacao>();
         PreparedStatement p = this.con.prepareStatement("SELECT * FROM dmtipoponderacao");
