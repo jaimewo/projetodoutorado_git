@@ -61,6 +61,8 @@ public class EstatisticaInventarioDao extends MainDao{
             p.setDouble(12, estatisticaInventario.getErroRelativo());
             p.setDouble(13, estatisticaInventario.getIntervaloConfiancaMinMedia());
             p.setDouble(14, estatisticaInventario.getIntervaloConfiancaMaxMedia());
+            p.setDouble(15, estatisticaInventario.getIntervaloConfiancaMinTotal());
+            p.setDouble(16, estatisticaInventario.getIntervaloConfiancaMaxTotal());
             
             p.executeUpdate();
             p.close();
