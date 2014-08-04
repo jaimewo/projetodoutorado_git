@@ -49,12 +49,14 @@ public class createLocalCalcularComParcelas extends HttpServlet {
              qtdTela = calcular(idLocal,idVariavelInteresse);
             String retorno = "";
             retorno += "alert('Cálculo efetuado com sucesso!');";
-            retorno += "$('#total_calculdo').val('"+qtdTela+"')";
+            retorno += "$('#total_calculado_parcela').val('"+qtdTela+"')";
+            System.out.println("Valor Tela:"+qtdTela);
             out.println(retorno);
             }catch(Exception e)
             {
+               System.out.println("Error Message:"+e.getMessage());
                String retorno = "";
-               retorno += "$('#total_calculdo').val('0')";
+               retorno += "$('#total_calculado_parcela').val('0')";
                out.println(retorno);
             }
         }

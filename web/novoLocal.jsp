@@ -167,7 +167,7 @@
                          <div class="field control-group">
                                 <label for="local_descricao" class="control-label">Total Calculado(t/ha)</label>
                                 <div class="controls">
-                                    <input type="text" name="local[qtd_carbono_total]" id="total_calculdo" disabled="true"  />
+                                    <input type="text" name="local[qtd_carbono_total]" id="total_calculado_parcela" disabled="true"  />
                                     <input name="local_id_parcela" id="local_id_arvore" type="hidden" />
                                 </div>
                                 <a href="#" id="ver_detalhe_do_calculo">Ver detalhes do Cálculo usando Equação</a>

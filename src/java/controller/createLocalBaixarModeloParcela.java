@@ -52,24 +52,47 @@ public class createLocalBaixarModeloParcela extends HttpServlet {
             //Se pressionado botão "Baixa Arquivo Exemplo Parcelas"
          String filePath = gravarPlanilhaExemplo(idLocal);
         
-        File file = new File(filePath);
-        int length = 0;
-        ServletOutputStream outStream = response.getOutputStream();
-        response.setContentType("text/html");
-        response.setContentLength((int) file.length());
-        String fileName = (new File(filePath)).getName();
-        response.setHeader("Content-Disposition", "attachment; filename=\""
-                + fileName + "\"");
- 
-        byte[] byteBuffer = new byte[BUFSIZE];
-        DataInputStream in = new DataInputStream(new FileInputStream(file));
- 
-        while ((in != null) && ((length = in.read(byteBuffer)) != -1)) {
-            outStream.write(byteBuffer, 0, length);
-        }
- 
-        in.close();
-        outStream.close();
+//        File file = new File(filePath);
+//        int length = 0;
+//        ServletOutputStream outStream = response.getOutputStream();
+//        response.setContentType("text/html");
+//        response.setContentLength((int) file.length());
+//        String fileName = (new File(filePath)).getName();
+//        response.setHeader("Content-Disposition", "attachment; filename=\""
+//                + fileName + "\"");
+// 
+//        byte[] byteBuffer = new byte[BUFSIZE];
+//        DataInputStream in = new DataInputStream(new FileInputStream(file));
+// 
+//        while ((in != null) && ((length = in.read(byteBuffer)) != -1)) {
+//            outStream.write(byteBuffer, 0, length);
+//        }
+// 
+//        in.close();
+//        outStream.close();
+        
+        
+        response.setContentType("text/html");  
+        response.setContentType("APPLICATION/OCTET-STREAM");   
+        response.setHeader("Content-Disposition","attachment; filename=\"teste.xls\"");   
+  
+FileInputStream fileInputStream = new FileInputStream(filePath);  
+            
+int i;   
+while ((i=fileInputStream.read()) != -1) {  
+out.write(i);   
+}   
+fileInputStream.close();   
+out.close();   
+        
+        
+        
+        
+        
+        
+        
+        
+        
          
          
          
