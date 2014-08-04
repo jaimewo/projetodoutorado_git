@@ -55,6 +55,7 @@ public class ParcelaDao extends MainDao {
                 parcelaQuantidade.setIdVariavelInteresse(parcelasQuantidade.getIdVariavelInteresse());
                 parcelaQuantidade.setIdMetodoCalculo(parcelasQuantidade.getIdMetodoCalculo());
                 parcelaQuantidade.setQtde(parcelasQuantidade.getQtde());
+                parcelaQuantidadeDao = new ParcelaQuantidadeDao();
                 parcelaQuantidadeDao.cadastrar(parcelaQuantidade);
             
             }

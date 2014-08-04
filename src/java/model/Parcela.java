@@ -205,10 +205,10 @@ public class Parcela extends Model  {
                 }
             }   
 
-            if (!consistePlanilhaImportada(local,matriz)) {
-                //Montar msg erro para a Controller
-                return;
-            }
+//            if (!consistePlanilhaImportada(local,matriz)) {
+//                //Montar msg erro para a Controller
+//                return;
+//            }
             ArrayList<Arvore> arvores = new ArrayList<Arvore>();                                    
             ParcelaQuantidade parcelaQuantidade = new ParcelaQuantidade();                                    
             ArrayList<ParcelaQuantidade> parcelasQuantidade = new ArrayList<ParcelaQuantidade>();                                    
@@ -275,6 +275,7 @@ public class Parcela extends Model  {
                 idLocal = local.getId();
                 this.arvores = arvores;
                 this.parcelasQuantidade = parcelasQuantidade;
+                parcelaDao = new ParcelaDao();
                 parcelaDao.cadastrar(this);
  
             }

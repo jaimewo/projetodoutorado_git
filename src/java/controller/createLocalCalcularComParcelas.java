@@ -68,6 +68,7 @@ public class createLocalCalcularComParcelas extends HttpServlet {
         Local local = new Local();
         LocalDao localDao = new LocalDao();
         local = localDao.getLocal(idLocal);
+        
         Parcela parcela = new Parcela();
         parcela.importarPlanilha(local);  
         
