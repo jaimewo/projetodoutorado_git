@@ -199,6 +199,11 @@ public class EstatisticaInventarioDao extends MainDao{
         }
         rs.close();
         p.close();
+        
+        if (estatisticasInventario.get(0)==null) {
+            EstatisticaInventario estatisticaInventario = new EstatisticaInventario();
+            estatisticasInventario.add(estatisticaInventario);
+        }
         return estatisticasInventario.get(0);
    }
    public ArrayList<EstatisticaInventario> listarEstatisticasInventario() throws Exception{
