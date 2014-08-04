@@ -100,7 +100,7 @@ public class listarDetalhesCalculo extends HttpServlet {
             idMetodoCalculo = 1; //Equação
             EstatisticaAjuste estatisticaAjusteEquacao = new EstatisticaAjuste();
             EstatisticaAjusteDao estatisticaAjusteDao = new EstatisticaAjusteDao();      
-            estatisticaAjusteEquacao               = estatisticaAjusteDao.getEstatisticaAjuste(idLocal, idVariavelInteresse, idMetodoCalculo);
+//            estatisticaAjusteEquacao               = estatisticaAjusteDao.getEstatisticaAjuste(idLocal, idVariavelInteresse, idMetodoCalculo);
             String equacaoR2Str                    = df4casas.format(estatisticaAjusteEquacao.getR2());
             String equacaoR2AjustSrt               = df4casas.format(estatisticaAjusteEquacao.getR2Ajust());
             String equacaoSyxStr                   = df4casas.format(estatisticaAjusteEquacao.getSyx());
@@ -116,7 +116,7 @@ public class listarDetalhesCalculo extends HttpServlet {
             idMetodoCalculo = 2; //Data Mining           
             EstatisticaAjuste estatisticaAjusteDm = new EstatisticaAjuste();
             estatisticaAjusteDao = new EstatisticaAjusteDao();      
-            estatisticaAjusteDm = estatisticaAjusteDao.getEstatisticaAjuste(idLocal, idVariavelInteresse, idMetodoCalculo);
+//            estatisticaAjusteDm = estatisticaAjusteDao.getEstatisticaAjuste(idLocal, idVariavelInteresse, idMetodoCalculo);
             String dmR2Str                    = df4casas.format(estatisticaAjusteDm.getR2());
             String dmR2AjustSrt               = df4casas.format(estatisticaAjusteDm.getR2Ajust());
             String dmSyxStr                   = df4casas.format(estatisticaAjusteDm.getSyx());

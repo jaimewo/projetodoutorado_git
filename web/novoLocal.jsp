@@ -167,7 +167,7 @@
                          <div class="field control-group">
                                 <label for="local_descricao" class="control-label">Total Calculado(t/ha)</label>
                                 <div class="controls">
-                                    <input type="text" name="local[qtd_carbono_total]" id="total_calculado_parcela" disabled="true"  />
+                                    <input type="text"  id="total_calculado_arvore_equacao" disabled="true"  />
                                     <input name="local_id_parcela" id="local_id_arvore" type="hidden" />
                                 </div>
                                 <a href="#" id="ver_detalhe_do_calculo">Ver detalhes do Cálculo usando Equação</a>
@@ -180,7 +180,7 @@
                          <div class="field control-group">
                                     <label for="local_descricao" class="control-label">Total Calculado(t/ha)</label>
                                     <div class="controls">
-                                        <input type="text" name="local[qtd_carbono_total]" id="total_calculdo" disabled="true"  />
+                                        <input type="text"  id="total_calculado_arvore_data_mining" disabled="true"  />
                                      </div>
                                     <a href="#" id="ver_detalhe_do_calculo">Ver detalhes do Cálculo usando Data Mining  </a>
                          </div>
@@ -237,12 +237,12 @@
                          </select>
                      </div>
                      <span>
-                         <input type="submit"  value="Calcular valor do local" id="btn_calcular" class="btn btn-inverse" />
+                         <input type="submit"  value="Calcular valor do local" id="btn_calcular" class="btn btn-inverse" disable="true" />
                          <br />
                          <div class="field control-group">
                                     <label for="local_descricao" class="control-label">Total Calculado(t/ha)</label>
                                     <div class="controls">
-                                        <input type="text" name="local[qtd_carbono_total]" id="total_calculdo"   />
+                                        <input type="text"  id="total_calculado_parcela"   />
                                      </div>
                                     <a href="#" id="ver_detalhe_do_calculo">Ver detalhes do Calculo</a>
                          </div>
