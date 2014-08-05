@@ -100,7 +100,7 @@ public class EstatisticaInventario extends Model  {
         
         //Constante t. Com 5% (foi usado 0,025 para ser bicaudal) e n=tamanhoAmostra fica:
         int grauLiberdade = tamanhoAmostra-1;
-        if (grauLiberdade==0) {
+        if (grauLiberdade<=0) {
             grauLiberdade=1;
         }
         t = getT(0.025,grauLiberdade);

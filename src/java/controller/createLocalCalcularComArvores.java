@@ -49,21 +49,26 @@ public class createLocalCalcularComArvores extends HttpServlet {
             System.out.println("Botao clicado"+btn_clicado);
             try {
                     importarArvores(idLocal);
-                    int idMetodoCalculo = 0;
-                    if(btn_clicado.equals("1"))
-                    {
-                        System.out.println("Entrei para equação 1111");
-                             idMetodoCalculo = 1; 
-                    }else
-                    {   
-                        System.out.println("Entrei para equação 22222");
-                        idMetodoCalculo = 2; //DM     
-                    }
+                    int idMetodoCalculo = 1;
+            //        if(btn_clicado.equals("1"))
+            //        {
+            //            System.out.println("Entrei para equação 1111");
+                            // idMetodoCalculo = 1; 
+            //        }else
+            //        {   
+            //            System.out.println("Entrei para equação 22222");
+            //            idMetodoCalculo = 2; //DM     
+            //        }
          //Fim-se
-         calcular(idLocal,idVariavelInteresse,idMetodoCalculo);
+        double qtdeTela  = calcular(idLocal,idVariavelInteresse,idMetodoCalculo);
                 
                 
-                
+                            String retorno = "";
+            retorno += "alert('Cálculo efetuado com sucesso!');";
+            retorno += "$('#total_calculado_arvore_equacao').val('"+qtdeTela+"')";
+            System.out.println("Valor Tela:"+qtdeTela);
+            out.println(retorno);
+
             } catch (SQLException ex) {
                 Logger.getLogger(createLocalCalcularComArvores.class.getName()).log(Level.SEVERE, null, ex);
             } catch (BiffException ex) {
@@ -87,7 +92,7 @@ public class createLocalCalcularComArvores extends HttpServlet {
         
     }
     
-    public void calcular(int idLocal,int idVariavelInteresse,int idMetodoCalculo) throws SQLException, BiffException, Exception {
+    public double calcular(int idLocal,int idVariavelInteresse,int idMetodoCalculo) throws SQLException, BiffException, Exception {
     
         int idTipoEstimativa = 3;  //Fixo devido a seleção do Cálculo com Árvores
     
@@ -112,7 +117,7 @@ public class createLocalCalcularComArvores extends HttpServlet {
             local.setDmQtdeVizinhos(dmQtdeVizinhos);
             local.setDmComLn(dmComLn);
         }        
-        
+        localDao = new LocalDao();        
         localDao.update(local);
     
         ArrayList<Parcela> parcelasLocal = new ArrayList<Parcela>();
@@ -130,11 +135,12 @@ public class createLocalCalcularComArvores extends HttpServlet {
     
         //CAMPO PARA SER ENVIADO PARA A TELA para ser colocado no CAMPO Total Calculado (t/ha)
         //Se idMetodoCalculo = 1; //Equacao
-            double qtdeTelaEquacao = estatisticaInventario.getQtdeMedia();
+            double qtdeTela = estatisticaInventario.getQtdeMedia();
         //Senão
             double qtdeTelaDataMining = estatisticaInventario.getQtdeMedia();        
         //Fim-se
             
+            return qtdeTela;
         
     }
     
