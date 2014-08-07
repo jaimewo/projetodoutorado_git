@@ -71,6 +71,11 @@ public class ParcelaDao extends MainDao {
         }
         p.close();
         super.con.close();
+        
+        //Atualiza o tamanho da parcela na tabela Local
+        LocalDao localDao = new LocalDao();
+        localDao.updateAreaParcela(parcela.getIdLocal(), parcela.getAreaParcela());
+                
     }
     
     

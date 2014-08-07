@@ -332,10 +332,10 @@ public class Arvore extends Model  {
                 }
             }   
 
-            //if (!consistePlanilhaImportada(local,matriz)) {
-                //Montar msg erro para a Controller
-            //    return;
-            //}
+            if (!consistePlanilhaImportada(local,matriz)) {
+               //Montar msg erro para a Controller
+                return;
+            }
             ParcelaDao parcelaDao = new ParcelaDao();
 
             ArrayList<Arvore>            arvores             = new ArrayList<Arvore>();

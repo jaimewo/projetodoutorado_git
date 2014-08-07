@@ -64,7 +64,7 @@ public class createLocalCalcularComArvores extends HttpServlet {
                 
                 
                             String retorno = "";
-            retorno += "alert('Cálculo efetuado com sucesso!');";
+            //retorno += "alert('Cálculo efetuado com sucesso!');";
             retorno += "$('#total_calculado_arvore_equacao').val('"+qtdeTela+"')";
             System.out.println("Valor Tela:"+qtdeTela);
             out.println(retorno);
@@ -81,8 +81,7 @@ public class createLocalCalcularComArvores extends HttpServlet {
     
     
     public void importarArvores(int idLocal) throws SQLException, BiffException {
-        // SALVAR A PLANILHA QUE O USUÁRIO ESCOLHEU NA PASTA \...\Arquivos do projeto com o nome
-        // arvore99999999.xls sendo 99999999 o id do local    
+  
 
         Local local = new Local();
         LocalDao localDao = new LocalDao();
