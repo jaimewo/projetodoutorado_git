@@ -341,10 +341,6 @@
         <servlet-class>controller.retornaFormacao</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>listarDetalhesCalculo</servlet-name>
-        <servlet-class>controller.listarDetalhesCalculo</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>createLocalValoresManual</servlet-name>
         <servlet-class>controller.createLocalValoresManual</servlet-class>
     </servlet>
@@ -367,6 +363,14 @@
     <servlet>
         <servlet-name>createLocalCalcularComArvores</servlet-name>
         <servlet-class>controller.createLocalCalcularComArvores</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>listarDetalhesCalculoParcelas</servlet-name>
+        <servlet-class>controller.listarDetalhesCalculoParcelas</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>listarDetalhesCalculoArvores</servlet-name>
+        <servlet-class>controller.listarDetalhesCalculoArvores</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>listarBiomas</servlet-name>
@@ -713,10 +717,6 @@
         <url-pattern>/retornaFormacao</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>listarDetalhesCalculo</servlet-name>
-        <url-pattern>/listarDetalhesCalculo</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>createLocalValoresManual</servlet-name>
         <url-pattern>/createLocalValoresManual</url-pattern>
     </servlet-mapping>
@@ -740,7 +740,14 @@
         <servlet-name>createLocalCalcularComArvores</servlet-name>
         <url-pattern>/createLocalCalcularComArvores</url-pattern>
     </servlet-mapping>
-    
+    <servlet-mapping>
+        <servlet-name>listarDetalhesCalculoParcelas</servlet-name>
+        <url-pattern>/listarDetalhesCalculoParcelas</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>listarDetalhesCalculoArvores</servlet-name>
+        <url-pattern>/listarDetalhesCalculoArvores</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
