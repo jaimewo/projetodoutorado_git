@@ -265,7 +265,7 @@
                  });
                  
                  $("#btn_baixar_modelo_parcela").click(function(){
-                       $.post('createLocalBaixarModeloParcela',{local_id:$("#local_id").val()
+                       $.post('createLocalBaixarModeloParcela1',{local_id:$("#local_id").val()
                 },function(responseText) {
                         eval(responseText);
                     });
