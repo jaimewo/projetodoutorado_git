@@ -1,73 +1,72 @@
-<%-- 
-    Document   : home.jsp
-    Created on : Aug 14, 2014, 5:54:02 PM
-    Author     : paulozeferino
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JCarbon</title>
-     <style>
-      html, body, #map-canvas {
-        height: 100%;
-        width:100%;
-        margin: 0px;
-        padding: 0px
-      }
+<head>
+    <style type="text/css">
+        #map_canvas {height:600px;width:800px}
     </style>
-    </head>
-    <body>
-        <%@include  file="menu.jsp" %>
-         <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=drawing"></script>
-    <script>
-function initialize() {
-  var mapOptions = {
-    center: new google.maps.LatLng(-34.397, 150.644),
-    zoom: 8
-  };
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<%@include  file="menu.jsp" %>
+    <script type="text/javascript">
+        var map;
+        var markersArray = [];
 
-  var map = new google.maps.Map(document.getElementById('map-canvas'),
-    mapOptions);
+        function initMap()
+        {
+            var latlng = new google.maps.LatLng(41, 29);
+            var myOptions = {
+                zoom: 10,
+                center: latlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 
-  var drawingManager = new google.maps.drawing.DrawingManager({
-    drawingMode: google.maps.drawing.OverlayType.MARKER,
-    drawingControl: true,
-    drawingControlOptions: {
-      position: google.maps.ControlPosition.RIGHT_CENTER,
-      drawingModes: [
-        google.maps.drawing.OverlayType.MARKER,
-        google.maps.drawing.OverlayType.CIRCLE,
-        google.maps.drawing.OverlayType.POLYGON,
-        google.maps.drawing.OverlayType.POLYLINE,
-        google.maps.drawing.OverlayType.RECTANGLE
-      ]
-    },
-    markerOptions: {
-      icon: 'images/beachflag.png'
-    },
-    circleOptions: {
-      fillColor: '#ffff00',
-      fillOpacity: 1,
-      strokeWeight: 5,
-      clickable: false,
-      editable: true,
-      zIndex: 1
-    }
-  });
-  drawingManager.setMap(map);
-}
+            // add a click event handler to the map object
+            google.maps.event.addListener(map, "click", function(event)
+            {
+                // place a marker
+                placeMarker(event.latLng);
 
-google.maps.event.addDomListener(window, 'load', initialize);
+                // display the lat/lng in your form's lat/lng fields
+                document.getElementById("latFld").value = event.latLng.lat();
+                document.getElementById("lngFld").value = event.latLng.lng();
+            });
+        }
+        function placeMarker(location) {
+            // first remove all markers if there are any
+            deleteOverlays();
 
+            var marker = new google.maps.Marker({
+                position: location, 
+                map: map
+            });
+
+            // add marker in markers array
+            markersArray.push(marker);
+
+            //map.setCenter(location);
+        }
+
+        // Deletes all markers in the array by removing references to them
+        function deleteOverlays() {
+            if (markersArray) {
+                for (i in markersArray) {
+                    markersArray[i].setMap(null);
+                }
+            markersArray.length = 0;
+            }
+        }
     </script>
-        
-        <div id="map-canvas" class="container">
-        </div>
-        
+</head>
 
-    </body>
+<body onload="initMap()">
+    <div id="map_canvas" style="border:3px solid red;float: left"></div>
+    <div style="border: 1px solid blue;float:left">
+        Latitude <br/>
+        <input type="text" id="latFld">
+        <br />
+        Longitude<br />
+        <input type="text" id="lngFld">
+    </div>
+    
+</body>
 </html>
