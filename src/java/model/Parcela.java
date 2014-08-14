@@ -177,11 +177,13 @@ public class Parcela extends Model  {
     
             System.out.println("Entrei aqui para AbsolutePath");
             //String AbsolutePath = new File(".").getAbsolutePath()+"/parceladolocal"+local.getIdString()+".xls";
-            String AbsolutePath = new File(".").getAbsolutePath()+"/parceladolocal.xls";
-            arquivo = new File(AbsolutePath);
+            //String AbsolutePath = new File(".").getAbsolutePath()+"/parceladolocal.xls";
+            //Ultra C:\Users\jaimewo\AppData\Roaming\NetBeans\8.0\config\GF_4.0\domain1\config
+            //Casa C:\Users\Jaime\AppData\Roaming\NetBeans\8.0\config\GF_4.0\domain1\config\.\parceladolocal.xls 
+            //arquivo = new File(AbsolutePath);
             
             
-            //arquivo = new File("C:\\Users\\jaimewo\\Dropbox\\Jaime\\AA-UFPR\\Doutorado\\Tese\\Implementacao Oficial\\JCarbon\\projetodoutorado_git\\Arquivos\\parcela.xls");
+            arquivo = new File("C:\\teste\\parcela.xls");
 
             // instancia a planilha
             planilha = Workbook.getWorkbook(arquivo);
@@ -205,10 +207,10 @@ public class Parcela extends Model  {
                 }
             }   
 
-//            if (!consistePlanilhaImportada(local,matriz)) {
-//                //Montar msg erro para a Controller
-//                return;
-//            }
+            if (!consistePlanilhaImportada(local,matriz)) {
+                //Montar msg erro para a Controller
+                return;
+            }
             ArrayList<Arvore> arvores = new ArrayList<Arvore>();                                    
             ParcelaQuantidade parcelaQuantidade = new ParcelaQuantidade();                                    
             ArrayList<ParcelaQuantidade> parcelasQuantidade = new ArrayList<ParcelaQuantidade>();                                    

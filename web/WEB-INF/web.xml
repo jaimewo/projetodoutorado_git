@@ -368,10 +368,6 @@
         <servlet-name>createLocalCalcularComArvores</servlet-name>
         <servlet-class>controller.createLocalCalcularComArvores</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>createLocalBaixarModeloParcela1</servlet-name>
-        <servlet-class>controller.createLocalBaixarModeloParcela1</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>listarBiomas</servlet-name>
         <url-pattern>/listarBiomas</url-pattern>
@@ -743,10 +739,6 @@
     <servlet-mapping>
         <servlet-name>createLocalCalcularComArvores</servlet-name>
         <url-pattern>/createLocalCalcularComArvores</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>createLocalBaixarModeloParcela1</servlet-name>
-        <url-pattern>/createLocalBaixarModeloParcela1</url-pattern>
     </servlet-mapping>
     
     <session-config>

@@ -64,41 +64,47 @@ public class LocalDao extends MainDao {
           idLocal = rs.getInt(1);
         }
         
-//        //INCLUI QUANTIDADE ZERADA NO LOCAL
-//        LocalQuantidadeDao localQuantidadeDao = new LocalQuantidadeDao();
-//        LocalQuantidade localQuantidade = new LocalQuantidade();
-//        for(int iVi=1;iVi<4;iVi++) { //Vi=Variavel de Interesse (1-Biomassa,2-Carbono,3-Volume)
-//            for(int iMc=1;iMc<3;iMc++) { //Mc=Método de Cálculo (1-Equacao,2-Data Mining)
-//                localQuantidade.setIdLocal(idLocal);
-//                localQuantidade.setIdVariavelInteresse(iVi);
-//                localQuantidade.setIdMetodoCalculo(iMc);
-//                localQuantidade.setQtde(0.0);
-//                localQuantidadeDao.cadastrar(localQuantidade);
-//            }
-//        }
-//                    
-//        for (MunicipioLocal ml : local.municipiosLocal) {
-//            p = this.con.prepareStatement("INSERT INTO municipiolocal (idlocal, "
-//                +                                                      "idmunicipio,"
-//                +                                                      "indprincipal"
-//                +                                                      ") VALUES (?,?,?)");
-//            p.setInt(1, idLocal);
-//            p.setInt(2, ml.getIdMunicipio());
-//            p.setBoolean(3,ml.isIndPrincipal());
-//            p.executeUpdate();
-//        }
-//        p.close();           
-//        for (CoordenadaLocal cl : local.coordenadasLocal) {
-//            p = this.con.prepareStatement("INSERT INTO coordenadalocal (idlocal, "
-//                +                                                      "latitude,"
-//                +                                                      "longitude"
-//                +                                                      ") VALUES (?,?,?)");
-//            p.setInt(1, idLocal);
-//            p.setDouble(2, cl.getLatitude());
-//            p.setDouble(3, cl.getLongitude());
-//            p.executeUpdate();
-//        }
+        //INCLUI QUANTIDADE ZERADA NO LOCAL
+        LocalQuantidadeDao localQuantidadeDao = new LocalQuantidadeDao();
+        LocalQuantidade localQuantidade = new LocalQuantidade();
+        for(int iVi=1;iVi<4;iVi++) { //Vi=Variavel de Interesse (1-Biomassa,2-Carbono,3-Volume)
+            for(int iMc=1;iMc<3;iMc++) { //Mc=Método de Cálculo (1-Equacao,2-Data Mining)
+                localQuantidade.setIdLocal(idLocal);
+                localQuantidade.setIdVariavelInteresse(iVi);
+                localQuantidade.setIdMetodoCalculo(iMc);
+                localQuantidade.setQtde(0.0);
+                localQuantidadeDao = new LocalQuantidadeDao();                
+                localQuantidadeDao.cadastrar(localQuantidade);
+            }
+        }
+        //if (local.municipiosLocal.size()>0) {        
+        if (local.municipiosLocal!=null) {                    
+            for (MunicipioLocal ml : local.municipiosLocal) {
+                p = this.con.prepareStatement("INSERT INTO municipiolocal (idlocal, "
+                    +                                                      "idmunicipio,"
+                    +                                                      "indprincipal"
+                    +                                                      ") VALUES (?,?,?)");
+                p.setInt(1, idLocal);
+                p.setInt(2, ml.getIdMunicipio());
+                p.setBoolean(3,ml.isIndPrincipal());
+                p.executeUpdate();
+            }
+        }
+        
+        //if (local.coordenadasLocal.size()>0) {                
+        if (local.coordenadasLocal!=null) {                            
+            for (CoordenadaLocal cl : local.coordenadasLocal) {
+                p = this.con.prepareStatement("INSERT INTO coordenadalocal (idlocal, "
+                    +                                                      "latitude,"
+                    +                                                      "longitude"
+                    +                                                      ") VALUES (?,?,?)");
+                p.setInt(1, idLocal);
+                p.setDouble(2, cl.getLatitude());
+                p.setDouble(3, cl.getLongitude());
+                p.executeUpdate();
+            }
             
+        }
         p.close();
         super.con.close();        
 
@@ -146,6 +152,17 @@ public class LocalDao extends MainDao {
         super.con.close();        
     }
    
+    
+   public void updateAreaParcela(int idLocal, double areaParcela) throws Exception 
+   {
+        PreparedStatement p = this.con.prepareStatement("UPDATE local SET areaparcela = ?"
+                +                                                        " WHERE id = ?");
+        p.setDouble(1, areaParcela);
+        p.setInt(2, idLocal);
+        p.executeUpdate();
+        p.close();
+        super.con.close();        
+    }
   
    
    public Local getLocal(int id) throws SQLException

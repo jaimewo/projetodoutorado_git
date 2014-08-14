@@ -28,7 +28,7 @@ import model.Local;
  *
  * @author jaime
  */
-public class listarDetalhesCalculo extends HttpServlet {
+public class listarDetalhesCalculoArvores extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
@@ -76,8 +76,6 @@ public class listarDetalhesCalculo extends HttpServlet {
             String equacaoVarianciaStr                  = df4casas.format(estatisticaInventarioEquacao.getVariancia());
             String equacaoVarianciaMediaStr             = df4casas.format(estatisticaInventarioEquacao.getVarianciaMedia());
                     
-             
-            
             idMetodoCalculo = 2; //Data Mining
             EstatisticaInventario estatisticaInventarioDm = new EstatisticaInventario();
             estatisticaInventarioDao = new EstatisticaInventarioDao();      
@@ -194,7 +192,7 @@ public class listarDetalhesCalculo extends HttpServlet {
             request.setAttribute("dmSomaQuadradoTotais", dmSomaQuadradoTotais);             
             
         } finally { 
-            request.getRequestDispatcher("listarDetalhesCalculo.jsp").forward(request, response);
+            request.getRequestDispatcher("listarDetalhesCalculoArvores.jsp").forward(request, response);
         }
     }
 
@@ -204,7 +202,7 @@ public class listarDetalhesCalculo extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(listarDetalhesCalculo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(listarDetalhesCalculoArvores.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -215,13 +213,13 @@ public class listarDetalhesCalculo extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(listarDetalhesCalculo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(listarDetalhesCalculoArvores.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
    
     @Override
     public String getServletInfo() {
-        return "Action Listar Detalhes Calculo";
+        return "Action Listar Detalhes Calculo Arvores";
     }// </editor-fold>
 }

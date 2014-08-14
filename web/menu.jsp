@@ -48,7 +48,8 @@
                             <li class="dropdown">
                                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">Menu para Testes<b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="listarDetalhesCalculo">Listar Detalhes do Cálculo</a></li>                                    
+                                    <li><a href="listarDetalhesCalculoParcelas">Listar Detalhes do Cálculo (Parcelas)</a></li>                                    
+                                    <li><a href="listarDetalhesCalculoArvores">Listar Detalhes do Cálculo (Árvores)</a></li>                                                                        
                                 </ul>
                             </li>                       
                         </ul>
