@@ -65,16 +65,30 @@
     <div style="float:left;padding:10px">
         <p><h3><b>Local:</b> <%=objeto_local.getDescricao()%></h3></p>
         <p>Insira aqui a mensagem para instruir o usuário</p>
-        <form action="#" method="POST">
+        <form action="#" id="form_coord" method="POST">
             Latitude <br/>
+            <input type="hidden" id="idLocal" value="<%=objeto_local.getIdString()%>" />
             <input type="text" id="latFld">
             <br />
             Longitude<br />
             <input type="text" id="lngFld">
             <br />
-            <input type="submit" name="submit" value ="Salvar" class="btn btn-inverse"/>
+            <a href="#" class="btn btn-inverse" id="form_coord">Salvar</a>
         </form>
     </div>
     
+        <script type="text/javascript">
+               $("#form_coord").click(function(){
+                          $.post('createCoordenadasGoogleMaps',{idLocal:$("#idLocal").val(), 
+                                                latFld:$("#latFld").val(),
+                                                lngFld: $("#lngFld").val()
+                },function(responseText) {
+                        eval(responseText);
+                    });
+                    
+                });
+            
+        </script>
+        
 </body>
 </html>

@@ -380,6 +380,10 @@
         <servlet-name>DefinirGoogleMaps</servlet-name>
         <servlet-class>controller.DefinirGoogleMaps</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>createCoordenadasGoogleMaps</servlet-name>
+        <servlet-class>controller.createCoordenadasGoogleMaps</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>listarBiomas</servlet-name>
         <url-pattern>/listarBiomas</url-pattern>
@@ -763,6 +767,10 @@
     <servlet-mapping>
         <servlet-name>DefinirGoogleMaps</servlet-name>
         <url-pattern>/DefinirGoogleMaps</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>createCoordenadasGoogleMaps</servlet-name>
+        <url-pattern>/createCoordenadasGoogleMaps</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
