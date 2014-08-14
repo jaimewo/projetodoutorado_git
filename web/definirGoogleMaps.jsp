@@ -1,3 +1,4 @@
+<%@page import="model.Local"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,8 +60,11 @@
 </head>
 
 <body onload="initMap()">
+    <% Local objeto_local = (Local) request.getAttribute("local");%>
     <div id="map_canvas" style="float: left"></div>
     <div style="float:left;padding:10px">
+        <p><h3><b>Local:</b> <%=objeto_local.getDescricao()%></h3></p>
+    <p>Insira aqui a mensagem para instruir o usuário</p>
         Latitude <br/>
         <input type="text" id="latFld">
         <br />

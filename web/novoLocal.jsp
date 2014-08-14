@@ -188,7 +188,18 @@
                     </div>
                     </form>
                     
-                    <a href="DefinirGoogleMaps" id="btn_google_maps" class="btn btn-inverse" target="_blank">Definir Local no Google Maps</a>
+                    <a href="#" id="btn_google_maps" class="btn btn-inverse" target="_blank">Definir Local no Google Maps</a>
+                    <script type="text/javascript">
+                        $("#btn_google_maps").click(function(){
+                            var url = "DefinirGoogleMaps?idLocal="+$("#local_id").val();
+                            alert(url);
+                            window.open(url);
+                            
+                        });
+                        
+                        
+                    </script>
+                    
                 </div>
                 <script type="text/javascript">
                     $("#btn_calcular_equacao").click(function(){
