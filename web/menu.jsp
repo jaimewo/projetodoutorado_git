@@ -1,5 +1,5 @@
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-<div class="navbar navbar-inverse navbar-fixed-top">
+<div class="navbar navbar-inverse navbar-form">
             <div class="navbar-inner">
                 <div class="container">
                     <button data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar" type="button">
@@ -10,7 +10,7 @@
                     <a href="#" class="brand">JCarbon</a>
                     <div class="nav-collapse collapse">
                         <ul class="nav">
-                            <li class="active"><a href="#">Home</a></li>
+                            <li class="active"><a href="Home">Home</a></li>
                             <li class="dropdown">
                                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">Locais <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
@@ -64,5 +64,7 @@
         </div>
         <script src="js/jquery.js"></script>
         <script src="js/bootstrap.min.js"></script>
-        <br />
-        <br />
+        
+        
+        
+       

@@ -372,6 +372,18 @@
         <servlet-name>listarDetalhesCalculoArvores</servlet-name>
         <servlet-class>controller.listarDetalhesCalculoArvores</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Home</servlet-name>
+        <servlet-class>controller.Home</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DefinirGoogleMaps</servlet-name>
+        <servlet-class>controller.DefinirGoogleMaps</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>createCoordenadasGoogleMaps</servlet-name>
+        <servlet-class>controller.createCoordenadasGoogleMaps</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>listarBiomas</servlet-name>
         <url-pattern>/listarBiomas</url-pattern>
@@ -748,9 +760,24 @@
         <servlet-name>listarDetalhesCalculoArvores</servlet-name>
         <url-pattern>/listarDetalhesCalculoArvores</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Home</servlet-name>
+        <url-pattern>/Home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DefinirGoogleMaps</servlet-name>
+        <url-pattern>/DefinirGoogleMaps</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>createCoordenadasGoogleMaps</servlet-name>
+        <url-pattern>/createCoordenadasGoogleMaps</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+    <welcome-file-list>
+        <welcome-file>Home</welcome-file>
+    </welcome-file-list>
 </web-app>
