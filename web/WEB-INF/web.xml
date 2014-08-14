@@ -376,6 +376,10 @@
         <servlet-name>Home</servlet-name>
         <servlet-class>controller.Home</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DefinirGoogleMaps</servlet-name>
+        <servlet-class>controller.DefinirGoogleMaps</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>listarBiomas</servlet-name>
         <url-pattern>/listarBiomas</url-pattern>
@@ -756,13 +760,16 @@
         <servlet-name>Home</servlet-name>
         <url-pattern>/Home</url-pattern>
     </servlet-mapping>
-    
-    <welcome-file-list>
-        <welcome-file>Home</welcome-file>
-    </welcome-file-list>
+    <servlet-mapping>
+        <servlet-name>DefinirGoogleMaps</servlet-name>
+        <url-pattern>/DefinirGoogleMaps</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+    <welcome-file-list>
+        <welcome-file>Home</welcome-file>
+    </welcome-file-list>
 </web-app>
