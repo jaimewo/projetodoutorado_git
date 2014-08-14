@@ -64,12 +64,16 @@
     <div id="map_canvas" style="float: left"></div>
     <div style="float:left;padding:10px">
         <p><h3><b>Local:</b> <%=objeto_local.getDescricao()%></h3></p>
-    <p>Insira aqui a mensagem para instruir o usuário</p>
-        Latitude <br/>
-        <input type="text" id="latFld">
-        <br />
-        Longitude<br />
-        <input type="text" id="lngFld">
+        <p>Insira aqui a mensagem para instruir o usuário</p>
+        <form action="#" method="POST">
+            Latitude <br/>
+            <input type="text" id="latFld">
+            <br />
+            Longitude<br />
+            <input type="text" id="lngFld">
+            <br />
+            <input type="submit" name="submit" value ="Salvar" class="btn btn-inverse"/>
+        </form>
     </div>
     
 </body>
