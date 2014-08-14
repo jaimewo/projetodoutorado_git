@@ -59,8 +59,8 @@
 </head>
 
 <body onload="initMap()">
-    <div id="map_canvas" style="border:3px solid red;float: left"></div>
-    <div style="border: 1px solid blue;float:left">
+    <div id="map_canvas" style="float: left"></div>
+    <div style="float:left;padding:10px">
         Latitude <br/>
         <input type="text" id="latFld">
         <br />
