@@ -34,10 +34,10 @@ public class listarDetalhesCalculoParcelas extends HttpServlet {
             throws ServletException, IOException, Exception {
         try {
 
-            DecimalFormat df4casas = new DecimalFormat("0.0000");
-            DecimalFormat df1casa = new DecimalFormat("0.0");
-            DecimalFormat df2casas = new DecimalFormat("0.00");
-        
+            DecimalFormat df4casas = new DecimalFormat("##,###,###,##0.0000");
+            DecimalFormat df1casa = new DecimalFormat("##,###,###,##0.0");
+            DecimalFormat df2casas = new DecimalFormat("##,###,###,##0.00");
+
             int idLocal = 1;
             int idMetodoCalculo = 0;
             int idVariavelInteresse = 1;

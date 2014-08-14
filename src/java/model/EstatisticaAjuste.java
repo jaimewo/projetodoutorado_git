@@ -7,7 +7,6 @@ package model;
 import dao.EstatisticaAjusteDao;
 import dao.EstatisticaInventarioDao;
 import dao.LocalDao;
-import dao.LocalQuantidadeDao;
 import static java.lang.Math.log;
 import java.util.ArrayList;
 import java.util.List;

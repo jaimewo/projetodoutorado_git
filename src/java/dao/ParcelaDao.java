@@ -16,7 +16,6 @@ import java.util.logging.Logger;
 import model.Arvore;
 import model.Local;
 import model.Parcela;
-import model.ParcelaQuantidade;
 
 /**
  *
@@ -33,36 +32,32 @@ public class ParcelaDao extends MainDao {
     {
         String sql = "INSERT INTO parcela (numparcela, "
                     +                     "areaparcela,"
-                    +                     "idlocal"
-                    +                     ") VALUES (?,?,?) RETURNING parcela.id";
+                    +                     "idlocal,"
+                    +                     "qtdebiomassaequacao,"
+                    +                     "qtdebiomassadm,"
+                    +                     "qtdecarbonoequacao,"
+                    +                     "qtdecarbonodm,"
+                    +                     "qtdevolumeequacao,"
+                    +                     "qtdevolumedm"
+                    +                     ") VALUES (?,?,?,?,?,?,?,?,?) RETURNING parcela.id";
         PreparedStatement p = this.con.prepareStatement(sql);
         p.setInt   (1, parcela.getNumParcela());
         p.setDouble(2, parcela.getAreaParcela());
         p.setInt   (3, parcela.getIdLocal());
+        p.setDouble(4, parcela.getQtdeBiomassaEquacao());
+        p.setDouble(5, parcela.getQtdeBiomassaDm());
+        p.setDouble(6, parcela.getQtdeCarbonoEquacao());
+        p.setDouble(7, parcela.getQtdeCarbonoDm());
+        p.setDouble(8, parcela.getQtdeVolumeEquacao());
+        p.setDouble(9, parcela.getQtdeVolumeDm());
         int idParcela = 0;
         ResultSet rs = p.executeQuery();
         if(rs.next()){
            idParcela = rs.getInt(1);
         }
         
-        ParcelaQuantidadeDao parcelaQuantidadeDao = new ParcelaQuantidadeDao();
-        ParcelaQuantidade parcelaQuantidade = new ParcelaQuantidade();
-
-        //SE VEIO ARRAY, CADASTRA PARCELAQUANTIDADE DAS PARCELAS
-        if (parcela.parcelasQuantidade.size()>0) {        
-           for (ParcelaQuantidade parcelasQuantidade: parcela.parcelasQuantidade) {
-                parcelaQuantidade.setIdParcela(idParcela);
-                parcelaQuantidade.setIdVariavelInteresse(parcelasQuantidade.getIdVariavelInteresse());
-                parcelaQuantidade.setIdMetodoCalculo(parcelasQuantidade.getIdMetodoCalculo());
-                parcelaQuantidade.setQtde(parcelasQuantidade.getQtde());
-                parcelaQuantidadeDao = new ParcelaQuantidadeDao();
-                parcelaQuantidadeDao.cadastrar(parcelaQuantidade);
-            
-            }
-        }
-        
         //SE VEIO ARRAY, CADASTRA ÁRVORES DAS PARCELAS
-        if (parcela.arvores.size()>0) {
+        if (parcela.arvores!=null) {
             for (Arvore arvore: parcela.arvores) {
                 arvore.setIdParcela(idParcela);
                 ArvoreDao arvoreDao = new ArvoreDao();                        
@@ -92,21 +87,9 @@ public class ParcelaDao extends MainDao {
     public void deletarParcela(Local local) throws SQLException
     {
     
-        PreparedStatement p = this.con.prepareStatement("SELECT * FROM parcela where idlocal = ?");
+        PreparedStatement p = this.con.prepareStatement("DELETE from parcela where idlocal = ?"); 
         p.setInt(1, local.getId());
-        ResultSet rs = p.executeQuery();
-        while(rs.next()){
-               int idParcela = rs.getInt("id");
-               PreparedStatement p1 = this.con.prepareStatement("DELETE from parcelaQuantidade where idparcela = ?"); 
-               p1.setInt(1, idParcela);
-               p1.executeUpdate();
-               p1.close();
-        }
-        PreparedStatement p2 = this.con.prepareStatement("DELETE from parcela where idlocal = ?"); 
-        p2.setInt(1, local.getId());
-        p2.executeUpdate();
-        p2.close();
-        
+        p.executeUpdate();
         p.close();
         super.con.close();        
         
@@ -137,6 +120,12 @@ public class ParcelaDao extends MainDao {
            parcela.setId(rs.getInt("id"));
            parcela.setNumParcela(rs.getInt("numparcela"));
            parcela.setAreaParcela(rs.getDouble("areaparcela"));
+           parcela.setQtdeBiomassaEquacao(rs.getDouble("qtdebiomassaequacao"));
+           parcela.setQtdeBiomassaDm(rs.getDouble("qtdebiomassadm"));
+           parcela.setQtdeCarbonoEquacao(rs.getDouble("qtdecarbonoequacao"));
+           parcela.setQtdeCarbonoDm(rs.getDouble("qtdecarbonodm"));
+           parcela.setQtdeVolumeEquacao(rs.getDouble("qtdevolumeequacao"));
+           parcela.setQtdeVolumeDm(rs.getDouble("qtdevolumedm"));
            parcelas.add(parcela);
         }
         rs.close();
@@ -157,6 +146,12 @@ public class ParcelaDao extends MainDao {
            parcela.setId(rs.getInt("id"));
            parcela.setNumParcela(rs.getInt("numparcela"));
            parcela.setAreaParcela(rs.getDouble("areaparcela"));
+           parcela.setQtdeBiomassaEquacao(rs.getDouble("qtdebiomassaequacao"));
+           parcela.setQtdeBiomassaDm(rs.getDouble("qtdebiomassadm"));
+           parcela.setQtdeCarbonoEquacao(rs.getDouble("qtdecarbonoequacao"));
+           parcela.setQtdeCarbonoDm(rs.getDouble("qtdecarbonodm"));
+           parcela.setQtdeVolumeEquacao(rs.getDouble("qtdevolumeequacao"));
+           parcela.setQtdeVolumeDm(rs.getDouble("qtdevolumedm"));
            parcelas.add(parcela);
         }
         rs.close();
@@ -176,6 +171,12 @@ public class ParcelaDao extends MainDao {
            parcela.setId(rs.getInt("id"));
            parcela.setNumParcela(rs.getInt("numparcela"));
            parcela.setAreaParcela(rs.getDouble("areaparcela"));
+           parcela.setQtdeBiomassaEquacao(rs.getDouble("qtdebiomassaequacao"));
+           parcela.setQtdeBiomassaDm(rs.getDouble("qtdebiomassadm"));
+           parcela.setQtdeCarbonoEquacao(rs.getDouble("qtdecarbonoequacao"));
+           parcela.setQtdeCarbonoDm(rs.getDouble("qtdecarbonodm"));
+           parcela.setQtdeVolumeEquacao(rs.getDouble("qtdevolumeequacao"));
+           parcela.setQtdeVolumeDm(rs.getDouble("qtdevolumedm"));
            parcelas.add(parcela);
         }
         rs.close();
@@ -184,4 +185,50 @@ public class ParcelaDao extends MainDao {
         return parcelas;
     }
     
+   public void updateQtde(Parcela parcela,int idVariavelInteresse, int idMetodoCalculo) throws Exception 
+   {
+
+        String sql = "";
+        double qtde = 0.0;
+       
+        if (idMetodoCalculo==1) { //Equacao
+            switch (idVariavelInteresse) {
+                case 1: //Biomassa
+                    sql = "UPDATE parcela SET qtdebiomassaequacao = ? where id = ?";
+                    qtde = parcela.getQtdeBiomassaEquacao();
+                    break;
+                case 2: //Carbono
+                    sql = "UPDATE parcela SET qtdecarbonoequacao = ? where id = ?";
+                    qtde = parcela.getQtdeCarbonoEquacao();
+                    break;
+                case 3:
+                    sql = "UPDATE parcela SET qtdevolumeequacao = ? where id = ?";
+                    qtde = parcela.getQtdeVolumeEquacao();
+                    break;
+                }                            
+        } else {// DM
+            switch (idVariavelInteresse) {
+                case 1:
+                    sql = "UPDATE parcela SET qtdebiomassadm = ? where id = ?";
+                    qtde = parcela.getQtdeBiomassaDm();
+                    break;
+                case 2:
+                    sql = "UPDATE parcela SET qtdecarbonodm = ? where id = ?";
+                    qtde = parcela.getQtdeCarbonoDm();
+                    break;
+                case 3:
+                    sql = "UPDATE parcela SET qtdevolumedm = ? where id = ?";
+                    qtde = parcela.getQtdeVolumeDm();
+                    break;
+            }                            
+        }       
+       
+        PreparedStatement p = this.con.prepareStatement(sql);
+        p.setDouble(1, qtde);
+        p.setInt(2, parcela.getId());
+        p.executeUpdate();
+        p.close();
+        super.con.close();
+    }
+   
 }

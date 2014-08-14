@@ -5,7 +5,6 @@
 package model;
 
 import dao.ArvoreDao;
-import dao.ArvoreQuantidadeDao;
 import dao.ParcelaDao;
 import dao.VariavelArvoreDao;
 import dao.VariavelDao;
@@ -37,19 +36,29 @@ public class Arvore extends Model  {
     private int idParcela;
     private int numArvore;
     
-    private double qtdeEst;    
+    private double qtdeBiomassaEstEquacao;   
+    private double qtdeBiomassaEstDm;   
+    private double qtdeCarbonoEstEquacao;   
+    private double qtdeCarbonoEstDm;   
+    private double qtdeVolumeEstEquacao;   
+    private double qtdeVolumeEstDm;   
+    
+    private double qtdeEst;
     
     public ArrayList<VariavelArvore> variaveisArvore;
-    public ArrayList<ArvoreQuantidade> arvoresQuantidade;    
     
     public Arvore()
     {
         this.idParcela = 0;
         this.numArvore = 0;
-        this.qtdeEst = 0.0;        
+        this.qtdeBiomassaEstEquacao = 0.0;        
+        this.qtdeBiomassaEstDm = 0.0;        
+        this.qtdeCarbonoEstEquacao = 0.0;        
+        this.qtdeCarbonoEstDm = 0.0;        
+        this.qtdeVolumeEstEquacao = 0.0;        
+        this.qtdeVolumeEstDm = 0.0;        
         
         this.variaveisArvore = new ArrayList<VariavelArvore>();
-        this.arvoresQuantidade = new ArrayList<ArvoreQuantidade>();        
     }
     
     public String getIdString()
@@ -89,20 +98,115 @@ public class Arvore extends Model  {
         return variaveisArvore;
     }
 
-    public ArrayList<ArvoreQuantidade> getArvoresQuantidade() throws Exception {
-        ArrayList<ArvoreQuantidade> arvoresQuantidade = new ArrayList<ArvoreQuantidade>();
-        ArvoreQuantidadeDao arvoreQuantidadeDao = new ArvoreQuantidadeDao();
-        arvoresQuantidade = arvoreQuantidadeDao.listarArvoresQuantidade(this.id);        
-        
-        return arvoresQuantidade;
+    public double getQtdeBiomassaEstEquacao() {
+        return qtdeBiomassaEstEquacao;
     }
 
-    public double getQtdeEst(int idVariavelInteresse, int idMetodoCalculo) throws SQLException {
+    public void setQtdeBiomassaEstEquacao(double qtdeBiomassaEstEquacao) {
+        this.qtdeBiomassaEstEquacao = qtdeBiomassaEstEquacao;
+    }
 
-        ArvoreQuantidadeDao arvoreQuantidadeDao = new ArvoreQuantidadeDao();
-        double qtdeEst = arvoreQuantidadeDao.getQtdeEst(this.id, idVariavelInteresse, idMetodoCalculo);      
+    public double getQtdeBiomassaEstDm() {
+        return qtdeBiomassaEstDm;
+    }
+
+    public void setQtdeBiomassaEstDm(double qtdeBiomassaEstDm) {
+        this.qtdeBiomassaEstDm = qtdeBiomassaEstDm;
+    }
+
+    public double getQtdeCarbonoEstEquacao() {
+        return qtdeCarbonoEstEquacao;
+    }
+
+    public void setQtdeCarbonoEstEquacao(double qtdeCarbonoEstEquacao) {
+        this.qtdeCarbonoEstEquacao = qtdeCarbonoEstEquacao;
+    }
+
+    public double getQtdeCarbonoEstDm() {
+        return qtdeCarbonoEstDm;
+    }
+
+    public void setQtdeCarbonoEstDm(double qtdeCarbonoEstDm) {
+        this.qtdeCarbonoEstDm = qtdeCarbonoEstDm;
+    }
+
+    public double getQtdeVolumeEstEquacao() {
+        return qtdeVolumeEstEquacao;
+    }
+
+    public void setQtdeVolumeEstEquacao(double qtdeVolumeEstEquacao) {
+        this.qtdeVolumeEstEquacao = qtdeVolumeEstEquacao;
+    }
+
+    public double getQtdeVolumeEstDm() {
+        return qtdeVolumeEstDm;
+    }
+
+    public void setQtdeVolumeEstDm(double qtdeVolumeEstDm) {
+        this.qtdeVolumeEstDm = qtdeVolumeEstDm;
+    }
+    
+    public double getQtdeEst(int idVariavelInteresse, int idMetodoCalculo) {    
+        
+        double qtdeEst = 0.0;
+        
+        if (idMetodoCalculo==1) { //Equacao
+            switch (idVariavelInteresse) {
+                case 1:
+                        qtdeEst = this.qtdeBiomassaEstEquacao;
+                        break;
+                    case 2:
+                        qtdeEst = this.qtdeCarbonoEstEquacao;
+                        break;
+                    case 3:
+                        qtdeEst = this.qtdeVolumeEstEquacao;
+                        break;
+                }                            
+            } else {// DM
+                switch (idVariavelInteresse) {
+                    case 1:
+                        qtdeEst = this.qtdeBiomassaEstDm;
+                        break;
+                    case 2:
+                        qtdeEst = this.qtdeCarbonoEstDm;
+                        break;
+                    case 3:
+                        qtdeEst = this.qtdeVolumeEstDm;
+                        break;
+                }                            
+            }        
         
         return qtdeEst;
+    }
+    
+    public void setQtdeEst(double qtdeEst, int idVariavelInteresse, int idMetodoCalculo) {    
+        
+        if (idMetodoCalculo==1) { //Equacao
+            switch (idVariavelInteresse) {
+                case 1:
+                    this.qtdeBiomassaEstEquacao = qtdeEst;
+                    break;
+                case 2:
+                    this.qtdeCarbonoEstEquacao = qtdeEst;
+                    break;
+                case 3:
+                    this.qtdeVolumeEstEquacao = qtdeEst;
+                    break;
+            }                            
+        } else {// DM
+            switch (idVariavelInteresse) {
+                case 1:
+                    this.qtdeBiomassaEstDm = qtdeEst;
+                    break;
+                case 2:
+                    this.qtdeCarbonoEstDm = qtdeEst;
+                    break;
+                case 3:
+                    this.qtdeVolumeEstDm = qtdeEst;
+                    break;
+            }                            
+        }        
+        
     }
     
     public Double calculaQtdeEstimada(Local local, int idVariavelInteresse, int idMetodoCalculo) throws SQLException, Exception {
@@ -110,14 +214,9 @@ public class Arvore extends Model  {
         Double qtdeEstimada = 0.0;
 
         if (idMetodoCalculo==1) { //Equação
-            ArrayList<Equacao> equacoesTrabalho = new ArrayList<Equacao>();
-            equacoesTrabalho = local.getTrabalhoCientifico().getEquacoesTrabalho();
-        
-            for (Equacao equacao : equacoesTrabalho) {
-                if (equacao.getIdVariavelInteresse()==idVariavelInteresse) {
-                    qtdeEstimada = aplicaParser(variaveisArvore,equacao);
-                }
-            }
+            Equacao equacaoTrabalho = new Equacao();
+            equacaoTrabalho = local.getTrabalhoCientifico().getEquacaoTrabalho(idVariavelInteresse);
+            qtdeEstimada = aplicaParser(variaveisArvore,equacaoTrabalho);
         } else { //2-Data Mining
             qtdeEstimada = calculaUsandoDM(local,idVariavelInteresse);
         }
@@ -170,9 +269,6 @@ public class Arvore extends Model  {
         double medidaDistancia = 0.0;
         double qtdeObsArvoreAjuste = 0.0;
 
-        ArvoreQuantidade arvoreQuantidade = new ArvoreQuantidade();
-        ArvoreQuantidadeDao arvoreQuantidadeDao = new ArvoreQuantidadeDao();
-        
         ArrayList<VariavelArvore> variaveisArvore = new ArrayList<VariavelArvore>();
         variaveisArvore = getVariaveisArvore();
 
@@ -183,7 +279,7 @@ public class Arvore extends Model  {
   
         for(ArvoreAjuste arvoreAjuste: arvoresAjuste) {
             
-            qtdeObsArvoreAjuste = arvoreAjuste.getQtdeObs(idVariavelInteresse, idMetodoCalculo);
+            qtdeObsArvoreAjuste = arvoreAjuste.getQtdeObs(idVariavelInteresse);
                         
             variaveisArvoreAjuste = arvoreAjuste.getVariaveisArvoreAjuste();
             int i = 0;
@@ -257,24 +353,21 @@ public class Arvore extends Model  {
             }
         }
         
-        double qtdeEstArvore = 0.0;
+        double qtdeEstimada = 0.0;
         double somaPonderacao = 0.0;
 
         
         for (int iVizinho=0;iVizinho < local.getDmQtdeVizinhos();iVizinho++) {
             if (ponderacao[iVizinho]==0) {
                 somaPonderacao = 1;
-                qtdeEstArvore = qtdeObsMenoresDistancias[iVizinho];
+                qtdeEstimada = qtdeObsMenoresDistancias[iVizinho];
                 iVizinho=local.getDmQtdeVizinhos();
             } else {
-                qtdeEstArvore += qtdeObsMenoresDistancias[iVizinho] * ponderacao[iVizinho];
+                qtdeEstimada += qtdeObsMenoresDistancias[iVizinho] * ponderacao[iVizinho];
                 somaPonderacao += ponderacao[iVizinho];
             }
         }
-        qtdeEstArvore = qtdeEstArvore / somaPonderacao;
-        
-        arvoreQuantidade.setQtdeEst(qtdeEstArvore);
-        arvoreQuantidadeDao.updateQtdeEst(arvoreQuantidade);
+        qtdeEstimada = qtdeEstimada / somaPonderacao;
 
         Vizinho vizinho = new Vizinho();
         vizinho.setIdArvore(this.getNumArvore());
@@ -288,15 +381,17 @@ public class Arvore extends Model  {
             vizinhoDao.cadastrar(vizinho);
         }
         
-        return qtdeEstArvore;
+        return qtdeEstimada;
         
      }
     
     
-    public void importarPlanilha(Local local) throws SQLException, BiffException
+    public ArrayList<Parcela> importarPlanilha(Local local) throws SQLException, BiffException
     {
         ArvoreDao arvoreDao = new ArvoreDao();
         arvoreDao.deletarLocal(local);
+        
+        ArrayList<Parcela> parcelas = new ArrayList<Parcela>();
 
         Workbook planilha; // objeto que receberá um instancia da planilha estudada
         Sheet aba; // objeto que será a aba
@@ -337,14 +432,12 @@ public class Arvore extends Model  {
 
             if (!consistePlanilhaImportada(local,matriz)) {
                //Montar msg erro para a Controller
-                return;
+                return parcelas;
             }
             ParcelaDao parcelaDao = new ParcelaDao();
 
             ArrayList<Arvore>            arvores             = new ArrayList<Arvore>();
             ArrayList<Variavel>          variaveisLidas      = new ArrayList<Variavel>();
-            ArrayList<ParcelaQuantidade> parcelasQuantidade  = new ArrayList<ParcelaQuantidade>();
-            ParcelaQuantidade            parcelaQuantidade   = new ParcelaQuantidade();                                                
             
             int numArvore = 0;
             int numParcela = 0;
@@ -377,26 +470,15 @@ public class Arvore extends Model  {
                             numParcela = Integer.parseInt(matriz[linha][coluna]);
                             if ((numParcela != numParcelaAnt)
                             &&  (numParcelaAnt>0)) {
-                                
-                                for (int iVi=1;iVi<4;iVi++) {
-                                    for (int iMc=1;iMc<3;iMc++) {
-                                        parcelaQuantidade = new ParcelaQuantidade();                                    
-                                        parcelaQuantidade.setIdVariavelInteresse(iVi);
-                                        parcelaQuantidade.setIdMetodoCalculo(iMc);
-                                        parcelaQuantidade.setIdParcela(id);
-                                        parcelaQuantidade.setQtde(0.0);
-                                        parcelasQuantidade.add(parcelaQuantidade);
-                                    }                                    
-                                }
 
                                 Parcela parcela = new Parcela();
                                 parcela.setIdLocal(local.getId());
                                 parcela.setNumParcela(numParcelaAnt);
                                 parcela.setAreaParcela(areaParcela);
                                 parcela.setArvores(arvores);
-                                parcela.setParcelasQuantidade(parcelasQuantidade);                                
 
                                 parcelaDao.cadastrar(parcela);
+                                parcelas.add(parcela);
                     
                                 arvores.clear();
                                 valorVariaveis.clear();
@@ -429,7 +511,6 @@ public class Arvore extends Model  {
                         variavelArvore.setVariavel(variavelLida);
                         arvore.variaveisArvore.add(variavelArvore);
                    
-                        //variaveisArvoreAux.add(variavelArvore);
                         i++;
                     }
                     arvores.add(arvore);
@@ -437,33 +518,25 @@ public class Arvore extends Model  {
                 }
                 
             }
-
-            for (int iVi=1;iVi<4;iVi++) {
-                for (int iMc=1;iMc<3;iMc++) {
-                    parcelaQuantidade = new ParcelaQuantidade();                                    
-                    parcelaQuantidade.setIdVariavelInteresse(iVi);
-                    parcelaQuantidade.setIdMetodoCalculo(iMc);
-                    parcelaQuantidade.setIdParcela(id);
-                    parcelaQuantidade.setQtde(0.0);
-                    parcelasQuantidade.add(parcelaQuantidade);
-                }
-            }
             
             Parcela parcela = new Parcela();
             parcela.setIdLocal(local.getId());
             parcela.setNumParcela(numParcela);
             parcela.setAreaParcela(areaParcela);
+
             parcela.setArvores(arvores);
             
-            parcela.setParcelasQuantidade(parcelasQuantidade);
-            
             parcelaDao.cadastrar(parcela);
+            parcelas.add(parcela);  
+            
+
         
         } catch (Exception e) {
 
             e.printStackTrace();
 
         }
+        return parcelas;
     }
     public boolean consistePlanilhaImportada(Local local, String[][] matriz) throws SQLException, Exception {
             

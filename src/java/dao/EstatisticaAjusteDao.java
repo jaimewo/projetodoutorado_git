@@ -171,6 +171,7 @@ public class EstatisticaAjusteDao extends MainDao{
            EstatisticaAjuste estatisticaAjuste = new EstatisticaAjuste();
            estatisticaAjuste.setId(rs.getInt("id"));
            estatisticaAjuste.setIdVariavelInteresse(rs.getInt("idvariavelinteresse"));
+           estatisticaAjuste.setIdMetodoCalculo(rs.getInt("idmetodocalculo"));           
            estatisticaAjuste.setIdLocal(rs.getInt("idlocal"));
            estatisticaAjuste.setR2(rs.getDouble("r2"));
            estatisticaAjuste.setR2Ajust(rs.getDouble("r2ajust"));

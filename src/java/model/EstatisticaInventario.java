@@ -6,7 +6,6 @@ package model;
 
 import dao.EstatisticaInventarioDao;
 import dao.LocalDao;
-import dao.LocalQuantidadeDao;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.math3.distribution.TDistribution;
@@ -68,7 +67,7 @@ public class EstatisticaInventario extends Model  {
         double t = 0.0;
         double qtde = 0.0;
 
-        tamanhoAmostra = local.parcelas.size();
+        tamanhoAmostra = parcelasLocal.size();
         DescriptiveStatistics descriptiveStatistics = new DescriptiveStatistics();        
         
         for(int i=0;i<tamanhoAmostra;i++) {
@@ -116,15 +115,10 @@ public class EstatisticaInventario extends Model  {
         intervaloConfiancaMinTotal = qtdeMedia - qtdeParcelasLocal * erroAbsoluto;
         intervaloConfiancaMaxTotal = qtdeMedia + qtdeParcelasLocal * erroAbsoluto;
 
-        LocalQuantidade localQuantidade = new LocalQuantidade(); 
+        local.setQtde(qtdeMedia, idVariavelInteresse, idMetodoCalculo);
         
-        localQuantidade.setIdLocal(idLocal);
-        localQuantidade.setIdVariavelInteresse(idVariavelInteresse);
-        localQuantidade.setIdMetodoCalculo(idMetodoCalculo);
-        localQuantidade.setQtde(qtdeMedia);
-        
-        LocalQuantidadeDao localQuantidadeDao = new LocalQuantidadeDao();  
-        localQuantidadeDao.updateQtde(localQuantidade);
+        LocalDao localDao = new LocalDao();  
+        localDao.updateQtde(local, idVariavelInteresse, idMetodoCalculo);
 
         EstatisticaInventarioDao estatisticaDao = new EstatisticaInventarioDao();
         estatisticaDao.deletarEstatisticaLocal(this);

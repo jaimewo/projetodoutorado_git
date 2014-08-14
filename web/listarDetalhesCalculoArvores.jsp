@@ -59,7 +59,7 @@
         <% String equacaoSyxStr                          =   (String) request.getAttribute("equacaoSyxStr");%>   
         <% String equacaoSyxPercStr                      = (String) request.getAttribute("equacaoSyxPercStr");%>   
         <% String equacaoIaStr                           = (String) request.getAttribute("equacaoIaStr");%>   
-        <% String equacaoAicStr                          = (String) request.getAttribute("equacaoAicSrtr");%>   
+        <% String equacaoAicStr                          = (String) request.getAttribute("equacaoAicStr");%>   
         <% String equacaoBicStr                          = (String) request.getAttribute("equacaoBicStr");%>   
         <% String equacaoWilmottStr                      = (String) request.getAttribute("equacaoWilmottStr");%>   
         <% String equacaoSomaQuadradoResiduoStr          = (String) request.getAttribute("equacaoSomaQuadradoResiduoStr");%>   

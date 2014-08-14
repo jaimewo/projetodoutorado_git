@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Arvore;
-import model.ArvoreQuantidade;
 import model.Local;
 import model.Parcela;
 import model.VariavelArvore;
@@ -35,28 +34,29 @@ public class ArvoreDao extends MainDao {
     {
 
         String sql = "INSERT INTO arvore(idparcela,"
-                    +                   "numarvore"
-                    +                   ") VALUES (?,?) RETURNING arvore.id";
+                    +                   "numarvore,"
+                    +                   "qtdebiomassaestequacao,"
+                    +                   "qtdebiomassaestdm,"
+                    +                   "qtdecarbonoestequacao,"
+                    +                   "qtdecarbonoestdm,"
+                    +                   "qtdevolumeestequacao,"
+                    +                   "qtdevolumeestdm"
+                    +                   ") VALUES (?,?,?,?,?,?,?,?) RETURNING arvore.id";
         PreparedStatement p = this.con.prepareStatement(sql);
         p.setInt(1, arvore.getIdParcela());
         p.setInt(2, arvore.getNumArvore());
+        p.setDouble(3, arvore.getQtdeBiomassaEstEquacao());        
+        p.setDouble(4, arvore.getQtdeBiomassaEstDm());        
+        p.setDouble(5, arvore.getQtdeCarbonoEstEquacao());        
+        p.setDouble(6, arvore.getQtdeCarbonoEstDm());        
+        p.setDouble(7, arvore.getQtdeVolumeEstEquacao());        
+        p.setDouble(8, arvore.getQtdeVolumeEstDm());        
         int idArvore = 0;
         ResultSet rs = p.executeQuery();
         if(rs.next()){
            idArvore = rs.getInt(1);
         }
         
-        ArvoreQuantidade arvoreQuantidade = new ArvoreQuantidade();
-        for(int iVi=1;iVi<4;iVi++) { //Vi=Variavel de Interesse (1-Biomassa,2-Carbono,3-Volume)
-            for(int iMc=1;iMc<3;iMc++) { //Mc=Método de Cálculo (1-Equacao,2-Data Mining)
-                arvoreQuantidade.setIdArvore(idArvore);
-                arvoreQuantidade.setIdVariavelInteresse(iVi);
-                arvoreQuantidade.setIdMetodoCalculo(iMc);
-                arvoreQuantidade.setQtdeEst(0.0);
-                ArvoreQuantidadeDao arvoreQuantidadeDao = new ArvoreQuantidadeDao();                
-                arvoreQuantidadeDao.cadastrar(arvoreQuantidade);
-            }
-        }
         
         if (arvore.variaveisArvore.size()>0) {
             for (VariavelArvore variavelArvore: arvore.variaveisArvore) {
@@ -100,11 +100,6 @@ public class ArvoreDao extends MainDao {
                p2.executeUpdate();
                p2.close();
                
-               PreparedStatement p3 = this.con.prepareStatement("DELETE from arvorequantidade where idarvore = ?"); 
-               p3.setInt(1, idArvore);
-               p3.executeUpdate();
-               p3.close();
-               
            }
            PreparedStatement p4 = this.con.prepareStatement("DELETE from arvore where idparcela = ?"); 
            p4.setInt(1, idParcela);
@@ -146,6 +141,12 @@ public class ArvoreDao extends MainDao {
            arvore.setId(rs.getInt("id"));
            arvore.setIdParcela(rs.getInt("idparcela"));
            arvore.setNumArvore(rs.getInt("numarvore"));
+           arvore.setQtdeBiomassaEstEquacao(rs.getInt("qtdebiomassaestequacao"));
+           arvore.setQtdeBiomassaEstDm(rs.getInt("qtdebiomassaestdm"));
+           arvore.setQtdeCarbonoEstEquacao(rs.getInt("qtdecarbonoestequacao"));
+           arvore.setQtdeCarbonoEstDm(rs.getInt("qtdecarbonoestdm"));
+           arvore.setQtdeVolumeEstEquacao(rs.getInt("qtdevolumeestequacao"));
+           arvore.setQtdeVolumeEstDm(rs.getInt("qtdevolumeestdm"));
            arvores.add(arvore);
         }
         rs.close();
@@ -166,6 +167,12 @@ public class ArvoreDao extends MainDao {
            arvore.setId(rs.getInt("id"));
            arvore.setIdParcela(rs.getInt("idparcela"));
            arvore.setNumArvore(rs.getInt("numarvore"));
+           arvore.setQtdeBiomassaEstEquacao(rs.getInt("qtdebiomassaestequacao"));
+           arvore.setQtdeBiomassaEstDm(rs.getInt("qtdebiomassaestdm"));
+           arvore.setQtdeCarbonoEstEquacao(rs.getInt("qtdecarbonoestequacao"));
+           arvore.setQtdeCarbonoEstDm(rs.getInt("qtdecarbonoestdm"));
+           arvore.setQtdeVolumeEstEquacao(rs.getInt("qtdevolumeestequacao"));
+           arvore.setQtdeVolumeEstDm(rs.getInt("qtdevolumeestdm"));
            arvores.add(arvore);
         }
         rs.close();
@@ -187,6 +194,12 @@ public class ArvoreDao extends MainDao {
            arvore.setId(rs.getInt("id"));
            arvore.setIdParcela(rs.getInt("idparcela"));
            arvore.setNumArvore(rs.getInt("numarvore"));
+           arvore.setQtdeBiomassaEstEquacao(rs.getInt("qtdebiomassaestequacao"));
+           arvore.setQtdeBiomassaEstDm(rs.getInt("qtdebiomassaestdm"));
+           arvore.setQtdeCarbonoEstEquacao(rs.getInt("qtdecarbonoestequacao"));
+           arvore.setQtdeCarbonoEstDm(rs.getInt("qtdecarbonoestdm"));
+           arvore.setQtdeVolumeEstEquacao(rs.getInt("qtdevolumeestequacao"));
+           arvore.setQtdeVolumeEstDm(rs.getInt("qtdevolumeestdm"));
           
            arvores.add(arvore);
         }
@@ -196,4 +209,50 @@ public class ArvoreDao extends MainDao {
         return arvores;
     }
     
+   public void updateQtdeEst(Arvore arvore,int idVariavelInteresse, int idMetodoCalculo) throws Exception 
+   {
+
+        String sql = "";
+        double qtdeEst = 0.0;
+       
+        if (idMetodoCalculo==1) { //Equacao
+            switch (idVariavelInteresse) {
+                case 1: //Biomassa
+                    sql = "UPDATE arvore SET qtdebiomassaestequacao = ? where id = ?";
+                    qtdeEst = arvore.getQtdeBiomassaEstEquacao();
+                    break;
+                case 2: //Carbono
+                    sql = "UPDATE arvore SET qtdecarbonoestequacao = ? where id = ?";
+                    qtdeEst = arvore.getQtdeCarbonoEstEquacao();
+                    break;
+                case 3:
+                    sql = "UPDATE arvore SET qtdevolumeestequacao = ? where id = ?";
+                    qtdeEst = arvore.getQtdeVolumeEstEquacao();
+                    break;
+                }                            
+        } else {// DM
+            switch (idVariavelInteresse) {
+                case 1:
+                    sql = "UPDATE arvore SET qtdebiomassaestdm = ? where id = ?";
+                    qtdeEst = arvore.getQtdeBiomassaEstDm();
+                    break;
+                case 2:
+                    sql = "UPDATE arvore SET qtdecarbonoestdm = ? where id = ?";
+                    qtdeEst = arvore.getQtdeCarbonoEstDm();
+                    break;
+                case 3:
+                    sql = "UPDATE arvore SET qtdevolumeestdm = ? where id = ?";
+                    qtdeEst = arvore.getQtdeVolumeEstDm();
+                    break;
+            }                            
+        }       
+       
+        PreparedStatement p = this.con.prepareStatement(sql);
+        p.setDouble(1, qtdeEst);
+        p.setInt(2, arvore.getId());
+        p.executeUpdate();
+        p.close();
+        super.con.close();
+    }
+
 }

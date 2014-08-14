@@ -94,6 +94,28 @@ public class EquacaoDao extends MainDao{
         return equacoes.get(0);
    }
    
+   public Equacao getEquacaoTrabalho(int idTrabalhoCientifico,int idVariavelInteresse) throws SQLException
+   {
+        Equacao equacao = new Equacao();
+        PreparedStatement p = this.con.prepareStatement("SELECT * FROM equacao where idtrabalhocientifico = ? and idvariavelinteresse = ?");
+        p.setInt(1, idTrabalhoCientifico);
+        p.setInt(2, idVariavelInteresse);
+        ResultSet rs = p.executeQuery();
+        while(rs.next()){
+           equacao = new Equacao();
+           equacao.setId(rs.getInt("id"));
+           equacao.setExpressaoEquacao(rs.getString("expressaoequacao"));
+           equacao.setExpressaoModelo(rs.getString("expressaomodelo"));
+           equacao.setIdVariavelInteresse(rs.getInt("idvariavelinteresse"));
+           equacao.setIdAutorModelo(rs.getInt("idautormodelo"));
+           
+        }
+        rs.close();
+        p.close();
+        super.con.close();
+        return equacao;
+   }
+   
    public List<Equacao> listarEquacoes() throws Exception{
        
         ArrayList<Equacao> equacoes = new ArrayList<Equacao>();

@@ -34,11 +34,11 @@ public class listarDetalhesCalculoArvores extends HttpServlet {
             throws ServletException, IOException, Exception {
         try {
 
-            DecimalFormat df4casas = new DecimalFormat("0.0000");
-            DecimalFormat df1casa = new DecimalFormat("0.0");
-            DecimalFormat df2casas = new DecimalFormat("0.00");
+            DecimalFormat df4casas = new DecimalFormat("##,###,###,##0.0000");
+            DecimalFormat df1casa = new DecimalFormat("##,###,###,##0.0");
+            DecimalFormat df2casas = new DecimalFormat("##,###,###,##0.00");
         
-            int idLocal = 1;
+            int idLocal = 9;
             int idMetodoCalculo = 0;
             int idVariavelInteresse = 1;
             String variavelInteresse = "Biomassa";
@@ -98,34 +98,34 @@ public class listarDetalhesCalculoArvores extends HttpServlet {
             idMetodoCalculo = 1; //Equação
             EstatisticaAjuste estatisticaAjusteEquacao = new EstatisticaAjuste();
             EstatisticaAjusteDao estatisticaAjusteDao = new EstatisticaAjusteDao();      
-//            estatisticaAjusteEquacao               = estatisticaAjusteDao.getEstatisticaAjuste(idLocal, idVariavelInteresse, idMetodoCalculo);
+            estatisticaAjusteEquacao               = estatisticaAjusteDao.getEstatisticaAjuste(idLocal, idVariavelInteresse, idMetodoCalculo);
             String equacaoR2Str                    = df4casas.format(estatisticaAjusteEquacao.getR2());
-            String equacaoR2AjustSrt               = df4casas.format(estatisticaAjusteEquacao.getR2Ajust());
+            String equacaoR2AjustStr               = df4casas.format(estatisticaAjusteEquacao.getR2Ajust());
             String equacaoSyxStr                   = df4casas.format(estatisticaAjusteEquacao.getSyx());
             String equacaoSyxPercStr               = df4casas.format(estatisticaAjusteEquacao.getSyxPerc());
             String equacaoIaStr                    = df4casas.format(estatisticaAjusteEquacao.getIa());
-            String equacaoAicSrtr                  = df4casas.format(estatisticaAjusteEquacao.getAic());
+            String equacaoAicStr                   = df4casas.format(estatisticaAjusteEquacao.getAic());
             String equacaoBicStr                   = df4casas.format(estatisticaAjusteEquacao.getBic());
-            String equacaoWilmott                  = df4casas.format(estatisticaAjusteEquacao.getWillmott());
+            String equacaoWilmottStr               = df4casas.format(estatisticaAjusteEquacao.getWillmott());
             String equacaoSomaQuadradoResiduoStr   = df4casas.format(estatisticaAjusteEquacao.getSomaQuadradoResiduo());
             String equacaoSomaQuadradoRegressaoStr = df4casas.format(estatisticaAjusteEquacao.getSomaQuadradoRegressao());
-            String equacaoSomaQuadradoTotais       = df4casas.format(estatisticaAjusteEquacao.getSomaQuadradoTotais());
+            String equacaoSomaQuadradoTotaisStr    = df4casas.format(estatisticaAjusteEquacao.getSomaQuadradoTotais());
                     
             idMetodoCalculo = 2; //Data Mining           
             EstatisticaAjuste estatisticaAjusteDm = new EstatisticaAjuste();
             estatisticaAjusteDao = new EstatisticaAjusteDao();      
-//            estatisticaAjusteDm = estatisticaAjusteDao.getEstatisticaAjuste(idLocal, idVariavelInteresse, idMetodoCalculo);
+            estatisticaAjusteDm = estatisticaAjusteDao.getEstatisticaAjuste(idLocal, idVariavelInteresse, idMetodoCalculo);
             String dmR2Str                    = df4casas.format(estatisticaAjusteDm.getR2());
-            String dmR2AjustSrt               = df4casas.format(estatisticaAjusteDm.getR2Ajust());
+            String dmR2AjustStr               = df4casas.format(estatisticaAjusteDm.getR2Ajust());
             String dmSyxStr                   = df4casas.format(estatisticaAjusteDm.getSyx());
             String dmSyxPercStr               = df4casas.format(estatisticaAjusteDm.getSyxPerc());
             String dmIaStr                    = df4casas.format(estatisticaAjusteDm.getIa());
             String dmAicSrtr                  = df4casas.format(estatisticaAjusteDm.getAic());
             String dmBicStr                   = df4casas.format(estatisticaAjusteDm.getBic());
-            String dmWilmott                  = df4casas.format(estatisticaAjusteDm.getWillmott());
+            String dmWilmottStr               = df4casas.format(estatisticaAjusteDm.getWillmott());
             String dmSomaQuadradoResiduoStr   = df4casas.format(estatisticaAjusteDm.getSomaQuadradoResiduo());
             String dmSomaQuadradoRegressaoStr = df4casas.format(estatisticaAjusteDm.getSomaQuadradoRegressao());
-            String dmSomaQuadradoTotais       = df4casas.format(estatisticaAjusteDm.getSomaQuadradoTotais());            
+            String dmSomaQuadradoTotaisStr    = df4casas.format(estatisticaAjusteDm.getSomaQuadradoTotais());            
 
 
             request.setAttribute("local", local);
@@ -168,28 +168,28 @@ public class listarDetalhesCalculoArvores extends HttpServlet {
             request.setAttribute("dmVarianciaMediaStr", dmVarianciaMediaStr); 
             
             request.setAttribute("equacaoR2Str", equacaoR2Str);             
-            request.setAttribute("equacaoR2AjustSrt", equacaoR2AjustSrt);             
+            request.setAttribute("equacaoR2AjustStr", equacaoR2AjustStr);             
             request.setAttribute("equacaoSyxStr", equacaoSyxStr);             
             request.setAttribute("equacaoSyxPercStr", equacaoSyxPercStr);             
             request.setAttribute("equacaoIaStr", equacaoIaStr);             
-            request.setAttribute("equacaoAicSrtr", equacaoAicSrtr);             
+            request.setAttribute("equacaoAicStr", equacaoAicStr);             
             request.setAttribute("equacaoBicStr", equacaoBicStr);             
-            request.setAttribute("equacaoWilmott", equacaoWilmott);             
+            request.setAttribute("equacaoWilmottStr", equacaoWilmottStr);             
             request.setAttribute("equacaoSomaQuadradoResiduoStr", equacaoSomaQuadradoResiduoStr);             
             request.setAttribute("equacaoSomaQuadradoRegressaoStr", equacaoSomaQuadradoRegressaoStr);             
-            request.setAttribute("equacaoSomaQuadradoTotais", equacaoSomaQuadradoTotais);             
+            request.setAttribute("equacaoSomaQuadradoTotaisStr", equacaoSomaQuadradoTotaisStr);             
             
             request.setAttribute("dmR2Str", dmR2Str);             
-            request.setAttribute("dmR2AjustSrt", dmR2AjustSrt);             
+            request.setAttribute("dmR2AjustStr", dmR2AjustStr);             
             request.setAttribute("dmSyxStr", dmSyxStr);             
             request.setAttribute("dmSyxPercStr", dmSyxPercStr);             
             request.setAttribute("dmIaStr", dmIaStr);             
             request.setAttribute("dmAicSrtr", dmAicSrtr);             
             request.setAttribute("dmBicStr", dmBicStr);             
-            request.setAttribute("dmWilmott", dmWilmott);             
+            request.setAttribute("dmWilmottStr", dmWilmottStr);             
             request.setAttribute("dmSomaQuadradoResiduoStr", dmSomaQuadradoResiduoStr);             
             request.setAttribute("dmSomaQuadradoRegressaoStr", dmSomaQuadradoRegressaoStr);             
-            request.setAttribute("dmSomaQuadradoTotais", dmSomaQuadradoTotais);             
+            request.setAttribute("dmSomaQuadradoTotaisStr", dmSomaQuadradoTotaisStr);             
             
         } finally { 
             request.getRequestDispatcher("listarDetalhesCalculoArvores.jsp").forward(request, response);

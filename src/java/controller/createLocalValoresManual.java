@@ -6,7 +6,8 @@
 
 package controller;
 
-import dao.LocalQuantidadeDao;
+import dao.LocalDao;
+import model.Local;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
@@ -15,11 +16,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.LocalQuantidade;
 
 /**
  *
- * @author paulozeferino
+ * @author jaime
  */
 public class createLocalValoresManual extends HttpServlet {
 
@@ -45,42 +45,25 @@ public class createLocalValoresManual extends HttpServlet {
 
             //Receber da da tela
             int idLocal = Integer.parseInt(request.getParameter("local_id")); //Pegar idLocal da tela
+            LocalDao localDao = new LocalDao();
+            Local local = new Local();
+            local = localDao.getLocal(idLocal);
+            
             double qtdeBiomassa = Double.parseDouble(request.getParameter("local_biomassa")); //Receber da tela
             double qtdeCarbono = Double.parseDouble(request.getParameter("local_carbono")); //Receber da tela
             double qtdeVolume = Double.parseDouble(request.getParameter("local_volume")); //Receber da tela
 
+            local.setQtdeBiomassaEquacao(qtdeBiomassa);
+            local.setQtdeBiomassaDm(qtdeBiomassa);            
+            local.setQtdeCarbonoEquacao(qtdeCarbono);
+            local.setQtdeCarbonoDm(qtdeCarbono);            
+            local.setQtdeVolumeEquacao(qtdeVolume);
+            local.setQtdeVolumeDm(qtdeVolume);            
+            localDao = new LocalDao();
+            localDao.update(local);
 
-
-            LocalQuantidade localQuantidade = new LocalQuantidade();
-            localQuantidade.setIdLocal(idLocal);
-            localQuantidade.setIdVariavelInteresse(1);  //Biomassa
-            localQuantidade.setIdMetodoCalculo(1); //Equacao
-            localQuantidade.setQtde(qtdeBiomassa);
-
-            LocalQuantidadeDao localQuantidadeDao = new LocalQuantidadeDao();
-            localQuantidadeDao.cadastrar(localQuantidade);
-
-
-            localQuantidade = new LocalQuantidade();
-            localQuantidade.setIdLocal(idLocal);
-            localQuantidade.setIdVariavelInteresse(2);  //Carbono
-            localQuantidade.setIdMetodoCalculo(1); //Equacao
-            localQuantidade.setQtde(qtdeCarbono);
-
-            localQuantidadeDao = new LocalQuantidadeDao();
-            localQuantidadeDao.cadastrar(localQuantidade);
-
-
-            localQuantidade = new LocalQuantidade();
-            localQuantidade.setIdLocal(idLocal);
-            localQuantidade.setIdVariavelInteresse(3);  //Volume
-            localQuantidade.setIdMetodoCalculo(1); //Equacao
-            localQuantidade.setQtde(qtdeVolume);
-
-            localQuantidadeDao = new LocalQuantidadeDao();
-            localQuantidadeDao.cadastrar(localQuantidade);
             String retorno="";
-            retorno += "alert('Cálculo processado com sucesso!')";
+            retorno += "alert('Valores cadastrados com sucesso!')";
             out.println(retorno);
     
             }catch(Exception e)

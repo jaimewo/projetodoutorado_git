@@ -101,6 +101,16 @@ public class TrabalhoCientifico extends Model  {
         
         return equacoesTrabalho;
     }
+    public Equacao getEquacaoTrabalho(int idVariavelInteresse) throws Exception {
+        
+        Equacao equacaoTrabalho = new Equacao();
+        
+        EquacaoDao equacaoDao = new EquacaoDao();
+
+        equacaoTrabalho = equacaoDao.getEquacaoTrabalho(this.id,idVariavelInteresse);
+        
+        return equacaoTrabalho;
+    }
     
     public boolean eh_valido()
     {

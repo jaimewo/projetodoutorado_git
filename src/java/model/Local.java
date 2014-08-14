@@ -6,10 +6,8 @@ package model;
 
 import dao.ArvoreAjusteDao;
 import dao.CoordenadaLocalDao;
-import dao.LocalQuantidadeDao;
 import dao.MunicipioLocalDao;
 import dao.ParcelaDao;
-import dao.ParcelaQuantidadeDao;
 import dao.TrabalhoCientificoDao;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,6 +32,13 @@ public class Local extends Model  {
     private int idDMTipoPonderacao;    
     private int dmQtdeVizinhos;
     private boolean dmComLn;
+
+    private double qtdeBiomassaEquacao;   
+    private double qtdeBiomassaDm;   
+    private double qtdeCarbonoEquacao;   
+    private double qtdeCarbonoDm;   
+    private double qtdeVolumeEquacao;   
+    private double qtdeVolumeDm;
     
     private double qtde;
     
@@ -42,7 +47,6 @@ public class Local extends Model  {
     public ArrayList<Parcela> parcelas;
     public ArrayList<ArvoreAjuste> arvoresAjuste;
     public ArrayList<CoordenadaLocal> coordenadasLocal;
-    public ArrayList<LocalQuantidade> localQuantidades;
     
     public Local()
     {
@@ -52,6 +56,13 @@ public class Local extends Model  {
         this.idEspacamento = 0;
         this.idFormacao = 0;
         this.idTrabalhoCientifico = 0;
+        this.qtdeBiomassaEquacao = 0.0;        
+        this.qtdeBiomassaDm = 0.0;        
+        this.qtdeCarbonoEquacao = 0.0;        
+        this.qtdeCarbonoDm = 0.0;        
+        this.qtdeVolumeEquacao = 0.0;        
+        this.qtdeVolumeDm = 0.0;          
+        
         this.qtde = 0.0;
     }
     
@@ -154,6 +165,122 @@ public class Local extends Model  {
     public void setDmComLn(boolean dmComLn) {
         this.dmComLn = dmComLn;
     }
+
+    public double getQtdeBiomassaEquacao() {
+        return qtdeBiomassaEquacao;
+    }
+
+    public void setQtdeBiomassaEquacao(double qtdeBiomassaEquacao) {
+        this.qtdeBiomassaEquacao = qtdeBiomassaEquacao;
+    }
+
+    public double getQtdeBiomassaDm() {
+        return qtdeBiomassaDm;
+    }
+
+    public void setQtdeBiomassaDm(double qtdeBiomassaDm) {
+        this.qtdeBiomassaDm = qtdeBiomassaDm;
+    }
+
+    public double getQtdeCarbonoEquacao() {
+        return qtdeCarbonoEquacao;
+    }
+
+    public void setQtdeCarbonoEquacao(double qtdeCarbonoEquacao) {
+        this.qtdeCarbonoEquacao = qtdeCarbonoEquacao;
+    }
+
+    public double getQtdeCarbonoDm() {
+        return qtdeCarbonoDm;
+    }
+
+    public void setQtdeCarbonoDm(double qtdeCarbonoDm) {
+        this.qtdeCarbonoDm = qtdeCarbonoDm;
+    }
+
+    public double getQtdeVolumeEquacao() {
+        return qtdeVolumeEquacao;
+    }
+
+    public void setQtdeVolumeEquacao(double qtdeVolumeEquacao) {
+        this.qtdeVolumeEquacao = qtdeVolumeEquacao;
+    }
+
+    public double getQtdeVolumeDm() {
+        return qtdeVolumeDm;
+    }
+
+    public void setQtdeVolumeDm(double qtdeVolumeDm) {
+        this.qtdeVolumeDm = qtdeVolumeDm;
+    }
+
+    public double getQtde(int idVariavelInteresse, int idMetodoCalculo) {
+        
+        if (idMetodoCalculo==1) { //Equacao
+            switch (idVariavelInteresse) {
+                case 1:
+                    this.qtde = this.qtdeBiomassaEquacao;
+                    break;
+                case 2:
+                    this.qtde = this.qtdeCarbonoEquacao;
+                    break;
+                case 3:
+                    this.qtde = this.qtdeVolumeEquacao;
+                    break;
+            }                            
+        } else {// DM
+            switch (idVariavelInteresse) {
+                case 1:
+                    this.qtde = this.qtdeBiomassaDm;
+                    break;
+                case 2:
+                    this.qtde = this.qtdeCarbonoDm;
+                    break;
+                case 3:
+                    this.qtde = this.qtdeVolumeDm;
+                    break;
+            }                            
+        }
+        
+        return qtde;
+    }
+
+    public void setQtde(double qtde,int idVariavelInteresse, int idMetodoCalculo) {
+        
+        if (idMetodoCalculo==1) { //Equacao
+            switch (idVariavelInteresse) {
+                case 1:
+                    this.qtdeBiomassaEquacao = qtde;
+                    break;
+                case 2:
+                    this.qtdeCarbonoEquacao = qtde;
+                    break;
+                case 3:
+                    this.qtdeVolumeEquacao = qtde;
+                    break;
+            }                            
+        } else {// DM
+            switch (idVariavelInteresse) {
+                case 1:
+                    this.qtdeBiomassaDm = qtde;
+                    break;
+                case 2:
+                    this.qtdeCarbonoDm = qtde;
+                    break;
+                case 3:
+                    this.qtdeVolumeDm = qtde;
+                    break;
+            }                            
+        }         
+    }
+
+    public ArrayList<ArvoreAjuste> getArvoresAjuste() {
+        return arvoresAjuste;
+    }
+
+    public void setArvoresAjuste(ArrayList<ArvoreAjuste> arvoresAjuste) {
+        this.arvoresAjuste = arvoresAjuste;
+    }
     
     public TrabalhoCientifico getTrabalhoCientifico() throws SQLException {
         
@@ -182,7 +309,6 @@ public class Local extends Model  {
 
         for (Parcela parcela: parcelas) {
             parcela.arvores = parcela.getArvores();
-            parcela.parcelasQuantidade = parcela.getParcelasQuantidade();
         }
         
         return parcelas;
@@ -198,9 +324,6 @@ public class Local extends Model  {
         
         arvoresAjuste = arvoreAjusteDao.listarArvoresAjuste(this.id);
 
-        for (ArvoreAjuste arvoreAjuste: arvoresAjuste) {
-            arvoreAjuste.arvoresAjusteQuantidade = arvoreAjuste.getArvoresAjusteQuantidade(idVariavelInteresse,idMetodoCalculo);
-        }        
         return arvoresAjuste;
     }
 
@@ -220,17 +343,6 @@ public class Local extends Model  {
         this.coordenadasLocal = coordenadasLocal;
     }
     
-
-    public double getQtde(int idVariavelInteresse,int idMetodoCalculo) throws SQLException {
-        LocalQuantidadeDao localQuantidadeDao = new LocalQuantidadeDao();
-        qtde = localQuantidadeDao.getQtde(this.id,idVariavelInteresse,idMetodoCalculo);
-        
-        return qtde;
-    }    
-
-    public void setLocalQuantidades(ArrayList<LocalQuantidade> localQuantidades) {
-        this.localQuantidades = localQuantidades;
-    }
     
     public boolean eh_valido()
     {

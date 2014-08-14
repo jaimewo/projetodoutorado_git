@@ -10,7 +10,11 @@ import dao.LocalDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -41,6 +45,15 @@ public class createLocalCalcularComArvores extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
+        
+    Locale locale = new Locale("pt","BR");  
+    GregorianCalendar calendar = new GregorianCalendar();
+    SimpleDateFormat formatador = new SimpleDateFormat("dd' de 'MMMMM' de 'yyyy' - 'HH':'mm':'ss'h'",locale);
+    System.out.println("INICIO: "+formatador.format(calendar.getTime()));
+    
+        
+        ArrayList<Parcela> parcelasLocal = new ArrayList<Parcela>();
+        
         try (PrintWriter out = response.getWriter()) {
           
             int idLocal = Integer.parseInt(request.getParameter("local_id")); //Pegar idLocal da tela
@@ -48,7 +61,7 @@ public class createLocalCalcularComArvores extends HttpServlet {
             String btn_clicado = request.getParameter("btn_clicado");
             System.out.println("Botao clicado"+btn_clicado);
             try {
-                    importarArvores(idLocal);
+                    parcelasLocal = importarArvores(idLocal);
                     int idMetodoCalculo = 1;
             //        if(btn_clicado.equals("1"))
             //        {
@@ -59,15 +72,24 @@ public class createLocalCalcularComArvores extends HttpServlet {
             //            System.out.println("Entrei para equação 22222");
             //            idMetodoCalculo = 2; //DM     
             //        }
-         //Fim-se
-        double qtdeTela  = calcular(idLocal,idVariavelInteresse,idMetodoCalculo);
+            //Fim-se
+            double qtdeTela  = calcular(idLocal,idVariavelInteresse,idMetodoCalculo,parcelasLocal);
+            
+            DecimalFormat df2casas = new DecimalFormat("##,###,###,##0.00");            
                 
+            String qtdeTelaStr = df2casas.format(qtdeTela);            
                 
-                            String retorno = "";
+            String retorno = "";
             //retorno += "alert('Cálculo efetuado com sucesso!');";
-            retorno += "$('#total_calculado_arvore_equacao').val('"+qtdeTela+"')";
-            System.out.println("Valor Tela:"+qtdeTela);
+            retorno += "$('#total_calculado_arvore_equacao').val('"+qtdeTelaStr+"')";
+            System.out.println("Valor Tela:"+qtdeTelaStr);
             out.println(retorno);
+            
+    locale = new Locale("pt","BR");  
+    calendar = new GregorianCalendar();
+    formatador = new SimpleDateFormat("dd' de 'MMMMM' de 'yyyy' - 'HH':'mm':'ss'h'",locale);
+    System.out.println("FIM: "+formatador.format(calendar.getTime()));
+                
 
             } catch (SQLException ex) {
                 Logger.getLogger(createLocalCalcularComArvores.class.getName()).log(Level.SEVERE, null, ex);
@@ -80,18 +102,19 @@ public class createLocalCalcularComArvores extends HttpServlet {
     }
     
     
-    public void importarArvores(int idLocal) throws SQLException, BiffException {
+    public ArrayList<Parcela> importarArvores(int idLocal) throws SQLException, BiffException {
   
-
+        ArrayList<Parcela> parcelasLocal = new ArrayList<Parcela>();
         Local local = new Local();
         LocalDao localDao = new LocalDao();
         local = localDao.getLocal(idLocal);
         Arvore arvore = new Arvore();
-        arvore.importarPlanilha(local);
+        parcelasLocal = arvore.importarPlanilha(local);
+        return parcelasLocal;
         
     }
     
-    public double calcular(int idLocal,int idVariavelInteresse,int idMetodoCalculo) throws SQLException, BiffException, Exception {
+    public double calcular(int idLocal,int idVariavelInteresse,int idMetodoCalculo,ArrayList<Parcela> parcelasLocal) throws SQLException, BiffException, Exception {
     
         int idTipoEstimativa = 3;  //Fixo devido a seleção do Cálculo com Árvores
     
@@ -119,8 +142,8 @@ public class createLocalCalcularComArvores extends HttpServlet {
         localDao = new LocalDao();        
         localDao.update(local);
     
-        ArrayList<Parcela> parcelasLocal = new ArrayList<Parcela>();
-        parcelasLocal = local.getParcelas();
+        //ArrayList<Parcela> parcelasLocal = new ArrayList<Parcela>();
+        //parcelasLocal = local.getParcelas();
     
         for (Parcela parcela : parcelasLocal) {
              parcela.calculaQtdeEstimada(local,idVariavelInteresse,idMetodoCalculo);

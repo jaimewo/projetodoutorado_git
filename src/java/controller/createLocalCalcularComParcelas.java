@@ -10,6 +10,7 @@ import dao.LocalDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,21 +40,33 @@ public class createLocalCalcularComParcelas extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, BiffException, Exception {
+        
         response.setContentType("text/html;charset=UTF-8");
+        
         try (PrintWriter out = response.getWriter()) {
+            
             int idLocal = Integer.parseInt(request.getParameter("local_id")); //Pegar idLocal da tela
             int idVariavelInteresse = Integer.parseInt(request.getParameter("variavel_interesse")); //Pegar o idVariavelInteresse do combo escolhido na tela            
+            
             importarParcelas(idLocal);
-            double qtdTela = 0;
+
+            double qtdeTela = 0;
+            
             try{
-             qtdTela = calcular(idLocal,idVariavelInteresse);
-            String retorno = "";
-            //retorno += "alert('Cálculo efetuado com sucesso!');";
-            retorno += "$('#total_calculado_parcela').val('"+qtdTela+"')";
-            System.out.println("Valor Tela:"+qtdTela);
-            out.println(retorno);
-            }catch(Exception e)
-            {
+                
+                qtdeTela = calcular(idLocal,idVariavelInteresse);
+                
+                DecimalFormat df2casas = new DecimalFormat("##,###,###,##0.00");            
+                
+                String qtdeTelaStr = df2casas.format(qtdeTela);
+                
+                String retorno = "";
+                //retorno += "alert('Cálculo efetuado com sucesso!');";
+                retorno += "$('#total_calculado_parcela').val('"+qtdeTelaStr+"')";
+                System.out.println("Valor Tela:"+qtdeTelaStr);
+                out.println(retorno);
+                
+            }catch(Exception e){
                System.out.println("Error Message:"+e.getMessage());
                String retorno = "";
                retorno += "$('#total_calculado_parcela').val('0')";

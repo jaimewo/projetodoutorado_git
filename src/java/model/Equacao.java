@@ -5,7 +5,6 @@
 package model;
 
 import dao.ArvoreAjusteDao;
-import dao.ArvoreAjusteQuantidadeDao;
 import dao.EquacaoDao;
 import dao.LocalDao;
 import dao.TermoDao;
@@ -164,7 +163,7 @@ public class Equacao extends Model  {
                
             }
             
-            qtdeObs[iArvoreAjuste] = arvoreAjuste.getQtdeObs(idVariavelInteresse, 1);
+            qtdeObs[iArvoreAjuste] = arvoreAjuste.getQtdeObs(idVariavelInteresse);
             
             iArvoreAjuste++;
             iTermo = 0;
@@ -197,15 +196,11 @@ public class Equacao extends Model  {
                 myParser.addVariable(sigla, valor);
             }
 
-            ArvoreAjusteQuantidadeDao arvoreAjusteQuantidadeDao = new ArvoreAjusteQuantidadeDao();            
-            ArvoreAjusteQuantidade arvoreAjusteQuantidade = new ArvoreAjusteQuantidade();
-            arvoreAjusteQuantidade.setIdArvoreAjuste(arvoreAjuste.getId());
-            arvoreAjusteQuantidade.setIdVariavelInteresse(idVariavelInteresse);
-            arvoreAjusteQuantidade.setIdMetodoCalculo(1); //Equação
-            arvoreAjusteQuantidade.setQtdeEst(myParser.getValue());
-            arvoreAjusteQuantidadeDao.updateQtdeEst(arvoreAjusteQuantidade);
+            ArvoreAjusteDao arvoreAjusteDao = new ArvoreAjusteDao();            
+            arvoreAjuste.setQtdeEst(myParser.getValue(),idVariavelInteresse,1); //Equacao
+            arvoreAjusteDao.updateQtdeEst(arvoreAjuste,idVariavelInteresse,1); //Equacao
             
-            qtdeEst[iArvoreAjuste] = arvoreAjusteQuantidade.getQtdeEst();
+            qtdeEst[iArvoreAjuste] = arvoreAjuste.getQtdeEst(idVariavelInteresse,1); //Equacao);
             iArvoreAjuste++;
         }
 
