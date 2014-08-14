@@ -1,5 +1,5 @@
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-<div class="navbar navbar-inverse navbar-fixed-top">
+<div class="navbar navbar-inverse navbar-form">
             <div class="navbar-inner">
                 <div class="container">
                     <button data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar" type="button">
@@ -64,8 +64,7 @@
         </div>
         <script src="js/jquery.js"></script>
         <script src="js/bootstrap.min.js"></script>
-        <br />
-        <br />
+        
         
         
        
