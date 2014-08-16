@@ -71,7 +71,7 @@
         <% String dmSyxStr                               = (String) request.getAttribute("dmSyxStr");%>   
         <% String dmSyxPercStr                           = (String) request.getAttribute("dmSyxPercStr");%>   
         <% String dmIaStr                                = (String) request.getAttribute("dmIaStr");%>   
-        <% String dmAicStr                               = (String) request.getAttribute("dmAicSrtr");%>   
+        <% String dmAicStr                               = (String) request.getAttribute("dmAicStr");%>   
         <% String dmBicStr                               = (String) request.getAttribute("dmBicStr");%>   
         <% String dmWilmottStr                           = (String) request.getAttribute("dmWilmottStr");%>   
         <% String dmSomaQuadradoResiduoStr               = (String) request.getAttribute("dmSomaQuadradoResiduoStr");%>   

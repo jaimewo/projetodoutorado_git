@@ -99,34 +99,62 @@ public class listarDetalhesCalculoArvores extends HttpServlet {
             EstatisticaAjuste estatisticaAjusteEquacao = new EstatisticaAjuste();
             EstatisticaAjusteDao estatisticaAjusteDao = new EstatisticaAjusteDao();      
             estatisticaAjusteEquacao               = estatisticaAjusteDao.getEstatisticaAjuste(idLocal, idVariavelInteresse, idMetodoCalculo);
-            String equacaoR2Str                    = df4casas.format(estatisticaAjusteEquacao.getR2());
-            String equacaoR2AjustStr               = df4casas.format(estatisticaAjusteEquacao.getR2Ajust());
-            String equacaoSyxStr                   = df4casas.format(estatisticaAjusteEquacao.getSyx());
-            String equacaoSyxPercStr               = df4casas.format(estatisticaAjusteEquacao.getSyxPerc());
-            String equacaoIaStr                    = df4casas.format(estatisticaAjusteEquacao.getIa());
-            String equacaoAicStr                   = df4casas.format(estatisticaAjusteEquacao.getAic());
-            String equacaoBicStr                   = df4casas.format(estatisticaAjusteEquacao.getBic());
-            String equacaoWilmottStr               = df4casas.format(estatisticaAjusteEquacao.getWillmott());
-            String equacaoSomaQuadradoResiduoStr   = df4casas.format(estatisticaAjusteEquacao.getSomaQuadradoResiduo());
-            String equacaoSomaQuadradoRegressaoStr = df4casas.format(estatisticaAjusteEquacao.getSomaQuadradoRegressao());
-            String equacaoSomaQuadradoTotaisStr    = df4casas.format(estatisticaAjusteEquacao.getSomaQuadradoTotais());
-                    
+            
+            String equacaoR2Str                    = "";
+            String equacaoR2AjustStr               = "";
+            String equacaoSyxStr                   = "";
+            String equacaoSyxPercStr               = "";
+            String equacaoIaStr                    = "";
+            String equacaoAicStr                   = "";
+            String equacaoBicStr                   = "";
+            String equacaoWilmottStr               = "";
+            String equacaoSomaQuadradoResiduoStr   = "";
+            String equacaoSomaQuadradoRegressaoStr = "";
+            String equacaoSomaQuadradoTotaisStr    = "";
+            
+            if (estatisticaAjusteEquacao.getId()!=0) {
+                equacaoR2Str                    = df4casas.format(estatisticaAjusteEquacao.getR2());
+                equacaoR2AjustStr               = df4casas.format(estatisticaAjusteEquacao.getR2Ajust());
+                equacaoSyxStr                   = df4casas.format(estatisticaAjusteEquacao.getSyx());
+                equacaoSyxPercStr               = df4casas.format(estatisticaAjusteEquacao.getSyxPerc());
+                equacaoIaStr                    = df4casas.format(estatisticaAjusteEquacao.getIa());
+                equacaoAicStr                   = df4casas.format(estatisticaAjusteEquacao.getAic());
+                equacaoBicStr                   = df4casas.format(estatisticaAjusteEquacao.getBic());
+                equacaoWilmottStr               = df4casas.format(estatisticaAjusteEquacao.getWillmott());
+                equacaoSomaQuadradoResiduoStr   = df4casas.format(estatisticaAjusteEquacao.getSomaQuadradoResiduo());
+                equacaoSomaQuadradoRegressaoStr = df4casas.format(estatisticaAjusteEquacao.getSomaQuadradoRegressao());
+                equacaoSomaQuadradoTotaisStr    = df4casas.format(estatisticaAjusteEquacao.getSomaQuadradoTotais());
+            }        
             idMetodoCalculo = 2; //Data Mining           
             EstatisticaAjuste estatisticaAjusteDm = new EstatisticaAjuste();
             estatisticaAjusteDao = new EstatisticaAjusteDao();      
             estatisticaAjusteDm = estatisticaAjusteDao.getEstatisticaAjuste(idLocal, idVariavelInteresse, idMetodoCalculo);
-            String dmR2Str                    = df4casas.format(estatisticaAjusteDm.getR2());
-            String dmR2AjustStr               = df4casas.format(estatisticaAjusteDm.getR2Ajust());
-            String dmSyxStr                   = df4casas.format(estatisticaAjusteDm.getSyx());
-            String dmSyxPercStr               = df4casas.format(estatisticaAjusteDm.getSyxPerc());
-            String dmIaStr                    = df4casas.format(estatisticaAjusteDm.getIa());
-            String dmAicSrtr                  = df4casas.format(estatisticaAjusteDm.getAic());
-            String dmBicStr                   = df4casas.format(estatisticaAjusteDm.getBic());
-            String dmWilmottStr               = df4casas.format(estatisticaAjusteDm.getWillmott());
-            String dmSomaQuadradoResiduoStr   = df4casas.format(estatisticaAjusteDm.getSomaQuadradoResiduo());
-            String dmSomaQuadradoRegressaoStr = df4casas.format(estatisticaAjusteDm.getSomaQuadradoRegressao());
-            String dmSomaQuadradoTotaisStr    = df4casas.format(estatisticaAjusteDm.getSomaQuadradoTotais());            
-
+            
+            String dmR2Str                    = "";
+            String dmR2AjustStr               = "";
+            String dmSyxStr                   = "";
+            String dmSyxPercStr               = "";
+            String dmIaStr                    = "";
+            String dmAicStr                   = "";
+            String dmBicStr                   = "";
+            String dmWilmottStr               = "";
+            String dmSomaQuadradoResiduoStr   = "";
+            String dmSomaQuadradoRegressaoStr = "";
+            String dmSomaQuadradoTotaisStr    = "";
+            
+            if (estatisticaAjusteDm.getId()!=0) {
+                dmR2Str                    = df4casas.format(estatisticaAjusteDm.getR2());
+                dmR2AjustStr               = df4casas.format(estatisticaAjusteDm.getR2Ajust());
+                dmSyxStr                   = df4casas.format(estatisticaAjusteDm.getSyx());
+                dmSyxPercStr               = df4casas.format(estatisticaAjusteDm.getSyxPerc());
+                dmIaStr                    = df4casas.format(estatisticaAjusteDm.getIa());
+                dmAicStr                   = df4casas.format(estatisticaAjusteDm.getAic());
+                dmBicStr                   = df4casas.format(estatisticaAjusteDm.getBic());
+                dmWilmottStr               = df4casas.format(estatisticaAjusteDm.getWillmott());
+                dmSomaQuadradoResiduoStr   = df4casas.format(estatisticaAjusteDm.getSomaQuadradoResiduo());
+                dmSomaQuadradoRegressaoStr = df4casas.format(estatisticaAjusteDm.getSomaQuadradoRegressao());
+                dmSomaQuadradoTotaisStr    = df4casas.format(estatisticaAjusteDm.getSomaQuadradoTotais());            
+            }
 
             request.setAttribute("local", local);
             request.setAttribute("variavelInteresse", variavelInteresse);
@@ -184,7 +212,7 @@ public class listarDetalhesCalculoArvores extends HttpServlet {
             request.setAttribute("dmSyxStr", dmSyxStr);             
             request.setAttribute("dmSyxPercStr", dmSyxPercStr);             
             request.setAttribute("dmIaStr", dmIaStr);             
-            request.setAttribute("dmAicSrtr", dmAicSrtr);             
+            request.setAttribute("dmAicStr", dmAicStr);             
             request.setAttribute("dmBicStr", dmBicStr);             
             request.setAttribute("dmWilmottStr", dmWilmottStr);             
             request.setAttribute("dmSomaQuadradoResiduoStr", dmSomaQuadradoResiduoStr);             

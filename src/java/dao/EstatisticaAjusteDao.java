@@ -156,6 +156,7 @@ public class EstatisticaAjusteDao extends MainDao{
    
     public EstatisticaAjuste getEstatisticaAjuste(int idLocal,int idVariavelInteresse, int idMetodoCalculo) throws SQLException
     {
+        
         ArrayList<EstatisticaAjuste> estatisticaAjustes = new ArrayList<EstatisticaAjuste>();
         PreparedStatement p = this.con.prepareStatement("SELECT * "
                 +                                       "FROM estatisticaAjuste "
@@ -166,9 +167,11 @@ public class EstatisticaAjusteDao extends MainDao{
         p.setInt(2, idVariavelInteresse);
         p.setInt(3, idMetodoCalculo);
 
+ EstatisticaAjuste estatisticaAjuste = new EstatisticaAjuste();       
         ResultSet rs = p.executeQuery();
         while(rs.next()){
-           EstatisticaAjuste estatisticaAjuste = new EstatisticaAjuste();
+            
+            
            estatisticaAjuste.setId(rs.getInt("id"));
            estatisticaAjuste.setIdVariavelInteresse(rs.getInt("idvariavelinteresse"));
            estatisticaAjuste.setIdMetodoCalculo(rs.getInt("idmetodocalculo"));           
@@ -185,9 +188,14 @@ public class EstatisticaAjusteDao extends MainDao{
            estatisticaAjuste.setSomaQuadradoRegressao(rs.getDouble("somaquadradoregressao"));
            estatisticaAjuste.setSomaQuadradoTotais(rs.getDouble("somaquadradototais"));           
            estatisticaAjustes.add(estatisticaAjuste);
+ estatisticaAjuste = new EstatisticaAjuste();           
         }
+                   estatisticaAjustes.add(estatisticaAjuste);
+
         rs.close();
         p.close();
+        
+
         return estatisticaAjustes.get(0);
    }
    public ArrayList<EstatisticaAjuste> listarEstatisticaAjustes() throws Exception{
