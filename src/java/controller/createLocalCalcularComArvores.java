@@ -46,10 +46,10 @@ public class createLocalCalcularComArvores extends HttpServlet {
             throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         
-    Locale locale = new Locale("pt","BR");  
-    GregorianCalendar calendar = new GregorianCalendar();
-    SimpleDateFormat formatador = new SimpleDateFormat("dd' de 'MMMMM' de 'yyyy' - 'HH':'mm':'ss'h'",locale);
-    System.out.println("INICIO: "+formatador.format(calendar.getTime()));
+        Locale locale = new Locale("pt","BR");  
+        GregorianCalendar calendar = new GregorianCalendar();
+        SimpleDateFormat formatador = new SimpleDateFormat("dd' de 'MMMMM' de 'yyyy' - 'HH':'mm':'ss'h'",locale);
+        System.out.println("INICIO: "+formatador.format(calendar.getTime()));
     
         
         ArrayList<Parcela> parcelasLocal = new ArrayList<Parcela>();
@@ -85,10 +85,10 @@ public class createLocalCalcularComArvores extends HttpServlet {
             System.out.println("Valor Tela:"+qtdeTelaStr);
             out.println(retorno);
             
-    locale = new Locale("pt","BR");  
-    calendar = new GregorianCalendar();
-    formatador = new SimpleDateFormat("dd' de 'MMMMM' de 'yyyy' - 'HH':'mm':'ss'h'",locale);
-    System.out.println("FIM: "+formatador.format(calendar.getTime()));
+            locale = new Locale("pt","BR");  
+            calendar = new GregorianCalendar();
+            formatador = new SimpleDateFormat("dd' de 'MMMMM' de 'yyyy' - 'HH':'mm':'ss'h'",locale);
+            System.out.println("FIM: "+formatador.format(calendar.getTime()));
                 
 
             } catch (SQLException ex) {

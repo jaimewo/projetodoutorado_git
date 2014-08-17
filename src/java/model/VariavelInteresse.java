@@ -11,9 +11,40 @@ package model;
 public class VariavelInteresse extends Model  {
     
     
-    public static int BIOMASSA = 1;
-    public static int CARBONO = 2;
-    public static int VOLUME = 3;
+    private int id;
+    private String sigla;
+    private String nome;
+    
+    
+    public VariavelInteresse()
+    {
+        this.sigla = "";
+        this.nome = "";
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getSigla() {
+        return sigla;
+    }
+
+    public void setSigla(String sigla) {
+        this.sigla = sigla;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
         
     
     

@@ -19,69 +19,39 @@
     </head>
     <body>
         <%@include  file="menu.jsp" %>
-        <% Local local                                        = (Local) request.getAttribute("local");%> 
-        <% String variavelInteresse                           = (String) request.getAttribute("variavelInteresse");%> 
-        <% String descricaoTipoDistancia                      = (String) request.getAttribute("descricaoTipoDistancia");%> 
-        <% String descricaoTipoPonderacao                     = (String) request.getAttribute("descricaoTipoPonderacao");%> 
-        <% String descricaoComLn                              = (String) request.getAttribute("descricaoComLn");%> 
+        <% Local local                          = (Local)  request.getAttribute("local");%> 
+        <% VariavelInteresse variavelInteresse  = (VariavelInteresse) request.getAttribute("variavelInteresse");%> 
+        <% String descricaoMetodoCalculo        = (String) request.getAttribute("descricaoMetodoCalculo");%> 
+        <% String descricaoTipoDistancia        = (String) request.getAttribute("descricaoTipoDistancia");%> 
+        <% String descricaoTipoPonderacao       = (String) request.getAttribute("descricaoTipoPonderacao");%> 
+        <% String descricaoComLn                = (String) request.getAttribute("descricaoComLn");%> 
         
-        <% String equacaoMediaParcelaStr                      = (String) request.getAttribute("equacaoMediaParcelaStr");%>   
-        <% String equacaoCoeficienteVariacaoStr               = (String) request.getAttribute("equacaoCoeficienteVariacaoStr");%>   
-        <% String equacaoDesvioPadraoStr                      = (String) request.getAttribute("equacaoDesvioPadraoStr");%>   
-        <% String equacaoErroAbsolutoStr                      = (String) request.getAttribute("equacaoErroAbsolutoStr");%>   
-        <% String equacaoErroPadraoStr                        = (String) request.getAttribute("equacaoErroPadraoStr");%>   
-        <% String equacaoErroRelativoStr                      = (String) request.getAttribute("equacaoErroRelativoStr");%>   
-        <% String equacaoIntervaloConfiancaMaxMediaStr        = (String) request.getAttribute("equacaoIntervaloConfiancaMaxMediaStr");%>   
-        <% String equacaoIntervaloConfiancaMinMediaStr        = (String) request.getAttribute("equacaoIntervaloConfiancaMinMediaStr");%>   
-        <% String equacaoIntervaloConfiancaMaxTotalStr        = (String) request.getAttribute("equacaoIntervaloConfiancaMaxTotalStr");%>   
-        <% String equacaoIntervaloConfiancaMinTotalStr        = (String) request.getAttribute("equacaoIntervaloConfiancaMinTotalStr");%>   
-        <% String equacaoQtdeMediaStr                         = (String) request.getAttribute("equacaoQtdeMediaStr");%>   
-        <% String equacaoVarianciaStr                         = (String) request.getAttribute("equacaoVarianciaStr");%>   
-        <% String equacaoVarianciaMediaStr                    = (String) request.getAttribute("equacaoVarianciaMediaStr");%>   
+        <% String mediaParcelaStr               = (String) request.getAttribute("mediaParcelaStr");%>   
+        <% String coeficienteVariacaoStr        = (String) request.getAttribute("coeficienteVariacaoStr");%>   
+        <% String desvioPadraoStr               = (String) request.getAttribute("desvioPadraoStr");%>   
+        <% String erroAbsolutoStr               = (String) request.getAttribute("erroAbsolutoStr");%>   
+        <% String erroPadraoStr                 = (String) request.getAttribute("erroPadraoStr");%>   
+        <% String erroRelativoStr               = (String) request.getAttribute("erroRelativoStr");%>   
+        <% String intervaloConfiancaMaxMediaStr = (String) request.getAttribute("intervaloConfiancaMaxMediaStr");%>   
+        <% String intervaloConfiancaMinMediaStr = (String) request.getAttribute("intervaloConfiancaMinMediaStr");%>   
+        <% String intervaloConfiancaMaxTotalStr = (String) request.getAttribute("intervaloConfiancaMaxTotalStr");%>   
+        <% String intervaloConfiancaMinTotalStr = (String) request.getAttribute("intervaloConfiancaMinTotalStr");%>   
+        <% String qtdeMediaStr                  = (String) request.getAttribute("qtdeMediaStr");%>   
+        <% String varianciaStr                  = (String) request.getAttribute("varianciaStr");%>   
+        <% String varianciaMediaStr             = (String) request.getAttribute("varianciaMediaStr");%>   
 
+        <% String r2Str                         = (String) request.getAttribute("r2Str");%>   
+        <% String r2AjustStr                    = (String) request.getAttribute("r2AjustStr");%>   
+        <% String syxStr                        = (String) request.getAttribute("syxStr");%>   
+        <% String syxPercStr                    = (String) request.getAttribute("syxPercStr");%>   
+        <% String iaStr                         = (String) request.getAttribute("iaStr");%>   
+        <% String aicStr                        = (String) request.getAttribute("aicStr");%>   
+        <% String bicStr                        = (String) request.getAttribute("bicStr");%>   
+        <% String wilmottStr                    = (String) request.getAttribute("wilmottStr");%>   
+        <% String somaQuadradoResiduoStr        = (String) request.getAttribute("somaQuadradoResiduoStr");%>   
+        <% String somaQuadradoRegressaoStr      = (String) request.getAttribute("somaQuadradoRegressaoStr");%>   
+        <% String somaQuadradoTotaisStr         = (String) request.getAttribute("somaQuadradoTotaisStr");%>   
         
-        <% String dmMediaParcelaStr                      = (String) request.getAttribute("dmMediaParcelaStr");%>   
-        <% String dmCoeficienteVariacaoStr               = (String) request.getAttribute("dmCoeficienteVariacaoStr");%>   
-        <% String dmDesvioPadraoStr                      = (String) request.getAttribute("dmDesvioPadraoStr");%>   
-        <% String dmErroAbsolutoStr                      = (String) request.getAttribute("dmErroAbsolutoStr");%>   
-        <% String dmErroPadraoStr                        = (String) request.getAttribute("dmErroPadraoStr");%>   
-        <% String dmErroRelativoStr                      = (String) request.getAttribute("dmErroRelativoStr");%>   
-        <% String dmIntervaloConfiancaMaxMediaStr        = (String) request.getAttribute("dmIntervaloConfiancaMaxMediaStr");%>   
-        <% String dmIntervaloConfiancaMinMediaStr        = (String) request.getAttribute("dmIntervaloConfiancaMinMediaStr");%>   
-        <% String dmIntervaloConfiancaMaxTotalStr        = (String) request.getAttribute("dmIntervaloConfiancaMaxTotalStr");%>   
-        <% String dmIntervaloConfiancaMinTotalStr        = (String) request.getAttribute("dmIntervaloConfiancaMinTotalStr");%>   
-        <% String dmQtdeMediaStr                         = (String) request.getAttribute("dmQtdeMediaStr");%>   
-        <% String dmVarianciaStr                         = (String) request.getAttribute("dmVarianciaStr");%>   
-        <% String dmVarianciaMediaStr                    = (String) request.getAttribute("dmVarianciaMediaStr");%>   
-
-        <% String equacaoR2Str                           = (String) request.getAttribute("equacaoR2Str");%>   
-        <% String equacaoR2AjustStr                      = (String) request.getAttribute("equacaoR2AjustStr");%>   
-        <% String equacaoSyxStr                          =   (String) request.getAttribute("equacaoSyxStr");%>   
-        <% String equacaoSyxPercStr                      = (String) request.getAttribute("equacaoSyxPercStr");%>   
-        <% String equacaoIaStr                           = (String) request.getAttribute("equacaoIaStr");%>   
-        <% String equacaoAicStr                          = (String) request.getAttribute("equacaoAicStr");%>   
-        <% String equacaoBicStr                          = (String) request.getAttribute("equacaoBicStr");%>   
-        <% String equacaoWilmottStr                      = (String) request.getAttribute("equacaoWilmottStr");%>   
-        <% String equacaoSomaQuadradoResiduoStr          = (String) request.getAttribute("equacaoSomaQuadradoResiduoStr");%>   
-        <% String equacaoSomaQuadradoRegressaoStr        = (String) request.getAttribute("equacaoSomaQuadradoRegressaoStr");%>   
-        <% String equacaoSomaQuadradoTotaisStr           = (String) request.getAttribute("equacaoSomaQuadradoTotaisStr");%>   
-
-        <% String dmR2Str                                = (String) request.getAttribute("dmR2Str");%>   
-        <% String dmR2AjustStr                           = (String) request.getAttribute("dmR2AjustStr");%>   
-        <% String dmSyxStr                               = (String) request.getAttribute("dmSyxStr");%>   
-        <% String dmSyxPercStr                           = (String) request.getAttribute("dmSyxPercStr");%>   
-        <% String dmIaStr                                = (String) request.getAttribute("dmIaStr");%>   
-        <% String dmAicStr                               = (String) request.getAttribute("dmAicStr");%>   
-        <% String dmBicStr                               = (String) request.getAttribute("dmBicStr");%>   
-        <% String dmWilmottStr                           = (String) request.getAttribute("dmWilmottStr");%>   
-        <% String dmSomaQuadradoResiduoStr               = (String) request.getAttribute("dmSomaQuadradoResiduoStr");%>   
-        <% String dmSomaQuadradoRegressaoStr             = (String) request.getAttribute("dmSomaQuadradoRegressaoStr");%>   
-        <% String dmSomaQuadradoTotaisStr                = (String) request.getAttribute("dmSomaQuadradoTotaisStr");%>   
-        
-        <% EstatisticaInventario estatisticaInventarioEquacao = (EstatisticaInventario) request.getAttribute("estatisticaInventarioEquacao");%>        
-        <% EstatisticaInventario estatisticaInventarioDm      = (EstatisticaInventario) request.getAttribute("estatisticaInventarioDm");%>        
-        <% EstatisticaAjuste estatisticaAjusteEquacao         = (EstatisticaAjuste) request.getAttribute("estatisticaAjusteEquacao");%>        
-        <% EstatisticaAjuste estatisticaAjusteDm              = (EstatisticaAjuste) request.getAttribute("estatisticaAjusteDm");%>  
         <div class="container">
             <br />
             <br />
@@ -91,12 +61,6 @@
                     <strong><%= request.getAttribute("mensagem").toString()%></strong>
                 </div>
             <%}%>
-             <div class="field control-group">
-                <label for="variavelInteresse" class="control-label">Variável de Interesse:</label>
-                <div class="controls">
-                    <input type="text" name="variavelInteresse" value="<%=variavelInteresse%>" />
-                </div>
-            </div> 
             <input type="hidden" name="local[id]" value ="<%=local.getIdString()%>" />
              <div class="field control-group">
                 <label for="local_descricao" class="control-label">Local</label>
@@ -104,100 +68,92 @@
                     <input type="text" name="local[descricao]" value="<%=local.getDescricao()%>" />
                 </div>
             </div>   
+            
+             <div class="field control-group">
+                <label for="variavelInteresse" class="control-label">Variável de Interesse:</label>
+                <div class="controls">
+                    <input type="text" name="variavelInteresse" value="<%=variavelInteresse%>" />
+                </div>
+            </div> 
+            
+             <div class="field control-group">
+                <label for="metidiCalculo" class="control-label">Método de Cálculo:</label>
+                <div class="controls">
+                    <input type="text" name="metodoCalculo" value="<%=metodoCalculo%>" />
+                </div>
+            </div> 
 
                 <table class="table table-striped table-condensed">
                     <thead>
                         <tr>
                             <th>Estatísticas da Estimativa</th>
                             <th></th>
-                            <th></th>
                         </tr>
-                        <tr>
-                            <th></th>
-                            <th>por Regressão Linear</th>
-                            <th>utilizando Data Mining</th>
-                        </tr>                    
                     </thead>
                     <tbody>
                         <tr>
                             <td>Média por Parcela:</td>
-                            <td><%=equacaoMediaParcelaStr%></td>
-                            <td><%=dmMediaParcelaStr%></td>
+                            <td><%=mediaParcelaStr%></td>
                         </tr>
                         <tr>
                             <td>Variância:</td>
-                            <td><%=equacaoVarianciaStr%></td>
-                            <td><%=dmVarianciaStr%></td>
+                            <td><%=varianciaStr%></td>
                         </tr>
                         <tr>
                             <td>Desvio Padrão:</td>
-                            <td><%=equacaoDesvioPadraoStr%></td>
-                            <td><%=dmDesvioPadraoStr%></td>
+                            <td><%=desvioPadraoStr%></td>
                         </tr>
                         <tr>
                             <td>Variância Média:</td>
-                            <td><%=equacaoVarianciaMediaStr%></td>
-                            <td><%=dmVarianciaMediaStr%></td>
+                            <td><%=varianciaMediaStr%></td>
                         </tr>
                         <tr>
                             <td>Erro Padrão:</td>
-                            <td><%=equacaoErroPadraoStr%></td>
-                            <td><%=dmErroPadraoStr%></td>
+                            <td><%=erroPadraoStr%></td>
                         </tr>
                         <tr>
                             <td>Coeficiente de Variação:</td>
-                            <td><%=equacaoCoeficienteVariacaoStr%></td>
-                            <td><%=dmCoeficienteVariacaoStr%></td>
+                            <td><%=coeficienteVariacaoStr%></td>
                         </tr>
                         <tr>
                             <td>Erro Absoluto:</td>
-                            <td><%=equacaoErroAbsolutoStr%></td>
-                            <td><%=dmErroAbsolutoStr%></td>
+                            <td><%=erroAbsolutoStr%></td>
                         </tr>
                         <tr>
                             <td>Erro Relativo(%):</td>
-                            <td><%=equacaoErroRelativoStr%></td>
-                            <td><%=dmErroRelativoStr%></td>
+                            <td><%=erroRelativoStr%></td>
                         </tr>
                         <tr>
                             <td>Intervalo de Confiança Min(Média):</td>
-                            <td><%=equacaoIntervaloConfiancaMinMediaStr%></td>
-                            <td><%=dmIntervaloConfiancaMinMediaStr%></td>
+                            <td><%=intervaloConfiancaMinMediaStr%></td>
                         </tr>
                         <tr>
                             <td>Intervalo de Confiança Max(Média):</td>
-                            <td><%=equacaoIntervaloConfiancaMaxMediaStr%></td>
-                            <td><%=dmIntervaloConfiancaMaxMediaStr%></td>
+                            <td><%=intervaloConfiancaMaxMediaStr%></td>
                         </tr>                        
                         <tr>
                             <td>Valor Total Mínimo:</td>
-                            <td><%=equacaoIntervaloConfiancaMinTotalStr%></td>
-                            <td><%=dmIntervaloConfiancaMinTotalStr%></td>
+                            <td><%=intervaloConfiancaMinTotalStr%></td>
                         </tr>
                         <tr>
                             <td>Valor Total Máximo:</td>
-                            <td><%=equacaoIntervaloConfiancaMaxTotalStr%></td>
-                            <td><%=dmIntervaloConfiancaMaxTotalStr%></td>
+                            <td><%=intervaloConfiancaMaxTotalStr%></td>
                         </tr>                        
                         <tr>
-                            <td></td>
                             <td></td>
                             <td></td>
                         </tr>
                         <tr>
                             <td>Valor Total Médio:</td>
-                            <td><%=equacaoQtdeMediaStr%></td>
-                            <td><%=dmQtdeMediaStr%></td>
+                            <td><%=qtdeMediaStr%></td>
                         </tr>
                     </tbody>
                 </table>
                 
                 <br />
                 <div class="field control-group">
-                    <label for="local_descricao" class="control-label">Baixar Planilha dos Valores:</label>
                     <div class="controls">
-                        <a href="#" id="btn_inventatario_equacao" class="btn btn-inverse" >Estimados pela Equação</a>
-                        <a href="#" id="btn_inventatario_dm" class="btn btn-inverse" >Estimados por Data Mining</a>
+                        <a href="#" id="btn_valoresEstimados" class="btn btn-inverse" >Baixar Planilha dos Valores Estimados</a>
                     </div>
                 </div>
 
@@ -206,72 +162,54 @@
                         <tr>
                             <th>Estatísticas do Ajuste</th>
                             <th></th>
-                            <th></th>
                         </tr>
-                        <tr>
-                            <th></th>
-                            <th>por Regressão Linear</th>
-                            <th>utilizando Data Mining</th>
-                        </tr>                    
                     </thead>
                     <tbody>
                         <tr>
                             <td>R2(Coeficiente de Determinação Múltipla):</td>
-                            <td><%=equacaoR2Str%></td>
-                            <td><%=dmR2Str%></td>
+                            <td><%=r2Str%></td>
                         </tr>
                         <tr>
                             <td>R2 Ajustado:</td>
-                            <td><%=equacaoR2AjustStr%></td>
-                            <td><%=dmR2AjustStr%></td>
+                            <td><%=r2AjustStr%></td>
                         </tr>
                         <tr>
                             <td>Syx (Erro Padrão da Estimativa:</td>
-                            <td><%=equacaoSyxStr%></td>
-                            <td><%=dmSyxStr%></td>
+                            <td><%=syxStr%></td>
                         </tr>
                         <tr>
                             <td>Syx %:</td>
-                            <td><%=equacaoSyxPercStr%></td>
-                            <td><%=dmSyxPercStr%></td>
+                            <td><%=syxPercStr%></td>
                         </tr>
                         <tr>
                             <td>Aic (Critério de Informação de Akaike):</td>
-                            <td><%=equacaoAicStr%></td>
-                            <td><%=dmAicStr%></td>
+                            <td><%=aicStr%></td>
                         </tr>
                         <tr>
                             <td>Bic (Critério de Informação Bayesiano ou de Schawartz):</td>
-                            <td><%=equacaoBicStr%></td>
-                            <td><%=dmBicStr%></td>
+                            <td><%=bicStr%></td>
                         </tr>
                         <tr>
                             <td>Critério de Willmott:</td>
-                            <td><%=equacaoWilmottStr%></td>
-                            <td><%=dmWilmottStr%></td>
+                            <td><%=wilmottStr%></td>
                         </tr>
                         <tr>
                             <td>Ia (Índice de Schlaegel):</td>
-                            <td><%=equacaoIaStr%></td>
-                            <td><%=dmIaStr%></td>
+                            <td><%=iaStr%></td>
                         </tr>
                         <tr>
                             <td>Soma dos Quadrados dos Resíduos:</td>
-                            <td><%=equacaoSomaQuadradoResiduoStr%></td>
-                            <td><%=dmSomaQuadradoResiduoStr%></td>
+                            <td><%=somaQuadradoResiduoStr%></td>
                         </tr>
                         <tr>
                             <td>Soma dos Quadrados dos Regressão:</td>
-                            <td><%=equacaoSomaQuadradoRegressaoStr%></td>
-                            <td><%=dmSomaQuadradoRegressaoStr%></td>
+                            <td><%=somaQuadradoRegressaoStr%></td>
                         </tr>
                         <tr>
                             <td>Soma dos Quadrados Totais:</td>
-                            <td><%=equacaoSomaQuadradoTotaisStr%></td>
-                            <td><%=dmSomaQuadradoTotaisStr%></td>
+                            <td><%=somaQuadradoTotaisStr%></td>
                         </tr>
                         <tr>
-                            <td></td>
                             <td></td>
                             <td></td>
                         </tr>
@@ -300,10 +238,8 @@
                 
                 <br />
                 <div class="field control-group">
-                    <label for="local_descricao" class="control-label">Baixar Planilha do Ajuste:</label>
                     <div class="controls">
-                        <a href="#" id="btn_ajuste_equacao" class="btn btn-inverse" >Da Equação</a>
-                        <a href="#" id="btn_ajuste_dm" class="btn btn-inverse" >Por Data Mining</a>
+                        <a href="#" id="btn_ajuste" class="btn btn-inverse" >Baixar Planilha do Ajuste</a>
                     </div>
                 </div>
                                                 

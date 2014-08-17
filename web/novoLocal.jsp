@@ -154,7 +154,7 @@
                      <br />
                      <div class="field control-group">
                          <h3><b>Variável de interesse</b></h3>
-                         <select id="variavel_interesse_arvores">
+                         <select id="id_variavel_interesse_arvores">
                              <option value="1">Biomassa</option>
                              <option value="2">Carbono</option>
                              <option value="3">Volume</option>
@@ -168,9 +168,10 @@
                                 <label for="local_descricao" class="control-label">Total Calculado(t/ha)</label>
                                 <div class="controls">
                                     <input type="text"  id="total_calculado_arvore_equacao" disabled="true"  />
-                                    <input name="local_id_parcela" id="local_id_arvore" type="hidden" />
+                                    <input type="text" disabled="false" type="hidden" name="local_id" id="local_id" value="<%=objeto_local.getId()%>"  />
+                                    <input name="id_variavel_interesse_arvores" id="id_variavel_interesse_arvores" value="id_variavel_interesse_arvores" disabled="false" type="hidden" />
                                 </div>
-                                <a href="#" id="ver_detalhe_do_calculo">Ver detalhes do Cálculo usando Equação</a>
+                                <a href="listarDetalhesCalculoArvoresEquacao" id="ver_detalhe_do_calculo">Ver detalhes do Cálculo usando Equação</a>
                          </div>
                                  
                      </span>
@@ -182,7 +183,7 @@
                                     <div class="controls">
                                         <input type="text"  id="total_calculado_arvore_data_mining" disabled="true"  />
                                      </div>
-                                    <a href="#" id="ver_detalhe_do_calculo">Ver detalhes do Cálculo usando Data Mining  </a>
+                                    <a href="listarDetalhesCalculoArvoresDm" id="ver_detalhe_do_calculo">Ver detalhes do Cálculo usando Data Mining  </a>
                          </div>
                      </span>
                     </div>
@@ -208,7 +209,7 @@
                     
                     $("#form_action_local_arvores").submit(function(){
                         
-                         $.post('createLocalCalcularComArvores',{variavel_interesse:$("#variavel_interesse_arvores").val(),
+                         $.post('createLocalCalcularComArvores',{variavel_interesse:$("#id_variavel_interesse_arvores").val(),
                                                        local_id:$("#local_id_parcela").val()
                                                 
                 },function(responseText) {
@@ -256,7 +257,7 @@
                                     <div class="controls">
                                         <input type="text"  id="total_calculado_parcela"   />
                                      </div>
-                                    <a href="#" id="ver_detalhe_do_calculo">Ver detalhes do Calculo</a>
+                                    <a href="listarDetalhesCalculoParcelas" id="ver_detalhe_do_calculo">Ver detalhes do Calculo</a>
                          </div>
                      </span>
                     </div>

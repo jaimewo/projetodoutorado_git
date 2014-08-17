@@ -369,10 +369,6 @@
         <servlet-class>controller.listarDetalhesCalculoParcelas</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>listarDetalhesCalculoArvores</servlet-name>
-        <servlet-class>controller.listarDetalhesCalculoArvores</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>Home</servlet-name>
         <servlet-class>controller.Home</servlet-class>
     </servlet>
@@ -383,6 +379,14 @@
     <servlet>
         <servlet-name>createCoordenadasGoogleMaps</servlet-name>
         <servlet-class>controller.createCoordenadasGoogleMaps</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>listarDetalhesCalculoArvoresEquacao</servlet-name>
+        <servlet-class>controller.listarDetalhesCalculoArvoresEquacao</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>listarDetalhesCalculoArvoresDm</servlet-name>
+        <servlet-class>controller.listarDetalhesCalculoArvoresDm</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>listarBiomas</servlet-name>
@@ -757,10 +761,6 @@
         <url-pattern>/listarDetalhesCalculoParcelas</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>listarDetalhesCalculoArvores</servlet-name>
-        <url-pattern>/listarDetalhesCalculoArvores</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>Home</servlet-name>
         <url-pattern>/Home</url-pattern>
     </servlet-mapping>
@@ -771,6 +771,14 @@
     <servlet-mapping>
         <servlet-name>createCoordenadasGoogleMaps</servlet-name>
         <url-pattern>/createCoordenadasGoogleMaps</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>listarDetalhesCalculoArvoresEquacao</servlet-name>
+        <url-pattern>/listarDetalhesCalculoArvoresEquacao</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>listarDetalhesCalculoArvoresDm</servlet-name>
+        <url-pattern>/listarDetalhesCalculoArvoresDm</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
