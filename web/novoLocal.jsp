@@ -153,12 +153,22 @@
                         <br />
                         <br />
                         <div class="field control-group">
-                            <h3><b>Variável de interesse</b></h3>
+                            
+                            
+                                <h3><b>Variável de interesse</b></h3>
                             <select id="id_variavel_interesse_arvores">
                                 <option value="1">Biomassa</option>
                                 <option value="2">Carbono</option>
                                 <option value="3">Volume</option>
                             </select>
+                            
+                            <h3><b>Método de Cálculo</b></h3>
+                            <select id="metodo_de_calculo">
+                                <option value="equacao">Equação</option>
+                                <option value="data_mining">Data Mining</option>
+                            </select>
+                            
+                        
                         </div>
                         <span>
                             <input type="hidden" id="btn_clicado" name="btn_clicado" value="-1" />
@@ -203,6 +213,10 @@
 
             </div>
             <script type="text/javascript">
+
+                $("#metodo_de_calculo").change(function(){
+                    alert($("#metodo_de_calculo").val());
+                                    });
 
                 $("#ver_detalhe_do_calculo_arvore_equacao").click(function()
                 {
