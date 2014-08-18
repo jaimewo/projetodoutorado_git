@@ -4,6 +4,8 @@
     Author     : paulozeferino
 --%>
 
+<%@page import="model.Local"%>
+<%@page import="dao.LocalDao"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.CoordenadaLocal"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -31,11 +33,16 @@ function initialize() {
   
      var latitudes = [];
                 var longitudes = [];
+                var nome_locais = [];
             <%for (CoordenadaLocal obj_coordenda : coordenadas) {%>
                 // var myLatlng = new google.maps.LatLng('','');
                 //coordenadas.push(myLatlng);
                 latitudes.push('<%=obj_coordenda.getLatitude()%>');
                 longitudes.push('<%=obj_coordenda.getLongitude()%>');
+                <%LocalDao objeto_local_dao = new LocalDao();%>
+                <%Local obj_local = objeto_local_dao.getLocal(obj_coordenda.getIdLocal()); %>
+                nome_locais.push('<%=obj_local.getDescricao()%>');
+               
             <%}%>
 
 
@@ -50,13 +57,20 @@ function initialize() {
     
     for (i = 0; i < latitudes.length; i++) {
                     var position = new google.maps.LatLng(latitudes[i], longitudes[i]);
-                    
+                    var nome_local = nome_locais[i];
                     marker = new google.maps.Marker({
                         position: position,
                         map: map,
-                        title: 'Local'
+                        title: nome_local
                     });
-                }
+                
+    
+     google.maps.event.addListener(marker, 'click', function () {
+                infowindow.setContent(this.title);
+                infowindow.open(map, this);
+            });
+    
+    }
 
   
 }
