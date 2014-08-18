@@ -28,6 +28,28 @@ public class CoordenadaLocalDao extends MainDao {
         super();
     }
      
+    
+    public ArrayList<CoordenadaLocal> getAll() throws SQLException
+    {
+        ArrayList<CoordenadaLocal> retorno = new ArrayList<CoordenadaLocal>();
+        PreparedStatement p = this.con.prepareStatement("SELECT * FROM coordenadalocal");
+     
+        ResultSet rs = p.executeQuery();
+        while(rs.next()){
+           CoordenadaLocal coordenadaLocal = new CoordenadaLocal();
+           coordenadaLocal.setId(rs.getInt("id"));
+           coordenadaLocal.setIdLocal(rs.getInt("idlocal"));
+           coordenadaLocal.setLatitude(rs.getDouble("latitude"));
+           coordenadaLocal.setLongitude(rs.getDouble("longitude"));
+           retorno.add(coordenadaLocal);
+        }
+        rs.close();
+        p.close();
+        super.con.close();
+        return retorno;
+        
+    }
+    
     public void cadastrar(CoordenadaLocal coordenadaLocal) throws SQLException
     {
         PreparedStatement p = this.con.prepareStatement("INSERT INTO coordenadalocal(idlocal,"

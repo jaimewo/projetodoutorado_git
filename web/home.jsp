@@ -4,6 +4,8 @@
     Author     : paulozeferino
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="model.CoordenadaLocal"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -24,41 +26,39 @@
          <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=drawing"></script>
     <script>
+         <% ArrayList<CoordenadaLocal> coordenadas = (ArrayList<CoordenadaLocal>) request.getAttribute("coordenadas");%>
 function initialize() {
-  var mapOptions = {
-    center: new google.maps.LatLng(-34.397, 150.644),
+  
+     var latitudes = [];
+                var longitudes = [];
+            <%for (CoordenadaLocal obj_coordenda : coordenadas) {%>
+                // var myLatlng = new google.maps.LatLng('','');
+                //coordenadas.push(myLatlng);
+                latitudes.push('<%=obj_coordenda.getLatitude()%>');
+                longitudes.push('<%=obj_coordenda.getLongitude()%>');
+            <%}%>
+
+
+
+   var mapOptions = {
+    center: new google.maps.LatLng(latitudes[0], longitudes[0]),
     zoom: 8
   };
-
+ 
   var map = new google.maps.Map(document.getElementById('map-canvas'),
     mapOptions);
+    
+    for (i = 0; i < latitudes.length; i++) {
+                    var position = new google.maps.LatLng(latitudes[i], longitudes[i]);
+                    
+                    marker = new google.maps.Marker({
+                        position: position,
+                        map: map,
+                        title: 'Local'
+                    });
+                }
 
-  var drawingManager = new google.maps.drawing.DrawingManager({
-    drawingMode: google.maps.drawing.OverlayType.MARKER,
-    drawingControl: true,
-    drawingControlOptions: {
-      position: google.maps.ControlPosition.RIGHT_CENTER,
-      drawingModes: [
-        google.maps.drawing.OverlayType.MARKER,
-        google.maps.drawing.OverlayType.CIRCLE,
-        google.maps.drawing.OverlayType.POLYGON,
-        google.maps.drawing.OverlayType.POLYLINE,
-        google.maps.drawing.OverlayType.RECTANGLE
-      ]
-    },
-    markerOptions: {
-      icon: 'images/beachflag.png'
-    },
-    circleOptions: {
-      fillColor: '#ffff00',
-      fillOpacity: 1,
-      strokeWeight: 5,
-      clickable: false,
-      editable: true,
-      zIndex: 1
-    }
-  });
-  drawingManager.setMap(map);
+  
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);

@@ -193,9 +193,8 @@
                     <script type="text/javascript">
                         $("#btn_google_maps").click(function(){
                             var url = "DefinirGoogleMaps?idLocal="+$("#local_id").val();
-                            alert(url);
-                            window.open(url);
-                            
+                          window.location.href = url;
+                           return false; 
                         });
                         
                         
