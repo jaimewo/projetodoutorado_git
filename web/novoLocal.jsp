@@ -168,7 +168,7 @@
                                 <label for="local_descricao" class="control-label">Total Calculado(t/ha)</label>
                                 <div class="controls">
                                     <input type="text"  id="total_calculado_arvore_equacao" disabled="true"  />
-                                    <input type="text" disabled="false" type="hidden" name="local_id" id="local_id" value="<%=objeto_local.getId()%>"  />
+                               
                                     <input name="id_variavel_interesse_arvores" id="id_variavel_interesse_arvores" value="id_variavel_interesse_arvores" disabled="false" type="hidden" />
                                 </div>
                                 <a href="#" id="ver_detalhe_do_calculo_arvore_equacao">Ver detalhes do Cálculo usando Equação</a>
