@@ -184,7 +184,7 @@
                                 <div class="controls">
                                     <input type="text"  id="total_calculado_arvore_data_mining" disabled="true"  />
                                 </div>
-                                <a href="listarDetalhesCalculoArvoresDm" id="ver_detalhe_do_calculo">Ver detalhes do Cálculo usando Data Mining  </a>
+                                <a href="#" id="ver_detalhe_do_calculo_dm">Ver detalhes do Cálculo usando Data Mining  </a>
                             </div>
                         </span>
                     </div>
@@ -207,6 +207,19 @@
                 $("#ver_detalhe_do_calculo_arvore_equacao").click(function()
                 {
                              $.post('listarDetalhesCalculoArvoresEquacao', {variavel_interesse: $("#id_variavel_interesse_arvores").val(),
+                        local_id: $("#local_id").val()
+
+                    }, function(responseText) {
+                        eval(responseText);
+                    });
+
+                    return false;
+                });
+                
+                
+                       $("#ver_detalhe_do_calculo_dm").click(function()
+                {
+                             $.post('listarDetalhesCalculoArvoresDM', {variavel_interesse: $("#id_variavel_interesse_arvores").val(),
                         local_id: $("#local_id").val()
 
                     }, function(responseText) {
