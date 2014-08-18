@@ -11,6 +11,7 @@ import dao.TrabalhoCientificoDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Autor;
+import model.Equacao;
 import model.TrabalhoCientifico;
 
 /**
@@ -36,7 +38,7 @@ public class retornaDetalhesTrabalhoCientifico extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             
@@ -44,13 +46,35 @@ public class retornaDetalhesTrabalhoCientifico extends HttpServlet {
             TrabalhoCientificoDao obj_dao = new TrabalhoCientificoDao();
             try {
                TrabalhoCientifico obj_trabalho = obj_dao.getTrabalhoCientifico(request.getParameter("trabalho_id"));
+               ArrayList<Equacao> equacoes = obj_trabalho.getEquacoesTrabalho();
+               
                String retorno = "";
                retorno += "<div><b>";
-               retorno += obj_trabalho.getTitulo();
-               retorno += " - Autor - ";
-//               Autor objeto_autor = new AutorDao().getAutor(obj_trabalho.getIdAutor()+"");
-  //             retorno += objeto_autor.getNome();
+               retorno += " Autor";
+             //  Autor objeto_autor = new AutorDao().getAutor(obj_trabalho.getIdAutor()+"");
+             //  retorno += objeto_autor.getNome();
+               retorno += "Paulo ";
                retorno += "</b></div>";
+               
+               retorno += "<div>";
+               for(Equacao obj_equacao:equacoes){
+                   switch(obj_equacao.idVariavelInteresse)
+                   {
+                       case 1:
+                           retorno += "Biomassa: ";
+                           break;
+                       case 2:
+                           retorno += "Carbono: ";
+                           break;
+                       case 3:
+                           retorno += "Volume: ";
+                           break;
+                   }
+                   retorno += obj_equacao.expressaoEquacao + "<br />";
+               }
+               retorno += "</div>";
+               
+               
                out.println(retorno);
             } catch (SQLException ex) {
                 Logger.getLogger(retornaDetalhesTrabalhoCientifico.class.getName()).log(Level.SEVERE, null, ex);
@@ -71,7 +95,11 @@ public class retornaDetalhesTrabalhoCientifico extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(retornaDetalhesTrabalhoCientifico.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -85,7 +113,11 @@ public class retornaDetalhesTrabalhoCientifico extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (Exception ex) {
+            Logger.getLogger(retornaDetalhesTrabalhoCientifico.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

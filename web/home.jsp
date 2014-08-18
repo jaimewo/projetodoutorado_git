@@ -66,6 +66,7 @@ function initialize() {
                 
     
      google.maps.event.addListener(marker, 'click', function () {
+         
                 infowindow.setContent(this.title);
                 infowindow.open(map, this);
             });
