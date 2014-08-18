@@ -63,15 +63,15 @@ public class createLocalCalcularComArvores extends HttpServlet {
             try {
                     parcelasLocal = importarArvores(idLocal);
                     int idMetodoCalculo = 1;
-            //        if(btn_clicado.equals("1"))
-            //        {
-            //            System.out.println("Entrei para equação 1111");
-                            // idMetodoCalculo = 1; 
-            //        }else
-            //        {   
-            //            System.out.println("Entrei para equação 22222");
-            //            idMetodoCalculo = 2; //DM     
-            //        }
+                    if(btn_clicado.equals("1"))
+                    {
+                        System.out.println("Entrei para equação 1111");
+                             idMetodoCalculo = 1; 
+                    }else
+                    {   
+                        System.out.println("Entrei para equação 22222");
+                        idMetodoCalculo = 2; //DM     
+                    }
             //Fim-se
             double qtdeTela  = calcular(idLocal,idVariavelInteresse,idMetodoCalculo,parcelasLocal);
             

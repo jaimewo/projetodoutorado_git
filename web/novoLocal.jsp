@@ -161,7 +161,7 @@
                             </select>
                         </div>
                         <span>
-                            <input type="hidden" name="btn_clicado" />
+                            <input type="hidden" id="btn_clicado" name="btn_clicado" value="-1" />
                             <input type="submit" value="Calcular Usando a Equação" name="btn_submit" id="btn_calcular_equacao" class="btn btn-inverse" >
                             <br />
                             <div class="field control-group">
@@ -229,15 +229,22 @@
                     return false;
                 });
 
+                $("#btn_calcular_data_mining").click(function(){
+                    $("#btn_clicado").val("2");
+                });
 
                 $("#btn_calcular_equacao").click(function() {
                     $("#btn_clicado").val("1");
+                   
                 });
 
                 $("#form_action_local_arvores").submit(function() {
-
+                 //   var val = $("input[type=submit][clicked=true]").val();
+                   // alert(val);
+              
+                   
                     $.post('createLocalCalcularComArvores', {variavel_interesse: $("#id_variavel_interesse_arvores").val(),
-                        local_id: $("#local_id_parcela").val()
+                        local_id: $("#local_id_parcela").val(), btn_clicado: $("#btn_clicado").val()
 
                     }, function(responseText) {
                         eval(responseText);
