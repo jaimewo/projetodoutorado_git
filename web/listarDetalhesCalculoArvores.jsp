@@ -77,9 +77,9 @@
             </div> 
             
              <div class="field control-group">
-                <label for="metidiCalculo" class="control-label">Método de Cálculo:</label>
+                <label for="metodoCalculo" class="control-label">Método de Cálculo:</label>
                 <div class="controls">
-                    <input type="text" name="metodoCalculo" value="<%=metodoCalculo%>" />
+                    <input type="text" name="metodoCalculo" value="<%=descricaoMetodoCalculo%>" />
                 </div>
             </div> 
 
