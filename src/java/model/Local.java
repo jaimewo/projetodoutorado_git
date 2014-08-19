@@ -32,6 +32,9 @@ public class Local extends Model  {
     private int idDMTipoPonderacao;    
     private int dmQtdeVizinhos;
     private boolean dmComLn;
+    private int idMunicipio;
+    private double latitude;
+    private double longitude;
 
     private double qtdeBiomassaEquacao;   
     private double qtdeBiomassaDm;   
@@ -56,6 +59,9 @@ public class Local extends Model  {
         this.idEspacamento = 0;
         this.idFormacao = 0;
         this.idTrabalhoCientifico = 0;
+        this.idMunicipio = 0;
+        this.latitude = 0.0;
+        this.longitude = 0.0;
         this.qtdeBiomassaEquacao = 0.0;        
         this.qtdeBiomassaDm = 0.0;        
         this.qtdeCarbonoEquacao = 0.0;        
@@ -212,6 +218,30 @@ public class Local extends Model  {
 
     public void setQtdeVolumeDm(double qtdeVolumeDm) {
         this.qtdeVolumeDm = qtdeVolumeDm;
+    }
+
+    public int getIdMunicipio() {
+        return idMunicipio;
+    }
+
+    public void setIdMunicipio(int idMunicipio) {
+        this.idMunicipio = idMunicipio;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
     public double getQtde(int idVariavelInteresse, int idMetodoCalculo) {
