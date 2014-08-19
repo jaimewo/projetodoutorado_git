@@ -23,11 +23,15 @@ public class createLocal extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, Exception {
         try (PrintWriter out = response.getWriter()) {
+            
                 String descricao = request.getParameter("local_descricao");
                 String local_formacao = request.getParameter("local_formacao");
                 String local_espacamento = request.getParameter("local_espacamento");
                 String area_total = request.getParameter("area_total");
                 String local_trabalhoCientifico = request.getParameter("local_trabalhoCientifico");
+                String local_municipio = request.getParameter("local_municipio");                
+                String local_latitude = request.getParameter("local_latitude");                                
+                String local_longitude = request.getParameter("local_longitude");                                                
                 
                 Local local = new Local();
                 local.setDescricao(descricao);
@@ -36,6 +40,9 @@ public class createLocal extends HttpServlet {
                 local.setArea(Double.parseDouble(area_total));
                 local.setAreaParcela(Double.parseDouble(area_total));
                 local.setIdEspacamento(Integer.parseInt(local_espacamento));
+                local.setIdMunicipio(Integer.parseInt(local_municipio));                
+                local.setLatitude(Double.parseDouble(local_latitude));                
+                local.setLongitude(Double.parseDouble(local_longitude));                                
                 
                 if(local.eh_valido())
                 {
@@ -47,7 +54,8 @@ public class createLocal extends HttpServlet {
                     retorno +="$('#valor_calculo').show();";
                     retorno += "$('#local_id').val("+id_local+");";
                     retorno += "$('#local_id_parcela').val('"+id_local+"');";
-                    retorno += "alert('Local criado com sucesso!')";
+                    //retorno += "alert('Local criado com sucesso!')";
+                    request.setAttribute("mensagem", "Local Incluído com sucesso!");                                        
                     
                     out.println(retorno);
                 }else

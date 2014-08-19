@@ -21,7 +21,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Bioma;
-import model.CoordenadaLocal;
 import model.Espacamento;
 import model.Formacao;
 import model.Local;
@@ -51,8 +50,7 @@ public class novoLocal extends HttpServlet {
             MunicipioDao objeto_municipio_dao = new MunicipioDao();
             List<Municipio> municipios = objeto_municipio_dao.listarMunicipios();
             request.setAttribute("municipios", municipios);  
-            
-            
+           
             BiomaDao objeto_bioma_dao = new BiomaDao();
             List<Bioma> biomas = objeto_bioma_dao.listarBiomas();
             request.setAttribute("biomas", biomas);

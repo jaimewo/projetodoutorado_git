@@ -46,10 +46,8 @@ public class Local extends Model  {
     private double qtde;
     
     public TrabalhoCientifico trabalhoCientifico;
-    public ArrayList<MunicipioLocal> municipiosLocal;
     public ArrayList<Parcela> parcelas;
     public ArrayList<ArvoreAjuste> arvoresAjuste;
-    public ArrayList<CoordenadaLocal> coordenadasLocal;
     
     public Local()
     {
@@ -320,18 +318,6 @@ public class Local extends Model  {
         return trabalhoCientifico;
     }
 
-    public ArrayList<MunicipioLocal> getMunicipiosLocal() throws Exception {
-        ArrayList<MunicipioLocal> municipiosLocal = new ArrayList<MunicipioLocal>();
-        MunicipioLocalDao municipioLocalDao = new MunicipioLocalDao();
-        municipiosLocal = municipioLocalDao.listarMunicipioLocal(this.id);
-        
-        return municipiosLocal;
-    }
-
-    public void setMunicipiosLocal(ArrayList<MunicipioLocal> municipiosLocal) {
-        this.municipiosLocal = municipiosLocal;
-    }
-
     public ArrayList<Parcela> getParcelas() throws Exception {
 
         ParcelaDao parcelaDao = new ParcelaDao();
@@ -360,48 +346,35 @@ public class Local extends Model  {
     public void setArvoreAjuste(ArrayList<ArvoreAjuste> arvoresAjuste) {
         this.arvoresAjuste = arvoresAjuste;
     }
-    public ArrayList<CoordenadaLocal> getCoordenadasLocal() throws Exception {
-        ArrayList<CoordenadaLocal> coordenadasLocal = new ArrayList<CoordenadaLocal>();
-        CoordenadaLocalDao coordenadaLocalDao = new CoordenadaLocalDao();
-        
-        coordenadasLocal = coordenadaLocalDao.listarCoordenadasLocal(this.id);
-        
-        return coordenadasLocal;
-    }
-
-    public void setCoordenadasLocal(ArrayList<CoordenadaLocal> coordenadasLocal) {
-        this.coordenadasLocal = coordenadasLocal;
-    }
     
     
     public boolean eh_valido()
     {
-//        if(this.getDescricao() == null || this.getDescricao().isEmpty())
-//        {
-//            this.setErro("Descrição ", "não pode ficar em branco");
-//        }
-//        if(this.getArea() == 0)
-//        {
-//            this.setErro("Área ", "deve ser informada");
-//        }        
+        if(this.getDescricao() == null || this.getDescricao().isEmpty())
+        {
+            this.setErro("Descrição ", "não pode ficar em branco");
+        }
+        if(this.getArea() == 0)
+        {
+            this.setErro("Área ", "deve ser informada");
+        }        
 //        if(this.getAreaParcela() == 0)
 //        {
 //            this.setErro("Área da Parcela ", "deve ser informada");
 //        }                
-//        if(this.getIdFormacao() == 0)
-//        {
-//            this.setErro("Formação ", "deve ser informada");
-//        }                
-//        if(this.getIdEspacamento() == 0)
-//        {
-//            this.setErro("Espaçamento ", "deve ser informado");
-//        }                
-//        if(this.getIdTrabalhoCientifico() == 0)
-//        {
-//            this.setErro("Trabalho Científico ", "deve ser informado");
-//        }                        
-//        return (this.erros.isEmpty());
-        return true;
+        if(this.getIdFormacao() == 0)
+        {
+            this.setErro("Formação ", "deve ser informada");
+        }                
+        if(this.getIdEspacamento() == 0)
+        {
+            this.setErro("Espaçamento ", "deve ser informado");
+        }                
+        if(this.getIdTrabalhoCientifico() == 0)
+        {
+            this.setErro("Trabalho Científico ", "deve ser informado");
+        }                        
+        return (this.erros.isEmpty());
         
     }
     

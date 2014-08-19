@@ -48,8 +48,11 @@ public class LocalDao extends MainDao {
                    +                    "qtdecarbonoequacao,"
                    +                    "qtdecarbonodm,"
                    +                    "qtdevolumeequacao,"
-                   +                    "qtdevolumedm"
-                   +                    ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) RETURNING local.id";
+                   +                    "qtdevolumedm,"
+                   +                    "idmunicipio,"
+                   +                    "latitude,"
+                   +                    "longitude"                
+                   +                    ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) RETURNING local.id";
         PreparedStatement p = this.con.prepareStatement(sql);
         p.setString(1, local.getDescricao());
         p.setDouble(2, local.getArea());
@@ -68,39 +71,13 @@ public class LocalDao extends MainDao {
         p.setDouble(15, local.getQtdeCarbonoDm());
         p.setDouble(16, local.getQtdeVolumeEquacao());
         p.setDouble(17, local.getQtdeVolumeDm());        
+        p.setDouble(18, local.getIdMunicipio());                
+        p.setDouble(19, local.getLatitude());                        
+        p.setDouble(20, local.getLongitude());                                
         int idLocal = 0;
         ResultSet rs = p.executeQuery();
         if(rs.next()){
           idLocal = rs.getInt(1);
-        }
-        
-        //if (local.municipiosLocal.size()>0) {        
-        if (local.municipiosLocal!=null) {                    
-            for (MunicipioLocal ml : local.municipiosLocal) {
-                p = this.con.prepareStatement("INSERT INTO municipiolocal (idlocal, "
-                    +                                                      "idmunicipio,"
-                    +                                                      "indprincipal"
-                    +                                                      ") VALUES (?,?,?)");
-                p.setInt(1, idLocal);
-                p.setInt(2, ml.getIdMunicipio());
-                p.setBoolean(3,ml.isIndPrincipal());
-                p.executeUpdate();
-            }
-        }
-        
-        //if (local.coordenadasLocal.size()>0) {                
-        if (local.coordenadasLocal!=null) {                            
-            for (CoordenadaLocal cl : local.coordenadasLocal) {
-                p = this.con.prepareStatement("INSERT INTO coordenadalocal (idlocal, "
-                    +                                                      "latitude,"
-                    +                                                      "longitude"
-                    +                                                      ") VALUES (?,?,?)");
-                p.setInt(1, idLocal);
-                p.setDouble(2, cl.getLatitude());
-                p.setDouble(3, cl.getLongitude());
-                p.executeUpdate();
-            }
-            
         }
         p.close();
         super.con.close();        
@@ -136,7 +113,10 @@ public class LocalDao extends MainDao {
                 +                                                        "qtdecarbonoequacao = ?,"
                 +                                                        "qtdecarbonodm = ?,"
                 +                                                        "qtdevolumeequacao = ?,"
-                +                                                        "qtdevolumedm = ?"
+                +                                                        "qtdevolumedm = ?,"
+                +                                                        "idmunicipio = ?,"
+                +                                                        "latitude = ?,"
+                +                                                        "longitude = ?"
                 +                                                        " WHERE id = ?");
         p.setString(1, local.getDescricao());
         p.setDouble(2, local.getArea());
@@ -155,7 +135,11 @@ public class LocalDao extends MainDao {
         p.setDouble(15, local.getQtdeCarbonoDm());
         p.setDouble(16, local.getQtdeVolumeEquacao());
         p.setDouble(17, local.getQtdeVolumeDm());        
-        p.setInt(18, local.getId());
+        p.setInt(18, local.getIdMunicipio());                
+        p.setDouble(19, local.getLatitude());                
+        p.setDouble(20, local.getLongitude());                        
+        
+        p.setInt(21, local.getId());
         p.executeUpdate();
         p.close();
         super.con.close();        
@@ -246,6 +230,9 @@ public class LocalDao extends MainDao {
            local.setQtdeCarbonoDm(rs.getDouble("qtdecarbonodm"));
            local.setQtdeVolumeEquacao(rs.getDouble("qtdevolumeequacao"));
            local.setQtdeVolumeDm(rs.getDouble("qtdevolumedm"));           
+           local.setIdMunicipio(rs.getInt("idmunicipio"));                      
+           local.setLatitude(rs.getDouble("latitude"));                                 
+           local.setLongitude(rs.getDouble("longitude"));                                            
            
            locais.add(local);
            
@@ -281,6 +268,9 @@ public class LocalDao extends MainDao {
            local.setQtdeCarbonoDm(rs.getDouble("qtdecarbonodm"));
            local.setQtdeVolumeEquacao(rs.getDouble("qtdevolumeequacao"));
            local.setQtdeVolumeDm(rs.getDouble("qtdevolumedm"));           
+           local.setIdMunicipio(rs.getInt("idmunicipio"));                      
+           local.setLatitude(rs.getDouble("latitude"));                                 
+           local.setLongitude(rs.getDouble("longitude"));                                            
            locais.add(local);
         }
         rs.close();

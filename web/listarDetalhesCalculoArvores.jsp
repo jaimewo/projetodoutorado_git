@@ -65,21 +65,21 @@
              <div class="field control-group">
                 <label for="local_descricao" class="control-label">Local</label>
                 <div class="controls">
-                    <input type="text" name="local[descricao]" value="<%=local.getDescricao()%>" />
+                    <input type="text" name="local[descricao]" value="<%=local.getDescricao()%>" disabled="true" />
                 </div>
             </div>   
             
              <div class="field control-group">
                 <label for="variavelInteresse" class="control-label">Variável de Interesse:</label>
                 <div class="controls">
-                    <input type="text" name="variavelInteresse" value="<%=variavelInteresse%>" />
+                    <input type="text" name="variavelInteresse" value="<%=variavelInteresse%>" disabled="true" />
                 </div>
             </div> 
             
              <div class="field control-group">
                 <label for="metodoCalculo" class="control-label">Método de Cálculo:</label>
                 <div class="controls">
-                    <input type="text" name="metodoCalculo" value="<%=descricaoMetodoCalculo%>" />
+                    <input type="text" name="metodoCalculo" value="<%=descricaoMetodoCalculo%>" disabled="true" />
                 </div>
             </div> 
 

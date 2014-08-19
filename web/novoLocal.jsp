@@ -32,7 +32,18 @@
             <h1>Novo Local</h1>
 
             <% Local objeto_local = (Local) request.getAttribute("local");%>
-            <% CoordenadaLocal objeto_coordenadaLocal = (CoordenadaLocal) request.getAttribute("coordenadaLocal");%>
+
+            <% ArrayList<Error> lista_erros = (ArrayList<Error>) request.getAttribute("erros");%>
+            <%if(lista_erros != null && lista_erros.size() >0 ){%>
+                <div class="alert alert-error">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <%for(Error erro:lista_erros){%>
+                            <strong><%=erro.getCampo()%></strong><%=erro.getMensagem()%>
+                            <br></br>
+                        <%}%>
+                </div>
+            <%}%>
+            
             <form action="#" method="POST" id="form_local" class="form-horizontal"  accept-charset="iso-8859-1,utf-8">
 
                 <div class="field control-group">
@@ -90,7 +101,7 @@
 
 
                 <div class="field control-group">
-                    <label for="local_municipio" class="control-label">Município <a href="#" id="add_municipio">+</a></label>
+                    <label for="local_municipio" class="control-label">Município</label>
                     <div id="municipios" class="controls">
                         <select id="local_municipio" name="municipio[idMunicipio][]" class="municipios">
                             <option value="">Selecione um município</option>
@@ -102,8 +113,9 @@
                     </div>
                 </div>
 
+                    
                 <div class="field control-group">
-                    <label for="local_latitude" class="control-label">Latitude,Longitude <a href="#" id="add_lat_long">+</a></label>
+                    <label for="local_latitude" class="control-label">Latitude,Longitude (opcional): <a href="#" id="add_lat_long">+</a></label>
                     <div id="lat_long" class="controls">
                         <p>
                             (<input type="text" name="coordenadaLocal[latitude]"  />,<input type="text" name="coordenadaLocal[longitude]"  />)
@@ -454,7 +466,10 @@
                     local_formacao: $("#local_formacao").val(),
                     local_espacamento: $("#local_espacamento").val(),
                     area_total: $("#area_total").val(),
-                    local_trabalhoCientifico: $("#local_trabalhoCientifico").val()
+                    local_trabalhoCientifico: $("#local_trabalhoCientifico").val(),
+                    local_municipio: $("#local_municipio").val(),
+                    local_latitude:  $("#local_latitude").val(),
+                    local_longitude:  $("#local_longitude").val()
                 }, function(responseText) {
 
                     eval(responseText);
