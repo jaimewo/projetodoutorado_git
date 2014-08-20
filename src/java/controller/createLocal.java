@@ -55,7 +55,7 @@ public class createLocal extends HttpServlet {
                     retorno += "$('#local_id').val("+id_local+");";
                     retorno += "$('#local_id_parcela').val('"+id_local+"');";
                     //retorno += "alert('Local criado com sucesso!')";
-                    request.setAttribute("mensagem", "Local Incluído com sucesso!");                                        
+                    //request.setAttribute("mensagem", "Local Incluído com sucesso!");                                        
                     
                     out.println(retorno);
                 }else
