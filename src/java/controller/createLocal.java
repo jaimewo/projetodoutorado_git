@@ -30,8 +30,8 @@ public class createLocal extends HttpServlet {
                 String area_total = request.getParameter("area_total");
                 String local_trabalhoCientifico = request.getParameter("local_trabalhoCientifico");
                 String local_municipio = request.getParameter("local_municipio");                
-                String local_latitude = request.getParameter("local_latitude");                                
-                String local_longitude = request.getParameter("local_longitude");                                                
+                //String local_latitude = request.getParameter("local_latitude");                                
+                //String local_longitude = request.getParameter("local_longitude");                                                
                 
                 Local local = new Local();
                 local.setDescricao(descricao);
@@ -41,8 +41,8 @@ public class createLocal extends HttpServlet {
                 local.setAreaParcela(Double.parseDouble(area_total));
                 local.setIdEspacamento(Integer.parseInt(local_espacamento));
                 local.setIdMunicipio(Integer.parseInt(local_municipio));                
-                local.setLatitude(Double.parseDouble(local_latitude));                
-                local.setLongitude(Double.parseDouble(local_longitude));                                
+                //local.setLatitude(Double.parseDouble(local_latitude));                
+                //local.setLongitude(Double.parseDouble(local_longitude));                                
                 
                 if(local.eh_valido())
                 {
