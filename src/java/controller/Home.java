@@ -7,6 +7,7 @@
 package controller;
 
 import dao.CoordenadaLocalDao;
+import dao.LocalDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -35,14 +36,14 @@ public class Home extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
+            throws ServletException, IOException, SQLException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-                CoordenadaLocalDao objeto_coordenada_local_dao = new CoordenadaLocalDao();
-                ArrayList<CoordenadaLocal> coordenadas =objeto_coordenada_local_dao.getAll();
-                request.setAttribute("coordenadas", coordenadas);
-                request.getRequestDispatcher("home.jsp").forward(request, response);
+            LocalDao localDao = new LocalDao();
+            ArrayList<CoordenadaLocal> coordenadas = localDao.listarCoordenadasLocais();
+            request.setAttribute("coordenadas", coordenadas);
+            request.getRequestDispatcher("home.jsp").forward(request, response);
         }
     }
 
@@ -62,6 +63,8 @@ public class Home extends HttpServlet {
             processRequest(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -79,6 +82,8 @@ public class Home extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

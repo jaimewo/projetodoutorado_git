@@ -278,5 +278,23 @@ public class LocalDao extends MainDao {
         super.con.close();        
         return locais;
     }
+   
+   public ArrayList<CoordenadaLocal> listarCoordenadasLocais() throws Exception{
+       
+        ArrayList<CoordenadaLocal> coordenadasLocais = new ArrayList<CoordenadaLocal>();
+        PreparedStatement p = this.con.prepareStatement("SELECT * FROM local where latitude IS NOT NULL and latitude <> 0");
+        ResultSet rs = p.executeQuery();
+        while(rs.next()){
+           CoordenadaLocal coordenadaLocal = new CoordenadaLocal();
+           coordenadaLocal.setIdLocal(rs.getInt("id"));           
+           coordenadaLocal.setLatitude(rs.getDouble("latitude"));
+           coordenadaLocal.setLongitude(rs.getDouble("longitude"));           
+           coordenadasLocais.add(coordenadaLocal);
+        }
+        rs.close();
+        p.close();
+        super.con.close();        
+        return coordenadasLocais;
+    }
     
 }
