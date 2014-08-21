@@ -96,7 +96,7 @@ public class listarDetalhesCalculoParcelas extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(listarDetalhesCalculo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(listarDetalhesCalculoParcelas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -107,7 +107,7 @@ public class listarDetalhesCalculoParcelas extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(listarDetalhesCalculo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(listarDetalhesCalculoParcelas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

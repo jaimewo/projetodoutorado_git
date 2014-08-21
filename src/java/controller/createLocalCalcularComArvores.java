@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import jxl.read.biff.BiffException;
 import model.Arvore;
+import model.Equacao;
 import model.EstatisticaInventario;
 import model.Local;
 import model.Parcela;
@@ -117,7 +118,8 @@ public class createLocalCalcularComArvores extends HttpServlet {
     public double calcular(int idLocal,int idVariavelInteresse,int idMetodoCalculo,ArrayList<Parcela> parcelasLocal) throws SQLException, BiffException, Exception {
     
         int idTipoEstimativa = 3;  //Fixo devido a seleção do Cálculo com Árvores
-    
+        Equacao equacaoTrabalho = new Equacao();    
+        
         Local local = new Local();
         LocalDao localDao = new LocalDao();
     
@@ -138,15 +140,14 @@ public class createLocalCalcularComArvores extends HttpServlet {
             local.setIdDMTipoPonderacao(idDMTipoPonderacao);
             local.setDmQtdeVizinhos(dmQtdeVizinhos);
             local.setDmComLn(dmComLn);
+        } else {
+            equacaoTrabalho = local.getTrabalhoCientifico().getEquacaoTrabalho(idVariavelInteresse);
         }        
         localDao = new LocalDao();        
         localDao.update(local);
     
-        //ArrayList<Parcela> parcelasLocal = new ArrayList<Parcela>();
-        //parcelasLocal = local.getParcelas();
-    
         for (Parcela parcela : parcelasLocal) {
-             parcela.calculaQtdeEstimada(local,idVariavelInteresse,idMetodoCalculo);
+             parcela.calculaQtdeEstimada(local,idVariavelInteresse,idMetodoCalculo,equacaoTrabalho);
         }
     
         EstatisticaInventario estatisticaInventario = new EstatisticaInventario();

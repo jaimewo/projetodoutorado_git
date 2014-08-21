@@ -56,6 +56,7 @@ public class ArvoreDao extends MainDao {
         if(rs.next()){
            idArvore = rs.getInt(1);
         }
+        arvore.setId(idArvore);
         
         
         if (arvore.variaveisArvore.size()>0) {

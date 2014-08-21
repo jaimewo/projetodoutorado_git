@@ -220,7 +220,7 @@ public class Parcela extends Model  {
         this.arvores = arvores;
     }
 
-    public void calculaQtdeEstimada(Local local,int idVariavelInteresse,int idMetodoCalculo) throws Exception {
+    public void calculaQtdeEstimada(Local local,int idVariavelInteresse,int idMetodoCalculo,Equacao equacaoTrabalho) throws Exception {
         
         Double qtdeEstimadaArvore = 0.0;
         Double qtdeEstimadaParcela = 0.0;      
@@ -228,7 +228,7 @@ public class Parcela extends Model  {
         qtdeEstimadaParcela = 0.0;
             
         for (Arvore arvore: arvores) {
-            qtdeEstimadaArvore = arvore.calculaQtdeEstimada(local,idVariavelInteresse,idMetodoCalculo);   
+            qtdeEstimadaArvore = arvore.calculaQtdeEstimada(local,idVariavelInteresse,idMetodoCalculo,equacaoTrabalho);   
             arvore.setQtdeEst(qtdeEstimadaArvore,idVariavelInteresse,idMetodoCalculo);  
             ArvoreDao arvoreDao = new ArvoreDao();            
             arvoreDao.updateQtdeEst(arvore,idVariavelInteresse,idMetodoCalculo);            

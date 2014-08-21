@@ -209,14 +209,12 @@ public class Arvore extends Model  {
         
     }
     
-    public Double calculaQtdeEstimada(Local local, int idVariavelInteresse, int idMetodoCalculo) throws SQLException, Exception {
+    public Double calculaQtdeEstimada(Local local, int idVariavelInteresse, int idMetodoCalculo, Equacao equacao) throws SQLException, Exception {
 
         Double qtdeEstimada = 0.0;
 
         if (idMetodoCalculo==1) { //Equação
-            Equacao equacaoTrabalho = new Equacao();
-            equacaoTrabalho = local.getTrabalhoCientifico().getEquacaoTrabalho(idVariavelInteresse);
-            qtdeEstimada = aplicaParser(variaveisArvore,equacaoTrabalho);
+            qtdeEstimada = aplicaParser(variaveisArvore,equacao);
         } else { //2-Data Mining
             qtdeEstimada = calculaUsandoDM(local,idVariavelInteresse);
         }
@@ -434,9 +432,8 @@ public class Arvore extends Model  {
                //Montar msg erro para a Controller
                 return parcelas;
             }
-            ParcelaDao parcelaDao = new ParcelaDao();
 
-            ArrayList<Arvore>            arvores             = new ArrayList<Arvore>();
+            ArrayList<Arvore> arvores        = new ArrayList<Arvore>();                
             ArrayList<Variavel>          variaveisLidas      = new ArrayList<Variavel>();
             
             int numArvore = 0;
@@ -476,11 +473,12 @@ public class Arvore extends Model  {
                                 parcela.setNumParcela(numParcelaAnt);
                                 parcela.setAreaParcela(areaParcela);
                                 parcela.setArvores(arvores);
-
+                                
+                                ParcelaDao parcelaDao = new ParcelaDao();
                                 parcelaDao.cadastrar(parcela);
                                 parcelas.add(parcela);
                     
-                                arvores.clear();
+                                arvores = new ArrayList<Arvore>();
                                 valorVariaveis.clear();
                                 valorVariaveis.clear();
 
@@ -526,6 +524,7 @@ public class Arvore extends Model  {
 
             parcela.setArvores(arvores);
             
+            ParcelaDao parcelaDao = new ParcelaDao();            
             parcelaDao.cadastrar(parcela);
             parcelas.add(parcela);  
             
