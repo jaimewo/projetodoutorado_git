@@ -177,13 +177,14 @@
                             
                             <h3><b>Método de Cálculo</b></h3>
                             <select id="metodo_de_calculo">
+                                <option value="" selected>Selecione um método</option>
                                 <option value="equacao">Equação</option>
                                 <option value="data_mining">Data Mining</option>
                             </select>
                             
                         
                         </div>
-                        <span>
+                        <div id="sp_calcular_arvore_equacao" style="display:none">
                             <input type="hidden" id="btn_clicado" name="btn_clicado" value="-1" />
                             <input type="submit" value="Calcular Usando a Equação" name="btn_submit" id="btn_calcular_equacao" class="btn btn-inverse" >
                             <br />
@@ -195,11 +196,13 @@
                                     <input name="id_variavel_interesse_arvores" id="id_variavel_interesse_arvores" value="id_variavel_interesse_arvores" disabled="false" type="hidden" />
                                 </div>
                                 <a href="#" id="ver_detalhe_do_calculo_arvore_equacao">Ver detalhes do Cálculo usando Equação</a>
-
+                                <br />
+                                <br />
+                                <a href="#" class="btn_google_maps btn btn-inverse" target="_blank">Definir Local no Google Maps</a>
                             </div>
 
-                        </span>
-                        <span>
+                        </div>
+                        <div id="sp_calcular_arvore_data_mining" style="display:none">
                             <input type="submit" value="Calcular Usando Data Mining" name="btn_submit" id="btn_calcular_data_mining" class="btn btn-inverse" >
                             <br />
                             <div class="field control-group">
@@ -208,8 +211,12 @@
                                     <input type="text"  id="total_calculado_arvore_data_mining" disabled="true"  />
                                 </div>
                                 <a href="#" id="ver_detalhe_do_calculo_dm">Ver detalhes do Cálculo usando Data Mining  </a>
+                                <br />
+                                <br />
+                                 <a href="#" class="btn_google_maps btn btn-inverse" target="_blank">Definir Local no Google Maps</a>
+                           
                             </div>
-                        </span>
+                        </div>
                     </div>
                 </form>
 
@@ -217,9 +224,9 @@
                     <a href="#" class="btn btn-inverse" >Baixar Planilha dos Valores Estimados</a>
                     <br />
                 </div>
-                <a href="#" id="btn_google_maps" class="btn btn-inverse" target="_blank">Definir Local no Google Maps</a>
+                
                 <script type="text/javascript">
-                    $("#btn_google_maps").click(function() {
+                    $(".btn_google_maps").click(function() {
                         var url = "DefinirGoogleMaps?idLocal=" + $("#local_id").val();
                         window.location.href = url;
                         return false;
@@ -232,7 +239,18 @@
             <script type="text/javascript">
 
                 $("#metodo_de_calculo").change(function(){
-                    alert($("#metodo_de_calculo").val());
+                   // alert();
+                    var metodo = $("#metodo_de_calculo").val();
+                    if(metodo == "equacao")
+                    {
+                       $('#sp_calcular_arvore_data_mining').hide();
+                       $('#sp_calcular_arvore_equacao').show();
+                    }else
+                    {
+                       $('#sp_calcular_arvore_data_mining').show();
+                       $('#sp_calcular_arvore_equacao').hide();     
+                    }
+                   
                                     });
 
                 $("#ver_detalhe_do_calculo_arvore_equacao").click(function()
