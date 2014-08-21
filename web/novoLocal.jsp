@@ -24,6 +24,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+        
         <title>JCarbon - Novo Local</title>
     </head>
     <body>
@@ -212,6 +213,9 @@
                     </div>
                 </form>
 
+                <div id="dialog_ver_detalhes_calculo_arvore_eq" style="display:none">
+                    <a href="#" class="btn btn-inverse" >Baixar Planilha dos Valores Estimados</a>
+                </div>
                 <a href="#" id="btn_google_maps" class="btn btn-inverse" target="_blank">Definir Local no Google Maps</a>
                 <script type="text/javascript">
                     $("#btn_google_maps").click(function() {
@@ -232,11 +236,13 @@
 
                 $("#ver_detalhe_do_calculo_arvore_equacao").click(function()
                 {
+                    
                              $.post('listarDetalhesCalculoArvoresEquacao', {variavel_interesse: $("#id_variavel_interesse_arvores").val(),
                         local_id: $("#local_id").val()
 
                     }, function(responseText) {
                         eval(responseText);
+                        $("#dialog_ver_detalhes_calculo_arvore_eq").dialog({title: 'Detalhes',width:'700',height:'700'});
                     });
 
                     return false;

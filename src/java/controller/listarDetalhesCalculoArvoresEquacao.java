@@ -12,6 +12,7 @@ import dao.EstatisticaInventarioDao;
 import dao.LocalDao;
 import dao.VariavelInteresseDao;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.logging.Level;
@@ -34,14 +35,14 @@ public class listarDetalhesCalculoArvoresEquacao extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
-        try {
+         try (PrintWriter out = response.getWriter())  {
 
             DecimalFormat df4casas = new DecimalFormat("##,###,###,##0.0000");
             DecimalFormat df1casa = new DecimalFormat("##,###,###,##0.0");
             DecimalFormat df2casas = new DecimalFormat("##,###,###,##0.00");
             
             String idLocalStr = request.getParameter("local_id");
-            String idVariavelInteresseStr = request.getParameter("id_variavel_interesse_arvores");
+            String idVariavelInteresseStr = request.getParameter("variavel_interesse");
             int idVariavelInteresse = Integer.parseInt(idVariavelInteresseStr);
                 
             LocalDao localDao = new LocalDao();
@@ -131,10 +132,25 @@ public class listarDetalhesCalculoArvoresEquacao extends HttpServlet {
             request.setAttribute("wilmottStr", wilmottStr);             
             request.setAttribute("somaQuadradoResiduoStr", somaQuadradoResiduoStr);             
             request.setAttribute("somaQuadradoRegressaoStr", somaQuadradoRegressaoStr);             
-            request.setAttribute("somaQuadradoTotaisStr", somaQuadradoTotaisStr);             
+            request.setAttribute("somaQuadradoTotaisStr", somaQuadradoTotaisStr);
+            
+            String retorno1 = "";
+            retorno1 += "<p><b>Local: </b>"+local.getDescricao()+ "</p>";
+            retorno1 += "<p><b>Variavel de Interesse: </b>"+variavelInteresse.getNome()+ "</p>";
+            retorno1 += "<table>";
+            retorno1 += "<thead><tr><td>Estatisticas do Calculo</td></thead>";
+            retorno1 += "<tbody>";
+            retorno1 += "<tr><td>Media</td><td>"+mediaParcelaStr+"</td></tr>";
+            retorno1 += "</tbody>";
+            retorno1 += "</table>";
+            
+            String retorno2="";
+            retorno2 += "$('#dialog_ver_detalhes_calculo_arvore_eq').append('"+retorno1+"');";
+            out.println(retorno2);
+            
             
         } finally { 
-            request.getRequestDispatcher("listarDetalhesCalculoArvores.jsp").forward(request, response);
+           // request.getRequestDispatcher("listarDetalhesCalculoArvores.jsp").forward(request, response);
         }
     }
 

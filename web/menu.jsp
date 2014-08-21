@@ -1,4 +1,6 @@
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="css/jquery-ui.css" rel="stylesheet" media="screen">
+
 <div class="navbar navbar-inverse navbar-form">
             <div class="navbar-inner">
                 <div class="container">
@@ -64,6 +66,7 @@
         </div>
         <script src="js/jquery.js"></script>
         <script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery-ui.js"></script>
         
         
         
