@@ -215,6 +215,7 @@
 
                 <div id="dialog_ver_detalhes_calculo_arvore_eq" style="display:none">
                     <a href="#" class="btn btn-inverse" >Baixar Planilha dos Valores Estimados</a>
+                    <br />
                 </div>
                 <a href="#" id="btn_google_maps" class="btn btn-inverse" target="_blank">Definir Local no Google Maps</a>
                 <script type="text/javascript">
