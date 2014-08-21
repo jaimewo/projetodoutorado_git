@@ -7,6 +7,7 @@
 package controller;
 
 import dao.CoordenadaLocalDao;
+import dao.LocalDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.CoordenadaLocal;
+import model.Local;
 
 /**
  *
@@ -34,7 +36,7 @@ public class createCoordenadasGoogleMaps extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
+            throws ServletException, IOException, SQLException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
            
@@ -43,12 +45,12 @@ public class createCoordenadasGoogleMaps extends HttpServlet {
              String latFld = request.getParameter("latFld");
              String lngFld = request.getParameter("lngFld");
              
-             CoordenadaLocalDao coordenada_local_dao = new CoordenadaLocalDao();
-             CoordenadaLocal obj_coordenada = new CoordenadaLocal();
-             obj_coordenada.setIdLocal(Integer.parseInt(idLocal));
-             obj_coordenada.setLatitude(Double.parseDouble(latFld));
-             obj_coordenada.setLongitude(Double.parseDouble(lngFld));
-             coordenada_local_dao.cadastrar(obj_coordenada);
+             LocalDao localdao = new LocalDao();
+             Local local = new Local();
+             local.setId(Integer.parseInt(idLocal));
+             local.setLatitude(Double.parseDouble(latFld));
+             local.setLongitude(Double.parseDouble(lngFld));
+             localdao.updateCoordenadas(local);
              String retorno="";
              retorno += "alert('Local atualizado com sucesso!')";
              out.println(retorno);
@@ -72,7 +74,7 @@ public class createCoordenadasGoogleMaps extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(createCoordenadasGoogleMaps.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -90,7 +92,7 @@ public class createCoordenadasGoogleMaps extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(createCoordenadasGoogleMaps.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

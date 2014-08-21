@@ -103,7 +103,7 @@
                 <div class="field control-group">
                     <label for="local_municipio" class="control-label">Município</label>
                     <div id="municipios" class="controls">
-                        <select id="local_municipio" name="municipio[idMunicipio][]" class="municipios">
+                        <select id="local_municipio" name="local[idMunicipio]" class="municipios">
                             <option value="">Selecione um município</option>
                             <% List<Municipio> municipios = (List<Municipio>) request.getAttribute("municipios");%>
                             <% for (Municipio m : municipios) {%>
@@ -115,10 +115,10 @@
 
                     
                 <div class="field control-group">
-                    <label for="local_latitude" class="control-label">Latitude,Longitude (opcional): <a href="#" id="add_lat_long">+</a></label>
+                    <label for="local_latitude" class="control-label">Latitude,Longitude (opcional):</label>
                     <div id="lat_long" class="controls">
                         <p>
-                            (<input type="text" name="coordenadaLocal[latitude]"  />,<input type="text" name="coordenadaLocal[longitude]"  />)
+                            (<input type="text" id="local_latitude" name="local[latitude]"  />,<input type="text" name="local[longitude]" id="local_longitude" />)
                         </p>
                     </div>
                 </div> 

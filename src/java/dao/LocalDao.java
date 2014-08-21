@@ -157,6 +157,18 @@ public class LocalDao extends MainDao {
         super.con.close();        
     }
     
+   public void updateCoordenadas(Local local) throws Exception 
+   {
+        PreparedStatement p = this.con.prepareStatement("UPDATE local SET latitude = ?, longitude = ?"
+                +                                                        " WHERE id = ?");
+        p.setDouble(1, local.getLatitude());
+        p.setDouble(2, local.getLongitude());
+        p.setInt(3, local.getId());
+        p.executeUpdate();
+        p.close();
+        super.con.close();        
+    }
+    
    public void updateQtde(Local local,int idVariavelInteresse, int idMetodoCalculo) throws Exception 
    {
 
