@@ -53,7 +53,7 @@ public class retornaDetalhesTrabalhoCientifico extends HttpServlet {
                retorno += " Autor: ";
                Autor objeto_autor = new AutorDao().getAutor(obj_trabalho.getIdAutor()+"");
                retorno += objeto_autor.getNome();
-               retorno += "Equações do Trabalho: ";
+               //retorno += "Equações do Trabalho: ";
                retorno += "</b>";
                retorno += "</b></div>";               
                retorno += "<div>";
