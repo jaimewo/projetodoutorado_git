@@ -135,7 +135,7 @@
                             <%}%>
                         </select>
                     </div>
-                    <div id="detalhes_trabalho_cientifico" class="control-label" style="float:right;">
+                    <div id="detalhes_trabalho_cientifico" style="width:800px;padding:40px;">
 
                     </div>
                 </div>
