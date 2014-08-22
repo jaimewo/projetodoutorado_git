@@ -84,10 +84,10 @@ public class listarDetalhesCalculoArvoresEquacao extends HttpServlet {
             retorno1 += "<tbody>";
             retorno1 += "<tr><td>Media por Parcela:</td><td>"+mediaParcelaStr+"</td></tr>";
             retorno1 += "<tr><td>Variancia:</td><td>"+varianciaStr+"</td></tr>";            
-            retorno1 += "<tr><td>Desvio Padrão:</td><td>"+desvioPadraoStr+"</td></tr>";            
+            retorno1 += "<tr><td>Desvio Padrão:</td><td align=\"right\">"+desvioPadraoStr+"</td></tr>";            
             retorno1 += "<tr><td>Variancia Media:</td><td>"+varianciaMediaStr+"</td></tr>";            
             retorno1 += "<tr><td>Erro Padrao:</td><td>"+erroPadraoStr+"</td></tr>";            
-            retorno1 += "<tr><td>Coeficiente de Variacao:</td><td>"+coeficienteVariacaoStr+"</td></tr>";            
+            retorno1 += "<tr><td>Coeficiente de Variacao:</td><td align=\"right\">"+coeficienteVariacaoStr+"</td></tr>";            
             retorno1 += "<tr><td>Erro Absoluto:</td><td>"+erroAbsolutoStr+"</td></tr>";            
             retorno1 += "<tr><td>Erro Relativo:</td><td>"+erroRelativoStr+"</td></tr>";                        
             retorno1 += "<tr><td>Intervalo de Confiança Min(Media):</td><td>"+intervaloConfiancaMinMediaStr+"</td></tr>";                                    
