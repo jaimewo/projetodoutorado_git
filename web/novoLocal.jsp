@@ -269,6 +269,9 @@
 
                 <div id="dialog_ver_detalhes_calculo_arvore_eq" style="display:none">
                     <a href="#" class="btn btn-inverse" >Baixar Planilha dos Valores Estimados</a>
+                    <div id="dialog_ver_detalhes_calculo_arvore_eq_inside">
+                        
+                    </div>
                     <br />
                 </div>
 

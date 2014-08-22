@@ -135,7 +135,7 @@ public class listarDetalhesCalculoArvoresEquacao extends HttpServlet {
             }        
             
             String retorno2="";
-            retorno2 += "$('#dialog_ver_detalhes_calculo_arvore_eq').append('"+retorno1+"');";
+            retorno2 += "$('#dialog_ver_detalhes_calculo_arvore_eq_inside').html('"+retorno1+"');";
             out.println(retorno2);
             
             
