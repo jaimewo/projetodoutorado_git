@@ -186,7 +186,9 @@
                         </div>
                         <div id="sp_calcular_arvore_equacao" style="display:none">
                             <input type="hidden" id="btn_clicado" name="btn_clicado" value="-1" />
-                            <input type="submit" value="Calcular Usando a Equação" name="btn_submit" id="btn_calcular_equacao" class="btn btn-inverse" >
+                            <span><input type="submit" value="Calcular Usando a Equação" name="btn_submit" id="btn_calcular_equacao" class="btn btn-inverse" >
+                                <image src="images/loading.gif" style="display:none;" class="loading">
+                                </span>
                             <br />
                             <div class="field control-group">
                                 <label for="local_descricao" class="control-label">Total Calculado(t/ha)</label>
@@ -336,12 +338,13 @@
                     //   var val = $("input[type=submit][clicked=true]").val();
                     // alert(val);
 
-
+                    $(".loading").show();
                     $.post('createLocalCalcularComArvores', {variavel_interesse: $("#id_variavel_interesse_arvores").val(),
                         local_id: $("#local_id_parcela").val(), btn_clicado: $("#btn_clicado").val()
 
                     }, function(responseText) {
                         eval(responseText);
+                        $(".loading").hide();
                     });
 
                     return false;
