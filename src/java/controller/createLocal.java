@@ -32,7 +32,15 @@ public class createLocal extends HttpServlet {
                 String local_municipio = request.getParameter("local_municipio");                
            
                 String local_latitude = request.getParameter("local_latitude");                                
-                String local_longitude = request.getParameter("local_longitude");                                                
+                String local_longitude = request.getParameter("local_longitude");  
+                
+                if (local_latitude.equalsIgnoreCase("")) {
+                    local_latitude = "0";
+                }
+                
+                if (local_longitude.equalsIgnoreCase("")) {
+                    local_longitude = "0";
+                }
                 
                 Local local = new Local();
                 local.setDescricao(descricao);
