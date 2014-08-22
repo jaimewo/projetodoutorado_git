@@ -253,7 +253,9 @@
                                 <a href="#" id="ver_detalhe_do_calculo_dm">Ver detalhes do Cálculo usando Data Mining  </a>
                                 <br />
                                 <br />
-                                <input type="submit" value="Calcular Usando Data Mining" name="btn_submit" id="btn_calcular_data_mining" class="btn btn-inverse" >
+                                <span><input type="submit" value="Calcular Usando Data Mining" name="btn_submit" id="btn_calcular_data_mining" class="btn btn-inverse" >
+                                    <image src="images/loading.gif" style="display:none;" class="loading">
+                                </span>
                                 <br />
                                 <br />
                                 <a href="#" class="btn_google_maps btn btn-inverse" target="_blank">Definir Local no Google Maps</a>
