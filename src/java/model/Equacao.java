@@ -22,6 +22,7 @@ public class Equacao extends Model  {
     
     public int id;
     public String expressaoEquacao;
+    public String expressaoEquacaoFormatada;    
     public String expressaoModelo;
     public int idVariavelInteresse;
     public int idAutorModelo;
@@ -33,6 +34,7 @@ public class Equacao extends Model  {
     public Equacao()
     {
         this.expressaoEquacao = "";
+        this.expressaoEquacaoFormatada = "";        
         this.expressaoModelo = "";
         this.idVariavelInteresse = 0;
         this.idAutorModelo = 0;
@@ -58,6 +60,14 @@ public class Equacao extends Model  {
 
     public void setExpressaoEquacao(String expressaoEquacao) {
         this.expressaoEquacao = expressaoEquacao;
+    }
+
+    public String getExpressaoEquacaoFormatada() {
+        return expressaoEquacaoFormatada;
+    }
+
+    public void setExpressaoEquacaoFormatada(String expressaoEquacaoFormatada) {
+        this.expressaoEquacaoFormatada = expressaoEquacaoFormatada;
     }
 
     public String getExpressaoModelo() {

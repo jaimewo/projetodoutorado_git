@@ -311,7 +311,7 @@
 
                     }, function(responseText) {
                         eval(responseText);
-                        $("#dialog_ver_detalhes_calculo_arvore_eq").dialog({title: 'Detalhes', width: '700', height: '700'});
+                        $("#dialog_ver_detalhes_calculo_arvore_eq").dialog({title: 'Detalhes do Calculo Usando a Equacao', width: '700', height: '700'});
                     });
 
                     return false;

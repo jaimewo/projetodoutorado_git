@@ -44,7 +44,7 @@
                                     <li><a href="listarVariaveis">Variáveis</a></li>
                                     <li><a href="listarAutoresModelo">Autores de Modelos</a></li>
                                     <li><a href="listarModelos">Modelos</a></li>
-                                    <li><a href="listarEquacao">Equações</a></li>
+                                    <li><a href="listarEquacoes">Equações</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown">

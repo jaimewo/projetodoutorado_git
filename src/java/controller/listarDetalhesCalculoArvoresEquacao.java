@@ -64,7 +64,7 @@ public class listarDetalhesCalculoArvoresEquacao extends HttpServlet {
             
             String mediaParcelaStr               = df2casas.format(estatisticaInventario.getMediaParcela());
             String coeficienteVariacaoStr        = df4casas.format(estatisticaInventario.getCoeficienteVariacao());
-            String desvioPadraoStr               = df4casas.format(estatisticaInventario.getDesvioPadrao());
+            String desvioPadraoStr               = df2casas.format(estatisticaInventario.getDesvioPadrao());
             String erroAbsolutoStr               = df4casas.format(estatisticaInventario.getErroAbsoluto());
             String erroPadraoStr                 = df4casas.format(estatisticaInventario.getErroPadrao());
             String erroRelativoStr               = df4casas.format(estatisticaInventario.getErroRelativo());
@@ -73,8 +73,8 @@ public class listarDetalhesCalculoArvoresEquacao extends HttpServlet {
             String intervaloConfiancaMinMediaStr = df2casas.format(estatisticaInventario.getIntervaloConfiancaMinMedia());
             String intervaloConfiancaMinTotalStr = df2casas.format(estatisticaInventario.getIntervaloConfiancaMinTotal());
             String qtdeMediaStr                  = df2casas.format(estatisticaInventario.getQtdeMedia());
-            String varianciaStr                  = df4casas.format(estatisticaInventario.getVariancia());
-            String varianciaMediaStr             = df4casas.format(estatisticaInventario.getVarianciaMedia());
+            String varianciaStr                  = df2casas.format(estatisticaInventario.getVariancia());
+            String varianciaMediaStr             = df2casas.format(estatisticaInventario.getVarianciaMedia());
             
             retorno1 += "<p><b>Local: </b>"+local.getDescricao()+ "</p>";
             retorno1 += "<p><b>Variavel de Interesse: </b>"+variavelInteresse.getNome()+ "</p>";
@@ -82,20 +82,20 @@ public class listarDetalhesCalculoArvoresEquacao extends HttpServlet {
             retorno1 += "<table>";
             retorno1 += "<thead><tr><td>Estatisticas da Estimativa</td></thead>";
             retorno1 += "<tbody>";
-            retorno1 += "<tr><td>Media por Parcela:</td><td>"+mediaParcelaStr+"</td></tr>";
-            retorno1 += "<tr><td>Variancia:</td><td>"+varianciaStr+"</td></tr>";            
-            retorno1 += "<tr><td>Desvio Padrão:</td><td align=\"right\">"+desvioPadraoStr+"</td></tr>";            
-            retorno1 += "<tr><td>Variancia Media:</td><td>"+varianciaMediaStr+"</td></tr>";            
-            retorno1 += "<tr><td>Erro Padrao:</td><td>"+erroPadraoStr+"</td></tr>";            
+            retorno1 += "<tr><td>Media por Parcela:</td><td align=\"right\">"+mediaParcelaStr+"</td></tr>";
+            retorno1 += "<tr><td>Variancia:</td><td align=\"right\">"+varianciaStr+"</td></tr>";            
+            retorno1 += "<tr><td>Desvio Padrao:</td><td align=\"right\">"+desvioPadraoStr+"</td></tr>";            
+            retorno1 += "<tr><td>Variancia Media:</td><td align=\"right\">"+varianciaMediaStr+"</td></tr>";            
+            retorno1 += "<tr><td>Erro Padrao:</td><td align=\"right\">"+erroPadraoStr+"</td></tr>";            
             retorno1 += "<tr><td>Coeficiente de Variacao:</td><td align=\"right\">"+coeficienteVariacaoStr+"</td></tr>";            
-            retorno1 += "<tr><td>Erro Absoluto:</td><td>"+erroAbsolutoStr+"</td></tr>";            
-            retorno1 += "<tr><td>Erro Relativo:</td><td>"+erroRelativoStr+"</td></tr>";                        
-            retorno1 += "<tr><td>Intervalo de Confiança Min(Media):</td><td>"+intervaloConfiancaMinMediaStr+"</td></tr>";                                    
-            retorno1 += "<tr><td>Intervalo de Confiança Max(Media):</td><td>"+intervaloConfiancaMaxMediaStr+"</td></tr>";                                                
-            retorno1 += "<tr><td>Valor Total Minimo:</td><td>"+intervaloConfiancaMinTotalStr+"</td></tr>";                                    
-            retorno1 += "<tr><td>Valor Total Maximo:</td><td>"+intervaloConfiancaMaxTotalStr+"</td></tr>";                                                
-            retorno1 += "<tr><td></td><td></td></tr>";                                                
-            retorno1 += "<tr><td>Valor Total Medio:</td><td>"+qtdeMediaStr+"</td></tr>";                                                            
+            retorno1 += "<tr><td>Erro Absoluto:</td><td align=\"right\">"+erroAbsolutoStr+"</td></tr>";            
+            retorno1 += "<tr><td>Erro Relativo:</td><td align=\"right\">"+erroRelativoStr+"</td></tr>";                        
+            retorno1 += "<tr><td>Intervalo de Confianca Min(Media):</td><td align=\"right\">"+intervaloConfiancaMinMediaStr+"</td></tr>";                                    
+            retorno1 += "<tr><td>Intervalo de Confianca Max(Media):</td><td align=\"right\">"+intervaloConfiancaMaxMediaStr+"</td></tr>";                                                
+            retorno1 += "<tr><td>Valor Total Minimo:</td><td align=\"right\">"+intervaloConfiancaMinTotalStr+"</td></tr>";                                    
+            retorno1 += "<tr><td>Valor Total Maximo:</td><td align=\"right\">"+intervaloConfiancaMaxTotalStr+"</td></tr>";                                                
+            retorno1 += "<tr><td> </td><td> </td></tr>";                                                
+            retorno1 += "<tr><td>Valor Total Medio:</td><td align=\"right\">"+qtdeMediaStr+"</td></tr>";                                                            
             retorno1 += "</tbody>";
             retorno1 += "</table>";
                     
@@ -119,17 +119,17 @@ public class listarDetalhesCalculoArvoresEquacao extends HttpServlet {
                 retorno1 += "<br></br>";
                 retorno1 += "<thead><tr><td>Estatisticas do Ajuste</td></thead>";
                 retorno1 += "<tbody>";
-                retorno1 += "<tr><td>R2:</td><td>"+r2Str+"</td></tr>";
-                retorno1 += "<tr><td>R2 Ajustado:</td><td>"+r2AjustStr+"</td></tr>";            
-                retorno1 += "<tr><td>Syx:</td><td>"+syxStr+"</td></tr>";            
-                retorno1 += "<tr><td>Syx(%):</td><td>"+syxPercStr+"</td></tr>";            
-                retorno1 += "<tr><td>Ia:</td><td>"+iaStr+"</td></tr>";            
-                retorno1 += "<tr><td>Aic:</td><td>"+aicStr+"</td></tr>";            
-                retorno1 += "<tr><td>Bic:</td><td>"+bicStr+"</td></tr>";            
-                retorno1 += "<tr><td>Wilmott:</td><td>"+wilmottStr+"</td></tr>";                        
-                retorno1 += "<tr><td>Soma dos Quadrados dos Residuos:</td><td>"+somaQuadradoResiduoStr+"</td></tr>";                                    
-                retorno1 += "<tr><td>Soma dos Quadrados de Regressao:</td><td>"+somaQuadradoRegressaoStr+"</td></tr>";                                                    
-                retorno1 += "<tr><td>Soma dos Quadrados Totais:</td><td>"+somaQuadradoTotaisStr+"</td></tr>";                                                                    
+                retorno1 += "<tr><td>R2:</td><td align=\"right\">"+r2Str+"</td></tr>";
+                retorno1 += "<tr><td>R2 Ajustado:</td><td align=\"right\">"+r2AjustStr+"</td></tr>";            
+                retorno1 += "<tr><td>Syx:</td><td align=\"right\">"+syxStr+"</td></tr>";            
+                retorno1 += "<tr><td>Syx(%):</td><td align=\"right\">"+syxPercStr+"</td></tr>";            
+                retorno1 += "<tr><td>Ia:</td><td align=\"right\">"+iaStr+"</td></tr>";            
+                retorno1 += "<tr><td>Aic:</td><td align=\"right\">"+aicStr+"</td></tr>";            
+                retorno1 += "<tr><td>Bic:</td><td align=\"right\">"+bicStr+"</td></tr>";            
+                retorno1 += "<tr><td>Wilmott:</td><td align=\"right\">"+wilmottStr+"</td></tr>";                        
+                retorno1 += "<tr><td>Soma dos Quadrados dos Residuos:</td><td align=\"right\">"+somaQuadradoResiduoStr+"</td></tr>";                                    
+                retorno1 += "<tr><td>Soma dos Quadrados de Regressao:</td><td align=\"right\">"+somaQuadradoRegressaoStr+"</td></tr>";                                                    
+                retorno1 += "<tr><td>Soma dos Quadrados Totais:</td><td align=\"right\">"+somaQuadradoTotaisStr+"</td></tr>";                                                                    
                 retorno1 += "</tbody>";
                 retorno1 += "</table>";
             }        

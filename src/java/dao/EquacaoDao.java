@@ -29,14 +29,16 @@ public class EquacaoDao extends MainDao{
                         
     {
             PreparedStatement p = this.con.prepareStatement("INSERT INTO equacao (expressaoequacao,"
-                    +                                                            "expressaomodelo,"
+                    +                                                            "expressaoequacaoformatada,"
+                    +                                                            "expressaomodelo,"                    
                     +                                                            "idvariavelinteresse,"
                     +                                                            "idautormodelo"
-                    +                                                            ") VALUES (?,?,?,?)");
+                    +                                                            ") VALUES (?,?,?,?,?)");
             p.setString(1, equacao.getExpressaoEquacao());
-            p.setString(2, equacao.getExpressaoModelo());
-            p.setInt(3, equacao.getIdVariavelInteresse());
-            p.setInt(4, equacao.getIdAutorModelo());
+            p.setString(2, equacao.getExpressaoEquacaoFormatada());
+            p.setString(3, equacao.getExpressaoModelo());            
+            p.setInt(4, equacao.getIdVariavelInteresse());
+            p.setInt(5, equacao.getIdAutorModelo());
             p.executeUpdate();
             p.close();
             super.con.close();
@@ -56,16 +58,18 @@ public class EquacaoDao extends MainDao{
    public void update(Equacao equacao) throws Exception 
    {
         PreparedStatement p = this.con.prepareStatement("UPDATE equacao SET expressaoequacao = ?, "
+                    +                                                      "expressaoequacaoformatada = ?,"
                     +                                                      "expressaomodelo = ?,"
                     +                                                      "idvariavelinteresse = ?,"
                     +                                                      "idautormodelo = ? "
-                +                                                          "WHERE id = ?");
+                    +                                                      "WHERE id = ?");
         p.setString(1, equacao.getExpressaoEquacao());
-        p.setString(2, equacao.getExpressaoModelo());
-        p.setInt(3, equacao.getIdVariavelInteresse());
-        p.setInt(4, equacao.getIdAutorModelo());
+        p.setString(2, equacao.getExpressaoEquacaoFormatada());        
+        p.setString(3, equacao.getExpressaoModelo());
+        p.setInt(4, equacao.getIdVariavelInteresse());
+        p.setInt(5, equacao.getIdAutorModelo());
         
-        p.setInt(9, equacao.getId());
+        p.setInt(6, equacao.getId());
         p.executeUpdate();
         p.close();
         super.con.close();
@@ -81,6 +85,7 @@ public class EquacaoDao extends MainDao{
            Equacao equacao = new Equacao();
            equacao.setId(rs.getInt("id"));
            equacao.setExpressaoEquacao(rs.getString("expressaoequacao"));
+           equacao.setExpressaoEquacaoFormatada(rs.getString("expressaoequacaoformatada"));           
            equacao.setExpressaoModelo(rs.getString("expressaomodelo"));
            equacao.setIdVariavelInteresse(rs.getInt("idvariavelinteresse"));
            equacao.setIdAutorModelo(rs.getInt("idautormodelo"));
@@ -105,6 +110,7 @@ public class EquacaoDao extends MainDao{
            equacao = new Equacao();
            equacao.setId(rs.getInt("id"));
            equacao.setExpressaoEquacao(rs.getString("expressaoequacao"));
+           equacao.setExpressaoEquacaoFormatada(rs.getString("expressaoequacaoformatada"));           
            equacao.setExpressaoModelo(rs.getString("expressaomodelo"));
            equacao.setIdVariavelInteresse(rs.getInt("idvariavelinteresse"));
            equacao.setIdAutorModelo(rs.getInt("idautormodelo"));
@@ -125,6 +131,7 @@ public class EquacaoDao extends MainDao{
            Equacao equacao = new Equacao();
            equacao.setId(rs.getInt("id"));
            equacao.setExpressaoEquacao(rs.getString("expressaoequacao"));
+           equacao.setExpressaoEquacaoFormatada(rs.getString("expressaoequacaoformatada"));           
            equacao.setExpressaoModelo(rs.getString("expressaomodelo"));
            equacao.setIdVariavelInteresse(rs.getInt("idvariavelinteresse"));
            equacao.setIdAutorModelo(rs.getInt("idautormodelo"));
@@ -140,7 +147,8 @@ public class EquacaoDao extends MainDao{
         ArrayList<Equacao> equacoesTrabalho = new ArrayList<Equacao>();
         PreparedStatement p = this.con.prepareStatement("SELECT e.id,"
                 + "                                             e.expressaoequacao, "
-                + "                                             e.expressaomodelo, "
+                + "                                             e.expressaoequacaoformatada, "
+                + "                                             e.expressaomodelo, "                
                 + "                                             e.idvariavelinteresse,"
                 + "                                             e.idautormodelo,"
                 + "                                             e.idtrabalhocientifico "
@@ -154,6 +162,7 @@ public class EquacaoDao extends MainDao{
            Equacao equacao = new Equacao();
            equacao.setId(rs.getInt("id"));
            equacao.setExpressaoEquacao(rs.getString("expressaoequacao"));
+           equacao.setExpressaoEquacaoFormatada(rs.getString("expressaoequacaoformatada"));           
            equacao.setExpressaoModelo(rs.getString("expressaomodelo"));
            equacao.setIdVariavelInteresse(rs.getInt("idvariavelinteresse"));
            equacao.setIdAutorModelo(rs.getInt("idautormodelo"));

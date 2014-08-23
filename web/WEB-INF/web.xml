@@ -325,10 +325,6 @@
         <servlet-class>controller.updateModelo</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>listarEquacao</servlet-name>
-        <servlet-class>controller.listarEquacao</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>retornaCidades</servlet-name>
         <servlet-class>controller.retornaCidades</servlet-class>
     </servlet>
@@ -715,10 +711,6 @@
     <servlet-mapping>
         <servlet-name>updateModelo</servlet-name>
         <url-pattern>/updateModelo</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>listarEquacao</servlet-name>
-        <url-pattern>/listarEquacao</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>retornaCidades</servlet-name>

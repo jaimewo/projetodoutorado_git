@@ -50,11 +50,12 @@ public class retornaDetalhesTrabalhoCientifico extends HttpServlet {
                
                String retorno = "";
                retorno += "<div><b>";
-               retorno += " Autor: ";
+               retorno += " Autor do Trabalho: ";
                Autor objeto_autor = new AutorDao().getAutor(obj_trabalho.getIdAutor()+"");
                retorno += objeto_autor.getNome();
-               //retorno += "Equações do Trabalho: ";
-               retorno += "</b>";
+               retorno += "</b></div>";                              
+               retorno += "<div><b>";               
+               retorno += "Equações do Trabalho: ";
                retorno += "</b></div>";               
                retorno += "<div>";
                for(Equacao obj_equacao:equacoes){
@@ -70,7 +71,7 @@ public class retornaDetalhesTrabalhoCientifico extends HttpServlet {
                            retorno += "Volume: ";
                            break;
                    }
-                   retorno += obj_equacao.expressaoEquacao + "<br />";
+                   retorno += obj_equacao.expressaoEquacaoFormatada + "<br />";
                }
                retorno += "</div>";
                

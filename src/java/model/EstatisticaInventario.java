@@ -110,7 +110,7 @@ public class EstatisticaInventario extends Model  {
         qtdeMedia = qtdeParcelasLocal * mediaParcela;
 
         intervaloConfiancaMinMedia = mediaParcela - erroAbsoluto;
-        intervaloConfiancaMaxMedia = mediaParcela - erroAbsoluto;
+        intervaloConfiancaMaxMedia = mediaParcela + erroAbsoluto;
 
         intervaloConfiancaMinTotal = qtdeMedia - qtdeParcelasLocal * erroAbsoluto;
         intervaloConfiancaMaxTotal = qtdeMedia + qtdeParcelasLocal * erroAbsoluto;
