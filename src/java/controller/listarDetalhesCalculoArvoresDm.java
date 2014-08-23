@@ -12,6 +12,7 @@ import dao.EstatisticaInventarioDao;
 import dao.LocalDao;
 import dao.VariavelInteresseDao;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.logging.Level;
@@ -34,7 +35,7 @@ public class listarDetalhesCalculoArvoresDm extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
-        try {
+         try (PrintWriter out = response.getWriter())  {
 
             DecimalFormat df4casas = new DecimalFormat("##,###,###,##0.0000");
             DecimalFormat df1casa = new DecimalFormat("##,###,###,##0.0");
@@ -54,6 +55,7 @@ public class listarDetalhesCalculoArvoresDm extends HttpServlet {
             
             int idMetodoCalculo = 2; //Dm
             String descricaoMetodoCalculo = "Data Mining";
+            String retorno1 = "";                
 
             EstatisticaInventario estatisticaInventario = new EstatisticaInventario();
             EstatisticaInventarioDao estatisticaInventarioDao = new EstatisticaInventarioDao();      
@@ -72,69 +74,71 @@ public class listarDetalhesCalculoArvoresDm extends HttpServlet {
             String qtdeMediaStr                  = df2casas.format(estatisticaInventario.getQtdeMedia());
             String varianciaStr                  = df4casas.format(estatisticaInventario.getVariancia());
             String varianciaMediaStr             = df4casas.format(estatisticaInventario.getVarianciaMedia());
+            
+            retorno1 += "<p><b>Local: </b>"+local.getDescricao()+ "</p>";
+            retorno1 += "<p><b>Variavel de Interesse: </b>"+variavelInteresse.getNome()+ "</p>";
+            retorno1 += "<p><b>Metodo de Calculo: </b>"+descricaoMetodoCalculo+ "</p>";            
+            retorno1 += "<table>";
+            retorno1 += "<thead><tr><td>Estatisticas da Estimativa</td></thead>";
+            retorno1 += "<tbody>";
+            retorno1 += "<tr><td>Media por Parcela:</td><td align=\"right\">"+mediaParcelaStr+"</td></tr>";
+            retorno1 += "<tr><td>Variancia:</td><td align=\"right\">"+varianciaStr+"</td></tr>";            
+            retorno1 += "<tr><td>Desvio Padrao:</td><td align=\"right\">"+desvioPadraoStr+"</td></tr>";            
+            retorno1 += "<tr><td>Variancia Media:</td><td align=\"right\">"+varianciaMediaStr+"</td></tr>";            
+            retorno1 += "<tr><td>Erro Padrao:</td><td align=\"right\">"+erroPadraoStr+"</td></tr>";            
+            retorno1 += "<tr><td>Coeficiente de Variacao:</td><td align=\"right\">"+coeficienteVariacaoStr+"</td></tr>";            
+            retorno1 += "<tr><td>Erro Absoluto:</td><td align=\"right\">"+erroAbsolutoStr+"</td></tr>";            
+            retorno1 += "<tr><td>Erro Relativo:</td><td align=\"right\">"+erroRelativoStr+"</td></tr>";                        
+            retorno1 += "<tr><td>Intervalo de Confianca Min(Media):</td><td align=\"right\">"+intervaloConfiancaMinMediaStr+"</td></tr>";                                    
+            retorno1 += "<tr><td>Intervalo de Confianca Max(Media):</td><td align=\"right\">"+intervaloConfiancaMaxMediaStr+"</td></tr>";                                                
+            retorno1 += "<tr><td>Valor Total Minimo:</td><td align=\"right\">"+intervaloConfiancaMinTotalStr+"</td></tr>";                                    
+            retorno1 += "<tr><td>Valor Total Maximo:</td><td align=\"right\">"+intervaloConfiancaMaxTotalStr+"</td></tr>";                                                
+            retorno1 += "<tr><td> </td><td> </td></tr>";                                                
+            retorno1 += "<tr><td>Valor Total Medio:</td><td align=\"right\">"+qtdeMediaStr+"</td></tr>";                                                            
+            retorno1 += "</tbody>";
+            retorno1 += "</table>";
                     
             EstatisticaAjuste estatisticaAjuste = new EstatisticaAjuste();
             EstatisticaAjusteDao estatisticaAjusteDao = new EstatisticaAjusteDao();      
             estatisticaAjuste = estatisticaAjusteDao.getEstatisticaAjuste(local.getId(), idVariavelInteresse, idMetodoCalculo);
             
-            String r2Str                    = "";
-            String r2AjustStr               = "";
-            String syxStr                   = "";
-            String syxPercStr               = "";
-            String iaStr                    = "";
-            String aicStr                   = "";
-            String bicStr                   = "";
-            String wilmottStr               = "";
-            String somaQuadradoResiduoStr   = "";
-            String somaQuadradoRegressaoStr = "";
-            String somaQuadradoTotaisStr    = "";
-            
             if (estatisticaAjuste.getId()!=0) {
-                r2Str                    = df4casas.format(estatisticaAjuste.getR2());
-                r2AjustStr               = df4casas.format(estatisticaAjuste.getR2Ajust());
-                syxStr                   = df4casas.format(estatisticaAjuste.getSyx());
-                syxPercStr               = df4casas.format(estatisticaAjuste.getSyxPerc());
-                iaStr                    = df4casas.format(estatisticaAjuste.getIa());
-                aicStr                   = df4casas.format(estatisticaAjuste.getAic());
-                bicStr                   = df4casas.format(estatisticaAjuste.getBic());
-                wilmottStr               = df4casas.format(estatisticaAjuste.getWillmott());
-                somaQuadradoResiduoStr   = df4casas.format(estatisticaAjuste.getSomaQuadradoResiduo());
-                somaQuadradoRegressaoStr = df4casas.format(estatisticaAjuste.getSomaQuadradoRegressao());
-                somaQuadradoTotaisStr    = df4casas.format(estatisticaAjuste.getSomaQuadradoTotais());
+                String r2Str                    = df4casas.format(estatisticaAjuste.getR2());
+                String r2AjustStr               = df4casas.format(estatisticaAjuste.getR2Ajust());
+                String syxStr                   = df4casas.format(estatisticaAjuste.getSyx());
+                String syxPercStr               = df4casas.format(estatisticaAjuste.getSyxPerc());
+                String iaStr                    = df4casas.format(estatisticaAjuste.getIa());
+                String aicStr                   = df4casas.format(estatisticaAjuste.getAic());
+                String bicStr                   = df4casas.format(estatisticaAjuste.getBic());
+                String wilmottStr               = df4casas.format(estatisticaAjuste.getWillmott());
+                String somaQuadradoResiduoStr   = df4casas.format(estatisticaAjuste.getSomaQuadradoResiduo());
+                String somaQuadradoRegressaoStr = df4casas.format(estatisticaAjuste.getSomaQuadradoRegressao());
+                String somaQuadradoTotaisStr    = df4casas.format(estatisticaAjuste.getSomaQuadradoTotais());
+                
+                retorno1 += "<br></br>";
+                retorno1 += "<thead><tr><td>Estatisticas do Ajuste</td></thead>";
+                retorno1 += "<tbody>";
+                retorno1 += "<tr><td>R2:</td><td align=\"right\">"+r2Str+"</td></tr>";
+                retorno1 += "<tr><td>R2 Ajustado:</td><td align=\"right\">"+r2AjustStr+"</td></tr>";            
+                retorno1 += "<tr><td>Syx:</td><td align=\"right\">"+syxStr+"</td></tr>";            
+                retorno1 += "<tr><td>Syx(%):</td><td align=\"right\">"+syxPercStr+"</td></tr>";            
+                retorno1 += "<tr><td>Ia:</td><td align=\"right\">"+iaStr+"</td></tr>";            
+                retorno1 += "<tr><td>Aic:</td><td align=\"right\">"+aicStr+"</td></tr>";            
+                retorno1 += "<tr><td>Bic:</td><td align=\"right\">"+bicStr+"</td></tr>";            
+                retorno1 += "<tr><td>Wilmott:</td><td align=\"right\">"+wilmottStr+"</td></tr>";                        
+                retorno1 += "<tr><td>Soma dos Quadrados dos Residuos:</td><td align=\"right\">"+somaQuadradoResiduoStr+"</td></tr>";                                    
+                retorno1 += "<tr><td>Soma dos Quadrados de Regressao:</td><td align=\"right\">"+somaQuadradoRegressaoStr+"</td></tr>";                                                    
+                retorno1 += "<tr><td>Soma dos Quadrados Totais:</td><td align=\"right\">"+somaQuadradoTotaisStr+"</td></tr>";                                                                    
+                retorno1 += "</tbody>";
+                retorno1 += "</table>";
+                
             }        
-
-            request.setAttribute("local", local);
-            request.setAttribute("variavelInteresse", variavelInteresse);
-            request.setAttribute("descricaoMetodoCalculo", descricaoMetodoCalculo);
-            
-            request.setAttribute("mediaParcelaStr", mediaParcelaStr);            
-            request.setAttribute("coeficienteVariacaoStr", coeficienteVariacaoStr); 
-            request.setAttribute("desvioPadraoStr", desvioPadraoStr); 
-            request.setAttribute("erroAbsolutoStr", erroAbsolutoStr); 
-            request.setAttribute("erroPadraoStr", erroPadraoStr); 
-            request.setAttribute("erroRelativoStr", erroRelativoStr); 
-            request.setAttribute("intervaloConfiancaMaxMediaStr", intervaloConfiancaMaxMediaStr); 
-            request.setAttribute("intervaloConfiancaMinMediaStr", intervaloConfiancaMinMediaStr); 
-            request.setAttribute("intervaloConfiancaMaxTotalStr", intervaloConfiancaMaxTotalStr); 
-            request.setAttribute("intervaloConfiancaMinTotalStr", intervaloConfiancaMinTotalStr); 
-            request.setAttribute("qtdeMediaStr", qtdeMediaStr); 
-            request.setAttribute("varianciaStr", varianciaStr); 
-            request.setAttribute("varianciaMediaStr", varianciaMediaStr); 
-
-            request.setAttribute("r2Str", r2Str);             
-            request.setAttribute("r2AjustStr", r2AjustStr);             
-            request.setAttribute("syxStr", syxStr);             
-            request.setAttribute("syxPercStr", syxPercStr);             
-            request.setAttribute("iaStr", iaStr);             
-            request.setAttribute("aicStr", aicStr);             
-            request.setAttribute("bicStr", bicStr);             
-            request.setAttribute("wilmottStr", wilmottStr);             
-            request.setAttribute("somaQuadradoResiduoStr", somaQuadradoResiduoStr);             
-            request.setAttribute("somaQuadradoRegressaoStr", somaQuadradoRegressaoStr);             
-            request.setAttribute("somaQuadradoTotaisStr", somaQuadradoTotaisStr);             
+            String retorno2="";
+            retorno2 += "$('#dialog_ver_detalhes_calculo_arvore_dm_inside').html('"+retorno1+"');";
+            out.println(retorno2);
             
         } finally { 
-            request.getRequestDispatcher("listarDetalhesCalculoArvores.jsp").forward(request, response);
+//            request.getRequestDispatcher("listarDetalhesCalculoArvores.jsp").forward(request, response);
         }
     }
 

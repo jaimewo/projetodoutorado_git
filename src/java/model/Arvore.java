@@ -370,12 +370,13 @@ public class Arvore extends Model  {
         Vizinho vizinho = new Vizinho();
         vizinho.setIdArvore(this.getNumArvore());
         
-        VizinhoDao vizinhoDao = new VizinhoDao();
+
         for (int iVizinho=0;iVizinho < local.getDmQtdeVizinhos();iVizinho++) {
             vizinho.setNumVizinho(iVizinho);
             vizinho.setMenorDistancia(menoresDistancias[iVizinho]);
             vizinho.setNumArvoreMenorDistancia(numArvoreMenoresDistancias[iVizinho]);
             vizinho.setQtdeObsMenorDistancia(qtdeObsMenoresDistancias[iVizinho]);
+            VizinhoDao vizinhoDao = new VizinhoDao();            
             vizinhoDao.cadastrar(vizinho);
         }
         
