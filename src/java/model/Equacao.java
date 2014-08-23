@@ -9,6 +9,7 @@ import dao.EquacaoDao;
 import dao.LocalDao;
 import dao.TermoDao;
 import dao.VariavelDao;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import org.apache.commons.math3.stat.regression.OLSMultipleLinearRegression;
 import org.nfunk.jep.JEP;
@@ -135,6 +136,9 @@ public class Equacao extends Model  {
 
     public void ajustarModelo(Local local) throws Exception {
         
+        
+        DecimalFormat df2casas = new DecimalFormat("##,###,###,##0.00");
+        
         JEP myParser = new JEP(); //http://www.singularsys.com/jep/doc/html/index.html
         
         myParser.addStandardFunctions();
@@ -184,10 +188,19 @@ public class Equacao extends Model  {
         double[] valorCoeficiente = regression.estimateRegressionParameters();
         
 //Monta equacação a partir dos coeficientes calculados
+        String valorCoeficienteFormatado = df2casas.format(valorCoeficiente[0]);                    
         expressaoEquacao = Double.toString(valorCoeficiente[0]);
+        expressaoEquacaoFormatada = valorCoeficienteFormatado;
         iTermo = 1;
         for (Termo termo: termos) {
-            expressaoEquacao = expressaoEquacao + "+("+valorCoeficiente[iTermo]+")*"+ termo.getExpressao();
+            valorCoeficienteFormatado = df2casas.format(valorCoeficiente[iTermo]);            
+            if (valorCoeficiente[iTermo]<0) {
+                expressaoEquacao = expressaoEquacao+valorCoeficiente[iTermo]+"*"+termo.getExpressao();
+                expressaoEquacaoFormatada = expressaoEquacaoFormatada +valorCoeficienteFormatado+"*"+ termo.getExpressao();            
+            } else {
+                expressaoEquacao = expressaoEquacao + "+"+valorCoeficiente[iTermo]+"*"+ termo.getExpressao();
+                expressaoEquacaoFormatada = expressaoEquacaoFormatada + "+"+valorCoeficienteFormatado+"*"+ termo.getExpressao();            
+            }
             iTermo++;
         }
 
