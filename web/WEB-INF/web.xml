@@ -384,6 +384,10 @@
         <servlet-name>listarDetalhesCalculoArvoresDm</servlet-name>
         <servlet-class>controller.listarDetalhesCalculoArvoresDm</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>novaEquacao2</servlet-name>
+        <servlet-class>controller.novaEquacao2</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>listarBiomas</servlet-name>
         <url-pattern>/listarBiomas</url-pattern>
@@ -771,6 +775,10 @@
     <servlet-mapping>
         <servlet-name>listarDetalhesCalculoArvoresDm</servlet-name>
         <url-pattern>/listarDetalhesCalculoArvoresDm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>novaEquacao2</servlet-name>
+        <url-pattern>/novaEquacao2</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

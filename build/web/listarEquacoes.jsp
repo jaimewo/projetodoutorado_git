@@ -45,7 +45,7 @@
                 </table>
                 <br />
                 <div class="actions form-actions well">
-                <a href="novaEquacao" class="btn btn-inverse" >Novo</a>
+                <a href="novaEquacao2" class="btn btn-inverse" >Novo</a>
                 </div>
         </div>
     </body>

@@ -22,7 +22,9 @@ public class createEquacao extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         try {
+                System.out.println("Chegueiiii aqui maledeto");
                 String expressaoEquacao = request.getParameter("equacao[expressaoEquacao]");
+                System.out.println(expressaoEquacao);
                 Equacao equacao = new Equacao();
                 equacao.setExpressaoEquacao(expressaoEquacao);
                 if(equacao.eh_valido())

@@ -4,10 +4,9 @@
  */
 package controller;
 
-import dao.EquacaoDao;
 import dao.BiomaDao;
+import dao.VariavelDao;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,28 +14,34 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Equacao;
+import model.Autor;
 import model.Bioma;
+import model.Equacao;
+import model.Variavel;
 
 /**
  *
- * @author paulozeferino
+ * @author jaime
  */
-public class novaEquacao extends HttpServlet {
+public class novaEquacao2 extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
         try {
-            //Equacao equacao = (Equacao) request.getAttribute("equacao");
+            
+                VariavelDao variavel_dao = new VariavelDao();
+            List<Variavel> variaveis = variavel_dao.listarVariaveis();
+            request.setAttribute("variaveis", variaveis);
+            
             
         } finally { 
-           
-            //if(equacao == null) {
-            //  request.setAttribute("equacao", new Equacao());
-            //} else {
-            //  request.setAttribute("equacao", equacao);
-          ////  }
-            request.getRequestDispatcher("novaEquacao.jsp").forward(request, response);
+            Equacao equacao = (Equacao) request.getAttribute("equacao");
+            if(equacao == null) {
+               request.setAttribute("equacao", new Autor());
+            } else {
+               request.setAttribute("equacao", equacao);
+            }
+            request.getRequestDispatcher("novaEquacao2.jsp").forward(request, response);
         }
     }
 
@@ -47,7 +52,7 @@ public class novaEquacao extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(novaEquacao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(novoAutor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -58,13 +63,13 @@ public class novaEquacao extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(novaEquacao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(novoAutor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
    
     @Override
     public String getServletInfo() {
-        return "Nova Equacao";
+        return "Novo Autor";
     }
 }

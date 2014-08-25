@@ -411,7 +411,7 @@
                         </span>
                     </div>
                 </form>
-                <div id="dialog_ver_detalhes_calculo_parcelasm" style="display:none">
+                <div id="dialog_ver_detalhes_calculo_parcelas" style="display:none">
                     <div id="dialog_ver_detalhes_calculo_parcelas_inside">
                         
                     </div>
