@@ -275,7 +275,13 @@
                     </div>
                     <br />
                 </div>
-
+                <div id="dialog_ver_detalhes_calculo_arvore_dm" style="display:none">
+                    <a href="#" class="btn btn-inverse" >Baixar Planilha dos Valores Estimados</a>
+                    <div id="dialog_ver_detalhes_calculo_arvore_dm_inside">
+                        
+                    </div>
+                    <br />
+                </div>
                 <script type="text/javascript">
                     $(".btn_google_maps").click(function() {
                         var url = "DefinirGoogleMaps?idLocal=" + $("#local_id").val();
@@ -321,7 +327,7 @@
 
                 $("#ver_detalhe_do_calculo_dm").click(function()
                 {
-                    $.post('listarDetalhesCalculoArvoresDM', {variavel_interesse: $("#id_variavel_interesse_arvores").val(),
+                    $.post('listarDetalhesCalculoArvoresDm', {variavel_interesse: $("#id_variavel_interesse_arvores").val(),
                         local_id: $("#local_id").val()
 
                     }, function(responseText) {
@@ -331,20 +337,6 @@
 
                     return false;
                 });
-
-                $("#ver_detalhe_do_calculo_parcelas").click(function()
-                {
-                    $.post('listarDetalhesCalculoParcelas', {variavel_interesse: $("#id_variavel_interesse_arvores").val(),
-                        local_id: $("#local_id").val()
-
-                    }, function(responseText) {
-                        eval(responseText);
-                        $("#dialog_ver_detalhes_calculo_parcelas").dialog({title: 'Detalhes do Calculo com Parcelas', width: '700', height: '700'});                        
-                    });
-
-                    return false;
-                });
-                
 
                 $("#btn_calcular_data_mining").click(function() {
                     $("#btn_clicado").val("2");
@@ -419,6 +411,13 @@
                         </span>
                     </div>
                 </form>
+                <div id="dialog_ver_detalhes_calculo_parcelasm" style="display:none">
+                    <div id="dialog_ver_detalhes_calculo_parcelas_inside">
+                        
+                    </div>
+                    <br />
+                </div>
+
             </div>
 
             <script type="text/javascript">
@@ -442,6 +441,21 @@
                         eval(responseText);
                     });
                 });
+
+                $("#ver_detalhe_do_calculo_parcelas").click(function()
+                {
+                    $.post('listarDetalhesCalculoParcelas', {variavel_interesse: $("#id_variavel_interesse_arvores").val(),
+                        local_id: $("#local_id").val()
+
+                    }, function(responseText) {
+                        eval(responseText);
+                        $("#dialog_ver_detalhes_calculo_parcelas").dialog({title: 'Detalhes do Calculo com Parcelas', width: '700', height: '700'});                        
+                    });
+
+                    return false;
+                });
+                
+                
             </script>
 
             <div id="form_local_manual" style="display: none;">
