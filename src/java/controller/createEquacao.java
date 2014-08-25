@@ -36,7 +36,7 @@ public class createEquacao extends HttpServlet {
                     r.forward( request, response );  
                 }else
                 {
-                    RequestDispatcher r = request.getRequestDispatcher("/novaEquacao");    
+                    RequestDispatcher r = request.getRequestDispatcher("/novaEquacao2");    
                     request.setAttribute("equacao", equacao);
                     request.setAttribute("erros", equacao.getErrors());
                     r.forward( request, response );  

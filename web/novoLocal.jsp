@@ -161,7 +161,7 @@
                         <label for="local_descricao" class="control-label"><b>Arquivo com dados</b></label>
                         <div class="controls">
                             <input type="file" name="arquivo"  />
-                            <a href="#" id="btn_modelo_arvore" class="btn btn-inverse" >Baixar Exemplo de Arquivo com Árvores</a>
+                            <a href="BaixarExemploModeloArvore" id="btn_modelo_arvore" class="btn btn-inverse" target='_blank' >Baixar Exemplo de Arquivo com Árvores</a>
                         </div>
                         <br />
                         <br />
