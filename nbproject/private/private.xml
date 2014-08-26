@@ -5,11 +5,9 @@
         <group>
             <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/src/java/dao/EquacaoDao.java</file>
             <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/web/novoLocal.jsp</file>
-            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/src/java/controller/createLocal.java</file>
-            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/src/java/controller/listarDetalhesCalculoArvoresEquacao.java</file>
-            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/web/menu.jsp</file>
-            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/src/java/controller/listarDetalhesCalculoParcelas.java</file>
-            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/web/listarDetalhesCalculoArvores.jsp</file>
+            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/src/java/model/TrabalhoCientifico.java</file>
+            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/src/java/controller/retornaDetalhesTrabalhoCientifico.java</file>
+            <file>file:/C:/Users/jaimewo/Dropbox/Jaime/AA-UFPR/Doutorado/Tese/Implementacao%20Oficial/JCarbon/projetodoutorado_git/src/java/controller/BaixarExemploModeloArvore.java</file>
         </group>
     </open-files>
 </project-private>
