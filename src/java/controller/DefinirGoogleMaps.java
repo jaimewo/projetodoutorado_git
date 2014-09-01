@@ -38,10 +38,10 @@ public class DefinirGoogleMaps extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String idLocal = request.getParameter("idLocal");
-            LocalDao local_dao = new LocalDao();
-            Local objeto_local = local_dao.getLocal(Integer.parseInt(idLocal));
-            request.setAttribute("local", objeto_local );
+         //   String idLocal = request.getParameter("idLocal");
+         //   LocalDao local_dao = new LocalDao();
+          //  Local objeto_local = local_dao.getLocal(Integer.parseInt(idLocal));
+           // request.setAttribute("local", objeto_local );
             request.getRequestDispatcher("definirGoogleMaps.jsp").forward(request, response);
         }
     }

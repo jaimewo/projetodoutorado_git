@@ -29,7 +29,7 @@ public class LocalDao extends MainDao {
       super();
     }
     
-    public void cadastrar(Local local) throws SQLException, Exception
+    public int cadastrar(Local local) throws SQLException, Exception
                         
     {
         String sql = "INSERT INTO local (descricao, "
@@ -82,6 +82,7 @@ public class LocalDao extends MainDao {
         p.close();
         super.con.close();        
 
+        return idLocal;
     }
     
     

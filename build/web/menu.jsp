@@ -16,7 +16,7 @@
                             <li class="dropdown">
                                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">Locais <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="novoLocal">Incluir</a></li>                                    
+                                    <li><a href="DefinirGoogleMaps">Incluir</a></li>                                    
                                     <li><a href="listarLocais">Manter</a></li>
                                 </ul>
                             </li>

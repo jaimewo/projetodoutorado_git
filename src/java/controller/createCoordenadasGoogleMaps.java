@@ -41,18 +41,19 @@ public class createCoordenadasGoogleMaps extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
            
             
-             String idLocal = request.getParameter("idLocal");
              String latFld = request.getParameter("latFld");
              String lngFld = request.getParameter("lngFld");
              
              LocalDao localdao = new LocalDao();
              Local local = new Local();
-             local.setId(Integer.parseInt(idLocal));
              local.setLatitude(Double.parseDouble(latFld));
              local.setLongitude(Double.parseDouble(lngFld));
-             localdao.updateCoordenadas(local);
+            int ultimo_id = localdao.cadastrar(local);
+             
+             
              String retorno="";
-             retorno += "alert('Local atualizado com sucesso!')";
+             retorno += "alert('Local atualizado com sucesso!');";
+             retorno += "window.location.href=/incluirLocal?id="+ultimo_id;
              out.println(retorno);
             
             
