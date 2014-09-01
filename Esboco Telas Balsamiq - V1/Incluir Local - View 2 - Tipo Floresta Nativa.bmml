@@ -1,4 +1,4 @@
-<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="405" measuredH="337" mockupW="368" mockupH="333">
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="405" measuredH="302" mockupW="368" mockupH="298">
   <controls>
     <control controlID="0" controlTypeID="com.balsamiq.mockups::Label" x="37" y="50" w="59" h="-1" measuredW="54" measuredH="28" zOrder="0" locked="false" isInGroup="-1">
       <controlProperties>
@@ -62,11 +62,6 @@
     <control controlID="93" controlTypeID="com.balsamiq.mockups::ComboBox" x="131" y="240" w="-1" h="-1" measuredW="175" measuredH="62" zOrder="12" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Floresta%20Ombr%F3fila%20Mista%0AFloresta%20Ombr%F3fila%20Densa%0ASemidecidual</text>
-      </controlProperties>
-    </control>
-    <control controlID="95" controlTypeID="com.balsamiq.mockups::Button" x="37" y="310" w="-1" h="-1" measuredW="196" measuredH="27" zOrder="13" locked="false" isInGroup="-1">
-      <controlProperties>
-        <text>Denifir%20Local%20no%20Google%20Maps</text>
       </controlProperties>
     </control>
   </controls>

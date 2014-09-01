@@ -1,4 +1,4 @@
-<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1030" measuredH="587" mockupW="993" mockupH="583">
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1030" measuredH="657" mockupW="993" mockupH="653">
   <controls>
     <control controlID="54" controlTypeID="com.balsamiq.mockups::Label" x="37" y="4" w="-1" h="-1" measuredW="155" measuredH="36" zOrder="0" locked="false" isInGroup="-1">
       <controlProperties>
@@ -162,6 +162,17 @@
     <control controlID="134" controlTypeID="com.balsamiq.mockups::Link" x="426" y="564" w="-1" h="-1" measuredW="141" measuredH="19" zOrder="27" locked="false" isInGroup="-1">
       <controlProperties>
         <text>Ver%20Detalhes%20do%20C%E1lculo</text>
+      </controlProperties>
+    </control>
+    <control controlID="135" controlTypeID="com.balsamiq.mockups::Label" x="37" y="611" w="-1" h="-1" measuredW="279" measuredH="28" zOrder="28" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>C%E1lculo%20de%20Biomassa/Carbono%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="136" controlTypeID="com.balsamiq.mockups::ComboBox" x="325" y="611" w="-1" h="-1" measuredW="252" measuredH="46" zOrder="29" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Pretendo%20Usar%20Fun%E7%F5es%20de%20Convers%E3o%0APretendo%20Usar%20Equa%E7%F5es</text>
       </controlProperties>
     </control>
   </controls>
