@@ -35,6 +35,10 @@ public class novoLocal extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
         try {
+            
+            
+                        String idlocal = request.getParameter("id");
+            
             FormacaoDao objeto_formacao_dao = new FormacaoDao();
             List<Formacao> formacoes = objeto_formacao_dao.listarFormacoes();
             request.setAttribute("formacoes", formacoes);

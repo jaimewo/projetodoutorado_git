@@ -1,0 +1,190 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="811" measuredH="721" mockupW="774" mockupH="717">
+  <controls>
+    <control controlID="54" controlTypeID="com.balsamiq.mockups::Label" x="37" y="4" w="-1" h="-1" measuredW="155" measuredH="36" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>28</size>
+        <text>Incluir%20Local</text>
+      </controlProperties>
+    </control>
+    <control controlID="107" controlTypeID="com.balsamiq.mockups::Label" x="37" y="436" w="774" h="-1" measuredW="764" measuredH="24" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>16</size>
+        <text>Voc%EA%20escolheu%20a%20op%E7%E3o%205%20-%20Desejo%20selecionar%20uma%20equa%E7%E3o%20cadastrada%20no%20sistema%20para%20estimar%20o%20Volume</text>
+      </controlProperties>
+    </control>
+    <control controlID="108" controlTypeID="com.balsamiq.mockups::Label" x="37" y="55" w="59" h="-1" measuredW="54" measuredH="28" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>Local%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="109" controlTypeID="com.balsamiq.mockups::Label" x="37" y="165" w="-1" h="-1" measuredW="59" measuredH="28" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>Bioma%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="110" controlTypeID="com.balsamiq.mockups::TextInput" x="100" y="56" w="175" h="-1" measuredW="104" measuredH="27" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13421772</color>
+        <text>Fazenda%20Quiriri</text>
+      </controlProperties>
+    </control>
+    <control controlID="111" controlTypeID="com.balsamiq.mockups::Label" x="37" y="206" w="-1" h="-1" measuredW="152" measuredH="28" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>Tipo%20de%20Floresta%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="112" controlTypeID="com.balsamiq.mockups::Label" x="37" y="92" w="-1" h="-1" measuredW="87" measuredH="28" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>Munic%EDpio%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="113" controlTypeID="com.balsamiq.mockups::Label" x="37" y="126" w="154" h="-1" measuredW="139" measuredH="28" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>%C1rea%20Total%20%28ha%29%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="114" controlTypeID="com.balsamiq.mockups::TextInput" x="181" y="127" w="44" h="-1" measuredW="27" measuredH="27" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13421772</color>
+        <text>18</text>
+      </controlProperties>
+    </control>
+    <control controlID="115" controlTypeID="com.balsamiq.mockups::Label" x="37" y="252" w="-1" h="-1" measuredW="207" measuredH="28" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>Dados%20do%20Povoamento%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="116" controlTypeID="com.balsamiq.mockups::Label" x="37" y="287" w="154" h="-1" measuredW="151" measuredH="28" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>G%EAnero/Esp%E9cie%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="117" controlTypeID="com.balsamiq.mockups::TextInput" x="199" y="288" w="103" h="-1" measuredW="46" measuredH="27" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13421772</color>
+        <text>Pinus</text>
+      </controlProperties>
+    </control>
+    <control controlID="118" controlTypeID="com.balsamiq.mockups::Label" x="37" y="365" w="-1" h="-1" measuredW="128" measuredH="28" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>Espa%E7amento%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="119" controlTypeID="com.balsamiq.mockups::Label" x="37" y="329" w="154" h="-1" measuredW="57" measuredH="28" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>Idade%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="120" controlTypeID="com.balsamiq.mockups::TextInput" x="96" y="330" w="70" h="-1" measuredW="28" measuredH="27" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13421772</color>
+        <text>10</text>
+      </controlProperties>
+    </control>
+    <control controlID="121" controlTypeID="com.balsamiq.mockups::TextInput" x="128" y="93" w="147" h="-1" measuredW="61" measuredH="27" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13421772</color>
+        <text>Curitiba</text>
+      </controlProperties>
+    </control>
+    <control controlID="122" controlTypeID="com.balsamiq.mockups::TextInput" x="111" y="166" w="255" h="-1" measuredW="98" measuredH="27" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13421772</color>
+        <text>Mata%20Atl%E2ntica</text>
+      </controlProperties>
+    </control>
+    <control controlID="123" controlTypeID="com.balsamiq.mockups::TextInput" x="189" y="207" w="98" h="-1" measuredW="67" measuredH="27" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13421772</color>
+        <text>Plantada</text>
+      </controlProperties>
+    </control>
+    <control controlID="124" controlTypeID="com.balsamiq.mockups::TextInput" x="165" y="366" w="54" h="-1" measuredW="45" measuredH="27" zOrder="18" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13421772</color>
+        <text>3%20x%202</text>
+      </controlProperties>
+    </control>
+    <control controlID="125" controlTypeID="com.balsamiq.mockups::Label" x="290" y="92" w="-1" h="-1" measuredW="126" measuredH="28" zOrder="19" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>Coordenadas%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="126" controlTypeID="com.balsamiq.mockups::TextInput" x="416" y="93" w="195" h="-1" measuredW="178" measuredH="27" zOrder="20" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13421772</color>
+        <text>-25%2C99999989%20%3B%20-49%2C8277774</text>
+      </controlProperties>
+    </control>
+    <control controlID="128" controlTypeID="com.balsamiq.mockups::Button" x="37" y="530" w="-1" h="-1" measuredW="276" measuredH="27" zOrder="21" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Selecionar%20Arquivo%20com%20dados%20das%20%C1rvores</text>
+      </controlProperties>
+    </control>
+    <control controlID="129" controlTypeID="com.balsamiq.mockups::TextInput" x="328" y="530" w="152" h="-1" measuredW="149" measuredH="27" zOrder="22" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13421772</color>
+        <text>arquivo%20selecionado.xls</text>
+      </controlProperties>
+    </control>
+    <control controlID="130" controlTypeID="com.balsamiq.mockups::Button" x="495" y="530" w="-1" h="-1" measuredW="271" measuredH="27" zOrder="23" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Baixar%20Arquivo%20para%20utilizar%20como%20Exemplo</text>
+      </controlProperties>
+    </control>
+    <control controlID="131" controlTypeID="com.balsamiq.mockups::Button" x="37" y="572" w="-1" h="-1" measuredW="183" measuredH="27" zOrder="24" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Calcular%20o%20Volume%20do%20Local</text>
+      </controlProperties>
+    </control>
+    <control controlID="132" controlTypeID="com.balsamiq.mockups::TextInput" x="259" y="621" w="152" h="-1" measuredW="81" measuredH="27" zOrder="25" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13421772</color>
+        <text>999.999%2C99</text>
+      </controlProperties>
+    </control>
+    <control controlID="133" controlTypeID="com.balsamiq.mockups::Label" x="37" y="620" w="222" h="-1" measuredW="215" measuredH="28" zOrder="26" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>Volume%20Calculado%20%28ton%29%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="134" controlTypeID="com.balsamiq.mockups::Link" x="429" y="625" w="-1" h="-1" measuredW="141" measuredH="19" zOrder="27" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Ver%20Detalhes%20do%20C%E1lculo</text>
+      </controlProperties>
+    </control>
+    <control controlID="135" controlTypeID="com.balsamiq.mockups::Label" x="37" y="482" w="-1" h="-1" measuredW="300" measuredH="28" zOrder="28" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>Escolha%20uma%20equa%E7%E3o%20de%20Volume%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="136" controlTypeID="com.balsamiq.mockups::ComboBox" x="347" y="484" w="-1" h="-1" measuredW="133" measuredH="24" zOrder="29" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>V%20%3D%2010*dap%20+%205*h</text>
+      </controlProperties>
+    </control>
+    <control controlID="137" controlTypeID="com.balsamiq.mockups::Label" x="37" y="675" w="-1" h="-1" measuredW="279" measuredH="28" zOrder="30" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>20</size>
+        <text>C%E1lculo%20de%20Biomassa/Carbono%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="138" controlTypeID="com.balsamiq.mockups::ComboBox" x="325" y="675" w="-1" h="-1" measuredW="252" measuredH="46" zOrder="31" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Pretendo%20Usar%20Fun%E7%F5es%20de%20Convers%E3o%0APretendo%20Usar%20Equa%E7%F5es</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

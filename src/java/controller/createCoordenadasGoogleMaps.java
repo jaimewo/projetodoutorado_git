@@ -53,7 +53,7 @@ public class createCoordenadasGoogleMaps extends HttpServlet {
              
              String retorno="";
              retorno += "alert('Local atualizado com sucesso!');";
-             retorno += "window.location.href=/incluirLocal?id="+ultimo_id;
+             retorno += "window.location.href='/jcarbon/novoLocal?id="+ultimo_id+"'";
              out.println(retorno);
             
             

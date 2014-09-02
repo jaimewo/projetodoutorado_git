@@ -1,5 +1,5 @@
 <%-- 
-    Document   : novoLocalDadosBasicos
+    Document   : novoLocal
     Created on : 30/03/2014, 22:51:30
     Author     : jaimewo
 --%>
@@ -25,7 +25,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 
-        <title>JCarbon - Novo Local - Dados Básicos</title>
+        <title>JCarbon - Novo Local</title>
     </head>
     <body>
         <%@include  file="menu.jsp" %>
