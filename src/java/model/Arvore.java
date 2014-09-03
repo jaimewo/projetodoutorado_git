@@ -281,7 +281,7 @@ public class Arvore extends Model  {
                         
             variaveisArvoreAjuste = arvoreAjuste.getVariaveisArvoreAjuste();
             int i = 0;
-            switch (local.getIdDMTipoDistancia()) {
+            switch (local.getIdDmTipoDistancia()) {
             case 1: //Distancia Euclidiana
                 for(VariavelArvore variavelArvore: variaveisArvore) {
                     medidaDistancia += Math.pow(variavelArvore.getValor() - variaveisArvoreAjuste.get(i).getValor(), (double) 2);
@@ -327,14 +327,14 @@ public class Arvore extends Model  {
                     menoresDistancias[iVizinho] = medidaDistancia;
                     numArvoreMenoresDistancias[iVizinho] = arvoreAjuste.getNumArvoreAjuste();
                     qtdeObsMenoresDistancias[iVizinho] = qtdeObsArvoreAjuste;  
-                    if (local.getIdDMTipoPonderacao()==2) { // 2="1/d"
+                    if (local.getIdDmTipoPonderacao()==2) { // 2="1/d"
                        if(medidaDistancia>0) {
                           ponderacao[iVizinho] = 1 / medidaDistancia;
                        } else {
                           ponderacao[iVizinho] = 1.0;
                        }                        
                     } else {
-                        if (local.getIdDMTipoPonderacao()==3) { // 3 = "1/d2"
+                        if (local.getIdDmTipoPonderacao()==3) { // 3 = "1/d2"
                             if(medidaDistancia>0) {
                                ponderacao[iVizinho] = 1 / (Math.pow(medidaDistancia,(double) 2));
                             } else {
@@ -543,8 +543,8 @@ public class Arvore extends Model  {
         ArrayList<Variavel> variaveis = new ArrayList<Variavel>();
         ArrayList<String> siglasVariavel = new ArrayList<String>();
         
-        ArrayList<Equacao> equacoesTrabalho = new ArrayList<Equacao>();
-        equacoesTrabalho = local.getTrabalhoCientifico().getEquacoesTrabalho();
+        ArrayList<Equacao> equacoesLocal = new ArrayList<Equacao>();
+        equacoesLocal = local.getETrabalho = local.getTrabalhoCientifico().getEquacoesTrabalho();
         for(Equacao equacao: equacoesTrabalho) {
             variaveis = equacao.getVariaveis();
             for(Variavel variavel: variaveis) {

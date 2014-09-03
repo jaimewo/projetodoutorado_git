@@ -27,7 +27,7 @@ public class Equacao extends Model  {
     public String expressaoModelo;
     public int idVariavelInteresse;
     public int idAutorModelo;
-    public int idtTrabalhoCientifico;
+
     
     public ArrayList<Termo> termos;
     public ArrayList<Variavel> variaveisEquacao;
@@ -39,7 +39,6 @@ public class Equacao extends Model  {
         this.expressaoModelo = "";
         this.idVariavelInteresse = 0;
         this.idAutorModelo = 0;
-        this.idtTrabalhoCientifico = 0;
     }
     
     public String getIdString()
@@ -93,14 +92,6 @@ public class Equacao extends Model  {
 
     public void setIdAutorModelo(int idAutorModelo) {
         this.idAutorModelo = idAutorModelo;
-    }
-
-    public int getIdtTrabalhoCientifico() {
-        return idtTrabalhoCientifico;
-    }
-
-    public void setIdtTrabalhoCientifico(int idtTrabalhoCientifico) {
-        this.idtTrabalhoCientifico = idtTrabalhoCientifico;
     }
 
      public ArrayList<Termo> getTermos() throws Exception {

@@ -333,9 +333,9 @@ public class Local extends Model  {
         this.arvoresAjuste = arvoresAjuste;
     }
     
-    public TrabalhoCientifico getEquacoesLocal() throws SQLException {
+    public ArrayList<Equacao> getEquacoesLocal() throws SQLException {
         
-        TrabalhoCientificoDao trabalhoCientificoDao = new TrabalhoCientificoDao();
+        EquacaoLocalDao equacaoLocalDaotrabalhoCientificoDao = new TrabalhoCientificoDao();
         trabalhoCientifico = trabalhoCientificoDao.getTrabalhoCientifico(this.idTrabalhoCientifico);
         
         return trabalhoCientifico;

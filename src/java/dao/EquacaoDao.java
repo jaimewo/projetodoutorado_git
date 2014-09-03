@@ -99,29 +99,6 @@ public class EquacaoDao extends MainDao{
         return equacoes.get(0);
    }
    
-   public Equacao getEquacaoTrabalho(int idTrabalhoCientifico,int idVariavelInteresse) throws SQLException
-   {
-        Equacao equacao = new Equacao();
-        PreparedStatement p = this.con.prepareStatement("SELECT * FROM equacao where idtrabalhocientifico = ? and idvariavelinteresse = ?");
-        p.setInt(1, idTrabalhoCientifico);
-        p.setInt(2, idVariavelInteresse);
-        ResultSet rs = p.executeQuery();
-        while(rs.next()){
-           equacao = new Equacao();
-           equacao.setId(rs.getInt("id"));
-           equacao.setExpressaoEquacao(rs.getString("expressaoequacao"));
-           equacao.setExpressaoEquacaoFormatada(rs.getString("expressaoequacaoformatada"));           
-           equacao.setExpressaoModelo(rs.getString("expressaomodelo"));
-           equacao.setIdVariavelInteresse(rs.getInt("idvariavelinteresse"));
-           equacao.setIdAutorModelo(rs.getInt("idautormodelo"));
-           
-        }
-        rs.close();
-        p.close();
-        super.con.close();
-        return equacao;
-   }
-   
    public List<Equacao> listarEquacoes() throws Exception{
        
         ArrayList<Equacao> equacoes = new ArrayList<Equacao>();
@@ -142,7 +119,7 @@ public class EquacaoDao extends MainDao{
         super.con.close();
         return equacoes;
     }
-   public ArrayList<Equacao> listarEquacoesTrabalho(int idTrabalhoCientifico) throws Exception{
+   public ArrayList<Equacao> getEquacaoLocal(int idLocal, int idVariavelInteresse) throws Exception{
        
         ArrayList<Equacao> equacoesTrabalho = new ArrayList<Equacao>();
         PreparedStatement p = this.con.prepareStatement("SELECT e.id,"
@@ -150,13 +127,13 @@ public class EquacaoDao extends MainDao{
                 + "                                             e.expressaoequacaoformatada, "
                 + "                                             e.expressaomodelo, "                
                 + "                                             e.idvariavelinteresse,"
-                + "                                             e.idautormodelo,"
-                + "                                             e.idtrabalhocientifico "
-                + "                                      FROM trabalhocientifico tc "
-                + "                                      INNER JOIN equacaotrabalhocientifico etc ON tc.id = etc.idtrabalhocientifico "
-                + "                                      INNER JOIN equacao e ON etc.idequacao = e.id "
-                + "                                      WHERE tc.id = ?");
-        p.setInt(1, idTrabalhoCientifico);
+                + "                                             e.idautormodelo"
+                + "                                      FROM equacaolocal el  "
+                + "                                      INNER JOIN equacao e ON el.idequacao = e.id "
+                + "                                      WHERE el.idlocal = ?"
+                + "                                      AND   el.idvariavelinteresse = ?");
+        p.setInt(1, idLocal);
+        p.setInt(2, idVariavelInteresse);
         ResultSet rs = p.executeQuery();
         while(rs.next()){
            Equacao equacao = new Equacao();
@@ -166,7 +143,6 @@ public class EquacaoDao extends MainDao{
            equacao.setExpressaoModelo(rs.getString("expressaomodelo"));
            equacao.setIdVariavelInteresse(rs.getInt("idvariavelinteresse"));
            equacao.setIdAutorModelo(rs.getInt("idautormodelo"));
-           equacao.setIdtTrabalhoCientifico(rs.getInt("idTrabalhoCientifico"));
            equacoesTrabalho.add(equacao);
         }
         rs.close();

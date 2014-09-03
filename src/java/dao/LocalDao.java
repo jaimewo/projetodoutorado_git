@@ -36,12 +36,10 @@ public class LocalDao extends MainDao {
                    +                    "area,"
                    +                    "areaparcela,"
                    +                    "idtipoestimativa,"
-                   +                    "idformacao,"
-                   +                    "idespacamento,"
-                   +                    "idtrabalhocientifico,"
+                   +                    "idtipofloresta,"
                    +                    "iddmtipodistancia,"
-                   +                    "iddmtipoponderacao,"
                    +                    "dmqtdevizinhos,"
+                   +                    "iddmtipoponderacao,"
                    +                    "dmcomln,"                    
                    +                    "qtdebiomassaequacao,"
                    +                    "qtdebiomassadm,"
@@ -51,29 +49,35 @@ public class LocalDao extends MainDao {
                    +                    "qtdevolumedm,"
                    +                    "idmunicipio,"
                    +                    "latitude,"
-                   +                    "longitude"                
-                   +                    ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) RETURNING local.id";
+                   +                    "longitude,"                
+                   +                    "idade,"
+                   +                    "idformacao,"
+                   +                    "idespecie,"
+                   +                    "idespacamento"
+                   +                    ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) RETURNING local.id";
         PreparedStatement p = this.con.prepareStatement(sql);
         p.setString(1, local.getDescricao());
         p.setDouble(2, local.getArea());
         p.setDouble(3, local.getAreaParcela());
         p.setInt(4, local.getIdTipoEstimativa());
-        p.setInt(5, local.getIdFormacao());
-        p.setInt(6, local.getIdEspacamento());
-        p.setInt(7, local.getIdTrabalhoCientifico());
-        p.setInt(8, local.getIdDMTipoDistancia());            
-        p.setInt(9, local.getIdDMTipoPonderacao());                        
-        p.setInt(10, local.getDmQtdeVizinhos());                                    
-        p.setBoolean(11, local.isDmComLn());  
-        p.setDouble(12, local.getQtdeBiomassaEquacao());
-        p.setDouble(13, local.getQtdeBiomassaDm());
-        p.setDouble(14, local.getQtdeCarbonoEquacao());
-        p.setDouble(15, local.getQtdeCarbonoDm());
-        p.setDouble(16, local.getQtdeVolumeEquacao());
-        p.setDouble(17, local.getQtdeVolumeDm());        
-        p.setDouble(18, local.getIdMunicipio());                
-        p.setDouble(19, local.getLatitude());                        
-        p.setDouble(20, local.getLongitude());                                
+        p.setInt(5, local.getIdTipoFloresta());
+        p.setInt(6, local.getIdDmTipoDistancia());            
+        p.setInt(7, local.getDmQtdeVizinhos());                                    
+        p.setInt(8, local.getIdDmTipoPonderacao());                        
+        p.setBoolean(9, local.isDmComLn());  
+        p.setDouble(10, local.getQtdeBiomassaEquacao());
+        p.setDouble(11, local.getQtdeBiomassaDm());
+        p.setDouble(12, local.getQtdeCarbonoEquacao());
+        p.setDouble(13, local.getQtdeCarbonoDm());
+        p.setDouble(14, local.getQtdeVolumeEquacao());
+        p.setDouble(15, local.getQtdeVolumeDm());        
+        p.setDouble(16, local.getIdMunicipio());                
+        p.setDouble(17, local.getLatitude());                        
+        p.setDouble(18, local.getLongitude());                                
+        p.setInt(19, local.getIdade());
+        p.setInt(20, local.getIdFormacao());
+        p.setInt(21, local.getIdEspecie());
+        p.setInt(22, local.getIdEspacamento());
         int idLocal = 0;
         ResultSet rs = p.executeQuery();
         if(rs.next()){
