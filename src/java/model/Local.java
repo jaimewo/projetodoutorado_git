@@ -25,27 +25,27 @@ public class Local extends Model  {
     private double area;
     private double areaParcela;
     private int idTipoEstimativa;
-    private int idFormacao;
-    private int idEspacamento;
-    private int idTrabalhoCientifico;
-    private int idDMTipoDistancia;
-    private int idDMTipoPonderacao;    
+    private int idTipoFloresta;
+    private int idDmTipoDistancia;
+    private int idDmTipoPonderacao;    
     private int dmQtdeVizinhos;
     private boolean dmComLn;
-    private int idMunicipio;
-    private double latitude;
-    private double longitude;
-
     private double qtdeBiomassaEquacao;   
     private double qtdeBiomassaDm;   
     private double qtdeCarbonoEquacao;   
     private double qtdeCarbonoDm;   
     private double qtdeVolumeEquacao;   
     private double qtdeVolumeDm;
+    private int idMunicipio;
+    private double latitude;
+    private double longitude;
+    private int idFormacao;
+    private int idEspacamento;
+    private int idEspecie;
+    private int idade;
     
     private double qtde;
     
-    public TrabalhoCientifico trabalhoCientifico;
     public ArrayList<Parcela> parcelas;
     public ArrayList<ArvoreAjuste> arvoresAjuste;
     
@@ -54,19 +54,26 @@ public class Local extends Model  {
         this.descricao = "";
         this.area = 0.0;
         this.areaParcela = 0.0;
-        this.idEspacamento = 0;
-        this.idFormacao = 0;
-        this.idTrabalhoCientifico = 0;
-        this.idMunicipio = 0;
-        this.latitude = 0.0;
-        this.longitude = 0.0;
+        this.idTipoEstimativa = 0;
+        this.idTipoFloresta = 0;
+        this.idDmTipoDistancia = 0;
+        this.idDmTipoPonderacao = 0;
+        this.dmQtdeVizinhos = 0;
+        this.dmComLn = false;
         this.qtdeBiomassaEquacao = 0.0;        
         this.qtdeBiomassaDm = 0.0;        
         this.qtdeCarbonoEquacao = 0.0;        
         this.qtdeCarbonoDm = 0.0;        
         this.qtdeVolumeEquacao = 0.0;        
         this.qtdeVolumeDm = 0.0;          
-        
+        this.idMunicipio = 0;
+        this.latitude = 0.0;
+        this.longitude = 0.0;
+        this.idFormacao = 0;
+        this.idEspacamento = 0;
+        this.idEspecie = 0;
+        this.idade = 0;
+
         this.qtde = 0.0;
     }
     
@@ -130,28 +137,20 @@ public class Local extends Model  {
         this.idEspacamento = idEspacamento;
     }
 
-    public int getIdTrabalhoCientifico() {
-        return idTrabalhoCientifico;
+    public int getIdDmTipoDistancia() {
+        return idDmTipoDistancia;
     }
 
-    public void setIdTrabalhoCientifico(int idTrabalhoCientifico) {
-        this.idTrabalhoCientifico = idTrabalhoCientifico;
+    public void setIdDmTipoDistancia(int idDmTipoDistancia) {
+        this.idDmTipoDistancia = idDmTipoDistancia;
     }
 
-    public int getIdDMTipoDistancia() {
-        return idDMTipoDistancia;
+    public int getIdDmTipoPonderacao() {
+        return idDmTipoPonderacao;
     }
 
-    public void setIdDMTipoDistancia(int idDMTipoDistancia) {
-        this.idDMTipoDistancia = idDMTipoDistancia;
-    }
-
-    public int getIdDMTipoPonderacao() {
-        return idDMTipoPonderacao;
-    }
-
-    public void setIdDMTipoPonderacao(int idDMTipoPonderacao) {
-        this.idDMTipoPonderacao = idDMTipoPonderacao;
+    public void setIdDmTipoPonderacao(int idDmTipoPonderacao) {
+        this.idDmTipoPonderacao = idDmTipoPonderacao;
     }
 
     public int getDmQtdeVizinhos() {
@@ -242,6 +241,30 @@ public class Local extends Model  {
         this.longitude = longitude;
     }
 
+    public int getIdTipoFloresta() {
+        return idTipoFloresta;
+    }
+
+    public void setIdTipoFloresta(int idTipoFloresta) {
+        this.idTipoFloresta = idTipoFloresta;
+    }
+
+    public int getIdEspecie() {
+        return idEspecie;
+    }
+
+    public void setIdEspecie(int idEspecie) {
+        this.idEspecie = idEspecie;
+    }
+
+    public int getIdade() {
+        return idade;
+    }
+
+    public void setIdade(int idade) {
+        this.idade = idade;
+    }
+
     public double getQtde(int idVariavelInteresse, int idMetodoCalculo) {
         
         if (idMetodoCalculo==1) { //Equacao
@@ -310,7 +333,7 @@ public class Local extends Model  {
         this.arvoresAjuste = arvoresAjuste;
     }
     
-    public TrabalhoCientifico getTrabalhoCientifico() throws SQLException {
+    public TrabalhoCientifico getEquacoesLocal() throws SQLException {
         
         TrabalhoCientificoDao trabalhoCientificoDao = new TrabalhoCientificoDao();
         trabalhoCientifico = trabalhoCientificoDao.getTrabalhoCientifico(this.idTrabalhoCientifico);

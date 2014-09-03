@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.DMTipoPonderacao;
+import model.DmTipoPonderacao;
 
 /**
  *
@@ -28,14 +28,14 @@ public class DMTipoPonderacaoDao extends MainDao{
     }
     
    
-   public DMTipoPonderacao getTipoPonderacao(String id) throws SQLException
+   public DmTipoPonderacao getTipoPonderacao(String id) throws SQLException
    {
-        ArrayList<DMTipoPonderacao> dmTiposPonderacao = new ArrayList<DMTipoPonderacao>();
+        ArrayList<DmTipoPonderacao> dmTiposPonderacao = new ArrayList<DmTipoPonderacao>();
         PreparedStatement p = this.con.prepareStatement("SELECT id,descricao FROM dmtipoponderacao where id = ?");
         p.setInt(1, Integer.parseInt(id));
         ResultSet rs = p.executeQuery();
         while(rs.next()){
-           DMTipoPonderacao dmTipoPonderacao = new DMTipoPonderacao();
+           DmTipoPonderacao dmTipoPonderacao = new DmTipoPonderacao();
            dmTipoPonderacao.setId(rs.getInt("id"));
            dmTipoPonderacao.setDescricao(rs.getString("descricao"));
            dmTiposPonderacao.add(dmTipoPonderacao);
@@ -62,12 +62,12 @@ public class DMTipoPonderacaoDao extends MainDao{
         super.con.close();        
         return descricao;
    }   
-   public ArrayList<DMTipoPonderacao> listarTiposPonderacao() throws Exception{
-        ArrayList<DMTipoPonderacao> dmTiposPonderacao = new ArrayList<DMTipoPonderacao>();
+   public ArrayList<DmTipoPonderacao> listarTiposPonderacao() throws Exception{
+        ArrayList<DmTipoPonderacao> dmTiposPonderacao = new ArrayList<DmTipoPonderacao>();
         PreparedStatement p = this.con.prepareStatement("SELECT * FROM dmtipoponderacao");
         ResultSet rs = p.executeQuery();
         while(rs.next()){
-           DMTipoPonderacao dmTipoPonderacao = new DMTipoPonderacao();
+           DmTipoPonderacao dmTipoPonderacao = new DmTipoPonderacao();
            dmTipoPonderacao.setId(rs.getInt("id"));
            dmTipoPonderacao.setDescricao(rs.getString("descricao"));
            dmTiposPonderacao.add(dmTipoPonderacao);

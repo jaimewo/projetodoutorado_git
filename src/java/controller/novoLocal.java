@@ -66,7 +66,7 @@ public class novoLocal extends HttpServlet {
             } else {
                 request.setAttribute("local", local);
             }
-            request.getRequestDispatcher("novoLocal.jsp").forward(request, response);
+            request.getRequestDispatcher("novoLocalDadosBasicos.jsp").forward(request, response);
         }
     }
 

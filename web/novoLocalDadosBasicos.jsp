@@ -1,5 +1,5 @@
 <%-- 
-    Document   : novoLocal
+    Document   : novoLocalDadosBasicos
     Created on : 30/03/2014, 22:51:30
     Author     : jaimewo
 --%>
@@ -48,58 +48,11 @@
             <form action="#" method="POST" id="form_local" class="form-horizontal"  accept-charset="iso-8859-1,utf-8">
 
                 <div class="field control-group">
-                    <label for="local_descricao" class="control-label">Descrição do Local</label>
+                    <label for="local_descricao" class="control-label">Local</label>
                     <div class="controls">
                         <input type="text" name="local[descricao]" id="local_descricao" value="<%=objeto_local.getDescricao()%>" />
                     </div>
                 </div>
-
-                <div class="field control-group">
-                    <label for="local_bioma" class="control-label">Bioma</label>
-                    <div class="controls">
-                        <select id="local_bioma" name="local[idBioma]">
-                            <option value="">Selecione um bioma</option>
-                            <% List<Bioma> biomas = (List<Bioma>) request.getAttribute("biomas");%>
-                            <% for (Bioma b : biomas) {%>
-                            <option value="<%=b.getIdString()%>"><%=b.getDescricao()%></option>
-                            <%}%>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="field control-group">
-                    <label for="local_formacao" class="control-label">Formação</label>
-                    <div class="controls">
-                        <select id="local_formacao" name="local[idFormacao]">
-                            <option value="">Selecione uma formação</option>
-                            <% List<Formacao> formacoes = (List<Formacao>) request.getAttribute("formacoes");%>
-                            <% for (Formacao f : formacoes) {%>
-                            <option value="<%=f.getIdString()%>"><%=f.getDescricao()%></option>
-                            <%}%>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="field control-group">
-                    <label for="local_espacamento" class="control-label">Espaçamento</label>
-                    <div class="controls">
-                        <select id="local_espacamento" name="local[idEspacamento]">
-                            <option value="">Selecione um espaçamento</option>
-                            <% List<Espacamento> espacamentos = (List<Espacamento>) request.getAttribute("espacamentos");%>
-                            <% for (Espacamento e : espacamentos) {%>
-                            <option value="<%=e.getIdString()%>"><%=e.getDescricao()%></option>
-                            <%}%>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="field control-group">
-                    <label for="local_area" class="control-label">Área Total(ha)</label>
-                    <div class="controls">
-                        <input type="text" name="local[area]" id="area_total" value="<%=objeto_local.getArea()%>" />
-                    </div>
-                </div>
-
 
                 <div class="field control-group">
                     <label for="local_municipio" class="control-label">Município</label>
@@ -113,175 +66,138 @@
                         </select>
                     </div>
                 </div>
-
-
+                        
                 <div class="field control-group">
-                    <label for="local_latitude" class="control-label">Latitude,Longitude (opcional):</label>
-                    <div id="lat_long" class="controls">
-                        <p>
-                            (<input type="text" id="local_latitude" name="local[latitude]"  />,<input type="text" name="local[longitude]" id="local_longitude" />)
-                        </p>
-                    </div>
-                </div> 
-
-                <div class="field control-group">
-                    <label for="local_trabalhoCientifico" class="control-label">Trabalho Científico</label>
+                    <label for="local_latitide" class="control-label">Coordenadas: Latitude</label>
                     <div class="controls">
-                        <select id="local_trabalhoCientifico" name="local[idTrabalhoCientifico]">
-                            <option value="">Selecione um Trabalho Científico</option>
-                            <% List<TrabalhoCientifico> trabalhosCientificos = (List<TrabalhoCientifico>) request.getAttribute("trabalhosCientificos");%>
-                            <% for (TrabalhoCientifico t : trabalhosCientificos) {%>
-                            <option value="<%=t.getIdString()%>"><%=t.getTitulo()%></option>
-                            <%}%>
-                        </select>
+                        <input type="text" name="local[latitude]" id="local_latitude" value="<%=objeto_local.getLatitude()%>" />
                     </div>
-                    <div id="detalhes_trabalho_cientifico" style="width:800px;padding:40px;">
-
+                </div>
+                        
+                <div class="field control-group">
+                    <label for="local_longitude" class="control-label">             Longitude</label>
+                    <div class="controls">
+                        <input type="text" name="local[longitude]" id="local_longitude" value="<%=objeto_local.getLongitude()%>" />
                     </div>
                 </div>
 
+                <div class="field control-group">
+                    <label for="local_area" class="control-label">Área Total(ha)</label>
+                    <div class="controls">
+                        <input type="text" name="local[area]" id="area_total" value="<%=objeto_local.getArea()%>" />
+                    </div>
+                </div>                    
+                    
+                <div class="field control-group">
+                    <label for="local_bioma" class="control-label">Bioma</label>
+                    <div class="controls">
+                        <select id="local_bioma" name="local[idBioma]">
+                            <option value="">Selecione um bioma</option>
+                            <% List<Bioma> biomas = (List<Bioma>) request.getAttribute("biomas");%>
+                            <% for (Bioma b : biomas) {%>
+                            <option value="<%=b.getIdString()%>"><%=b.getDescricao()%></option>
+                            <%}%>
+                        </select>
+                    </div>
+                </div>
+                    
+                <div class="field control-group">
+                    <label for="local_tipoFloresta" class="control-label">Tipo de Floresta</label>
+                    <div class="controls">
+                        <select id="local_tipoFloresta" name="local[idTipoFloresta]">
+                            <option value="">Selecione o Tipo de Floresta</option>
+                            <% List<TipoFloresta> tiposFloresta = (List<TipoFloresta>) request.getAttribute("tiposFloresta");%>
+                            <% for (TipoFloresta tf : tiposFloresta) {%>
+                            <option value="<%=tf.getIdString()%>"><%=tf.getDescricao()%></option>
+                            <%}%>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="container" id="floresta_nativa" style="display:none;">
+                    <div class="field control-group">
+                        <label for="local_formacao" class="control-label">Formação</label>
+                        <div class="controls">
+                            <select id="local_formacao" name="local[idFormacao]">
+                                <option value="">Selecione uma formação</option>
+                                <% List<Formacao> formacoes = (List<Formacao>) request.getAttribute("formacoes");%>
+                                <% for (Formacao f : formacoes) {%>
+                                <option value="<%=f.getIdString()%>"><%=f.getDescricao()%></option>
+                                <%}%>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container" id="floresta_plantada" style="display:none;">
+                    <div class="field control-group">
+                        <label for="local_dados_povoamento" class="control-label">Dados do Povoamento</label>
+                        <label for="local_especie" class="control-label">Espécie</label>
+                        <div class="controls">
+                            <select id="local_especie" name="local[idEspecie]">
+                                <option value="">Selecione uma espécie</option>
+                                <% List<Especie> especies = (List<Especie>) request.getAttribute("especie");%>
+                                <% for (Especie e : especies) {%>
+                                <option value="<%=e.getIdString()%>"><%=e.getDescricao()%></option>
+                                <%}%>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="field control-group">
+                        <label for="local_idade" class="control-label">Idade (anos)</label>
+                        <div class="controls">
+                            <input type="text" name="local[idade]" id="idade" value="<%=objeto_local.getIdade()%>" />
+                        </div>
+                    </div>                                  
+                        
+                    <div class="field control-group">
+                        <label for="local_espacamento" class="control-label">Espaçamento</label>
+                        <div class="controls">
+                            <select id="local_espacamento" name="local[idEspacamento]">
+                                <option value="">Selecione um espaçamento</option>
+                                <% List<Espacamento> espacamentos = (List<Espacamento>) request.getAttribute("espacamentos");%>
+                                <% for (Espacamento e : espacamentos) {%>
+                                <option value="<%=e.getIdString()%>"><%=e.getDescricao()%></option>
+                                <%}%>
+                            </select>
+                         </div>
+                    </div>
+                        
+                </div>                            
+                        
+                <div class="container" id="perguntas" style="display:none;">
+                    <div class="field control-group">
+                        <label for="label_local_perguntas" class="control-label">O que você deseja fazer agora?</label>
+                    </div>
+                    
+                    
+                    Apresentar Perguntas com Radio Button
+                    
+                    
+                    
+                </div>
+
                 <div class="actions form-actions well">
-                    <a href="#" id="btn_salvar" class="btn btn-inverse" >Salvar</a>
+                    <a href="#" id="btn_avancar" class="btn btn-inverse" >Avançar</a>
+                </div>
+                <div class="actions form-actions well">
+                    <a href="#" id="btn_cancelar" class="btn btn-inverse" >Cancelar</a>
                 </div>
             </form>
         </div>
 
         <br />
 
-        <div class="container" id="valor_calculo" style="display:none;">
-            <a href="#" class="informar_local_manual">Deseja informar valores do Local?</a> 
-            <br />
-            <a href="#" class="informar_parcelas">Deseja cadastrar Parcelas para que o programa faça a estimativa para o Local?</a>
-            <br />
-            <a href="#" class="informar_arvores">Deseja cadastrar Árvores para que o programa faça o cálculo de cada parcela e, em seguida, faça a estimativa para o Local?</a>
-
-            <div id="form_local_arvores" style="display: none;">
-                <form action="#" id="form_action_local_arvores" method="POST">
-                    <div class="field control-group">
-                        <label for="local_descricao" class="control-label"><b>Arquivo com dados</b></label>
-                        <div class="controls">
-                            <input type="file" name="arquivo"  />
-                            <a href="BaixarExemploModeloArvore" id="btn_modelo_arvore" class="btn btn-inverse" target='_blank' >Baixar Exemplo de Arquivo com Árvores</a>
-                        </div>
-                        <br />
-                        <br />
-                        <div class="field control-group">
-
-
-                            <h3><b>Variável de interesse</b></h3>
-                            <select id="id_variavel_interesse_arvores">
-                                <option value="1">Biomassa</option>
-                                <option value="2">Carbono</option>
-                                <option value="3">Volume</option>
-                            </select>
-
-                            <h3><b>Método de Cálculo</b></h3>
-                            <select id="metodo_de_calculo">
-                                <option value="" selected>Selecione um método</option>
-                                <option value="equacao">Equação</option>
-                                <option value="data_mining">Data Mining</option>
-                            </select>
-
-
-                        </div>
-                        <div id="sp_calcular_arvore_equacao" style="display:none">
-                            <input type="hidden" id="btn_clicado" name="btn_clicado" value="-1" />
-                            <span><input type="submit" value="Calcular Usando a Equação" name="btn_submit" id="btn_calcular_equacao" class="btn btn-inverse" >
-                                <image src="images/loading.gif" style="display:none;" class="loading">
-                                </span>
-                            <br />
-                            <div class="field control-group">
-                                <label for="local_descricao" class="control-label">Total Calculado(t/ha)</label>
-                                <div class="controls">
-                                    <input type="text"  id="total_calculado_arvore_equacao" disabled="true"  />
-
-                                    <input name="id_variavel_interesse_arvores" id="id_variavel_interesse_arvores" value="id_variavel_interesse_arvores" disabled="false" type="hidden" />
-                                </div>
-                                <a href="#" id="ver_detalhe_do_calculo_arvore_equacao">Ver detalhes do Cálculo usando Equação</a>
-                                <br />
-                                <br />
-                                <a href="#" class="btn_google_maps btn btn-inverse" target="_blank">Definir Local no Google Maps</a>
-                            </div>
-
-                        </div>
-                        <div id="sp_calcular_arvore_data_mining" style="display:none">
-                            <br />
-                            <br />
-                            <div class="field control-group">
-                                <label for="local_tipo_de_distancia" class="control-label">Tipo de Distância</label>
-                                <select id="tipo_distancia">
-                                    <option value="" selected>Selecione um tipo</option>
-                                    <option value="1">Euclidiana</option>
-                                    <option value="2">Quadrática</option>
-                                </select>
-                            </div>
-
-                            <div class="field control-group">
-                                <label for="local_quantidade_de_vizinhos" class="control-label">Quantidade de Vizinhos</label>
-                                <div class="controls">
-                                    <input type="text"  id="local_quantidade_de_vizinhos"  />
-                                </div>
-                            </div>
-
-                            <div class="field control-group">
-                                <label for="local_tipo_de_ponderacao" class="control-label">Tipo de Ponderação</label>
-                                <select id="tipo_ponderacao">
-                                    <option value="" selected>Selecione um tipo de ponderação</option>
-                                    <option value="1">Sem Ponderação</option>
-                                    <option value="2">1/d</option>
-                                    <option value="3">1/d2</option>
-                                </select>
-                            </div>
-
-                            <div class="field control-group">
-                                <label for="local_tipo_de_ponderacao" class="control-label">Logarítimo?</label>
-                                <select id="tipo_ponderacao">
-                                    <option value="" selected>Selecione um tipo de ponderação</option>
-                                    <option value="1">Sim</option>
-                                    <option value="2">Não</option>
-
-                                </select>
-                            </div>
-
-
-
-                            <div class="field control-group">
-                                <span><input type="submit" value="Calcular Usando Data Mining" name="btn_submit" id="btn_calcular_data_mining" class="btn btn-inverse" >
-                                    <image src="images/loading.gif" style="display:none;" class="loading">
-                                </span>
-                                
-                                <label for="local_descricao" class="control-label">Total Calculado(t/ha)</label>
-                                <div class="controls">
-                                    <input type="text"  id="total_calculado_arvore_data_mining" disabled="true"  />
-                                </div>
-                                <a href="#" id="ver_detalhe_do_calculo_dm">Ver detalhes do Cálculo usando Data Mining  </a>
-                                <br />
-                                <br />
-                                <br />
-                                <br />
-                                <a href="#" class="btn_google_maps btn btn-inverse" target="_blank">Definir Local no Google Maps</a>
-                            </div>
-
-
-
-                        </div>
-                    </div>
-                </form>
-
-                <div id="dialog_ver_detalhes_calculo_arvore_eq" style="display:none">
-                    <a href="#" class="btn btn-inverse" >Baixar Planilha dos Valores Estimados</a>
-                    <div id="dialog_ver_detalhes_calculo_arvore_eq_inside">
-                        
-                    </div>
-                    <br />
-                </div>
-                <div id="dialog_ver_detalhes_calculo_arvore_dm" style="display:none">
-                    <a href="#" class="btn btn-inverse" >Baixar Planilha dos Valores Estimados</a>
-                    <div id="dialog_ver_detalhes_calculo_arvore_dm_inside">
-                        
-                    </div>
-                    <br />
-                </div>
+        
+        
+        
+        
+        
+        
+        
+        
+        
                 <script type="text/javascript">
                     $(".btn_google_maps").click(function() {
                         var url = "DefinirGoogleMaps?idLocal=" + $("#local_id").val();

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.DMTipoDistancia;
+import model.DmTipoDistancia;
 
 /**
  *
@@ -28,14 +28,14 @@ public class DMTipoDistanciaDao extends MainDao{
     }
     
    
-   public DMTipoDistancia getTipoDistancia(String id) throws SQLException
+   public DmTipoDistancia getTipoDistancia(String id) throws SQLException
    {
-        ArrayList<DMTipoDistancia> dmTiposDistancia = new ArrayList<DMTipoDistancia>();
+        ArrayList<DmTipoDistancia> dmTiposDistancia = new ArrayList<DmTipoDistancia>();
         PreparedStatement p = this.con.prepareStatement("SELECT id,descricao FROM dmtipodistancia where id = ?");
         p.setInt(1, Integer.parseInt(id));
         ResultSet rs = p.executeQuery();
         while(rs.next()){
-           DMTipoDistancia dmTipoDistancia = new DMTipoDistancia();
+           DmTipoDistancia dmTipoDistancia = new DmTipoDistancia();
            dmTipoDistancia.setId(rs.getInt("id"));
            dmTipoDistancia.setDescricao(rs.getString("descricao"));
            dmTiposDistancia.add(dmTipoDistancia);
@@ -62,12 +62,12 @@ public class DMTipoDistanciaDao extends MainDao{
         return descricao;
    }
    
-   public ArrayList<DMTipoDistancia> listarTiposDistancia() throws Exception{
-        ArrayList<DMTipoDistancia> dmTiposDistancia = new ArrayList<DMTipoDistancia>();
+   public ArrayList<DmTipoDistancia> listarTiposDistancia() throws Exception{
+        ArrayList<DmTipoDistancia> dmTiposDistancia = new ArrayList<DmTipoDistancia>();
         PreparedStatement p = this.con.prepareStatement("SELECT * FROM dmtipodistancia");
         ResultSet rs = p.executeQuery();
         while(rs.next()){
-           DMTipoDistancia dmTipoDistancia = new DMTipoDistancia();
+           DmTipoDistancia dmTipoDistancia = new DmTipoDistancia();
            dmTipoDistancia.setId(rs.getInt("id"));
            dmTipoDistancia.setDescricao(rs.getString("descricao"));
            dmTiposDistancia.add(dmTipoDistancia);

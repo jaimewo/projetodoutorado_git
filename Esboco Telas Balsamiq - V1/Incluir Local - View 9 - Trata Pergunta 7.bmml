@@ -207,5 +207,21 @@
         <text>Ver%20Estat%EDsticas%20do%20Ajuste</text>
       </controlProperties>
     </control>
+    <control controlID="144" controlTypeID="com.balsamiq.mockups::Button" x="37" y="686" w="-1" h="-1" measuredW="276" measuredH="27" zOrder="36" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Selecionar%20Arquivo%20com%20dados%20das%20%C1rvores</text>
+      </controlProperties>
+    </control>
+    <control controlID="145" controlTypeID="com.balsamiq.mockups::TextInput" x="328" y="686" w="152" h="-1" measuredW="149" measuredH="27" zOrder="37" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13421772</color>
+        <text>arquivo%20selecionado.xls</text>
+      </controlProperties>
+    </control>
+    <control controlID="146" controlTypeID="com.balsamiq.mockups::Button" x="495" y="686" w="-1" h="-1" measuredW="271" measuredH="27" zOrder="38" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Baixar%20Arquivo%20para%20utilizar%20como%20Exemplo</text>
+      </controlProperties>
+    </control>
   </controls>
 </mockup>

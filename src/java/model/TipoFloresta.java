@@ -10,13 +10,13 @@ import java.util.ArrayList;
  *
  * @author jaime
  */
-public class DMTipoPonderacao extends Model  {
+public class TipoFloresta extends Model  {
     
     
     public int id;
     public String descricao;
     
-    public DMTipoPonderacao()
+    public TipoFloresta()
     {
         this.descricao = "";
     }
@@ -41,5 +41,20 @@ public class DMTipoPonderacao extends Model  {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+    
+    public boolean eh_valido()
+    {
+        if(this.getDescricao() == null || this.getDescricao().isEmpty())
+        {
+            this.setErro("Descrição ", "não pode ficar em branco");
+        }
+        return (this.erros.isEmpty());
+        
+    }
+    public ArrayList<Error> getErrors()
+    {
+        return this.erros;
+    }  
+    
     
 }

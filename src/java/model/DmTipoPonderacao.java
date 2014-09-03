@@ -10,13 +10,13 @@ import java.util.ArrayList;
  *
  * @author jaime
  */
-public class DMTipoDistancia extends Model  {
+public class DmTipoPonderacao extends Model  {
     
     
     public int id;
     public String descricao;
     
-    public DMTipoDistancia()
+    public DmTipoPonderacao()
     {
         this.descricao = "";
     }

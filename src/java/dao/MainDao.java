@@ -21,7 +21,7 @@ public class MainDao {
      protected Connection con = null;
      protected String ADDRESS = "localhost";
      protected String PORTA = "5433";
-     protected String DATABASE_NAME = "JCARBON1";
+     protected String DATABASE_NAME = "JCARBON2";
      
      public MainDao()
      {
@@ -34,7 +34,7 @@ public class MainDao {
 //                    "postgres", "qwe123@");
               this.con = DriverManager
                     .getConnection(
-                    "jdbc:postgresql://localhost:5432/JCarbon1",
+                    "jdbc:postgresql://localhost:5432/JCarbon2",
                     "postgres", "root");                
               
               
