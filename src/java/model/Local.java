@@ -6,6 +6,7 @@ package model;
 
 import dao.ArvoreAjusteDao;
 import dao.CoordenadaLocalDao;
+import dao.EquacaoDao;
 import dao.MunicipioLocalDao;
 import dao.ParcelaDao;
 import dao.TrabalhoCientificoDao;
@@ -333,12 +334,13 @@ public class Local extends Model  {
         this.arvoresAjuste = arvoresAjuste;
     }
     
-    public ArrayList<Equacao> getEquacoesLocal() throws SQLException {
+    public ArrayList<Equacao> getEquacoesLocal() throws SQLException, Exception {
         
-        EquacaoLocalDao equacaoLocalDaotrabalhoCientificoDao = new TrabalhoCientificoDao();
-        trabalhoCientifico = trabalhoCientificoDao.getTrabalhoCientifico(this.idTrabalhoCientifico);
+        EquacaoDao equacaoDao = new EquacaoDao();
+        ArrayList<Equacao> equacoesLocal = new ArrayList<Equacao>();
+        equacoesLocal = equacaoDao.getEquacoesLocal(id);
         
-        return trabalhoCientifico;
+        return equacoesLocal;
     }
 
     public ArrayList<Parcela> getParcelas() throws Exception {
@@ -393,10 +395,7 @@ public class Local extends Model  {
         {
             this.setErro("Espaçamento ", "deve ser informado");
         }                
-        if(this.getIdTrabalhoCientifico() == 0)
-        {
-            this.setErro("Trabalho Científico ", "deve ser informado");
-        }                        
+                        
         return (this.erros.isEmpty());
         
     }

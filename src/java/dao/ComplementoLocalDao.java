@@ -39,9 +39,8 @@ public class ComplementoLocalDao extends MainDao {
            local.setIdTipoEstimativa(rs.getInt("idtipoestimativa"));
            local.setIdFormacao(rs.getInt("idformacao"));
            local.setIdEspacamento(rs.getInt("idespacamento"));
-           local.setIdTrabalhoCientifico(rs.getInt("idtrabalhocientifico"));
-           local.setIdDMTipoDistancia(rs.getInt("iddmtipodistancia"));
-           local.setIdDMTipoPonderacao(rs.getInt("iddmtipoponderacao"));           
+           local.setIdDmTipoDistancia(rs.getInt("iddmtipodistancia"));
+           local.setIdDmTipoPonderacao(rs.getInt("iddmtipoponderacao"));           
            local.setDmQtdeVizinhos(rs.getInt("dmqtdevizinhos"));                      
            local.setDmComLn(rs.getBoolean("dmcomln"));                                 
            

@@ -225,26 +225,6 @@
         <servlet-class>controller.updateAutorModelo</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>createTrabalhoCientifico</servlet-name>
-        <servlet-class>controller.createTrabalhoCientifico</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>editarTrabalhoCientifico</servlet-name>
-        <servlet-class>controller.editarTrabalhoCientifico</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>excluirTrabalhoCientifico</servlet-name>
-        <servlet-class>controller.excluirTrabalhoCientifico</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>listarTrabalhosCientificos</servlet-name>
-        <servlet-class>controller.listarTrabalhosCientificos</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>novoTrabalhoCientifico</servlet-name>
-        <servlet-class>controller.novoTrabalhoCientifico</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>updateTrabalhoCientifico</servlet-name>
         <servlet-class>controller.updateTrabalhoCientifico</servlet-class>
     </servlet>
@@ -327,10 +307,6 @@
     <servlet>
         <servlet-name>retornaCidades</servlet-name>
         <servlet-class>controller.retornaCidades</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>retornaDetalhesTrabalhoCientifico</servlet-name>
-        <servlet-class>controller.retornaDetalhesTrabalhoCientifico</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>retornaFormacao</servlet-name>
@@ -621,26 +597,6 @@
         <url-pattern>/updateAutorModelo</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>createTrabalhoCientifico</servlet-name>
-        <url-pattern>/createTrabalhoCientifico</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>editarTrabalhoCientifico</servlet-name>
-        <url-pattern>/editarTrabalhoCientifico</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>excluirTrabalhoCientifico</servlet-name>
-        <url-pattern>/excluirTrabalhoCientifico</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>listarTrabalhosCientificos</servlet-name>
-        <url-pattern>/listarTrabalhosCientificos</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>novoTrabalhoCientifico</servlet-name>
-        <url-pattern>/novoTrabalhoCientifico</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>updateTrabalhoCientifico</servlet-name>
         <url-pattern>/updateTrabalhoCientifico</url-pattern>
     </servlet-mapping>
@@ -723,10 +679,6 @@
     <servlet-mapping>
         <servlet-name>retornaCidades</servlet-name>
         <url-pattern>/retornaCidades</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>retornaDetalhesTrabalhoCientifico</servlet-name>
-        <url-pattern>/retornaDetalhesTrabalhoCientifico</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>retornaFormacao</servlet-name>

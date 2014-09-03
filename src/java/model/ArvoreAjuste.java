@@ -380,9 +380,9 @@ public class ArvoreAjuste extends Model  {
         ArrayList<Variavel> variaveis = new ArrayList<Variavel>();
         ArrayList<String> siglasVariavel = new ArrayList<String>();
         
-        ArrayList<Equacao> equacoesTrabalho = new ArrayList<Equacao>();
-        equacoesTrabalho = local.getTrabalhoCientifico().getEquacoesTrabalho();
-        for(Equacao equacao: equacoesTrabalho) {
+        ArrayList<Equacao> equacoesLocal = new ArrayList<Equacao>();
+        equacoesLocal = local.getEquacoesLocal();
+        for(Equacao equacao: equacoesLocal) {
             variaveis = equacao.getVariaveis();
             for(Variavel variavel: variaveis) {
                 boolean achou = false;
@@ -469,9 +469,9 @@ public class ArvoreAjuste extends Model  {
         ArrayList<Variavel> variaveis = new ArrayList<Variavel>();
         ArrayList<String> siglasVariavel = new ArrayList<String>();
         
-        ArrayList<Equacao> equacoesTrabalho = new ArrayList<Equacao>();
-        equacoesTrabalho = local.getTrabalhoCientifico().getEquacoesTrabalho();
-        for(Equacao equacao: equacoesTrabalho) {
+        ArrayList<Equacao> equacoesLocal = new ArrayList<Equacao>();
+        equacoesLocal = local.getEquacoesLocal();
+        for(Equacao equacao: equacoesLocal) {
             variaveis = equacao.getVariaveis();
             for(Variavel variavel: variaveis) {
                 boolean achou = false;
@@ -557,9 +557,10 @@ public class ArvoreAjuste extends Model  {
         ArrayList<Variavel> variaveis = new ArrayList<Variavel>();
         ArrayList<String> siglasVariavel = new ArrayList<String>();
         
-        ArrayList<Equacao> equacoesTrabalho = new ArrayList<Equacao>();
-        equacoesTrabalho = local.getTrabalhoCientifico().getEquacoesTrabalho();
-        for(Equacao equacao: equacoesTrabalho) {
+        ArrayList<Equacao> equacoesLocal = new ArrayList<Equacao>();
+        equacoesLocal = local.getEquacoesLocal();
+
+        for(Equacao equacao: equacoesLocal) {
             variaveis = equacao.getVariaveis();
             for(Variavel variavel: variaveis) {
                 boolean achou = false;

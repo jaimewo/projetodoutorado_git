@@ -119,9 +119,9 @@ public class EquacaoDao extends MainDao{
         super.con.close();
         return equacoes;
     }
-   public ArrayList<Equacao> getEquacaoLocal(int idLocal, int idVariavelInteresse) throws Exception{
+   public ArrayList<Equacao> getEquacoesLocal(int idLocal) throws Exception{
        
-        ArrayList<Equacao> equacoesTrabalho = new ArrayList<Equacao>();
+        ArrayList<Equacao> equacoes = new ArrayList<Equacao>();
         PreparedStatement p = this.con.prepareStatement("SELECT e.id,"
                 + "                                             e.expressaoequacao, "
                 + "                                             e.expressaoequacaoformatada, "
@@ -130,10 +130,8 @@ public class EquacaoDao extends MainDao{
                 + "                                             e.idautormodelo"
                 + "                                      FROM equacaolocal el  "
                 + "                                      INNER JOIN equacao e ON el.idequacao = e.id "
-                + "                                      WHERE el.idlocal = ?"
-                + "                                      AND   el.idvariavelinteresse = ?");
+                + "                                      WHERE el.idlocal = ?");
         p.setInt(1, idLocal);
-        p.setInt(2, idVariavelInteresse);
         ResultSet rs = p.executeQuery();
         while(rs.next()){
            Equacao equacao = new Equacao();
@@ -143,12 +141,12 @@ public class EquacaoDao extends MainDao{
            equacao.setExpressaoModelo(rs.getString("expressaomodelo"));
            equacao.setIdVariavelInteresse(rs.getInt("idvariavelinteresse"));
            equacao.setIdAutorModelo(rs.getInt("idautormodelo"));
-           equacoesTrabalho.add(equacao);
+           equacoes.add(equacao);
         }
         rs.close();
         p.close();
         super.con.close();
-        return equacoesTrabalho;
+        return equacoes;
     }
     
 }

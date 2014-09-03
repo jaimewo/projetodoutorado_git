@@ -99,7 +99,7 @@ public class LocalDao extends MainDao {
         super.con.close();        
         
     }
-    
+/*    
    public void update(Local local) throws Exception 
    {
         PreparedStatement p = this.con.prepareStatement("UPDATE local SET descricao = ?, "
@@ -150,7 +150,7 @@ public class LocalDao extends MainDao {
         super.con.close();        
     }
    
-    
+  */  
    public void updateAreaParcela(int idLocal, double areaParcela) throws Exception 
    {
         PreparedStatement p = this.con.prepareStatement("UPDATE local SET areaparcela = ?"
@@ -234,11 +234,12 @@ public class LocalDao extends MainDao {
            local.setArea(rs.getDouble("area"));
            local.setAreaParcela(rs.getDouble("areaparcela"));
            local.setIdTipoEstimativa(rs.getInt("idtipoestimativa"));
+           local.setIdTipoFloresta(rs.getInt("idtipofloresta"));
+           local.setIdEspecie(rs.getInt("idespecie"));
            local.setIdFormacao(rs.getInt("idformacao"));
            local.setIdEspacamento(rs.getInt("idespacamento"));
-           local.setIdTrabalhoCientifico(rs.getInt("idtrabalhocientifico"));
-           local.setIdDMTipoDistancia(rs.getInt("iddmtipodistancia"));
-           local.setIdDMTipoPonderacao(rs.getInt("iddmtipoponderacao"));           
+           local.setIdDmTipoDistancia(rs.getInt("iddmtipodistancia"));
+           local.setIdDmTipoPonderacao(rs.getInt("iddmtipoponderacao"));           
            local.setDmQtdeVizinhos(rs.getInt("dmqtdevizinhos"));                      
            local.setDmComLn(rs.getBoolean("dmcomln"));    
            local.setQtdeBiomassaEquacao(rs.getDouble("qtdebiomassaequacao"));
@@ -272,13 +273,14 @@ public class LocalDao extends MainDao {
            local.setArea(rs.getDouble("area"));
            local.setAreaParcela(rs.getDouble("areaparcela"));
            local.setIdTipoEstimativa(rs.getInt("idtipoestimativa"));
+           local.setIdTipoFloresta(rs.getInt("idtipofloresta"));
+           local.setIdEspecie(rs.getInt("idespecie"));
            local.setIdFormacao(rs.getInt("idformacao"));
            local.setIdEspacamento(rs.getInt("idespacamento"));
-           local.setIdTrabalhoCientifico(rs.getInt("idtrabalhocientifico"));
-           local.setIdDMTipoDistancia(rs.getInt("iddmtipodistancia"));
-           local.setIdDMTipoPonderacao(rs.getInt("iddmtipoponderacao"));           
+           local.setIdDmTipoDistancia(rs.getInt("iddmtipodistancia"));
+           local.setIdDmTipoPonderacao(rs.getInt("iddmtipoponderacao"));           
            local.setDmQtdeVizinhos(rs.getInt("dmqtdevizinhos"));                      
-           local.setDmComLn(rs.getBoolean("dmcomln"));                                 
+           local.setDmComLn(rs.getBoolean("dmcomln"));    
            local.setQtdeBiomassaEquacao(rs.getDouble("qtdebiomassaequacao"));
            local.setQtdeBiomassaDm(rs.getDouble("qtdebiomassadm"));
            local.setQtdeCarbonoEquacao(rs.getDouble("qtdecarbonoequacao"));

@@ -544,8 +544,8 @@ public class Arvore extends Model  {
         ArrayList<String> siglasVariavel = new ArrayList<String>();
         
         ArrayList<Equacao> equacoesLocal = new ArrayList<Equacao>();
-        equacoesLocal = local.getETrabalho = local.getTrabalhoCientifico().getEquacoesTrabalho();
-        for(Equacao equacao: equacoesTrabalho) {
+        equacoesLocal = local.getEquacoesLocal();
+        for(Equacao equacao: equacoesLocal) {
             variaveis = equacao.getVariaveis();
             for(Variavel variavel: variaveis) {
                 boolean achou = false;
@@ -623,9 +623,9 @@ public class Arvore extends Model  {
         ArrayList<Variavel> variaveis = new ArrayList<Variavel>();
         ArrayList<String> siglasVariavel = new ArrayList<String>();
         
-        ArrayList<Equacao> equacoesTrabalho = new ArrayList<Equacao>();
-        equacoesTrabalho = local.getTrabalhoCientifico().getEquacoesTrabalho();
-        for(Equacao equacao: equacoesTrabalho) {
+        ArrayList<Equacao> equacoesLocal = new ArrayList<Equacao>();
+        equacoesLocal = local.getEquacoesLocal();
+        for(Equacao equacao: equacoesLocal) {
             variaveis = equacao.getVariaveis();
             for(Variavel variavel: variaveis) {
                 boolean achou = false;
