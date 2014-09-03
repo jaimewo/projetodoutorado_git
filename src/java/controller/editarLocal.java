@@ -9,7 +9,6 @@ import dao.EspacamentoDao;
 import dao.FormacaoDao;
 import dao.LocalDao;
 import dao.MunicipioDao;
-import dao.TrabalhoCientificoDao;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -24,7 +23,6 @@ import model.Espacamento;
 import model.Formacao;
 import model.Local;
 import model.Municipio;
-import model.TrabalhoCientifico;
 
 /**
  *
@@ -60,10 +58,6 @@ public class editarLocal extends HttpServlet {
             CoordenadaLocalDao objeto_coordenadaLocal_dao = new CoordenadaLocalDao();
             CoordenadaLocal objeto_coordenadaLocal = objeto_coordenadaLocal_dao.getCoordenadaLocal(idLocalStr);
             request.setAttribute("coordenadaLocal", objeto_coordenadaLocal );            
-            
-            TrabalhoCientificoDao objeto_trabalhoCientifico_dao = new TrabalhoCientificoDao();
-            List<TrabalhoCientifico> trabalhosCientificos = objeto_trabalhoCientifico_dao.listarTrabalhosCientificos();
-            request.setAttribute("trabalhosCientificos", trabalhosCientificos);
 
              request.getRequestDispatcher("editarLocal.jsp").forward(request, response);
         } finally {            

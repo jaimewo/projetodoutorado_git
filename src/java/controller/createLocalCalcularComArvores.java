@@ -136,8 +136,8 @@ public class createLocalCalcularComArvores extends HttpServlet {
                                         //3-1/d2
             int dmQtdeVizinhos = 3;     //1,3 ou 5
             boolean dmComLn = false;    //com ou sem aplicar LN nas variáveis
-            local.setIdDMTipoDistancia(idDMTipoDistancia);
-            local.setIdDMTipoPonderacao(idDMTipoPonderacao);
+            local.setIdDmTipoDistancia(idDMTipoDistancia);
+            local.setIdDmTipoPonderacao(idDMTipoPonderacao);
             local.setDmQtdeVizinhos(dmQtdeVizinhos);
             local.setDmComLn(dmComLn);
         } else {

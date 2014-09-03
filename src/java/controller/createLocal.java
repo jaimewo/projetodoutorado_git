@@ -45,7 +45,6 @@ public class createLocal extends HttpServlet {
                 Local local = new Local();
                 local.setDescricao(descricao);
                 local.setIdFormacao(Integer.parseInt(local_formacao));
-                local.setIdTrabalhoCientifico(Integer.parseInt(local_trabalhoCientifico));
                 local.setArea(Double.parseDouble(area_total));
                 local.setAreaParcela(Double.parseDouble(area_total));
                 local.setIdEspacamento(Integer.parseInt(local_espacamento));

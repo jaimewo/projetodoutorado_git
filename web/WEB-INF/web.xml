@@ -368,6 +368,10 @@
         <servlet-name>BaixarExemploModeloArvore</servlet-name>
         <servlet-class>controller.BaixarExemploModeloArvore</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>novoLocalDadosBasicos</servlet-name>
+        <servlet-class>controller.novoLocalDadosBasicos</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>listarBiomas</servlet-name>
         <url-pattern>/listarBiomas</url-pattern>
@@ -739,6 +743,10 @@
     <servlet-mapping>
         <servlet-name>BaixarExemploModeloArvore</servlet-name>
         <url-pattern>/BaixarExemploModeloArvore</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>novoLocalDadosBasicos</servlet-name>
+        <url-pattern>/novoLocalDadosBasicos</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

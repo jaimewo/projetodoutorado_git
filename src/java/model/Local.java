@@ -9,7 +9,6 @@ import dao.CoordenadaLocalDao;
 import dao.EquacaoDao;
 import dao.MunicipioLocalDao;
 import dao.ParcelaDao;
-import dao.TrabalhoCientificoDao;
 import java.sql.SQLException;
 import java.util.ArrayList;
 

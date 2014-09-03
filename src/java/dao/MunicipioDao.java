@@ -36,7 +36,6 @@ public class MunicipioDao extends MainDao {
            Municipio municipio = new Municipio();
            municipio.setId(rs.getInt("id"));
            municipio.setNome(rs.getString("nome"));
-           municipio.setIdEstado(rs.getInt("idestado"));
            municipios.add(municipio);
         }
         rs.close();
@@ -54,7 +53,6 @@ public class MunicipioDao extends MainDao {
            Municipio municipio = new Municipio();
            municipio.setId(rs.getInt("id"));
            municipio.setNome(rs.getString("nome"));
-           municipio.setIdEstado(rs.getInt("idestado"));
            municipios.add(municipio);
         }
         rs.close();
@@ -62,7 +60,7 @@ public class MunicipioDao extends MainDao {
         super.con.close();        
         return municipios;
     }
-   
+/*  retirar 
    public ArrayList<Municipio> listarMunicipioLocal(String idLocal, List<MunicipioLocal> municipiosLocal) throws Exception{
        
         ArrayList<Municipio> municipios = new ArrayList<Municipio>();
@@ -87,5 +85,5 @@ public class MunicipioDao extends MainDao {
         super.con.close();        
         return municipios;
     }
-    
+  */  
 }
