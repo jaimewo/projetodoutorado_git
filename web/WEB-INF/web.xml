@@ -372,6 +372,10 @@
         <servlet-name>novoLocalDadosBasicos</servlet-name>
         <servlet-class>controller.novoLocalDadosBasicos</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>novoLocalPergunta1</servlet-name>
+        <servlet-class>controller.novoLocalPergunta1</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>listarBiomas</servlet-name>
         <url-pattern>/listarBiomas</url-pattern>
@@ -747,6 +751,10 @@
     <servlet-mapping>
         <servlet-name>novoLocalDadosBasicos</servlet-name>
         <url-pattern>/novoLocalDadosBasicos</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>novoLocalPergunta1</servlet-name>
+        <url-pattern>/novoLocalPergunta1</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

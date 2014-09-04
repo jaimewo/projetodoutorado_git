@@ -29,24 +29,28 @@ public class updateLocal extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
-        try {
+         response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
             
-                String id = request.getParameter("local[id]");    
-                String descricao = request.getParameter("local[descricao]");
+                String id = request.getParameter("local_id");    
+                String descricao = request.getParameter("local_descricao");
                 String areaStr = request.getParameter("local[area]");
                 String areaParcelaStr = request.getParameter("local[areaParcela]");
+                String idTipoEstimativaStr = request.getParameter("local_tipo_estimativa");
+                String idTipoFlorestaStr = request.getParameter("local[idTipoFloresta]");
+                String idMunicipioStr = request.getParameter("local[idMunicipio]");
+                String idadeStr = request.getParameter("local[idade]");
                 String idFormacaoStr = request.getParameter("local[idFormacao]");
+                String idEspecieStr = request.getParameter("local[idEspecie]");
                 String idEspacamentoStr = request.getParameter("local[idEspacamento]");
-                String idTrabalhoCientificoStr = request.getParameter("local[idTrabalhoCientifico]");
-                String idMunicipioStr = request.getParameter("municipio[idmunicipio]");
-                String latitudeStr = request.getParameter("coordenadaLocal[latitude]");
-                String longitudeStr = request.getParameter("coordenadaLocal[longitude]");
-                
+              
                 Local local = new Local();
                 local.setId(Integer.parseInt(id));
-                
                 local.setDescricao(descricao);
-
+                
+                LocalDao objeto_dao = new LocalDao();
+         
+              
                 double area;
                 if (areaStr == null || areaStr.isEmpty()) {
                    area = 0.0;
@@ -63,6 +67,30 @@ public class updateLocal extends HttpServlet {
                 }
                 local.setAreaParcela(areaParcela);
                 
+                int idTipoEstimativa;
+                if (idTipoEstimativaStr == null || idTipoEstimativaStr.isEmpty()) {
+                   idTipoEstimativa = 0;
+                } else {
+                   idTipoEstimativa = Integer.parseInt(idTipoEstimativaStr);
+                }
+                local.setIdTipoEstimativa(idTipoEstimativa);
+                
+                int idTipoFloresta;
+                if (idTipoFlorestaStr == null || idTipoFlorestaStr.isEmpty()) {
+                   idTipoFloresta = 0;
+                } else {
+                   idTipoFloresta = Integer.parseInt(idTipoFlorestaStr);
+                }
+                local.setIdTipoFloresta(idTipoFloresta);
+                
+                int idade;
+                if (idadeStr == null || idadeStr.isEmpty()) {
+                   idade = 0;
+                } else {
+                   idade = Integer.parseInt(idadeStr);
+                }
+                local.setIdade(idade);
+                
                 int idFormacao;
                 if (idFormacaoStr == null || idFormacaoStr.isEmpty()) {
                    idFormacao = 0;
@@ -72,6 +100,14 @@ public class updateLocal extends HttpServlet {
                 local.setIdFormacao(idFormacao);
                 
                 
+                int idEspecie;
+                if (idEspecieStr == null || idEspecieStr.isEmpty()) {
+                   idEspecie = 0;
+                } else {
+                   idEspecie = Integer.parseInt(idEspecieStr);
+                }
+                local.setIdEspecie(idEspecie);
+                
                 int idEspacamento;
                 if (idEspacamentoStr == null || idEspacamentoStr.isEmpty()) {
                    idEspacamento = 0;
@@ -80,63 +116,37 @@ public class updateLocal extends HttpServlet {
                 }
                 local.setIdEspacamento(idEspacamento);
 
-                MunicipioLocal municipioLocal = new MunicipioLocal();
                 int idMunicipio;
                 if (idMunicipioStr == null || idMunicipioStr.isEmpty()) {
                    idMunicipio = 0;
                 } else {
                    idMunicipio = Integer.parseInt(idMunicipioStr);
                 }
-                municipioLocal.setIdMunicipio(idMunicipio);
-                municipioLocal.setIdLocal(Integer.parseInt(id));
-                municipioLocal.setIndPrincipal(true);
- 
-                CoordenadaLocal coordenadaLocal = new CoordenadaLocal();
-                Double latitude;
-                if (latitudeStr == null || latitudeStr.isEmpty()) {
-                   latitude = 0.0;
-                } else {
-                   latitude = Double.parseDouble(latitudeStr);
-                }
-                coordenadaLocal.setLatitude(latitude);
-                Double longitude;
-                if (longitudeStr == null || longitudeStr.isEmpty()) {
-                   longitude = 0.0;
-                } else {
-                   longitude = Double.parseDouble(longitudeStr);
-                }
-                coordenadaLocal.setLongitude(longitude);
-                coordenadaLocal.setIdLocal(Integer.parseInt(id));
+                local.setIdMunicipio(idMunicipio);
                 
-                int idTrabalhoCientifico;
-                if (idTrabalhoCientificoStr == null || idTrabalhoCientificoStr.isEmpty()) {
-                   idTrabalhoCientifico = 0;
-                } else {
-                   idTrabalhoCientifico = Integer.parseInt(idTrabalhoCientificoStr);
-                }
-                local.setIdTrabalhoCientifico(idTrabalhoCientifico);
-           
-             
-                if(local.eh_valido())
+                        objeto_dao.update(local);
+                String retorno="";
+                switch(idTipoEstimativa)
                 {
-                   LocalDao objeto_dao = new LocalDao();
-                   objeto_dao.update(local);
-                   
-                   MunicipioLocalDao municipioLocalDao = new MunicipioLocalDao();
-                   municipioLocalDao.update(municipioLocal);
-                   
-                   CoordenadaLocalDao coordenadaLocalDao = new CoordenadaLocalDao();
-                   coordenadaLocalDao.update(coordenadaLocal);
-
-                   RequestDispatcher r = request.getRequestDispatcher("/listarLocais"); 
-                   request.setAttribute("mensagem", "Loacal alterado com sucesso!"); 
-                   r.forward( request, response );  
-                }else {
-                   RequestDispatcher r = request.getRequestDispatcher("/editarLocal?id="+id); 
-                   request.setAttribute("erros", local.getErrors());
-                   request.setAttribute("local", local);
-                   r.forward( request, response );  
+                    case 1:
+                          retorno += "alert('Local atualizado com sucesso!');";
+                         retorno += "window.location.href='/jcarbon/novoLocalPergunta1?id="+local.getIdString()+"'";
+                        break;
                 }
+             out.println(retorno);
+                //if(local.eh_valido())
+                //{
+                
+           
+                //   RequestDispatcher r = request.getRequestDispatcher("/listarLocais"); 
+                  // request.setAttribute("mensagem", "Loacal alterado com sucesso!"); 
+                 //  r.forward( request, response );  
+               // }else {
+                 //  RequestDispatcher r = request.getRequestDispatcher("/editarLocal?id="+id); 
+                 //  request.setAttribute("erros", local.getErrors());
+                 //  request.setAttribute("local", local);
+                  // r.forward( request, response );  
+                //}
         } finally {            
         }
     }

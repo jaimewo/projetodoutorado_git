@@ -11,6 +11,7 @@ import dao.EspecieDao;
 import dao.FormacaoDao;
 import dao.LocalDao;
 import dao.MunicipioDao;
+import dao.TipoEstimativaDao;
 import dao.TipoFlorestaDao;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -27,6 +28,7 @@ import model.Especie;
 import model.Formacao;
 import model.Local;
 import model.Municipio;
+import model.TipoEstimativa;
 import model.TipoFloresta;
 /**
  *
@@ -55,6 +57,12 @@ public class novoLocalDadosBasicos extends HttpServlet {
             TipoFlorestaDao objeto_tipoFloresta_dao = new TipoFlorestaDao();
             List<TipoFloresta> tiposFloresta = objeto_tipoFloresta_dao.listarTiposFloresta();
             request.setAttribute("tiposFloresta", tiposFloresta);
+            
+            
+             TipoEstimativaDao objeto_tipoEstimativa_dao = new TipoEstimativaDao();
+            List<TipoEstimativa> objeto_tipoEstimativas = objeto_tipoEstimativa_dao.listarTiposEstimativa();
+            request.setAttribute("tiposEstimativa", objeto_tipoEstimativas);
+            
 
             EspecieDao objeto_Especie_dao = new EspecieDao();
             List<Especie> especies = objeto_Especie_dao.listarEspecies();

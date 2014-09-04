@@ -1,5 +1,5 @@
 <%-- 
-    Document   : novoLocalPergunta5
+    Document   : novoLocalPergunta8
     Created on : 30/03/2014, 22:51:30
     Author     : jaimewo
 --%>
@@ -43,7 +43,7 @@
             <% String descricaoEspecie = (String) request.getAttribute("descricaoEspecie");%>            
             <% String idade = (String) request.getAttribute("idade");%>            
             <% String descricaoEspacamento = (String) request.getAttribute("descricaoEspacamento");%>            
-            <% String equacaoVolumePadrao = (String) request.getAttribute("equacaoVolumePadrao");%>                        
+            <% String modeloVolumePadrao = (String) request.getAttribute("modeloVolumePadrao");%>                        
                                   
 
             <% ArrayList<Error> lista_erros = (ArrayList<Error>) request.getAttribute("erros");%>
@@ -58,10 +58,10 @@
             <%}%>
 
             <form action="#" method="POST" id="form_local" class="form-horizontal"  accept-charset="iso-8859-1,utf-8">
-                
-                 <div class="field control-group">
-                    <label for="opcaoA" class="control-label">Você escolheu a Opção 5</label>
-                    <label for="opcaoB" class="control-label">Desejo selecionar uma equação cadastrada no sistema para estimar o Volume</label>
+                        
+                <div class="field control-group">
+                    <label for="opcaoA" class="control-label">Você escolheu a Opção 8</label>
+                    <label for="opcaoB" class="control-label">Desejo selecionar um modelo cadastrado no sistema para ajustar uma equação e estimar o Volume</label>
                 </div>
                         
                 <div class="field control-group">
@@ -136,17 +136,45 @@
 
                         
                 <div class="field control-group">
-                    <label for="equacoes" class="control-label">Escolha uma Equação</label>
-                    <div id="municipios" class="controls">
-                        <select id="local_municipio" name="local[idMunicipio]" class="municipios">
-                            <option value="">Selecione um município</option>
-                            <% ArrayList<Equacao> equacoesVolumePadrao = (ArrayList<Equacao>) request.getAttribute("equacoesVolumePadrao");%>                        
-                            <% for (Equacao e : equacoesVolumePadrao) {%>
-                            <option value="<%=e.getIdString()%>"><%=e.getExpressaoEquacaoFormatada()%></option>
-                            <%}%>
-                        </select>
+                    <label for="opcaoA" class="control-label">Selecione um ou mais Modelos para ajustar</label>
+                </div>
+                    
+                    
+                PV Tabela com modelos para serem selecionados    
+                    
+                    
+            <div id="form_local_arvores_ajuste" style="display: none;">
+                <form action="#" id="form_action_local_arvores_ajuste" method="POST">
+                    <div class="field control-group">
+                        <label for="local_descricao" class="control-label"><b>Selecionar Arquivo com Árvores para Ajustar o Modelo</b></label>
+                        <div class="controls">
+                            <input type="file" name="arquivo"  />
+                            <a href="BaixarExemploModeloArvoreAjuste" id="btn_modelo_arvore_ajuste" class="btn btn-inverse" target='_blank' >Baixar Arquivo para Utilizar como Exemplo</a>
+                        </div>
+                        <br />
+                        <br />
+                        <div id="sp_ajustar" style="display:none">
+                            <input type="hidden" id="btn_clicado" name="btn_clicado" value="-1" />
+                            <span><input type="submit" value="Ajustar" name="btn_submit" id="btn_ajustar" class="btn btn-inverse" >
+                                <image src="images/loading.gif" style="display:none;" class="loading">
+                                </span>
+                            <br />
+                            <div class="field control-group">
+                                <label for="local_descricao" class="control-label">Equação Ajustada</label>
+                                <div class="controls">
+                                    <input type="text"  id="equacao_ajustada" disabled="true"  />
+                                </div>
+                                <a href="#" id="ver_estatistica_ajuste">Ver Estatísticas do Ajuste</a>
+                                <br />
+                                <br />
+                            </div>
+
+                        </div>
+
                     </div>
-                </div>                    
+                </form>
+
+                    
                     
             <div id="form_local_arvores" style="display: none;">
                 <form action="#" id="form_action_local_arvores" method="POST">

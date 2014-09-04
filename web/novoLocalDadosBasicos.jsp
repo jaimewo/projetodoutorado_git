@@ -4,6 +4,7 @@
     Author     : jaimewo
 --%>
 
+<%@page import="model.TipoEstimativa"%>
 <%@page import="model.TipoFloresta"%>
 <%@page import="model.Especie"%>
 <%@page import="model.Municipio"%>
@@ -49,6 +50,7 @@
                 <div class="field control-group">
                     <label for="local_descricao" class="control-label">Local</label>
                     <div class="controls">
+                        <input type="hidden" name="local[id]" id="local_id" value="<%=objeto_local.getIdString()%>" />
                         <input type="text" name="local[descricao]" id="local_descricao" value="<%=objeto_local.getDescricao()%>" />
                     </div>
                 </div>
@@ -83,7 +85,7 @@
                 <div class="field control-group">
                     <label for="local_area" class="control-label">Área Total(ha)</label>
                     <div class="controls">
-                        <input type="text" name="local[area]" id="area_total" value="<%=objeto_local.getArea()%>" />
+                        <input type="text" name="local[area]" id="area" value="<%=objeto_local.getArea()%>" />
                     </div>
                 </div>                    
                     
@@ -167,8 +169,20 @@
                     <label for="label_local_perguntas" class="control-label">O que você deseja fazer agora?</label>
                 </div>
                     
-                    
-                    
+<%-- 
+               // PV - Colocar Radio e o número da escolha colocar em local_tipoEstimativa
+               
+--%>                    
+
+                    <% List<TipoEstimativa> tiposEstimativa = (List<TipoEstimativa>) request.getAttribute("tiposEstimativa");%>
+                            <% for (TipoEstimativa tf : tiposEstimativa) {%>
+                             <input type="radio" name="tipo_de_estimativa" id="localTipoEstimativa" value="<%=tf.getIdString()%>"><%=tf.getDescricao()%><br>
+                            <%}%>
+
+
+                   
+
+
 
                 <div class="actions form-actions well">
                     <a href="#" id="btn_avancar" class="btn btn-inverse" >Avançar</a>
@@ -181,5 +195,28 @@
 
         <br />
 
+        <script type="text/javascript">
+              $("#btn_avancar").click(function() {
+                $.post('updateLocal', {local_descricao: $("#local_descricao").val(),
+                    area: $("#area").val(),
+                    local_tipo_estimativa:$('input[name=tipo_de_estimativa]:checked', '#form_local').val(),
+                    local_tipoFloresta: $("#local_tipoFloresta").val(),
+                    local_municipio: $("#local_municipio").val(),
+                    local_idade: $("#local_idade").val(),
+                    local_formacao: $("#local_formacao").val(),
+                    local_especie: $("#local_especie").val(),
+                    local_espacamento: $("#local_espacamento").val(),
+                    local_id: $("#local_id").val(),
+                }, function(responseText) {
+
+                    eval(responseText);
+                });
+            });
+            
+        </script>
+        
+        ;
+        
+        
     </body>
 </html>
