@@ -43,6 +43,23 @@ public class MunicipioDao extends MainDao {
         super.con.close();        
         return municipios.get(0);
    }
+   public Municipio getMunicipio(int idMunicipio) throws SQLException
+   {
+        ArrayList<Municipio> municipios = new ArrayList<Municipio>();
+        PreparedStatement p = this.con.prepareStatement("SELECT id,nome,idestado FROM municipio where id = ?");
+        p.setInt(1, idMunicipio);
+        ResultSet rs = p.executeQuery();
+        while(rs.next()){
+           Municipio municipio = new Municipio();
+           municipio.setId(rs.getInt("id"));
+           municipio.setNome(rs.getString("nome"));
+           municipios.add(municipio);
+        }
+        rs.close();
+        p.close();
+        super.con.close();        
+        return municipios.get(0);
+   }
    
    public ArrayList<Municipio> listarMunicipios() throws Exception{
        

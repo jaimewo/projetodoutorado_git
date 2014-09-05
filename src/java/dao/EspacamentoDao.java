@@ -75,6 +75,24 @@ public class EspacamentoDao extends MainDao {
         return espacamentos.get(0);
    }
    
+   public Espacamento getEspacamento(int idEspacamento) throws SQLException
+   {
+        ArrayList<Espacamento> espacamentos = new ArrayList<Espacamento>();
+        PreparedStatement p = this.con.prepareStatement("SELECT id,descricao FROM espacamento where id = ?");
+        p.setInt(1, idEspacamento);
+        ResultSet rs = p.executeQuery();
+        while(rs.next()){
+           Espacamento espacamento = new Espacamento();
+           espacamento.setId(rs.getInt("id"));
+           espacamento.setDescricao(rs.getString("descricao"));
+           espacamentos.add(espacamento);
+        }
+        rs.close();
+        p.close();
+        super.con.close();        
+        return espacamentos.get(0);
+   }
+      
    public ArrayList<Espacamento> listarEspacamentos() throws Exception{
        
        ArrayList<Espacamento> espacamentos = new ArrayList<Espacamento>();

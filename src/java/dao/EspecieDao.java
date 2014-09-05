@@ -74,7 +74,23 @@ public class EspecieDao extends MainDao {
         super.con.close();        
         return especies.get(0);
    }
-   
+   public Especie getEspecie(int idEspecie) throws SQLException
+   {
+        ArrayList<Especie> especies = new ArrayList<Especie>();
+        PreparedStatement p = this.con.prepareStatement("SELECT id,descricao FROM especie where id = ?");
+        p.setInt(1, idEspecie);
+        ResultSet rs = p.executeQuery();
+        while(rs.next()){
+           Especie especie = new Especie();
+           especie.setId(rs.getInt("id"));
+           especie.setDescricao(rs.getString("descricao"));
+           especies.add(especie);
+        }
+        rs.close();
+        p.close();
+        super.con.close();        
+        return especies.get(0);
+   }   
    public ArrayList<Especie> listarEspecies() throws Exception{
        
        ArrayList<Especie> especies = new ArrayList<Especie>();

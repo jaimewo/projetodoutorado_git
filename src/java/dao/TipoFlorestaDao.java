@@ -74,7 +74,24 @@ public class TipoFlorestaDao extends MainDao{
         super.con.close();        
         return tiposFloresta.get(0);
    }
-   
+   public TipoFloresta getTipoFloresta(int idTipoFloresta) throws SQLException
+   {
+        ArrayList<TipoFloresta> tiposFloresta = new ArrayList<TipoFloresta>();
+        PreparedStatement p = this.con.prepareStatement("SELECT id,descricao FROM tipofloresta where id = ?");
+        p.setInt(1, idTipoFloresta);
+        ResultSet rs = p.executeQuery();
+        while(rs.next()){
+           TipoFloresta tipoFloresta = new TipoFloresta();
+           tipoFloresta.setId(rs.getInt("id"));
+           tipoFloresta.setDescricao(rs.getString("descricao"));
+           tiposFloresta.add(tipoFloresta);
+        }
+        rs.close();
+        p.close();
+        super.con.close();        
+        return tiposFloresta.get(0);
+   }
+      
    public ArrayList<TipoFloresta> listarTiposFloresta() throws Exception{
        
         ArrayList<TipoFloresta> tiposFloresta = new ArrayList<TipoFloresta>();

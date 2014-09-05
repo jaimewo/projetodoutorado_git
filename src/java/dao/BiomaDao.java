@@ -73,7 +73,24 @@ public class BiomaDao extends MainDao{
         super.con.close();        
         return biomas.get(0);
    }
-   
+   public Bioma getBioma(int idBioma) throws SQLException
+   {
+        ArrayList<Bioma> biomas = new ArrayList<Bioma>();
+        PreparedStatement p = this.con.prepareStatement("SELECT id,descricao FROM bioma where id = ?");
+        p.setInt(1, idBioma);
+        ResultSet rs = p.executeQuery();
+        while(rs.next()){
+           Bioma bioma = new Bioma();
+           bioma.setId(rs.getInt("id"));
+           bioma.setDescricao(rs.getString("descricao"));
+           biomas.add(bioma);
+        }
+        rs.close();
+        p.close();
+        super.con.close();        
+        return biomas.get(0);
+   }
+      
    public List<Bioma> listarBiomas() throws Exception{
        
         ArrayList<Bioma> biomas = new ArrayList<Bioma>();

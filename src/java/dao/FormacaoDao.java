@@ -79,7 +79,24 @@ public class FormacaoDao extends MainDao {
         super.con.close();        
         return formacoes.get(0);
    }
-   
+   public Formacao getFormacao(int idFormacao) throws SQLException
+   {
+        ArrayList<Formacao> formacoes = new ArrayList<Formacao>();
+        PreparedStatement p = this.con.prepareStatement("SELECT id,descricao,idbioma FROM formacao where id = ?");
+        p.setInt(1, idFormacao);
+        ResultSet rs = p.executeQuery();
+        while(rs.next()){
+           Formacao formacao = new Formacao();
+           formacao.setId(rs.getInt("id"));
+           formacao.setDescricao(rs.getString("descricao"));
+           formacao.setIdBioma(rs.getInt("idbioma"));
+           formacoes.add(formacao);
+        }
+        rs.close();
+        p.close();
+        super.con.close();        
+        return formacoes.get(0);
+   }   
    public List<Formacao> listarFormacoes() throws Exception{
        
         ArrayList<Formacao> formacoes = new ArrayList<Formacao>();
