@@ -142,12 +142,12 @@ public class ArvoreDao extends MainDao {
            arvore.setId(rs.getInt("id"));
            arvore.setIdParcela(rs.getInt("idparcela"));
            arvore.setNumArvore(rs.getInt("numarvore"));
-           arvore.setQtdeBiomassaEstEquacao(rs.getInt("qtdebiomassaestequacao"));
-           arvore.setQtdeBiomassaEstDm(rs.getInt("qtdebiomassaestdm"));
-           arvore.setQtdeCarbonoEstEquacao(rs.getInt("qtdecarbonoestequacao"));
-           arvore.setQtdeCarbonoEstDm(rs.getInt("qtdecarbonoestdm"));
-           arvore.setQtdeVolumeEstEquacao(rs.getInt("qtdevolumeestequacao"));
-           arvore.setQtdeVolumeEstDm(rs.getInt("qtdevolumeestdm"));
+           arvore.setQtdeBiomassaEstEquacao(rs.getDouble("qtdebiomassaestequacao"));
+           arvore.setQtdeBiomassaEstDm(rs.getDouble("qtdebiomassaestdm"));
+           arvore.setQtdeCarbonoEstEquacao(rs.getDouble("qtdecarbonoestequacao"));
+           arvore.setQtdeCarbonoEstDm(rs.getDouble("qtdecarbonoestdm"));
+           arvore.setQtdeVolumeEstEquacao(rs.getDouble("qtdevolumeestequacao"));
+           arvore.setQtdeVolumeEstDm(rs.getDouble("qtdevolumeestdm"));
            arvores.add(arvore);
         }
         rs.close();
@@ -168,12 +168,12 @@ public class ArvoreDao extends MainDao {
            arvore.setId(rs.getInt("id"));
            arvore.setIdParcela(rs.getInt("idparcela"));
            arvore.setNumArvore(rs.getInt("numarvore"));
-           arvore.setQtdeBiomassaEstEquacao(rs.getInt("qtdebiomassaestequacao"));
-           arvore.setQtdeBiomassaEstDm(rs.getInt("qtdebiomassaestdm"));
-           arvore.setQtdeCarbonoEstEquacao(rs.getInt("qtdecarbonoestequacao"));
-           arvore.setQtdeCarbonoEstDm(rs.getInt("qtdecarbonoestdm"));
-           arvore.setQtdeVolumeEstEquacao(rs.getInt("qtdevolumeestequacao"));
-           arvore.setQtdeVolumeEstDm(rs.getInt("qtdevolumeestdm"));
+           arvore.setQtdeBiomassaEstEquacao(rs.getDouble("qtdebiomassaestequacao"));
+           arvore.setQtdeBiomassaEstDm(rs.getDouble("qtdebiomassaestdm"));
+           arvore.setQtdeCarbonoEstEquacao(rs.getDouble("qtdecarbonoestequacao"));
+           arvore.setQtdeCarbonoEstDm(rs.getDouble("qtdecarbonoestdm"));
+           arvore.setQtdeVolumeEstEquacao(rs.getDouble("qtdevolumeestequacao"));
+           arvore.setQtdeVolumeEstDm(rs.getDouble("qtdevolumeestdm"));
            arvores.add(arvore);
         }
         rs.close();
@@ -195,12 +195,12 @@ public class ArvoreDao extends MainDao {
            arvore.setId(rs.getInt("id"));
            arvore.setIdParcela(rs.getInt("idparcela"));
            arvore.setNumArvore(rs.getInt("numarvore"));
-           arvore.setQtdeBiomassaEstEquacao(rs.getInt("qtdebiomassaestequacao"));
-           arvore.setQtdeBiomassaEstDm(rs.getInt("qtdebiomassaestdm"));
-           arvore.setQtdeCarbonoEstEquacao(rs.getInt("qtdecarbonoestequacao"));
-           arvore.setQtdeCarbonoEstDm(rs.getInt("qtdecarbonoestdm"));
-           arvore.setQtdeVolumeEstEquacao(rs.getInt("qtdevolumeestequacao"));
-           arvore.setQtdeVolumeEstDm(rs.getInt("qtdevolumeestdm"));
+           arvore.setQtdeBiomassaEstEquacao(rs.getDouble("qtdebiomassaestequacao"));
+           arvore.setQtdeBiomassaEstDm(rs.getDouble("qtdebiomassaestdm"));
+           arvore.setQtdeCarbonoEstEquacao(rs.getDouble("qtdecarbonoestequacao"));
+           arvore.setQtdeCarbonoEstDm(rs.getDouble("qtdecarbonoestdm"));
+           arvore.setQtdeVolumeEstEquacao(rs.getDouble("qtdevolumeestequacao"));
+           arvore.setQtdeVolumeEstDm(rs.getDouble("qtdevolumeestdm"));
           
            arvores.add(arvore);
         }

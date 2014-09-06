@@ -13,8 +13,10 @@ import dao.LocalDao;
 import dao.MunicipioDao;
 import dao.TipoEstimativaDao;
 import dao.TipoFlorestaDao;
+import dao.ValorPadraoDao;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +32,7 @@ import model.Local;
 import model.Municipio;
 import model.TipoEstimativa;
 import model.TipoFloresta;
+import model.ValorPadrao;
 /**
  *
  * @author jaime
@@ -78,22 +81,27 @@ public class novoLocalPergunta1 extends HttpServlet {
             Espacamento espacamento = espacamentoDao.getEspacamento(local.getIdEspacamento());
             String descricaoEspacamento = espacamento.getDescricao();
             request.setAttribute("descricaoEspacamento", descricaoEspacamento);
+            
+            ValorPadraoDao valorPadraoDao = new ValorPadraoDao();
+            ValorPadrao valorPadrao = new ValorPadrao();
+            
+            valorPadrao = valorPadraoDao.getValorPadrao(local.getIdTipoFloresta(), local.getIdFormacao(), local.getIdEspecie(), local.getIdEspacamento(), local.getIdade());
+            
+            double qtdeVolumePadraoDouble  = valorPadrao.getQtdeVolumePadrao();
+            double qtdeBiomassaPadraoDouble  = valorPadrao.getQtdeBiomassaPadrao();
+            double qtdeCarbonoPadraoDouble  = valorPadrao.getQtdeCarbonoPadrao();
+            
+            DecimalFormat df2casas = new DecimalFormat("##,###,###,##0.00");            
+                
+            String qtdeVolumePadrao = df2casas.format(qtdeVolumePadraoDouble); 
+            String qtdeBiomassaPadrao = df2casas.format(qtdeBiomassaPadraoDouble); 
+            String qtdeCarbonoPadrao = df2casas.format(qtdeCarbonoPadraoDouble); 
 
-
-            <% String qtdeVolumePadrao = (String) request.getAttribute("qtdeVolumePadrao");%>                        
-            <% String qtdeBiomassaPadrao = (String) request.getAttribute("qtdeBiomassaPadrao");%>                        
-            <% String qtdeCarbonoPadrao = (String) request.getAttribute("qtdeCarbonoPadrao");%>                         
-                        
-                        
-                        
+            request.setAttribute("qtdeVolumePadrao", qtdeVolumePadrao);
+            request.setAttribute("qtdeBiomassaPadrao", qtdeBiomassaPadrao);
+            request.setAttribute("qtdeCarbonoPadrao", qtdeCarbonoPadrao);
             
         } finally { 
-            //Local local = (Local) request.getAttribute("local");
-            //if(local == null) {
-            //   request.setAttribute("local", new Local());
-            //} else {
-            //    request.setAttribute("local", local);
-            //}
             request.getRequestDispatcher("novoLocalPergunta1.jsp").forward(request, response);
         }
     }
