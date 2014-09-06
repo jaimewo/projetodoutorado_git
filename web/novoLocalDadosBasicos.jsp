@@ -85,7 +85,7 @@
                 <div class="field control-group">
                     <label for="local_area" class="control-label">Área Total(ha)</label>
                     <div class="controls">
-                        <input type="text" name="local[area]" id="area" value="<%=objeto_local.getArea()%>" />
+                        <input type="text" name="local[area]" id="local_area" value="<%=objeto_local.getArea()%>" />
                     </div>
                 </div>                    
                     
@@ -148,7 +148,7 @@
                 <div class="field control-group">
                     <label for="local_idade" class="control-label">Idade (anos)</label>
                     <div class="controls">
-                        <input type="text" name="local[idade]" id="idade" value="<%=objeto_local.getIdade()%>" />
+                        <input type="text" name="local[idade]" id="local_idade" value="<%=objeto_local.getIdade()%>" />
                     </div>
                 </div>                                  
                       
@@ -176,7 +176,7 @@
 
                     <% List<TipoEstimativa> tiposEstimativa = (List<TipoEstimativa>) request.getAttribute("tiposEstimativa");%>
                             <% for (TipoEstimativa tf : tiposEstimativa) {%>
-                             <input type="radio" name="tipo_de_estimativa" id="localTipoEstimativa" value="<%=tf.getIdString()%>"><%=tf.getDescricao()%><br>
+                             <input type="radio" name="tipo_de_estimativa" id="local_tipoEstimativa" value="<%=tf.getIdString()%>"><%=tf.getDescricao()%><br>
                             <%}%>
 
 
@@ -198,8 +198,8 @@
         <script type="text/javascript">
               $("#btn_avancar").click(function() {
                 $.post('updateLocal', {local_descricao: $("#local_descricao").val(),
-                    area: $("#area").val(),
-                    local_tipo_estimativa:$('input[name=tipo_de_estimativa]:checked', '#form_local').val(),
+                    local_area: $("#area").val(),
+                    local_tipoEstimativa:$('input[name=tipo_de_estimativa]:checked', '#form_local').val(),
                     local_tipoFloresta: $("#local_tipoFloresta").val(),
                     local_municipio: $("#local_municipio").val(),
                     local_idade: $("#local_idade").val(),

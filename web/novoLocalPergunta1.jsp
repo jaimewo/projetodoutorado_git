@@ -30,6 +30,8 @@
         <%@include  file="menu.jsp" %>
         <div class="container">
             <h1>Novo Local</h1>
+            <h2>Você escolheu a Opção 1</h2>
+            <h2>Desejo saber os valores padrões de Volume/Biomassa/Carbono para um local com estas características</h2>
 
             <% Local local = (Local) request.getAttribute("local");%>
             <% String nomeMunicipio = (String) request.getAttribute("nomeMunicipio");%>            
@@ -55,10 +57,6 @@
 
             <form action="#" method="POST" id="form_local" class="form-horizontal"  accept-charset="iso-8859-1,utf-8">
                         
-                <div class="field control-group">
-                    <label for="opcaoA" class="control-label">Você escolheu a Opção 1</label>
-                    <label for="opcaoB" class="control-label">Desejo saber os valores padrões de Volume/Biomassa/Carbono para um local com estas características</label>
-                </div>
                         
                 <div class="field control-group">
                     <label for="descricaoLocal" class="control-label">Local:</label>

@@ -36,13 +36,13 @@ public class updateLocal extends HttpServlet {
                 String descricao = request.getParameter("local_descricao");
                 String areaStr = request.getParameter("local_area");
                 String areaParcelaStr = request.getParameter("local_areaParcela");
-                String idTipoEstimativaStr = request.getParameter("local_tipo_estimativa");
-                String idTipoFlorestaStr = request.getParameter("local_idTipoFloresta");
-                String idMunicipioStr = request.getParameter("local_idMunicipio");
+                String idTipoEstimativaStr = request.getParameter("local_tipoEstimativa");
+                String idTipoFlorestaStr = request.getParameter("local_tipoFloresta");
+                String idMunicipioStr = request.getParameter("local_municipio");
                 String idadeStr = request.getParameter("local_idade");
-                String idFormacaoStr = request.getParameter("local_idFormacao");
-                String idEspecieStr = request.getParameter("local_idEspecie");
-                String idEspacamentoStr = request.getParameter("local_idEspacamento");
+                String idFormacaoStr = request.getParameter("local_formacao");
+                String idEspecieStr = request.getParameter("local_especie");
+                String idEspacamentoStr = request.getParameter("local_espacamento");
               
                 Local local = new Local();
                 local.setId(Integer.parseInt(id));
